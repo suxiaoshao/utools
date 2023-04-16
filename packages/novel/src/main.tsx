@@ -1,35 +1,44 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
+import './index.css';
 import App from './App';
-import { checkVersion } from './utils/update/notify';
 import 'fontsource-roboto';
-import { SqlInitMessage } from './database/mapper/sql.interface';
-import { getDataFile } from './utils/update/localPath';
-import { sqlWorker } from './database/mapper/sql.main';
+import init from '../data/pkg';
+import { writeToFile } from './utils/data/util';
+import { configStore } from './utils/store/config.store';
+import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
+import { settingStore } from './utils/store/setting.store';
+import { historyStore } from './utils/store/history.store';
 
-if (window.utools === undefined) {
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+/**
+ * 插件进入时
+ * */
+utools.onPluginEnter((params) => {
+  if (params.code === 'bookshelf') {
+    historyStore.replace({ name: '书架', pathname: '/bookshelf' });
+  }
+});
+/**
+ * 插件退出时
+ * */
+utools.onPluginOut(() => {
+  const totalData = TotalDataBuild.getTotalData();
+  writeToFile(totalData.toData());
+});
+init().then(() => {
+  const totalData = TotalDataBuild.getTotalData();
+  writeToFile(totalData.toData());
+  totalData.addOnchangeFunc((data: TotalDataProp) => {
+    configStore.setData(data.totalConfig);
+    settingStore.setData(data.setting);
+  });
+  // 初始化配置
+  configStore.setData(totalData.getAllConfig());
+  settingStore.setData(totalData.getSetting());
+  ReactDOM.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>,
+    document.getElementById('root'),
   );
-} else {
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-  );
-
-  /**
-   * @author sushao
-   * @version 0.2.2
-   * @since 0.2.2
-   * @description 进入插件时应该做的事: 1. 检查插件版本 2. 初始化数据库
-   * */
-  checkVersion();
-  const message: SqlInitMessage = {
-    code: 1,
-    date: window.nodeFs.readFileSync(getDataFile()),
-  };
-  sqlWorker.postMessage(message);
-}
+});

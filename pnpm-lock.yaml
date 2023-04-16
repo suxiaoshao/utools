@@ -217,48 +217,119 @@ importers:
   packages/novel:
     dependencies:
       '@date-io/dayjs':
-        specifier: ^2.16.0
-        version: 2.16.0(dayjs@1.11.7)
+        specifier: 1.x
+        version: 1.1.0(dayjs@1.11.7)
       '@material-ui/core':
-        specifier: ^4.12.4
-        version: 4.12.4(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
-      '@material-ui/icons':
         specifier: ^4.11.3
-        version: 4.11.3(@material-ui/core@4.12.4)(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
+        version: 4.12.4(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2)
+      '@material-ui/icons':
+        specifier: ^4.11.2
+        version: 4.11.3(@material-ui/core@4.12.4)(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2)
       '@material-ui/lab':
-        specifier: 4.0.0-alpha.61
-        version: 4.0.0-alpha.61(@material-ui/core@4.12.4)(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^4.0.0-alpha.57
+        version: 4.0.0-alpha.61(@material-ui/core@4.12.4)(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2)
       '@material-ui/pickers':
         specifier: ^3.3.10
         version: 3.3.10(@date-io/core@1.3.13)(@material-ui/core@4.12.4)(prop-types@15.8.1)(react-dom@17.0.2)(react@17.0.2)
-      axios:
-        specifier: ^1.3.5
-        version: 1.3.5
+      cheerio:
+        specifier: ^1.0.0-rc.6
+        version: 1.0.0-rc.6
       dayjs:
-        specifier: ^1.11.7
+        specifier: ^1.10.4
         version: 1.11.7
       fontsource-roboto:
         specifier: ^4.0.0
         version: 4.0.0
+      history:
+        specifier: ^4.9.0
+        version: 4.10.1
       monaco-editor:
-        specifier: ^0.37.1
-        version: 0.37.1
+        specifier: ^0.24.0
+        version: 0.24.0
       notistack:
-        specifier: ^3.0.1
-        version: 3.0.1(csstype@3.1.2)(react-dom@17.0.2)(react@17.0.2)
+        specifier: ^1.0.6
+        version: 1.0.6(@material-ui/core@4.12.4)(react-dom@17.0.2)(react@17.0.2)
+      react:
+        specifier: ^17.0.0
+        version: 17.0.2
+      react-dom:
+        specifier: ^17.0.0
+        version: 17.0.2(react@17.0.2)
+      react-monaco-editor:
+        specifier: ^0.43.0
+        version: 0.43.0(@types/react@17.0.0)(react@17.0.2)
       react-router:
-        specifier: ^6.10.0
-        version: 6.10.0(react@17.0.2)
+        specifier: ^5.2.0
+        version: 5.2.0(react@17.0.2)
+      react-router-dom:
+        specifier: ^5.2.0
+        version: 5.2.0(react@17.0.2)
+      react-use:
+        specifier: ^17.2.4
+        version: 17.4.0(react-dom@17.0.2)(react@17.0.2)
       rxjs:
-        specifier: ^7.8.0
+        specifier: ^7.0.0
         version: 7.8.0
-      sql.js:
-        specifier: ^1.8.0
-        version: 1.8.0
     devDependencies:
-      '@types/sql.js':
-        specifier: ^1.4.4
-        version: 1.4.4
+      '@types/json-schema':
+        specifier: ^7.0.7
+        version: 7.0.11
+      '@types/react':
+        specifier: ^17.0.0
+        version: 17.0.0
+      '@types/react-dom':
+        specifier: ^17.0.0
+        version: 17.0.0
+      '@types/react-router':
+        specifier: ^5.1.13
+        version: 5.1.20
+      '@types/react-router-dom':
+        specifier: ^5.1.7
+        version: 5.3.3
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^4.22.0
+        version: 4.22.0(@typescript-eslint/parser@4.22.0)(eslint@7.25.0)(typescript@4.9.5)
+      '@typescript-eslint/parser':
+        specifier: ^4.22.0
+        version: 4.22.0(eslint@7.25.0)(typescript@4.9.5)
+      '@vitejs/plugin-react-refresh':
+        specifier: ^1.3.1
+        version: 1.3.1
+      axios:
+        specifier: ^0.21.1
+        version: 0.21.1
+      eslint:
+        specifier: ^7.25.0
+        version: 7.25.0
+      eslint-config-prettier:
+        specifier: ^8.3.0
+        version: 8.8.0(eslint@7.25.0)
+      eslint-plugin-prettier:
+        specifier: ^3.4.0
+        version: 3.4.0(eslint-config-prettier@8.8.0)(eslint@7.25.0)(prettier@2.8.7)
+      eslint-plugin-react:
+        specifier: ^7.23.2
+        version: 7.32.2(eslint@7.25.0)
+      eslint-plugin-react-hooks:
+        specifier: ^4.2.0
+        version: 4.6.0(eslint@7.25.0)
+      prettier:
+        specifier: ^2.2.1
+        version: 2.8.7
+      typescript:
+        specifier: ^4.2.4
+        version: 4.9.5
+      utools-api-types:
+        specifier: ^2.0.3
+        version: 2.0.3
+      vite:
+        specifier: ^2.4.3
+        version: 2.4.3
+      vite-plugin-rsw:
+        specifier: ^1.9.3
+        version: 1.9.3
+
+  packages/novel/data/pkg: {}
 
 packages:
 
@@ -501,28 +572,12 @@ packages:
     resolution: {integrity: sha512-AlEKV7TxjeK+jxWVKcCFrfYAk8spX9aCyiToFIiLPtfQbsjmRGLIhb5VZgptQcJdHtLXo7+m0DuurwFgUToQuA==}
     dev: false
 
-  /@date-io/core@2.16.0:
-    resolution: {integrity: sha512-DYmSzkr+jToahwWrsiRA2/pzMEtz9Bq1euJwoOuYwuwIYXnZFtHajY2E6a1VNVDc9jP8YUXK1BvnZH9mmT19Zg==}
-    dev: false
-
   /@date-io/dayjs@1.1.0(dayjs@1.11.7):
     resolution: {integrity: sha512-gbIrpyPXCqhq86eNO9PVt1wEkqo5vaKzbCCjnmbs/RsmaYNaZ3ee7g0Yv6T72qfAkfb9j3WXia0edSTQvQgbSQ==}
     peerDependencies:
       dayjs: ^1.8.0
     dependencies:
       '@date-io/core': 1.3.13
-      dayjs: 1.11.7
-    dev: false
-
-  /@date-io/dayjs@2.16.0(dayjs@1.11.7):
-    resolution: {integrity: sha512-y5qKyX2j/HG3zMvIxTobYZRGnd1FUW2olZLS0vTj7bEkBQkjd2RO7/FEwDY03Z1geVGlXKnzIATEVBVaGzV4Iw==}
-    peerDependencies:
-      dayjs: ^1.8.17
-    peerDependenciesMeta:
-      dayjs:
-        optional: true
-    dependencies:
-      '@date-io/core': 2.16.0
       dayjs: 1.11.7
     dev: false
 
@@ -815,35 +870,6 @@ packages:
       react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
     dev: false
 
-  /@material-ui/core@4.12.4(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-tr7xekNlM9LjA6pagJmL8QCgZXaubWUwkJnoYcMKd4gw/t4XiyvnTkjdGrUVicyB2BsdaAv1tvow45bPM4sSwQ==}
-    engines: {node: '>=8.0.0'}
-    deprecated: Material UI v4 doesn't receive active development since September 2021. See the guide https://mui.com/material-ui/migration/migration-v4/ to upgrade to v5.
-    peerDependencies:
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.21.0
-      '@material-ui/styles': 4.11.5(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
-      '@material-ui/system': 4.12.2(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
-      '@material-ui/types': 5.1.0(@types/react@18.0.35)
-      '@material-ui/utils': 4.11.3(react-dom@17.0.2)(react@17.0.2)
-      '@types/react': 18.0.35
-      '@types/react-transition-group': 4.4.5
-      clsx: 1.2.1
-      hoist-non-react-statics: 3.3.2
-      popper.js: 1.16.1-lts
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      react-is: 16.13.1
-      react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
-    dev: false
-
   /@material-ui/icons@4.11.3(@material-ui/core@4.12.4)(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-IKHlyx6LDh8n19vzwH5RtHIOHl9Tu90aAAxcbWME6kp4dmvODM3UvOHJeMIDzUbd4muuJKHmlNoBN+mDY4XkBA==}
     engines: {node: '>=8.0.0'}
@@ -859,25 +885,6 @@ packages:
       '@babel/runtime': 7.21.0
       '@material-ui/core': 4.12.4(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2)
       '@types/react': 17.0.0
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
-  /@material-ui/icons@4.11.3(@material-ui/core@4.12.4)(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-IKHlyx6LDh8n19vzwH5RtHIOHl9Tu90aAAxcbWME6kp4dmvODM3UvOHJeMIDzUbd4muuJKHmlNoBN+mDY4XkBA==}
-    engines: {node: '>=8.0.0'}
-    peerDependencies:
-      '@material-ui/core': ^4.0.0
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.21.0
-      '@material-ui/core': 4.12.4(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
-      '@types/react': 18.0.35
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
     dev: false
@@ -899,30 +906,6 @@ packages:
       '@material-ui/core': 4.12.4(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2)
       '@material-ui/utils': 4.11.3(react-dom@17.0.2)(react@17.0.2)
       '@types/react': 17.0.0
-      clsx: 1.2.1
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      react-is: 16.13.1
-    dev: false
-
-  /@material-ui/lab@4.0.0-alpha.61(@material-ui/core@4.12.4)(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-rSzm+XKiNUjKegj8bzt5+pygZeckNLOr+IjykH8sYdVk7dE9y2ZuUSofiMV2bJk3qU+JHwexmw+q0RyNZB9ugg==}
-    engines: {node: '>=8.0.0'}
-    deprecated: Material UI v4 doesn't receive active development since September 2021. See the guide https://mui.com/material-ui/migration/migration-v4/ to upgrade to v5.
-    peerDependencies:
-      '@material-ui/core': ^4.12.1
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.21.0
-      '@material-ui/core': 4.12.4(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2)
-      '@material-ui/utils': 4.11.3(react-dom@17.0.2)(react@17.0.2)
-      '@types/react': 18.0.35
       clsx: 1.2.1
       prop-types: 15.8.1
       react: 17.0.2
@@ -985,39 +968,6 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     dev: false
 
-  /@material-ui/styles@4.11.5(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-o/41ot5JJiUsIETME9wVLAJrmIWL3j0R0Bj2kCOLbSfqEkKf0fmaPt+5vtblUh5eXr2S+J/8J3DaCb10+CzPGA==}
-    engines: {node: '>=8.0.0'}
-    deprecated: Material UI v4 doesn't receive active development since September 2021. See the guide https://mui.com/material-ui/migration/migration-v4/ to upgrade to v5.
-    peerDependencies:
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.21.0
-      '@emotion/hash': 0.8.0
-      '@material-ui/types': 5.1.0(@types/react@18.0.35)
-      '@material-ui/utils': 4.11.3(react-dom@17.0.2)(react@17.0.2)
-      '@types/react': 18.0.35
-      clsx: 1.2.1
-      csstype: 2.6.21
-      hoist-non-react-statics: 3.3.2
-      jss: 10.10.0
-      jss-plugin-camel-case: 10.10.0
-      jss-plugin-default-unit: 10.10.0
-      jss-plugin-global: 10.10.0
-      jss-plugin-nested: 10.10.0
-      jss-plugin-props-sort: 10.10.0
-      jss-plugin-rule-value-function: 10.10.0
-      jss-plugin-vendor-prefixer: 10.10.0
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
   /@material-ui/system@4.12.2(@types/react@17.0.0)(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-6CSKu2MtmiJgcCGf6nBQpM8fLkuB9F55EKfbdTC80NND5wpTmKzwdhLYLH3zL4cLlK0gVaaltW7/wMuyTnN0Lw==}
     engines: {node: '>=8.0.0'}
@@ -1038,26 +988,6 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     dev: false
 
-  /@material-ui/system@4.12.2(@types/react@18.0.35)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-6CSKu2MtmiJgcCGf6nBQpM8fLkuB9F55EKfbdTC80NND5wpTmKzwdhLYLH3zL4cLlK0gVaaltW7/wMuyTnN0Lw==}
-    engines: {node: '>=8.0.0'}
-    peerDependencies:
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.21.0
-      '@material-ui/utils': 4.11.3(react-dom@17.0.2)(react@17.0.2)
-      '@types/react': 18.0.35
-      csstype: 2.6.21
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
   /@material-ui/types@5.1.0(@types/react@17.0.0):
     resolution: {integrity: sha512-7cqRjrY50b8QzRSYyhSpx4WRw2YuO0KKIGQEVk5J8uoz2BanawykgZGoWEqKm7pVIbzFDN0SpPcVV4IhOFkl8A==}
     peerDependencies:
@@ -1067,17 +997,6 @@ packages:
         optional: true
     dependencies:
       '@types/react': 17.0.0
-    dev: false
-
-  /@material-ui/types@5.1.0(@types/react@18.0.35):
-    resolution: {integrity: sha512-7cqRjrY50b8QzRSYyhSpx4WRw2YuO0KKIGQEVk5J8uoz2BanawykgZGoWEqKm7pVIbzFDN0SpPcVV4IhOFkl8A==}
-    peerDependencies:
-      '@types/react': '*'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@types/react': 18.0.35
     dev: false
 
   /@material-ui/utils@4.11.3(react-dom@17.0.2)(react@17.0.2):
@@ -1693,10 +1612,6 @@ packages:
       '@types/node': 18.15.11
     dev: true
 
-  /@types/emscripten@1.39.6:
-    resolution: {integrity: sha512-H90aoynNhhkQP6DRweEjJp5vfUVdIj7tdPLsu7pq89vODD/lcugKfZOsfgwpvM6XUewEp2N5dCg1Uf3Qe55Dcg==}
-    dev: true
-
   /@types/eslint-scope@3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
@@ -1739,7 +1654,7 @@ packages:
   /@types/hoist-non-react-statics@3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
       hoist-non-react-statics: 3.3.2
     dev: false
 
@@ -1783,25 +1698,25 @@ packages:
   /@types/react-dom@17.0.0:
     resolution: {integrity: sha512-lUqY7OlkF/RbNtD5nIq7ot8NquXrdFrjSOR6+w9a9RFQevGi1oZO1dcJbXMeONAPKtZ2UrZOEJ5UOCVsxbLk/g==}
     dependencies:
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
     dev: true
 
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
 
   /@types/react-is@17.0.3:
     resolution: {integrity: sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==}
     dependencies:
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
     dev: false
 
   /@types/react-router-dom@5.3.3:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
       '@types/react-router': 5.1.20
     dev: true
 
@@ -1809,13 +1724,13 @@ packages:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
     dev: true
 
   /@types/react-transition-group@4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
     dev: false
 
   /@types/react@17.0.0:
@@ -1861,17 +1776,10 @@ packages:
       '@types/node': 18.15.11
     dev: true
 
-  /@types/sql.js@1.4.4:
-    resolution: {integrity: sha512-6EWU2wfiBtzgTy18WQoXZAGTreBjhZcBCfD8CDvyI1Nj0a4KNDDt41IYeAZ40cRUdfqWHb7VGx7t6nK0yBOI5A==}
-    dependencies:
-      '@types/emscripten': 1.39.6
-      '@types/node': 18.15.11
-    dev: true
-
   /@types/styled-jsx@2.2.9:
     resolution: {integrity: sha512-W/iTlIkGEyTBGTEvZCey8EgQlQ5l0DwMqi3iOXlLs2kyBwYTXHKEiU6IZ5EwoRwngL8/dGYuzezSup89ttVHLw==}
     dependencies:
-      '@types/react': 17.0.0
+      '@types/react': 18.0.35
     dev: false
 
   /@types/use-sync-external-store@0.0.3:
@@ -2449,10 +2357,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /asynckit@0.4.0:
-    resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: false
-
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
@@ -2465,16 +2369,6 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: true
-
-  /axios@1.3.5:
-    resolution: {integrity: sha512-glL/PvG/E+xCWwV8S6nCHcrfg1exGx7vxyUIivIA1iL7BIh6bePylCfVHwp6k13ao7SATxB6imau2kqY+I67kw==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
 
   /babel-plugin-macros@3.1.0:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
@@ -2704,13 +2598,6 @@ packages:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
     dev: true
 
-  /combined-stream@1.0.8:
-    resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
-    engines: {node: '>= 0.8'}
-    dependencies:
-      delayed-stream: 1.0.0
-    dev: false
-
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
     dev: true
@@ -2907,11 +2794,6 @@ packages:
       has-property-descriptors: 1.0.0
       object-keys: 1.1.1
     dev: true
-
-  /delayed-stream@1.0.0:
-    resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
-    engines: {node: '>=0.4.0'}
-    dev: false
 
   /depd@1.1.2:
     resolution: {integrity: sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==}
@@ -3668,6 +3550,7 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: true
 
   /fontsource-roboto@4.0.0:
     resolution: {integrity: sha512-zD6L8nvdWRcwSgp4ojxFchG+MPj8kXXQKDEAH9bfhbxy+lkpvpC1WgAK0lCa4dwobv+hvAe0uyHaawcgH7WH/g==}
@@ -3679,15 +3562,6 @@ packages:
     dependencies:
       is-callable: 1.2.7
     dev: true
-
-  /form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-    dev: false
 
   /forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
@@ -3831,14 +3705,6 @@ packages:
       merge2: 1.4.1
       slash: 3.0.0
     dev: true
-
-  /goober@2.1.12(csstype@3.1.2):
-    resolution: {integrity: sha512-yXHAvO08FU1JgTXX6Zn6sYCUFfB/OJSX8HHjDSgerZHZmFKAb08cykp5LBw5QnmyMcZyPRMqkdyHUSSzge788Q==}
-    peerDependencies:
-      csstype: ^3.0.10
-    dependencies:
-      csstype: 3.1.2
-    dev: false
 
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
@@ -4533,12 +4399,14 @@ packages:
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
+    dev: true
 
   /mime-types@2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.52.0
+    dev: true
 
   /mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
@@ -4580,10 +4448,6 @@ packages:
 
   /monaco-editor@0.24.0:
     resolution: {integrity: sha512-o1f0Lz6ABFNTtnEqqqvlY9qzNx24rQZx1RgYNQ8SkWkE+Ka63keHH/RqxQ4QhN4fs/UYOnvAtEUZsPrzccH++A==}
-    dev: false
-
-  /monaco-editor@0.37.1:
-    resolution: {integrity: sha512-jLXEEYSbqMkT/FuJLBZAVWGuhIb4JNwHE9kPTorAVmsdZ4UzHAfgWxLsVtD7pLRFaOwYPhNG9nUCpmFL1t/dIg==}
     dev: false
 
   /mrmime@1.0.1:
@@ -4696,21 +4560,6 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
-  /notistack@3.0.1(csstype@3.1.2)(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-ntVZXXgSQH5WYfyU+3HfcXuKaapzAJ8fBLQ/G618rn3yvSzEbnOB8ZSOwhX+dAORy/lw+GC2N061JA0+gYWTVA==}
-    engines: {node: '>=12.0.0', npm: '>=6.0.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      clsx: 1.2.1
-      goober: 2.1.12(csstype@3.1.2)
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-    transitivePeerDependencies:
-      - csstype
     dev: false
 
   /npm-run-path@4.0.1:
@@ -4991,10 +4840,6 @@ packages:
       ipaddr.js: 1.9.1
     dev: true
 
-  /proxy-from-env@1.1.0:
-    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-    dev: false
-
   /punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
@@ -5176,16 +5021,6 @@ packages:
       react-is: 16.13.1
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
-    dev: false
-
-  /react-router@6.10.0(react@17.0.2):
-    resolution: {integrity: sha512-Nrg0BWpQqrC3ZFFkyewrflCud9dio9ME3ojHCF/WLsprJVzkq3q3UeEhMCAW1dobjeGbWgjNn/PVF6m46ANxXQ==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8'
-    dependencies:
-      '@remix-run/router': 1.5.0
-      react: 17.0.2
     dev: false
 
   /react-router@6.10.0(react@18.2.0):
@@ -5753,10 +5588,6 @@ packages:
   /sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: true
-
-  /sql.js@1.8.0:
-    resolution: {integrity: sha512-3HD8pSkZL+5YvYUI8nlvNILs61ALqq34xgmF+BHpqxe68yZIJ1H+sIVIODvni25+CcxHUxDyrTJUL0lE/m7afw==}
-    dev: false
 
   /stack-generator@2.0.10:
     resolution: {integrity: sha512-mwnua/hkqM6pF4k8SnmZ2zfETsRUpWXREfA/goT8SLCV4iOFa4bzOX2nDipWAZFPTjLvQB82f5yaodMVhK0yJQ==}

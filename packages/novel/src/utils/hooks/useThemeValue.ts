@@ -1,17 +1,19 @@
+import { ThemeValue, useSettingTheme } from '../store/setting.store';
 import React from 'react';
-import { createTheme, Theme } from '@material-ui/core';
+import { createMuiTheme, Theme } from '@material-ui/core';
 import { zhCN } from '@material-ui/core/locale';
 
 /**
  * 根据名字获取 theme 对象
  * */
-export function getThemeByThemeValue(isDark: boolean): [Theme, boolean] {
-  if (!isDark) {
+export function getThemeByThemeValue(themeValue: ThemeValue): [Theme, boolean] {
+  if (themeValue.type === 'light') {
     return [
-      createTheme(
+      createMuiTheme(
         {
           palette: {
             type: 'light',
+            background: themeValue.background ?? {},
           },
         },
         zhCN,
@@ -20,7 +22,7 @@ export function getThemeByThemeValue(isDark: boolean): [Theme, boolean] {
     ];
   } else {
     return [
-      createTheme(
+      createMuiTheme(
         {
           palette: {
             type: 'dark',
@@ -82,6 +84,7 @@ export function getThemeByThemeValue(isDark: boolean): [Theme, boolean] {
               disabled: 'rgba(255, 255, 255, 0.5)',
               hint: 'rgba(255, 255, 255, 0.5)',
             },
+            background: themeValue.background ?? {},
           },
         },
         zhCN,
@@ -92,9 +95,18 @@ export function getThemeByThemeValue(isDark: boolean): [Theme, boolean] {
 }
 
 export function useThemeValue(): [Theme, boolean] {
+  const [settingTheme] = useSettingTheme();
   const isDark = utools.isDarkColors();
   const themeValue = React.useMemo(() => {
-    return getThemeByThemeValue(isDark);
-  }, [isDark]);
+    if ('name' in settingTheme) {
+      return getThemeByThemeValue(settingTheme);
+    } else {
+      if (isDark) {
+        return getThemeByThemeValue(settingTheme.dark);
+      } else {
+        return getThemeByThemeValue(settingTheme.light);
+      }
+    }
+  }, [isDark, settingTheme]);
   return themeValue;
 }

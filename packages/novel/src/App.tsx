@@ -1,36 +1,52 @@
-import './app.css';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
-import Sponsorship from './view/sponsorship';
-import Work from './view/work';
+import React from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { MyThemeProvider } from './components/myTheme';
-import CookiePage from './view/cookiePage';
-import HistoryPage from './view/historyPage';
+import SearchPage from './views/searchPage';
+import ReadFile from './views/readFile';
+import Bookshelf from './views/bookshelf';
+import TestPage from './views/testPage';
+import NovelPage from './views/novelPage';
+import ChapterPage from './views/chapterPage';
+import SettingPage from './views/settingPage';
+import Sponsorship from './views/sponsorship';
+import EditConfig from './views/editConfig';
 
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description 插件的主要部分,包裹了主题和路由
- * */
-export default function App(): JSX.Element {
+function App(): JSX.Element {
   return (
-    <Router>
+    <HashRouter>
       <MyThemeProvider>
-        <Routes>
-          <Route path="/">
-            <Work />
+        <Switch>
+          <Route path="/" exact>
+            <SearchPage />
           </Route>
-          <Route path="/sponsorship">
+          <Route path="/bookshelf" exact>
+            <Bookshelf />
+          </Route>
+          <Route path="/readFile" exact>
+            <ReadFile />
+          </Route>
+          <Route path="/test" exact>
+            <TestPage />
+          </Route>
+          <Route path="/novel" exact>
+            <NovelPage />
+          </Route>
+          <Route path="/chapter" exact>
+            <ChapterPage />
+          </Route>
+          <Route path="/setting" exact>
+            <SettingPage />
+          </Route>
+          <Route path="/sponsorship" exact>
             <Sponsorship />
           </Route>
-          <Route path="/cookies">
-            <CookiePage />
+          <Route path="/editConfig" exact>
+            <EditConfig />
           </Route>
-          <Route path="/history">
-            <HistoryPage />
-          </Route>
-        </Routes>
+        </Switch>
       </MyThemeProvider>
-    </Router>
+    </HashRouter>
   );
 }
+
+export default App;

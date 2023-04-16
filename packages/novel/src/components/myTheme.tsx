@@ -65,7 +65,6 @@ export function MyThemeProvider(props: MyThemeProp): JSX.Element {
    * */
   const [themeObject, isDark] = useThemeValue();
   const nonstickRef = React.useRef<SnackbarProvider>(null);
-
   useStyle({ isDark });
 
   return (

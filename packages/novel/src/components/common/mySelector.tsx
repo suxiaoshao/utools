@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 /**
  * @author sushao
- * @version 0.2.2
- * @since 0.2.2
+ * @version 0.4.0
+ * @since 0.4.0
  * @description 单个选择器
  * */
 export interface ItemListProp<T> {
@@ -29,8 +29,8 @@ const useStyle = makeStyles(() =>
 
 /**
  * @author sushao
- * @version 0.2.2
- * @since 0.2.2
+ * @version 0.4.0
+ * @since 0.4.0
  * @description 选择器组建的 prop
  * */
 export interface MySelectorProp<T extends number | string | undefined | null> {
