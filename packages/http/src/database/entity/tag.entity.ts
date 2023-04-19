@@ -23,8 +23,10 @@ export class TagEntity {
     const results = await execSqlAndReturn(
       `insert into tag(tagName) values ('${this.tagName}');select max(tagId) as count from tag;`,
     );
-    const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
-    this.tagId = count;
+    if (results) {
+      const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
+      this.tagId = count;
+    }
   }
 
   public update(): void {

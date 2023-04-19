@@ -89,8 +89,10 @@ export class HttpEntity {
                 VALUES ('${this.url}', '${this.name}', '${this.method}', ${this.request.requestId});
           select max(httpId) AS count
           from http;`);
-      const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
-      this.httpId = count;
+      if (results) {
+        const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
+        this.httpId = count;
+      }
     }
     this.tags
       .map((value) => new HttpTagEntity(this.httpId as number, value.tagId as number))

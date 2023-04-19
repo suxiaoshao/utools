@@ -4,7 +4,7 @@ import { TagEntity, TagProp } from '../../database/entity/tag.entity';
 import { RequestEntity, RequestProp } from '../../database/entity/request.entity';
 import { CookieEntity, CookieProp } from '../../database/entity/cookie.entity';
 import { HttpTagEntity, HttpTagProp } from '../../database/entity/httpTag.entity';
-import { QueryResults } from 'sql.js';
+import { QueryExecResult } from 'sql.js';
 import { readFromQueryResult } from '../../database/mapper/util';
 import { httpArray } from './httpArray';
 import { HttpRequest } from '../http/httpRequest';
@@ -39,7 +39,7 @@ export class SqlStore extends Store<SqlData> {
   /**
    * 从 sqlWorker 中获取的数据读取
    * */
-  public readData(results: QueryResults[]): void {
+  public readData(results: QueryExecResult[]): void {
     const cookies = readFromQueryResult<CookieProp>(results.find((value) => value.columns[0] === 'domain')).map(
       (value) => CookieEntity.from(value),
     );

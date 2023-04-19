@@ -65,8 +65,10 @@ export class RequestEntity {
         await execSqlAndReturn(`insert into request(bodyChoose, textChoose, text, dataForms, xForms, headers)
              VALUES ('${this.bodyChoose}', '${this.textChoose}', '${this.text}', '${this.dataForms}', '${this.xForms}', '${this.headers}');
              select max(requestId) as count from request;`);
-      const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
-      this.requestId = count;
+      if (results) {
+        const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
+        this.requestId = count;
+      }
     }
   }
 }
