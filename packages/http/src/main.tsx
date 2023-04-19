@@ -6,6 +6,7 @@ import 'fontsource-roboto';
 import { SqlInitMessage } from './database/mapper/sql.interface';
 import { getDataFile } from './utils/update/localPath';
 import { sqlWorker } from './database/mapper/sql.main';
+import sqlInit from 'sql.js';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -33,4 +34,15 @@ if (window.utools === undefined) {
     date: window.nodeFs.readFileSync(getDataFile()),
   };
   sqlWorker.postMessage(message);
+  init();
+}
+
+async function init() {
+  const sqlWasm = new URL('sql.js/dist/sql-wasm.wasm', import.meta.url);
+  const unit = new Uint8Array(window.nodeFs.readFileSync(getDataFile()));
+  const sql = await sqlInit({
+    locateFile: () => sqlWasm.href,
+  });
+  const db = new sql.Database(unit);
+  console.log(db.exec('select * from sqlite_master;'));
 }
