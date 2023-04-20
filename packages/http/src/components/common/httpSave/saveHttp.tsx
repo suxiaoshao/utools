@@ -1,25 +1,14 @@
 import React from 'react';
-import {
-  AppBar,
-  createStyles,
-  Dialog,
-  IconButton,
-  Slide,
-  TextField,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@material-ui/core';
-import { TransitionProps } from '@material-ui/core/transitions';
-import { makeStyles } from '@material-ui/core/styles';
-import { Close, SaveAlt } from '@material-ui/icons';
+import { AppBar, Box, Dialog, IconButton, Slide, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Close, SaveAlt } from '@mui/icons-material';
 import TagsForm from '../tag/tagsForm';
 import { HttpEntity } from '../../../database/entity/http.entity';
 import { HttpManager } from '../../../utils/http/httpManager';
 import { useSnackbar } from 'notistack';
-import { useSqlData } from '../../../utils/store/sqlStore';
+import { useSqlData } from '../../../store/sqlStore';
 import { TagEntity } from '../../../database/entity/tag.entity';
 import LoadingPage from '../loadingPage';
+import { TransitionProps } from '@mui/material/transitions';
 
 /**
  * @author sushao
@@ -28,41 +17,13 @@ import LoadingPage from '../loadingPage';
  * @description saveHttp 组件显示时展现的动画
  * */
 const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement },
+  props: TransitionProps & {
+    children: React.ReactElement;
+  },
   ref: React.Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    appBar: {
-      position: 'relative',
-      display: 'flex',
-    },
-    title: {
-      marginLeft: theme.spacing(2),
-      flex: 1,
-      marginRight: theme.spacing(2),
-    },
-    main: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: theme.palette.background.default,
-      position: 'relative',
-    },
-    input: {
-      width: '40%',
-      marginTop: theme.spacing(1),
-      flex: '0 0 auto',
-    },
-    div: {
-      flex: '1 1 0',
-      width: '100%',
-    },
-  }),
-);
 
 /**
  * @author sushao
@@ -96,7 +57,6 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
    * 将要保存的 httpManger
    * */
   const { httpManager } = props;
-  const style = useStyles();
   /**
    * 数据库数据
    * */
@@ -121,7 +81,7 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
   }, [props.open, httpManager.httpId, sqlData.https]);
   return (
     <Dialog fullScreen open={props.open} onClose={props.onClose} TransitionComponent={Transition}>
-      <AppBar className={style.appBar} color="inherit">
+      <AppBar sx={{ position: 'relative', display: 'flex' }} color="inherit">
         <Toolbar variant="dense">
           {/* 取消按钮 */}
           <Tooltip title={<Typography variant={'body2'}>取消</Typography>}>
@@ -130,7 +90,7 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
             </IconButton>
           </Tooltip>
           {/* http 名 */}
-          <Typography variant="h6" className={style.title}>
+          <Typography variant="h6" sx={{ ml: 2, flex: 1, mr: 2 }}>
             {(name ?? httpManager.url) || '暂未命名'}
           </Typography>
           {/* 保存按钮 */}
@@ -180,11 +140,20 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <div className={style.main}>
+      <Box
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          backgroundColor: (theme) => theme.palette.background.default,
+          position: 'relative',
+        }}
+      >
         <LoadingPage />
         {/* http 名字 文本框 */}
         <TextField
-          className={style.input}
+          sx={{ width: '40%', mt: 1, flex: '0 0 auto' }}
           variant="filled"
           value={name}
           label={'名字'}
@@ -195,8 +164,12 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
           }}
         />
         {/* tag 选择组件 */}
-        <TagsForm className={style.div} onSelectedTasChanges={setSelectedTags} selectedTags={selectedTags} />
-      </div>
+        <TagsForm
+          sx={{ flex: '1 1 0', width: '100%' }}
+          onSelectedTasChanges={setSelectedTags}
+          selectedTags={selectedTags}
+        />
+      </Box>
     </Dialog>
   );
 }

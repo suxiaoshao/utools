@@ -2,7 +2,7 @@ import { RequestXForm, XFormProps } from './requestXForm';
 import { RequestUploadFile, UploadFileProps } from './requestUploadFile';
 import { Header, HeaderProps, OtherHeader } from './header';
 import { RequestEntity } from '../../database/entity/request.entity';
-import { sqlStore } from '../store/sqlStore';
+import { sqlStore } from '../../store/sqlStore';
 
 export type RequestBodyChoose = 'none' | 'text' | 'form-data' | 'x-www-form-urlencoded';
 export type RequestTextChoose = 'json' | 'html' | 'xml' | 'javascript' | 'plain';

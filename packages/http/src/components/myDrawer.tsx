@@ -1,34 +1,8 @@
-import { createStyles, List, ListItem, ListItemIcon, ListItemText, Theme } from '@material-ui/core';
-import { AvTimer, History, MonetizationOn, NetworkCheck } from '@material-ui/icons';
+import { Box, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { AvTimer, History, MonetizationOn, NetworkCheck } from '@mui/icons-material';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyle = makeStyles((theme: Theme) => {
-  const listWidth = 170;
-  return createStyles({
-    page: {
-      display: 'flex',
-      width: '100%',
-      height: '100%',
-    },
-    myDrawer: {
-      flex: `0 0 ${listWidth}px`,
-      display: 'flex',
-      flexDirection: 'column',
-      background: theme.palette.background.paper,
-    },
-    selected: {
-      color: theme.palette.info.light,
-      '& > *': {
-        color: theme.palette.info.light,
-      },
-    },
-    main: {
-      flex: '1 1 0',
-      maxWidth: `calc(100vw - ${listWidth}px)`,
-    },
-  });
-});
+const listWidth = 170;
 
 /**
  * @author sushao
@@ -57,7 +31,6 @@ export interface MyRouterListItemProp {
  * @description 侧边栏按钮
  * */
 function MyRouterListItem(props: MyRouterListItemProp) {
-  const style = useStyle();
   /**
    * 路由信息
    * */
@@ -67,50 +40,53 @@ function MyRouterListItem(props: MyRouterListItemProp) {
    * */
   const myHistory = useNavigate();
   return (
-    <ListItem
+    <ListItemButton
       onClick={() => {
         myHistory(props.path);
       }}
-      button
       selected={myLocation.pathname === props.path}
-      className={myLocation.pathname === props.path ? style.selected : undefined}
+      sx={
+        myLocation.pathname === props.path
+          ? (theme) => ({
+              color: theme.palette.info.light,
+              '& > *': {
+                color: theme.palette.info.light,
+              },
+            })
+          : undefined
+      }
     >
       <ListItemIcon>{props.icon}</ListItemIcon>
       <ListItemText>{props.text}</ListItemText>
-    </ListItem>
+    </ListItemButton>
   );
 }
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description 侧边栏组件的 prop
- * */
-interface MyDrawerProps {
-  /**
-   * 类名
-   * */
-  className?: string;
-}
+
 /**
  * @author sushao
  * @version 0.2.2
  * @since 0.2.2
  * @description 侧边栏组件
  * */
-export default function MyDrawer(props: MyDrawerProps): JSX.Element {
-  const style = useStyle();
+export default function MyDrawer(): JSX.Element {
   return (
-    <div className={style.page}>
-      <List className={style.myDrawer}>
+    <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
+      <List
+        sx={(theme) => ({
+          flex: `0 0 ${listWidth}px`,
+          display: 'flex',
+          flexDirection: 'column',
+          background: theme.palette.background.paper,
+        })}
+      >
         <MyRouterListItem path="/" icon={<NetworkCheck />} text={'工作区'} />
         <MyRouterListItem icon={<History />} text={'历史记录'} path={'/history'} />
         <MyRouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
         <MyRouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />
       </List>
-      <main className={`${props.className} ${style.main}`}>
+      <Box component="main" sx={{ display: 'flex', width: '100%', height: '100%' }}>
         <Outlet />
-      </main>
-    </div>
+      </Box>
+    </Box>
   );
 }

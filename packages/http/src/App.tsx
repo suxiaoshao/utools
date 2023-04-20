@@ -1,11 +1,11 @@
 import React from 'react';
 import './app.css';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
-import Sponsorship from './view/sponsorship';
-import Work from './view/work';
+import Sponsorship from './page/Sponsorship';
+import Work from './page/Work';
 import { MyThemeProvider } from './components/myTheme';
-import CookiePage from './view/cookiePage';
-import HistoryPage from './view/historyPage';
+import CookiePage from './page/Cookie';
+import HistoryPage from './page/History';
 import MyDrawer from './components/myDrawer';
 
 /**

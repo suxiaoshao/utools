@@ -1,4 +1,4 @@
-import { sqlStore } from '../../utils/store/sqlStore';
+import { sqlStore } from '../../store/sqlStore';
 import { getDataFile } from '../../utils/update/localPath';
 import sqlInit, { Database } from 'sql.js';
 

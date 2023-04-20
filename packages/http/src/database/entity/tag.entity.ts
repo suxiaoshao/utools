@@ -1,5 +1,5 @@
 import { execSql, execSqlAndReturn, readFromQueryResult } from '../mapper/util';
-import { sqlStore } from '../../utils/store/sqlStore';
+import { sqlStore } from '../../store/sqlStore';
 
 export interface TagProp {
   tagId: number;

@@ -1,35 +1,10 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, createStyles, IconButton, Tooltip, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, BoxProps, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
 import TagItem from '../../../components/common/tag/tagItem';
 import AddTag from '../../../components/common/tag/addTag';
-import { AddCircle, ArrowBack, ArrowForward } from '@material-ui/icons';
+import { AddCircle, ArrowBack, ArrowForward } from '@mui/icons-material';
 import { TagEntity } from '../../../database/entity/tag.entity';
-import { useAllTags } from '../../../utils/hooks/useAllTags';
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    main: {
-      display: 'flex',
-    },
-    tags: {
-      flex: '1 1 0',
-      display: 'flex',
-      flexDirection: 'column',
-      margin: theme.spacing(1),
-    },
-    tagContent: {
-      display: 'flex',
-      overflow: 'auto',
-      flexWrap: 'wrap',
-      flex: '1 1 0',
-      position: 'relative',
-    },
-    tag: {
-      margin: theme.spacing(1),
-    },
-  }),
-);
+import { useAllTags } from '../../../hooks/useAllTags';
 
 /**
  * @author sushao
@@ -37,15 +12,11 @@ const useStyles = makeStyles((theme) =>
  * @since 0.2.2
  * @description tagsForm 的 prop
  * */
-export interface TagsFormProp {
+export interface TagsFormProp extends BoxProps {
   /**
    * 被选择的 tags
    * */
   selectedTags: TagEntity[];
-  /**
-   * 组件的类名
-   * */
-  className?: string;
 
   /**
    * 触发被选择 tags 更新的方法
@@ -59,8 +30,7 @@ export interface TagsFormProp {
  * @since 0.2.2
  * @description tags 选择表单组件
  * */
-export default function TagsForm(props: TagsFormProp): JSX.Element {
-  const style = useStyles();
+export default function TagsForm({ selectedTags, onSelectedTasChanges, ...props }: TagsFormProp): JSX.Element {
   /**
    * 所有的 tags
    * */
@@ -69,12 +39,12 @@ export default function TagsForm(props: TagsFormProp): JSX.Element {
    * 没选择的 tags
    * */
   const unselectedTags = React.useMemo<TagEntity[]>(() => {
-    return allTags.filter((value) => !props.selectedTags.some((value1) => value1.tagId === value.tagId));
-  }, [allTags, props.selectedTags]);
+    return allTags.filter((value) => !selectedTags.some((value1) => value1.tagId === value.tagId));
+  }, [allTags, selectedTags]);
   return (
-    <div className={`${style.main} ${props.className}`}>
+    <Box {...props} sx={{ display: 'flex' }}>
       {/* 已被选择的标签 */}
-      <Card className={style.tags}>
+      <Card sx={{ flex: '1 1 0', display: 'flex', flexDirection: 'column', m: 1 }}>
         <CardHeader
           title="已被选择的标签"
           action={
@@ -85,9 +55,9 @@ export default function TagsForm(props: TagsFormProp): JSX.Element {
               <div>
                 <IconButton
                   onClick={() => {
-                    props.onSelectedTasChanges([]);
+                    onSelectedTasChanges([]);
                   }}
-                  disabled={props.selectedTags.length === 0}
+                  disabled={selectedTags.length === 0}
                 >
                   <ArrowForward />
                 </IconButton>
@@ -95,22 +65,22 @@ export default function TagsForm(props: TagsFormProp): JSX.Element {
             </Tooltip>
           }
         />
-        <CardContent className={style.tagContent}>
-          {props.selectedTags.map((value) => (
+        <CardContent sx={{ display: 'flex', overflow: 'auto', flexWrap: 'wrap', flex: '1 1 0', position: 'relative' }}>
+          {selectedTags.map((value) => (
             <TagItem
-              className={style.tag}
+              sx={{ m: 1 }}
               key={value.tagId}
               tagEntity={value}
               onClick={() => {
-                const newSelectedTags = props.selectedTags.filter((value1) => value1.tagId !== value.tagId);
-                props.onSelectedTasChanges(newSelectedTags);
+                const newSelectedTags = selectedTags.filter((value1) => value1.tagId !== value.tagId);
+                onSelectedTasChanges(newSelectedTags);
               }}
             />
           ))}
         </CardContent>
       </Card>
       {/* 未被选择的标签 */}
-      <Card className={style.tags}>
+      <Card sx={{ flex: '1 1 0', display: 'flex', flexDirection: 'column', m: 1 }}>
         <CardHeader
           title="未被选择的标签"
           action={
@@ -122,7 +92,7 @@ export default function TagsForm(props: TagsFormProp): JSX.Element {
                 <IconButton
                   disabled={unselectedTags.length === 0}
                   onClick={() => {
-                    props.onSelectedTasChanges([...allTags]);
+                    onSelectedTasChanges([...allTags]);
                   }}
                 >
                   <ArrowBack />
@@ -131,13 +101,13 @@ export default function TagsForm(props: TagsFormProp): JSX.Element {
             </Tooltip>
           }
         />
-        <CardContent className={style.tagContent}>
+        <CardContent sx={{ display: 'flex', overflow: 'auto', flexWrap: 'wrap', flex: '1 1 0', position: 'relative' }}>
           {unselectedTags.map((value) => (
             <TagItem
-              className={style.tag}
+              sx={{ m: 1 }}
               onClick={() => {
-                const newSelectedTags = [...props.selectedTags, value];
-                props.onSelectedTasChanges(newSelectedTags);
+                const newSelectedTags = [...selectedTags, value];
+                onSelectedTasChanges(newSelectedTags);
               }}
               tagEntity={value}
               key={value.tagId}
@@ -147,6 +117,6 @@ export default function TagsForm(props: TagsFormProp): JSX.Element {
         </CardContent>
         <AddTag />
       </Card>
-    </div>
+    </Box>
   );
 }

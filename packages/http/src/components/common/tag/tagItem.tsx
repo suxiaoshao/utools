@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chip, Menu, MenuItem, TextField } from '@material-ui/core';
+import { Chip, ChipProps, Menu, MenuItem, TextField } from '@mui/material';
 import { TagEntity } from '../../../database/entity/tag.entity';
 
 /**
@@ -8,7 +8,7 @@ import { TagEntity } from '../../../database/entity/tag.entity';
  * @since 0.2.2
  * @description tagItem 组件的 prop
  * */
-export interface TagItemProp {
+export interface TagItemProp extends ChipProps {
   /**
    * 展示的 tagEntity
    * */
@@ -17,10 +17,6 @@ export interface TagItemProp {
    * chip 组件的删除按钮的 icon
    * */
   icon?: React.ReactElement;
-  /**
-   * 组件的类名
-   * */
-  className?: string;
 
   /**
    * 点击删除按钮触发的方法
@@ -34,7 +30,7 @@ export interface TagItemProp {
  * @since 0.2.2
  * @description tagItem 显示组件
  * */
-export default function TagItem(props: TagItemProp): JSX.Element {
+export default function TagItem({ tagEntity, icon, onClick, ...props }: TagItemProp): JSX.Element {
   /**
    * menu 的位置信息,不显示时为 null
    * */
@@ -49,25 +45,25 @@ export default function TagItem(props: TagItemProp): JSX.Element {
   /**
    * 重命名标签的输入框的引用
    * */
-  const inoutRef = React.useRef<HTMLInputElement | null>(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   /**
    * 重命名方法
    * */
   const update = React.useCallback(async () => {
-    props.tagEntity.tagName = newName || props.tagEntity.tagName;
-    await props.tagEntity.update();
+    tagEntity.tagName = newName || tagEntity.tagName;
+    await tagEntity.update();
     setNewName(null);
-  }, [newName, props]);
+  }, [newName, tagEntity]);
   /**
    * 设置新名字时,重命名输入成为焦点
    * */
   React.useEffect(() => {
-    inoutRef.current?.focus();
+    inputRef.current?.focus();
   }, [newName]);
   return (
     <>
       <Chip
-        className={props.className}
+        {...props}
         color={newName === null ? 'primary' : undefined}
         label={
           newName !== null ? (
@@ -89,14 +85,14 @@ export default function TagItem(props: TagItemProp): JSX.Element {
               }}
               error={newName === ''}
               helperText={newName === '' ? '新名字不可为空' : undefined}
-              inputRef={inoutRef}
+              inputRef={inputRef}
             />
           ) : (
-            props.tagEntity.tagName
+            tagEntity.tagName
           )
         }
         onDelete={async () => {
-          props.onClick();
+          onClick();
         }}
         onContextMenu={(event) => {
           /**
@@ -108,7 +104,7 @@ export default function TagItem(props: TagItemProp): JSX.Element {
             mouseY: event.clientY - 4,
           });
         }}
-        deleteIcon={props.icon}
+        deleteIcon={icon}
       />
       <Menu
         anchorReference="anchorPosition"
@@ -121,14 +117,14 @@ export default function TagItem(props: TagItemProp): JSX.Element {
         <MenuItem
           onClick={() => {
             setMenuPosition(null);
-            setNewName(props.tagEntity.tagName);
+            setNewName(tagEntity.tagName);
           }}
         >
           重命名
         </MenuItem>
         <MenuItem
           onClick={async () => {
-            await props.tagEntity.delete();
+            await tagEntity.delete();
             setMenuPosition(null);
           }}
         >

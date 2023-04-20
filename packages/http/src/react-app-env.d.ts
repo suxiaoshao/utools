@@ -1,4 +1,3 @@
-/// <reference types="react-scripts" />
 import 'utools-api-types';
 import * as fs from 'fs';
 import * as path from 'path';

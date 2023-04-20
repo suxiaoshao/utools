@@ -1,6 +1,7 @@
 import React from 'react';
 import { editor } from 'monaco-editor';
 import monankai from './monankai';
+import { Box, BoxProps } from '@mui/material';
 
 editor.defineTheme('monankai', monankai);
 
@@ -10,11 +11,7 @@ editor.defineTheme('monankai', monankai);
  * @since 0.2.2
  * @description 可写情况下的 editProp
  * */
-export interface NotReadOnlyEditProp {
-  /**
-   * 编辑器组建的类名
-   * */
-  className?: string;
+export interface NotReadOnlyEditProp extends BoxProps {
   /**
    * 要显示的代码字符串
    * */
@@ -26,31 +23,12 @@ export interface NotReadOnlyEditProp {
   /**
    * 是否只读
    * */
-  readonly?: false;
+  readonly?: boolean;
 
   /**
    * 当编辑器代码改变时触发的方法
    * */
-  onChangeCode(newCode: string): void;
-}
-
-export interface ReadOnlyEditProp {
-  /**
-   * 编辑器组建的类名
-   * */
-  className?: string;
-  /**
-   * 要显示的代码字符串
-   * */
-  code: string;
-  /**
-   * 使用哪种语言显示
-   * */
-  language: string;
-  /**
-   * 是否只读
-   * */
-  readonly: true;
+  onChangeCode?(newCode: string): void;
 }
 
 /**
@@ -59,7 +37,7 @@ export interface ReadOnlyEditProp {
  * @since 0.2.2
  * @description 编辑器组件
  * */
-export default function Edit(props: NotReadOnlyEditProp | ReadOnlyEditProp): JSX.Element {
+export default function Edit({ code, language, readonly, onChangeCode, ...props }: NotReadOnlyEditProp): JSX.Element {
   /**
    * 编辑器绑定的 dom 的引用
    * */
@@ -75,15 +53,15 @@ export default function Edit(props: NotReadOnlyEditProp | ReadOnlyEditProp): JSX
     if (editRef.current !== null) {
       setEdit(
         editor.create(editRef?.current, {
-          value: props.code,
+          value: code,
           theme: 'vs-dark',
           automaticLayout: true,
-          language: props.language,
+          language: language,
           fontSize: 16,
           minimap: {
             enabled: false,
           },
-          readOnly: props.readonly,
+          readOnly: readonly,
         }),
       );
     }
@@ -101,33 +79,33 @@ export default function Edit(props: NotReadOnlyEditProp | ReadOnlyEditProp): JSX
    * props.readonly 改变时修改编辑器的只读属性
    * */
   React.useEffect(() => {
-    if (!props.readonly) {
+    if (!readonly) {
       edit?.onMouseLeave(() => {
-        props.onChangeCode(edit?.getValue());
+        onChangeCode?.(edit?.getValue());
       });
     }
     // eslint-disable-next-line
-  }, [edit, props.readonly]);
+  }, [edit, readonly]);
   /**
    * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
    * */
   React.useEffect(() => {
-    if (props.code !== edit?.getValue()) {
-      edit?.setValue(props.code);
+    if (code !== edit?.getValue()) {
+      edit?.setValue(code);
     }
-  }, [edit, props.code]);
+  }, [edit, code]);
   /**
    * props.language改变时,重设编辑器的语言
    * */
   React.useEffect(() => {
-    edit?.setModel(editor.createModel(props.code, props.language));
+    edit?.setModel(editor.createModel(code, language));
     // eslint-disable-next-line
-  }, [edit, props.language]);
+  }, [edit, language]);
   /**
    * 以上任意一值改变时,观察是否是只读的,如果是:自动格式化代码
    * */
   React.useEffect(() => {
-    if (props.readonly) {
+    if (readonly) {
       window.setTimeout(() => {
         edit?.updateOptions({
           readOnly: false,
@@ -137,9 +115,9 @@ export default function Edit(props: NotReadOnlyEditProp | ReadOnlyEditProp): JSX
           edit?.updateOptions({
             readOnly: true,
           });
-        }, Math.max(props.code.length / 50, 300));
+        }, Math.max(code.length / 50, 300));
       }, 100);
     }
-  }, [edit, props.code, props.language, props.readonly]);
-  return <div className={props.className} ref={editRef} />;
+  }, [edit, code, language, readonly]);
+  return <Box {...props} ref={editRef} />;
 }
