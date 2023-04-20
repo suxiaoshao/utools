@@ -1,7 +1,6 @@
-import React from 'react';
 import { createStyles, List, ListItem, ListItemIcon, ListItemText, Theme } from '@material-ui/core';
 import { AvTimer, History, MonetizationOn, NetworkCheck } from '@material-ui/icons';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles((theme: Theme) => {
@@ -66,11 +65,11 @@ function MyRouterListItem(props: MyRouterListItemProp) {
   /**
    * 跳转
    * */
-  const myHistory = useHistory();
+  const myHistory = useNavigate();
   return (
     <ListItem
       onClick={() => {
-        myHistory.push(props.path);
+        myHistory(props.path);
       }}
       button
       selected={myLocation.pathname === props.path}
@@ -89,13 +88,9 @@ function MyRouterListItem(props: MyRouterListItemProp) {
  * */
 interface MyDrawerProps {
   /**
-   * 子组件
-   * */
-  children: React.ReactNode;
-  /**
    * 类名
    * */
-  className: string;
+  className?: string;
 }
 /**
  * @author sushao
@@ -113,7 +108,9 @@ export default function MyDrawer(props: MyDrawerProps): JSX.Element {
         <MyRouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
         <MyRouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />
       </List>
-      <main className={`${props.className} ${style.main}`}>{props.children}</main>
+      <main className={`${props.className} ${style.main}`}>
+        <Outlet />
+      </main>
     </div>
   );
 }

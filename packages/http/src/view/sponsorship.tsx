@@ -1,5 +1,4 @@
 import React from 'react';
-import MyDrawer from '../components/myDrawer';
 import alipay from '../assets/alipay.jpg';
 import wepay from '../assets/wepay.jpg';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
@@ -14,6 +13,8 @@ const useStyle = makeStyles(() =>
       flexDirection: 'column',
       justifyContent: 'space-around',
       alignItems: 'center',
+      width: '100%',
+      height: '100%',
     },
     img: {
       maxWidth: '50%',
@@ -34,7 +35,7 @@ export default function Sponsorship(): JSX.Element {
   const [imgSrc, setImgSrc] = React.useState<string>(alipay);
   const style = useStyle();
   return (
-    <MyDrawer className={style.main}>
+    <div className={style.main}>
       <img src={imgSrc} className={style.img} alt={'二维码'} />
       {/* 切换二维码按钮 */}
       <ToggleButtonGroup
@@ -53,6 +54,6 @@ export default function Sponsorship(): JSX.Element {
           <WePay />
         </ToggleButton>
       </ToggleButtonGroup>
-    </MyDrawer>
+    </div>
   );
 }

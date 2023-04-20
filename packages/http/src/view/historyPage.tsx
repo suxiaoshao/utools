@@ -1,5 +1,4 @@
 import React from 'react';
-import MyDrawer from '../components/myDrawer';
 import { createStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import HistoryFilter from '../components/history/historyFilter';
@@ -20,6 +19,8 @@ const useStyle = makeStyles(() =>
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
+      width: '100%',
+      height: '100%',
     },
     content: {
       flex: '1 1 0',
@@ -47,7 +48,7 @@ export default function HistoryPage(): JSX.Element {
    * */
   const [method, setMethod] = React.useState<MyMethod | undefined>(undefined);
   return (
-    <MyDrawer className={style.main}>
+    <div className={style.main}>
       <LoadingPage />
       {/* 筛选表单 */}
       <HistoryFilter
@@ -60,6 +61,6 @@ export default function HistoryPage(): JSX.Element {
       />
       {/* 被筛选后的内容 */}
       <HistoryContent method={method} searchName={searchName} selectedTags={selectedTags} className={style.content} />
-    </MyDrawer>
+    </div>
   );
 }

@@ -1,24 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'fontsource-roboto';
 import { initDatabase } from './database/mapper/sql.main';
 
 async function init() {
   if (window.utools === undefined) {
-    ReactDOM.render(
+    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <React.StrictMode>
         <App />
       </React.StrictMode>,
-      document.getElementById('root'),
     );
   } else {
     await initDatabase();
-    ReactDOM.render(
+    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <React.StrictMode>
         <App />
       </React.StrictMode>,
-      document.getElementById('root'),
     );
   }
 }

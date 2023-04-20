@@ -1,5 +1,4 @@
 import React from 'react';
-import MyDrawer from '../components/myDrawer';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CookieCard from '../components/cookie/cookieCard';
 import { Cookie } from '../utils/http/cookie';
@@ -27,6 +26,8 @@ const useStyle = makeStyles((theme) =>
       overflow: 'auto',
       position: 'relative',
       padding: theme.spacing(3),
+      width: '100%',
+      height: '100%',
     },
     /**
      * @author sushao
@@ -71,7 +72,7 @@ export default function CookiePage(): JSX.Element {
    * */
   const [formCookie, setFormCookie] = React.useState<Cookie | null>(null);
   return (
-    <MyDrawer className={style.main}>
+    <div className={style.main}>
       {/* loading 页面 */}
       <LoadingPage />
       {/* cookieCard domain 相同的一起展示 */}
@@ -95,6 +96,6 @@ export default function CookiePage(): JSX.Element {
       >
         <Add />
       </Fab>
-    </MyDrawer>
+    </div>
   );
 }

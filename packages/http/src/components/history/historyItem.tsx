@@ -14,7 +14,7 @@ import {
 import { Delete, Edit, Reply } from '@material-ui/icons';
 import { httpArray } from '../../utils/store/httpArray';
 import { workIndex } from '../../utils/store/workIndex';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SaveHttp from '../common/httpSave/saveHttp';
 import { makeStyles } from '@material-ui/core/styles';
 import { brown, green, grey, lightBlue, orange, purple, red } from '@material-ui/core/colors';
@@ -84,7 +84,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
   /**
    * react-dom-router 的跳转函数
    * */
-  const myHistory = useHistory();
+  const myHistory = useNavigate();
   const style = useStyle();
   /**
    * 是否打开修改页面
@@ -126,7 +126,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
               onClick={() => {
                 const index = httpArray.addFromHttpManager(HttpManager.fromEntity(props.http));
                 workIndex.setData(index);
-                myHistory.push({ pathname: '/' });
+                myHistory({ pathname: '/' });
               }}
             >
               <Reply />

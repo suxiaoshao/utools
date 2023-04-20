@@ -1,5 +1,3 @@
-import React from 'react';
-import MyDrawer from '../components/myDrawer';
 import { createStyles, Tabs } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import WorkPanel from '../components/work/workPanel';
@@ -13,6 +11,8 @@ const useStyle = makeStyles(() =>
     main: {
       display: 'flex',
       flexDirection: 'column',
+      width: '100%',
+      height: '100%',
     },
     tabs: {
       flex: '0 0 auto',
@@ -51,7 +51,7 @@ export default function Work(): JSX.Element {
    * */
   const [httpArray] = useHttpArray();
   return (
-    <MyDrawer className={style.main}>
+    <div className={style.main}>
       {/* 选项卡 */}
       <Tabs
         className={style.tabs}
@@ -71,6 +71,6 @@ export default function Work(): JSX.Element {
           <WorkPanel http={item} />
         </TabPanelDisappear>
       ))}
-    </MyDrawer>
+    </div>
   );
 }
