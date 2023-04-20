@@ -7,3 +7,4 @@ dist-ssr
 target
 pnpm-lock.yaml
 pkg
+**/build/web

@@ -2,8 +2,5 @@
   "name": "build",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "sql.js": "^1.8.0"
-  }
+  "license": "MIT"
 }

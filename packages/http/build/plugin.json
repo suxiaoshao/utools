@@ -4,7 +4,7 @@
   "author": "sushao",
   "preload": "preload.js",
   "logo": "read.png",
-  "main": "react/index.html",
+  "main": "web/index.html",
   "homepage": "https://github.com/suxiaoshao/utools-http-test",
   "version": "0.2.3",
   "development": {

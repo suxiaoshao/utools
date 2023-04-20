@@ -1,12 +1,14 @@
 import { defineConfig } from '@rspack/cli';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const config = defineConfig({
   entry: {
     main: './src/main.tsx',
   },
   output: {
-    path: './build/react',
-    publicPath: process.env.production ? './' : undefined,
+    path: './build/web',
+    publicPath: isProduction ? './' : undefined,
   },
   builtins: {
     html: [
@@ -36,6 +38,12 @@ const config = defineConfig({
     host: '0.0.0.0',
     allowedHosts: 'all',
     historyApiFallback: true,
+  },
+  devtool: isProduction ? false : undefined,
+  externals: {
+    fs: 'fs',
+    path: 'path',
+    crypto: 'crypto',
   },
 });
 export default config;
