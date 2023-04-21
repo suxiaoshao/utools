@@ -25,7 +25,7 @@ export default function MyTabs(): JSX.Element {
           <Tab label="支持作者" value={'/sponsorship'} />
         </Tabs>
       </Box>
-      <Box component="main" sx={{ flex: '1 1 0', position: 'relative' }}>
+      <Box component="main" sx={{ flex: '1 1 0', position: 'relative', overflow: 'hidden' }}>
         <Outlet />
       </Box>
     </Box>

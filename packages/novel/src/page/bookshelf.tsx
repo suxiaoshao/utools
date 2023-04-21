@@ -2,8 +2,8 @@ import {
   Avatar,
   Box,
   IconButton,
-  ListItem,
   ListItemAvatar,
+  ListItemButton,
   ListItemText,
   Paper,
   Table,
@@ -18,10 +18,11 @@ import ChapterLink from '../components/common/chapterLink';
 import { Delete } from '@mui/icons-material';
 import { useReadRecords } from '../hooks/data/useReadRecords';
 import { TotalDataBuild } from '../utils/data/totalData';
-import { historyStore } from '../store/history.store';
+import { useNavigate } from 'react-router-dom';
 
 export default function Bookshelf(): JSX.Element {
   const { readRecords, updateReadRecords } = useReadRecords();
+  const navigate = useNavigate();
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
       <TableContainer
@@ -46,14 +47,9 @@ export default function Bookshelf(): JSX.Element {
             {readRecords.map((value) => (
               <TableRow key={value.novelId + value.mainPageUrl}>
                 <TableCell padding={'none'} sx={{ maxWidth: 30 }}>
-                  <ListItem
-                    button
+                  <ListItemButton
                     onClick={() => {
-                      historyStore.push({
-                        pathname: '/novel',
-                        search: `novelId=${value.novelId}&url=${value.mainPageUrl}`,
-                        name: value.name,
-                      });
+                      navigate(`/novel?novelId=${value.novelId}&url=${value.mainPageUrl}`);
                     }}
                   >
                     <ListItemAvatar>
@@ -64,7 +60,7 @@ export default function Bookshelf(): JSX.Element {
                       secondary={value.desc}
                       secondaryTypographyProps={{ noWrap: true }}
                     />
-                  </ListItem>
+                  </ListItemButton>
                 </TableCell>
                 <TableCell>{value.author}</TableCell>
                 <TableCell>

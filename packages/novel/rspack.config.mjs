@@ -1,17 +1,21 @@
 import { defineConfig } from '@rspack/cli';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const config = defineConfig({
   entry: {
     main: './src/main.tsx',
+    jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
   },
   output: {
     path: './build/web',
-    publicPath: process.env.production ? './' : undefined,
+    publicPath: isProduction ? './' : undefined,
   },
   builtins: {
     html: [
       {
         template: './index.html',
+        chunks: ['main'],
       },
     ],
   },
@@ -37,5 +41,6 @@ const config = defineConfig({
     allowedHosts: 'all',
     historyApiFallback: true,
   },
+  devtool: isProduction ? false : undefined,
 });
 export default config;

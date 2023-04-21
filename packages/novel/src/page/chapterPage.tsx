@@ -1,11 +1,11 @@
 import React from 'react';
-import { historyStore } from '../store/history.store';
 import { Box, Button, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
 import MyBreadcrumbs from '../components/myBreadcrumbs';
 import { FontSize, useFontSize } from '../store/setting.store';
 import { useChapterRouter } from '../hooks/page/useChapterRouter';
 import { useChapterData } from '../hooks/page/useChapterData';
+import { useNavigate } from 'react-router-dom';
 
 export interface FontStyleProp {
   fontSize: FontSize;
@@ -16,6 +16,7 @@ export default function ChapterPage(): JSX.Element {
    * 路由数据
    * */
   const { activeConfig, novelId, chapterId } = useChapterRouter();
+  const navigate = useNavigate();
   const [fontSize] = useFontSize();
   /**
    * 章节数据
@@ -26,23 +27,16 @@ export default function ChapterPage(): JSX.Element {
    * */
   const pushToChapter = React.useCallback(
     (chapterId: string) => {
-      historyStore.replace({
-        search: `?novelId=${novelId}&url=${activeConfig?.mainPageUrl}&chapterId=${chapterId}`,
-        name: `${state.value?.chapterName}的章节`,
-      });
+      navigate(`/chapter?novelId=${novelId}&url=${activeConfig?.mainPageUrl}&chapterId=${chapterId}`);
     },
-    [novelId, activeConfig?.mainPageUrl, state.value?.chapterName],
+    [navigate, novelId, activeConfig?.mainPageUrl],
   );
   /**
    * 跳转目录
    * */
   const pushNovel = React.useCallback(() => {
-    historyStore.push({
-      pathname: '/novel',
-      search: `?novelId=${novelId}&url=${activeConfig?.mainPageUrl}`,
-      name: state.value?.novelName ?? '',
-    });
-  }, [activeConfig?.mainPageUrl, novelId, state.value?.novelName]);
+    navigate(`/novel?novelId=${novelId}&url=${activeConfig?.mainPageUrl}`);
+  }, [activeConfig?.mainPageUrl, navigate, novelId]);
   /**
    * 左右翻页
    * */
@@ -108,14 +102,7 @@ export default function ChapterPage(): JSX.Element {
     );
   }, [pushNovel, pushToChapter, state.value]);
   return (
-    <MyBreadcrumbs
-      sx={{ padding: 1, overflow: 'auto' }}
-      {
-        ...{
-          // pageClassName={classes.page}
-        }
-      }
-    >
+    <MyBreadcrumbs sx={{ padding: 1, overflow: 'auto' }}>
       <Loading state={{ ...state, retry: fn }}>
         {state.value && (
           <>
@@ -127,7 +114,7 @@ export default function ChapterPage(): JSX.Element {
               <Typography
                 sx={{
                   textIndent: '2em',
-                  fontSize: 1.5 + fontSize / 10,
+                  fontSize: (theme) => theme.spacing(1.5 + fontSize / 10),
                 }}
                 paragraph
                 variant={'body1'}

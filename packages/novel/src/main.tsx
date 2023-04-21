@@ -8,12 +8,12 @@ import { writeToFile } from './utils/data/util';
 import { configStore } from './store/config.store';
 import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
 import { settingStore } from './store/setting.store';
-import { historyStore } from './store/history.store';
+import { redirect } from 'react-router-dom';
 async function main() {
   if (window.utools) {
     utools.onPluginEnter((params) => {
       if (params.code === 'bookshelf') {
-        historyStore.replace({ name: '书架', pathname: '/bookshelf' });
+        redirect('/bookshelf');
       }
     });
     /**

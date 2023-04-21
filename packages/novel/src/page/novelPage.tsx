@@ -4,13 +4,13 @@ import { useAsyncFnWithNotify } from '../hooks/async/useAsyncFnWithNotify';
 import { NovelInfo } from '../utils/web/novelInfo';
 import { Avatar, Box, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
-import { historyStore } from '../store/history.store';
 import MyBreadcrumbs from '../components/myBreadcrumbs';
 import { useActiveConfig } from '../hooks/data/useActiveConfig';
 import ChapterLink from '../components/common/chapterLink';
 import { Star, StarBorder } from '@mui/icons-material';
 import { ReadRecord, TotalDataBuild } from '../utils/data/totalData';
 import { useIsStar } from '../hooks/data/useIsStar';
+import { useNavigate } from 'react-router-dom';
 
 export default function NovelPage(): JSX.Element {
   /**
@@ -21,11 +21,12 @@ export default function NovelPage(): JSX.Element {
    * 配置
    * */
   const activeConfig = useActiveConfig();
+  const navigate = useNavigate();
   React.useEffect(() => {
     if (!(activeConfig && novelId)) {
-      historyStore.goHome();
+      navigate('/');
     }
-  }, [activeConfig, novelId]);
+  }, [activeConfig, navigate, novelId]);
   /**
    * 是否收藏
    * */

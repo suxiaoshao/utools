@@ -3,10 +3,10 @@ import React from 'react';
 import '../utils/edit/init';
 import Edit from '../components/common/editor/edit';
 import { Close, ExitToApp, Save } from '@mui/icons-material';
-import { historyStore } from '../store/history.store';
 import { configStore } from '../store/config.store';
 import { notifySubject } from '../components/common/notify';
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
+import { Box, SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const defaultCode = `{
     "mainPageUrl": "",
@@ -69,9 +69,12 @@ const defaultCode = `{
 export default function EditConfig(): JSX.Element {
   const [code, setCode] = React.useState(defaultCode);
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
   return (
     <MyBreadcrumbs sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Edit sx={{ flex: '1 1 0' }} onChangeCode={setCode} code={code} />
+      <Box sx={{ flex: '1 1 0', width: '100%', height: '100%', overflow: 'hidden' }}>
+        <Edit sx={{ width: '100%', height: '100%' }} onChangeCode={setCode} code={code} />
+      </Box>
       <SpeedDial
         onOpen={() => {
           setOpen(true);
@@ -80,7 +83,7 @@ export default function EditConfig(): JSX.Element {
           setOpen(false);
         }}
         icon={<SpeedDialIcon />}
-        sx={{ position: 'absolute', bottom: 2, right: 2 }}
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}
         ariaLabel={'打开'}
         open={open}
       >
@@ -95,7 +98,7 @@ export default function EditConfig(): JSX.Element {
                 },
               });
             } else {
-              historyStore.goBack();
+              navigate(-1);
             }
           }}
           icon={<Save />}
@@ -105,7 +108,7 @@ export default function EditConfig(): JSX.Element {
           icon={<Close />}
           tooltipTitle={'取消'}
           onClick={() => {
-            historyStore.goBack();
+            navigate(-1);
           }}
         />
         <SpeedDialAction

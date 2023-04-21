@@ -3,8 +3,8 @@ import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip, Typography 
 import { SearchListItem } from '../../../utils/web/search';
 import { ExitToApp } from '@mui/icons-material';
 import { TotalConfig } from '../../../utils/web/config/totalConfig';
-import { historyStore } from '../../../store/history.store';
 import ChapterLink from '../../../components/common/chapterLink';
+import { useNavigate } from 'react-router-dom';
 
 export interface SearchItemProp {
   /**
@@ -18,6 +18,7 @@ export interface SearchItemProp {
 }
 
 export default function SearchItemView(props: SearchItemProp): JSX.Element {
+  const navigate = useNavigate();
   return (
     <Card sx={{ margin: 1, width: (theme) => `calc(50% - ${theme.spacing(2)})` }}>
       <CardHeader
@@ -28,11 +29,7 @@ export default function SearchItemView(props: SearchItemProp): JSX.Element {
           <Tooltip title={'前往小说页面'}>
             <IconButton
               onClick={() => {
-                historyStore.push({
-                  pathname: '/novel',
-                  search: `novelId=${props.searchItem.novelId}&url=${props.activeConfig.mainPageUrl}`,
-                  name: props.searchItem.novelName,
-                });
+                navigate(`/novel?novelId=${props.searchItem.novelId}&url=${props.activeConfig.mainPageUrl}`);
               }}
             >
               <ExitToApp />
@@ -45,7 +42,7 @@ export default function SearchItemView(props: SearchItemProp): JSX.Element {
           {props.searchItem.desc}
         </Typography>
         <Typography color={'textSecondary'}>
-          最后一章 :{' '}
+          最后一章 :
           <ChapterLink
             chapter={props.searchItem.latestChapter}
             novelId={props.searchItem.novelId}

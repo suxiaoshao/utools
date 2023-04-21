@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../../utils/edit/init';
 import { editor } from 'monaco-editor';
-import { model } from '../../../utils/edit/init';
+// import { model } from '../../../utils/edit/init';
 import { Box, BoxProps, useTheme } from '@mui/material';
+import { model } from '../../../utils/edit/init';
 
 /**
  * @author sushao
@@ -72,12 +73,17 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
   /**
    * props.readonly 改变时修改编辑器的只读属性
    * */
-  React.useEffect(() => {
-    edit?.onMouseLeave(() => {
-      onChangeCode?.(edit?.getValue());
+  useEffect(() => {
+    const id = edit?.getModel()?.onDidChangeContent(() => {
+      const content = edit?.getValue();
+      if (content) {
+        onChangeCode?.(content);
+      }
     });
-    // eslint-disable-next-line
-  }, [edit]);
+    return () => {
+      id?.dispose();
+    };
+  }, [edit, onChangeCode]);
   /**
    * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
    * */

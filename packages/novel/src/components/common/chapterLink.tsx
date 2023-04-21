@@ -1,7 +1,7 @@
 import React from 'react';
-import { historyStore } from '../../store/history.store';
 import { Link, LinkProps } from '@mui/material';
 import { Chapter } from '../../utils/web/novelInfo';
+import { useNavigate } from 'react-router-dom';
 
 export interface ChapterLinkProp extends LinkProps {
   chapter: Chapter;
@@ -10,17 +10,14 @@ export interface ChapterLinkProp extends LinkProps {
 }
 
 export default function ChapterLink({ chapter, novelId, url, ...props }: ChapterLinkProp): JSX.Element {
+  const navigate = useNavigate();
   return (
     <Link
       {...props}
       href={`#/chapter?novelId=${novelId}&url=${url}&chapterId=${chapter.chapterId}`}
       onClick={(event: React.MouseEvent) => {
         event.preventDefault();
-        historyStore.push({
-          pathname: '/chapter',
-          search: `?novelId=${novelId}&url=${url}&chapterId=${chapter.chapterId}`,
-          name: chapter.name,
-        });
+        navigate(`/chapter?novelId=${novelId}&url=${url}&chapterId=${chapter.chapterId}`);
       }}
     >
       {chapter.name}

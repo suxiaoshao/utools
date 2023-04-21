@@ -1,5 +1,5 @@
 import { getHtml } from './util';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import { ContentConfig } from './config/contentConfig';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';

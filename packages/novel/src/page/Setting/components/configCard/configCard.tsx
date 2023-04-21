@@ -3,11 +3,12 @@ import { Add, PermDataSetting } from '@mui/icons-material';
 import { brown } from '@mui/material/colors';
 import { useTotalConfigs } from '../../../../store/config.store';
 import ConfigChip from './configChip';
-import { historyStore } from '../../../../store/history.store';
 import { settingSx } from '../themeEdit/themeEdit';
+import { useNavigate } from 'react-router-dom';
 
 export default function ConfigCard(): JSX.Element {
   const [allConfigs] = useTotalConfigs();
+  const navigate = useNavigate();
   return (
     <Card sx={settingSx.card}>
       <CardHeader
@@ -21,7 +22,7 @@ export default function ConfigCard(): JSX.Element {
           <Tooltip title={'添加配置'}>
             <IconButton
               onClick={() => {
-                historyStore.push({ name: '添加新源', pathname: '/editConfig' });
+                navigate('/editConfig');
               }}
             >
               <Add />

@@ -1,13 +1,13 @@
 import 'monaco-editor/esm/vs/editor/editor.main';
-import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker&inline';
 import monankai from './monankai';
 import { editor, languages, Uri } from 'monaco-editor';
 import { JSONSchema4 } from 'json-schema';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 self.MonacoEnvironment = {
   getWorker() {
-    return new JsonWorker();
+    return new Worker('http://localhost:8082/jsonWorker.js');
   },
 };
 editor.defineTheme('monankai', monankai);
