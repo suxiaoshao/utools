@@ -1,13 +1,11 @@
 import React from 'react';
 import { Button, createStyles, CssBaseline, MuiThemeProvider, Theme } from '@material-ui/core';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import 'dayjs/locale/zh-cn';
 import dayjs from 'dayjs';
-import DateFnsUtils from '@date-io/dayjs';
 import { SnackbarProvider } from 'notistack';
 import { Notify } from './common/notify';
 import { makeStyles } from '@material-ui/core/styles';
-import { useThemeValue } from '../utils/hooks/useThemeValue';
+import { useThemeValue } from '../hooks/useThemeValue';
 
 dayjs.locale('zh-cn');
 
@@ -71,25 +69,23 @@ export function MyThemeProvider(props: MyThemeProp): JSX.Element {
     <MuiThemeProvider theme={themeObject}>
       <CssBaseline />
       {/* 时间组件 */}
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        {/* 消息条组件 */}
-        <SnackbarProvider
-          ref={nonstickRef}
-          maxSnack={5}
-          action={(key) => (
-            <Button
-              onClick={() => {
-                nonstickRef.current?.closeSnackbar(key);
-              }}
-            >
-              关闭
-            </Button>
-          )}
-        >
-          <Notify />
-          {props.children}
-        </SnackbarProvider>
-      </MuiPickersUtilsProvider>
+      {/* 消息条组件 */}
+      <SnackbarProvider
+        ref={nonstickRef}
+        maxSnack={5}
+        action={(key) => (
+          <Button
+            onClick={() => {
+              nonstickRef.current?.closeSnackbar(key);
+            }}
+          >
+            关闭
+          </Button>
+        )}
+      >
+        <Notify />
+        {props.children}
+      </SnackbarProvider>
     </MuiThemeProvider>
   );
 }

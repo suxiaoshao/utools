@@ -5,10 +5,10 @@ import App from './App';
 import 'fontsource-roboto';
 import init from '../data/pkg';
 import { writeToFile } from './utils/data/util';
-import { configStore } from './utils/store/config.store';
+import { configStore } from './store/config.store';
 import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
-import { settingStore } from './utils/store/setting.store';
-import { historyStore } from './utils/store/history.store';
+import { settingStore } from './store/setting.store';
+import { historyStore } from './store/history.store';
 
 /**
  * 插件进入时

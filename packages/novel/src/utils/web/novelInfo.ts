@@ -89,7 +89,7 @@ export class NovelInfo {
   /**
    * 获取章节信息
    * */
-  private getDirectory($directory: cheerio.Root): Chapter[] {
+  private getDirectory($directory: cheerio.CheerioAPI): Chapter[] {
     return Array.from($directory(this.directory.chapterId))
       .map((element) => {
         const $element = $directory(element);
@@ -103,7 +103,7 @@ export class NovelInfo {
   /**
    * 获取小说基本信息
    * */
-  private getInfo($info: cheerio.Root): NovelData {
+  private getInfo($info: cheerio.CheerioAPI): NovelData {
     const novelName = $info(this.info.name).text();
     const authorName = $info(this.info.author).text().split('：').reverse()[0];
     const lastUpdateTime = $info(this.info.lastUpdateTime).text().split('：').reverse()[0];

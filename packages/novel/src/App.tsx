@@ -1,15 +1,15 @@
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { MyThemeProvider } from './components/myTheme';
-import SearchPage from './views/searchPage';
-import ReadFile from './views/readFile';
-import Bookshelf from './views/bookshelf';
-import TestPage from './views/testPage';
-import NovelPage from './views/novelPage';
-import ChapterPage from './views/chapterPage';
-import SettingPage from './views/settingPage';
-import Sponsorship from './views/sponsorship';
-import EditConfig from './views/editConfig';
+import SearchPage from './page/Search';
+import ReadFile from './page/readFile';
+import Bookshelf from './page/bookshelf';
+import TestPage from './page/testPage';
+import NovelPage from './page/novelPage';
+import ChapterPage from './page/chapterPage';
+import SettingPage from './page/Setting';
+import Sponsorship from './page/sponsorship';
+import EditConfig from './page/editConfig';
 import MyTabs from './components/myTabs';
 
 function App(): JSX.Element {

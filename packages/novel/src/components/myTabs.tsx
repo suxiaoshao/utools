@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Paper, Tab, Tabs } from '@material-ui/core';
-import { historyStore, useActiveLocation } from '../utils/store/history.store';
+import { historyStore, useActiveLocation } from '../store/history.store';
 import { getClassName } from '../utils/getClassName';
 import { Outlet } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumbs, Link, makeStyles } from '@material-ui/core';
-import { historyStore, useAllLocation } from '../utils/store/history.store';
+import { historyStore, useAllLocation } from '../store/history.store';
 import { createStyles } from '@material-ui/core/styles';
 import { getClassName } from '../utils/getClassName';
 

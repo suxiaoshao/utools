@@ -1,5 +1,5 @@
 import React from 'react';
-import { historyStore } from '../../utils/store/history.store';
+import { historyStore } from '../../store/history.store';
 import { Link } from '@material-ui/core';
 import { Chapter } from '../../utils/web/novelInfo';
 
