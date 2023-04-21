@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -12,34 +13,26 @@ import {
   TableHead,
   TableRow,
   Tooltip,
-} from '@material-ui/core';
+} from '@mui/material';
 import ChapterLink from '../components/common/chapterLink';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Delete } from '@material-ui/icons';
+import { Delete } from '@mui/icons-material';
 import { useReadRecords } from '../hooks/data/useReadRecords';
 import { TotalDataBuild } from '../utils/data/totalData';
 import { historyStore } from '../store/history.store';
 
-const useClasses = makeStyles((theme) =>
-  createStyles({
-    table: {
-      margin: theme.spacing(1),
-      width: `calc(100% - ${theme.spacing(2)}px)`,
-      overflow: 'auto',
-      height: `calc(100% - ${theme.spacing(2)}px)`,
-    },
-    listItem: {
-      maxWidth: theme.spacing(30),
-    },
-  }),
-);
-
 export default function Bookshelf(): JSX.Element {
   const { readRecords, updateReadRecords } = useReadRecords();
-  const classes = useClasses();
   return (
-    <div>
-      <TableContainer className={classes.table} component={Paper}>
+    <Box sx={{ height: '100%', width: '100%' }}>
+      <TableContainer
+        sx={{
+          margin: 1,
+          width: (theme) => `calc(100% - ${theme.spacing(2)})`,
+          overflow: 'auto',
+          height: (theme) => `calc(100% - ${theme.spacing(2)})`,
+        }}
+        component={Paper}
+      >
         <Table>
           <TableHead>
             <TableRow>
@@ -52,7 +45,7 @@ export default function Bookshelf(): JSX.Element {
           <TableBody>
             {readRecords.map((value) => (
               <TableRow key={value.novelId + value.mainPageUrl}>
-                <TableCell padding={'none'} className={classes.listItem}>
+                <TableCell padding={'none'} sx={{ maxWidth: 30 }}>
                   <ListItem
                     button
                     onClick={() => {
@@ -95,6 +88,6 @@ export default function Bookshelf(): JSX.Element {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Box>
   );
 }

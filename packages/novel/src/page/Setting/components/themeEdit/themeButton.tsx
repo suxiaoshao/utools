@@ -1,9 +1,7 @@
 import React from 'react';
 import { ThemeValue } from '../../../../store/setting.store';
-import { ButtonBase, ButtonProps, MuiThemeProvider } from '@material-ui/core';
+import { ButtonBase, ButtonProps, ThemeProvider } from '@mui/material';
 import { getThemeByThemeValue } from '../../../../hooks/useThemeValue';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { getClassName } from '../../../../utils/getClassName';
 
 export interface ThemeEnvProp {
   theme: ThemeValue;
@@ -12,35 +10,33 @@ export interface ThemeEnvProp {
 
 export function ThemeEnv(props: ThemeEnvProp): JSX.Element {
   const [theme] = getThemeByThemeValue(props.theme);
-  return <MuiThemeProvider theme={theme}>{props.children}</MuiThemeProvider>;
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }
 
-const useClasses = makeStyles((theme) => {
-  return createStyles({
-    buttonBase: {
-      margin: theme.spacing(1),
-      borderRadius: theme.shape.borderRadius,
-      width: theme.spacing(12),
-      height: theme.spacing(8),
-      boxShadow: theme.shadows[2],
-      ...theme.typography.button,
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.getContrastText(theme.palette.background.paper),
-    },
-    disable: {
-      boxShadow: theme.shadows[0],
-      cursor: 'not-allowed !important',
-      pointerEvents: 'none',
-      color: theme.palette.text.disabled,
-    },
-  });
-});
-
-export default function ThemeButton(props: ButtonProps): JSX.Element {
-  const classes = useClasses();
+export default function ThemeButton({ children, disabled, ...props }: ButtonProps): JSX.Element {
   return (
-    <ButtonBase classes={{ disabled: classes.disable }} className={getClassName(classes.buttonBase)} {...props}>
-      {props.children}
+    <ButtonBase
+      sx={(theme) => ({
+        margin: 1,
+        borderRadius: theme.shape.borderRadius,
+        width: (theme) => theme.spacing(12),
+        height: (theme) => theme.spacing(8),
+        boxShadow: theme.shadows[2],
+        ...theme.typography.button,
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.getContrastText(theme.palette.background.paper),
+        ...(disabled
+          ? {
+              boxShadow: theme.shadows[0],
+              cursor: 'not-allowed !important',
+              pointerEvents: 'none',
+              color: theme.palette.text.disabled,
+            }
+          : undefined),
+      })}
+      {...props}
+    >
+      {children}
     </ButtonBase>
   );
 }

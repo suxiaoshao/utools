@@ -1,6 +1,6 @@
 import { Store } from './store';
 import { TotalDataBuild } from '../utils/data/totalData';
-import { TypeBackground } from '@material-ui/core/styles/createPalette';
+import { TypeBackground } from '@mui/material/styles/createPalette';
 
 export interface ThemeValue {
   name: string;

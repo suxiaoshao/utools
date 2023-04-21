@@ -1,30 +1,10 @@
 import React from 'react';
 import alipay from '../assets/alipay.jpg';
 import wepay from '../assets/wepay.jpg';
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+import { ToggleButton, ToggleButtonGroup } from '@mui/lab';
 import Alipay from '../components/common/icon/alipay';
 import WePay from '../components/common/icon/wepay';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-
-const useStyle = makeStyles(() =>
-  createStyles({
-    main: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      position: 'relative',
-      height: '100%',
-    },
-    img: {
-      maxHeight: '80%',
-      maxWidth: '50%',
-    },
-    page: {
-      overflow: 'hidden',
-    },
-  }),
-);
+import { Box } from '@mui/material';
 /**
  * @author sushao
  * @version 0.2.2
@@ -36,11 +16,19 @@ export default function Sponsorship(): JSX.Element {
    * 显示的二维码图片
    * */
   const [imgSrc, setImgSrc] = React.useState<string>(alipay);
-  const style = useStyle();
   return (
-    <div className={style.page}>
-      <div className={style.main}>
-        <img src={imgSrc} className={style.img} alt={'二维码'} />
+    <Box sx={{ overflow: 'hidden', height: '100%', width: '100%' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          position: 'relative',
+          height: '100%',
+        }}
+      >
+        <Box component="img" sx={{ maxHeight: '80%', maxWidth: '50%' }} src={imgSrc} alt={'二维码'} />
         {/* 切换二维码按钮 */}
         <ToggleButtonGroup
           exclusive
@@ -58,7 +46,7 @@ export default function Sponsorship(): JSX.Element {
             <WePay />
           </ToggleButton>
         </ToggleButtonGroup>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

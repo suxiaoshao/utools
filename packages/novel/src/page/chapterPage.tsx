@@ -1,7 +1,6 @@
 import React from 'react';
 import { historyStore } from '../store/history.store';
-import { Button, makeStyles, Theme, Typography } from '@material-ui/core';
-import { createStyles } from '@material-ui/core/styles';
+import { Box, Button, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
 import MyBreadcrumbs from '../components/myBreadcrumbs';
 import { FontSize, useFontSize } from '../store/setting.store';
@@ -12,43 +11,12 @@ export interface FontStyleProp {
   fontSize: FontSize;
 }
 
-const useClasses = makeStyles<Theme, FontStyleProp>((theme) =>
-  createStyles({
-    main: {
-      padding: theme.spacing(1),
-      overflow: 'auto',
-    },
-    p: {
-      textIndent: '2em',
-      fontSize: (props) => {
-        return theme.spacing(1.5 + props.fontSize / 10);
-      },
-    },
-    center: {
-      textAlign: 'center',
-    },
-    actionFather: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    action: {
-      minWidth: '50%',
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    page: {
-      backgroundColor: theme.palette.background.paper,
-    },
-  }),
-);
-
 export default function ChapterPage(): JSX.Element {
   /**
    * 路由数据
    * */
   const { activeConfig, novelId, chapterId } = useChapterRouter();
   const [fontSize] = useFontSize();
-  const classes = useClasses({ fontSize });
   /**
    * 章节数据
    * */
@@ -102,15 +70,15 @@ export default function ChapterPage(): JSX.Element {
     return () => {
       document.removeEventListener('keydown', hand);
     };
-  }, [classes.main, novelId, pushNovel, pushToChapter, state.value]);
+  }, [novelId, pushNovel, pushToChapter, state.value]);
   /**
    * 上下章翻页
    * */
   const action = React.useMemo(() => {
     return (
       state.value && (
-        <div className={classes.actionFather}>
-          <div className={classes.action}>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ minWidth: '50%', display: 'flex', justifyContent: 'space-between' }}>
             {state.value.preChapterId && (
               <Button
                 onClick={() => {
@@ -134,22 +102,38 @@ export default function ChapterPage(): JSX.Element {
                 下一章
               </Button>
             )}
-          </div>
-        </div>
+          </Box>
+        </Box>
       )
     );
-  }, [classes.action, classes.actionFather, pushNovel, pushToChapter, state.value]);
+  }, [pushNovel, pushToChapter, state.value]);
   return (
-    <MyBreadcrumbs classname={classes.main} pageClassName={classes.page}>
+    <MyBreadcrumbs
+      sx={{ padding: 1, overflow: 'auto' }}
+      {
+        ...{
+          // pageClassName={classes.page}
+        }
+      }
+    >
       <Loading state={{ ...state, retry: fn }}>
         {state.value && (
           <>
-            <Typography variant={'h5'} className={classes.center}>
+            <Typography variant={'h5'} sx={{ textAlign: 'center' }}>
               {state.value.chapterName}
             </Typography>
             {action}
             {state.value.contentList.map((value) => (
-              <Typography className={classes.p} paragraph variant={'body1'} component={'p'} key={value}>
+              <Typography
+                sx={{
+                  textIndent: '2em',
+                  fontSize: 1.5 + fontSize / 10,
+                }}
+                paragraph
+                variant={'body1'}
+                component={'p'}
+                key={value}
+              >
                 {value}
               </Typography>
             ))}

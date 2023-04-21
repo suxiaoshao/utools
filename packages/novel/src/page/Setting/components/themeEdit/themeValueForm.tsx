@@ -1,37 +1,35 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { ThemeValue } from '../../../../store/setting.store';
 import ThemeButton, { ThemeEnv } from './themeButton';
 import { useThemeList } from '../../../../hooks/data/useThemeList';
+import { Box } from '@mui/material';
 
-const useClasses = makeStyles((theme) =>
-  createStyles({
-    main: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-    light: {
-      backgroundColor: '#fff',
-      color: 'rgba(0, 0, 0, 0.87)',
-    },
-    dark: {
-      backgroundColor: '#424242',
-      color: '#fff',
-    },
-    yellow: {
-      backgroundColor: '#fafafa',
-      color: 'rgba(0, 0, 0, 0.87)',
-    },
-    green: {
-      backgroundColor: '#424242',
-      color: '#fff',
-    },
-  }),
-);
+const classes = {
+  main: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  button: {
+    margin: 1,
+  },
+  light: {
+    backgroundColor: '#fff',
+    color: 'rgba(0, 0, 0, 0.87)',
+  },
+  dark: {
+    backgroundColor: '#424242',
+    color: '#fff',
+  },
+  yellow: {
+    backgroundColor: '#fafafa',
+    color: 'rgba(0, 0, 0, 0.87)',
+  },
+  green: {
+    backgroundColor: '#424242',
+    color: '#fff',
+  },
+};
 
 export interface ThemeFormProp {
   /**
@@ -49,10 +47,9 @@ export interface ThemeFormProp {
  * 编辑 settingValue
  * */
 export default function ThemeValueForm(props: ThemeFormProp): JSX.Element {
-  const classes = useClasses();
   const themeList = useThemeList();
   return (
-    <div className={classes.main}>
+    <Box sx={classes.main}>
       {themeList.map((value) => (
         <ThemeEnv theme={value} key={value.name}>
           <ThemeButton
@@ -65,6 +62,6 @@ export default function ThemeValueForm(props: ThemeFormProp): JSX.Element {
           </ThemeButton>
         </ThemeEnv>
       ))}
-    </div>
+    </Box>
   );
 }

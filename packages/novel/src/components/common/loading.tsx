@@ -1,9 +1,7 @@
 import React from 'react';
-import { CircularProgress, createStyles, IconButton, Tooltip, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
 import ErrorImage from '../../assets/monkey.png';
-import { getClassName } from '../../utils/getClassName';
-import { Refresh } from '@material-ui/icons';
+import { Refresh } from '@mui/icons-material';
 
 type LoadingState<T> =
   | {
@@ -42,43 +40,27 @@ export interface LoadingProp<T> {
   children: React.ReactNode;
 }
 
-const useStyle = makeStyles((theme) =>
-  createStyles({
-    main: {
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    all: {
-      flex: '1 1 0',
-    },
-    error: {
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    image: {
-      width: theme.spacing(30),
-      marginBottom: theme.spacing(5),
-    },
-  }),
-);
-
 /**
  * loading 数据
  * */
 export function Loading<T>(props: LoadingProp<T>): JSX.Element {
-  const classes = useStyle();
   return (
     <>
       {props.state.loading ? (
-        <div className={classes.main}>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <CircularProgress size={80} />
-        </div>
+        </Box>
       ) : props.state.error ? (
-        <div className={getClassName(classes.main, classes.error)}>
-          <img alt={'错误'} className={classes.image} src={ErrorImage} />
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box sx={{ width: 30, marginBottom: 5 }} component="img" alt={'错误'} src={ErrorImage} />
           <Typography variant={'h6'} color={'secondary'}>
             {props.state.error.message}
             <Tooltip title={'刷新'}>
@@ -87,7 +69,7 @@ export function Loading<T>(props: LoadingProp<T>): JSX.Element {
               </IconButton>
             </Tooltip>
           </Typography>
-        </div>
+        </Box>
       ) : (
         props.children
       )}

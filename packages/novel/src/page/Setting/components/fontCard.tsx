@@ -8,45 +8,27 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
-  Theme,
   Typography,
-} from '@material-ui/core';
-import { ChromeReaderMode } from '@material-ui/icons';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
+} from '@mui/material';
+import { ChromeReaderMode } from '@mui/icons-material';
+import { deepPurple } from '@mui/material/colors';
 import { FontSize, useFontSize } from '../../../store/setting.store';
 import FontSizeTypo from './fontSizeTypo';
 
-const useClasses = makeStyles((theme: Theme) =>
-  createStyles({
-    green: {
-      color: '#fff',
-      backgroundColor: deepPurple[600],
-    },
-    card: {
-      margin: theme.spacing(2),
-    },
-    form: {
-      width: '100%',
-    },
-  }),
-);
-
 export default function FontCard(): JSX.Element {
-  const classes = useClasses();
   const [fontSize, setFortSize] = useFontSize();
   return (
-    <Card className={classes.card}>
+    <Card sx={{ margin: 2 }}>
       <CardHeader
         avatar={
-          <Avatar className={classes.green}>
+          <Avatar sx={{ color: '#fff', backgroundColor: deepPurple[600] }}>
             <ChromeReaderMode />
           </Avatar>
         }
         title={'阅读设置'}
       />
       <CardContent>
-        <FormControl component="fieldset" className={classes.form}>
+        <FormControl component="fieldset" sx={{ width: '100%' }}>
           <Typography gutterBottom>阅读页面字体大小</Typography>
           <RadioGroup
             value={fontSize}

@@ -9,35 +9,42 @@ import { configStore } from './store/config.store';
 import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
 import { settingStore } from './store/setting.store';
 import { historyStore } from './store/history.store';
-
-/**
- * 插件进入时
- * */
-utools.onPluginEnter((params) => {
-  if (params.code === 'bookshelf') {
-    historyStore.replace({ name: '书架', pathname: '/bookshelf' });
+async function main() {
+  if (window.utools) {
+    utools.onPluginEnter((params) => {
+      if (params.code === 'bookshelf') {
+        historyStore.replace({ name: '书架', pathname: '/bookshelf' });
+      }
+    });
+    /**
+     * 插件退出时
+     * */
+    utools.onPluginOut(() => {
+      const totalData = TotalDataBuild.getTotalData();
+      writeToFile(totalData.toData());
+    });
+    await init();
+    const totalData = TotalDataBuild.getTotalData();
+    writeToFile(totalData.toData());
+    totalData.addOnchangeFunc((data: TotalDataProp) => {
+      configStore.setData(data.totalConfig);
+      settingStore.setData(data.setting);
+    });
+    // 初始化配置
+    configStore.setData(totalData.getAllConfig());
+    settingStore.setData(totalData.getSetting());
+    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+    );
+  } else {
+    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+    );
   }
-});
-/**
- * 插件退出时
- * */
-utools.onPluginOut(() => {
-  const totalData = TotalDataBuild.getTotalData();
-  writeToFile(totalData.toData());
-});
-init().then(() => {
-  const totalData = TotalDataBuild.getTotalData();
-  writeToFile(totalData.toData());
-  totalData.addOnchangeFunc((data: TotalDataProp) => {
-    configStore.setData(data.totalConfig);
-    settingStore.setData(data.setting);
-  });
-  // 初始化配置
-  configStore.setData(totalData.getAllConfig());
-  settingStore.setData(totalData.getSetting());
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-  );
-});
+}
+
+main();

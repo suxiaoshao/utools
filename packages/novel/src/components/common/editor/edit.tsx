@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../utils/edit/init';
 import { editor } from 'monaco-editor';
 import { model } from '../../../utils/edit/init';
-import { useTheme } from '@material-ui/core';
+import { Box, BoxProps, useTheme } from '@mui/material';
 
 /**
  * @author sushao
@@ -10,11 +10,7 @@ import { useTheme } from '@material-ui/core';
  * @since 0.2.2
  * @description 可写情况下的 editProp
  * */
-export interface NotReadOnlyEditProp {
-  /**
-   * 编辑器组建的类名
-   * */
-  className?: string;
+export interface NotReadOnlyEditProp extends BoxProps {
   /**
    * 要显示的代码字符串
    * */
@@ -32,7 +28,7 @@ export interface NotReadOnlyEditProp {
  * @since 0.2.2
  * @description 编辑器组件
  * */
-export default function Edit(props: NotReadOnlyEditProp): JSX.Element {
+export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEditProp): JSX.Element {
   /**
    * 编辑器绑定的 dom 的引用
    * */
@@ -49,7 +45,7 @@ export default function Edit(props: NotReadOnlyEditProp): JSX.Element {
     if (editRef.current !== null) {
       setEdit(
         editor.create(editRef?.current, {
-          theme: theme.palette.type === 'dark' ? 'vs-dark' : undefined,
+          theme: theme.palette.mode === 'dark' ? 'vs-dark' : undefined,
           automaticLayout: true,
           fontSize: 16,
           minimap: {
@@ -78,7 +74,7 @@ export default function Edit(props: NotReadOnlyEditProp): JSX.Element {
    * */
   React.useEffect(() => {
     edit?.onMouseLeave(() => {
-      props.onChangeCode?.(edit?.getValue());
+      onChangeCode?.(edit?.getValue());
     });
     // eslint-disable-next-line
   }, [edit]);
@@ -86,9 +82,9 @@ export default function Edit(props: NotReadOnlyEditProp): JSX.Element {
    * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
    * */
   React.useEffect(() => {
-    if (props.code !== edit?.getValue()) {
-      edit?.setValue(props.code);
+    if (code !== edit?.getValue()) {
+      edit?.setValue(code);
     }
-  }, [edit, props.code]);
-  return <div className={props.className} ref={editRef} />;
+  }, [edit, code]);
+  return <Box {...props} sx={sx} ref={editRef} />;
 }

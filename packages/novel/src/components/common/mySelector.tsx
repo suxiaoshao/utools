@@ -1,6 +1,5 @@
-import { Button, ButtonProps, createStyles, Menu, MenuItem } from '@material-ui/core';
+import { Button, ButtonProps, Menu, MenuItem } from '@mui/material';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 /**
  * @author sushao
@@ -18,14 +17,6 @@ export interface ItemListProp<T> {
    * */
   text: React.ReactNode;
 }
-
-const useStyle = makeStyles(() =>
-  createStyles({
-    button: {
-      textTransform: 'none',
-    },
-  }),
-);
 
 /**
  * @author sushao
@@ -50,10 +41,9 @@ export interface MySelectorProp<T extends number | string | undefined | null> {
 }
 
 function MySelector<T extends number | string | undefined | null>(
-  props: MySelectorProp<T> & ButtonProps,
+  { value, itemList, onValueChange, sx, ...props }: MySelectorProp<T> & ButtonProps,
   ref?: ((instance: HTMLButtonElement | null) => void) | React.RefObject<HTMLButtonElement> | null | undefined,
 ): JSX.Element {
-  const style = useStyle();
   /**
    * 点击时间的触发组件,如果取消的话为 null
    * */
@@ -63,13 +53,13 @@ function MySelector<T extends number | string | undefined | null>(
       {/* 触发菜单的按钮*/}
       <Button
         {...props}
-        className={`${style.button} ${props.className}`}
+        sx={{ textTransform: 'none', ...sx }}
         onClick={(e) => {
           setMenuEl(e.currentTarget);
         }}
         ref={typeof ref === 'function' ? ref : undefined}
       >
-        {props.itemList.find((value) => value.value === props.value)?.text ?? '不是合法的值'}
+        {itemList.find((item) => item.value === value)?.text ?? '不是合法的值'}
       </Button>
       {/* 菜单,menuEl 不为 bull 时显示 */}
       <Menu
@@ -79,15 +69,15 @@ function MySelector<T extends number | string | undefined | null>(
           setMenuEl(null);
         }}
       >
-        {props.itemList.map((item) => (
+        {itemList.map((item) => (
           /**
            * 点击触发修改方法并关闭菜单
            * */
           <MenuItem
-            selected={item.value == props.value}
+            selected={item.value == value}
             key={item.value}
             onClick={() => {
-              props.onValueChange(item.value);
+              onValueChange(item.value);
               setMenuEl(null);
             }}
           >

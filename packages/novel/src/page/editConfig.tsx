@@ -2,12 +2,11 @@ import MyBreadcrumbs from '../components/myBreadcrumbs';
 import React from 'react';
 import '../utils/edit/init';
 import Edit from '../components/common/editor/edit';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@material-ui/lab';
-import { Close, ExitToApp, Save } from '@material-ui/icons';
+import { Close, ExitToApp, Save } from '@mui/icons-material';
 import { historyStore } from '../store/history.store';
 import { configStore } from '../store/config.store';
 import { notifySubject } from '../components/common/notify';
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 
 const defaultCode = `{
     "mainPageUrl": "",
@@ -63,33 +62,16 @@ const defaultCode = `{
         "chapter": ""
     }
 }`;
-const useClasses = makeStyles((theme) =>
-  createStyles({
-    edit: {
-      flex: '1 1 0',
-    },
-    page: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    action: {
-      position: 'absolute',
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-  }),
-);
 
 /**
  * 编辑源配置
  * */
 export default function EditConfig(): JSX.Element {
-  const classes = useClasses();
   const [code, setCode] = React.useState(defaultCode);
   const [open, setOpen] = React.useState(false);
   return (
-    <MyBreadcrumbs classname={classes.page}>
-      <Edit onChangeCode={setCode} className={classes.edit} code={code} />
+    <MyBreadcrumbs sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Edit sx={{ flex: '1 1 0' }} onChangeCode={setCode} code={code} />
       <SpeedDial
         onOpen={() => {
           setOpen(true);
@@ -98,7 +80,7 @@ export default function EditConfig(): JSX.Element {
           setOpen(false);
         }}
         icon={<SpeedDialIcon />}
-        className={classes.action}
+        sx={{ position: 'absolute', bottom: 2, right: 2 }}
         ariaLabel={'打开'}
         open={open}
       >

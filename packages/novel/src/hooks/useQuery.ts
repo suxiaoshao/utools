@@ -6,6 +6,7 @@ import React from 'react';
  * */
 export function useQuery(key: string): string | null {
   const pageLocation = useLocation();
+
   const value = React.useMemo(() => {
     return new URLSearchParams(pageLocation.search).get(key);
   }, [key, pageLocation.search]);

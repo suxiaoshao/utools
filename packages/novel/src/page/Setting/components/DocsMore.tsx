@@ -9,30 +9,17 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Tooltip,
-} from '@material-ui/core';
-import { Comment, Description, GitHub, NearMe, Person } from '@material-ui/icons';
-import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { blueGrey } from '@material-ui/core/colors';
-import { useSettingClasses } from './themeEdit/themeEdit';
-
-const useClasses = makeStyles(() =>
-  createStyles({
-    green: {
-      color: '#fff',
-      backgroundColor: blueGrey[600],
-    },
-  }),
-);
+} from '@mui/material';
+import { Comment, Description, GitHub, NearMe, Person } from '@mui/icons-material';
+import { blueGrey } from '@mui/material/colors';
+import { settingSx } from './themeEdit/themeEdit';
 
 export default function DocsMore(): JSX.Element {
-  const setClasses = useSettingClasses();
-  const classes = useClasses();
   return (
-    <Card className={setClasses.card}>
+    <Card sx={settingSx.card}>
       <CardHeader
         avatar={
-          <Avatar className={classes.green}>
+          <Avatar sx={{ color: '#fff', backgroundColor: blueGrey[600] }}>
             <Description />
           </Avatar>
         }

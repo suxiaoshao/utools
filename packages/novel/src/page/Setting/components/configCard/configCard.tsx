@@ -1,34 +1,18 @@
-import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip } from '@material-ui/core';
-import { Add, PermDataSetting } from '@material-ui/icons';
-import React from 'react';
-import { useSettingClasses } from '../themeEdit/themeEdit';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { brown } from '@material-ui/core/colors';
+import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip } from '@mui/material';
+import { Add, PermDataSetting } from '@mui/icons-material';
+import { brown } from '@mui/material/colors';
 import { useTotalConfigs } from '../../../../store/config.store';
 import ConfigChip from './configChip';
 import { historyStore } from '../../../../store/history.store';
-
-const useClasses = makeStyles((theme) =>
-  createStyles({
-    green: {
-      color: '#fff',
-      backgroundColor: brown[600],
-    },
-    tag: {
-      margin: theme.spacing(1),
-    },
-  }),
-);
+import { settingSx } from '../themeEdit/themeEdit';
 
 export default function ConfigCard(): JSX.Element {
-  const setClasses = useSettingClasses();
-  const classes = useClasses();
   const [allConfigs] = useTotalConfigs();
   return (
-    <Card className={setClasses.card}>
+    <Card sx={settingSx.card}>
       <CardHeader
         avatar={
-          <Avatar className={classes.green}>
+          <Avatar sx={{ color: '#fff', backgroundColor: brown[600] }}>
             <PermDataSetting />
           </Avatar>
         }
@@ -47,7 +31,7 @@ export default function ConfigCard(): JSX.Element {
       />
       <CardContent>
         {allConfigs.map((value) => (
-          <ConfigChip className={classes.tag} config={value} key={value.mainPageUrl} />
+          <ConfigChip sx={{ margin: 1 }} config={value} key={value.mainPageUrl} />
         ))}
       </CardContent>
     </Card>

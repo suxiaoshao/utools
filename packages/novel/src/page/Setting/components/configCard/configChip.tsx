@@ -1,16 +1,15 @@
 import React from 'react';
 import { TotalConfig } from '../../../../utils/web/config/totalConfig';
-import { Chip, Menu, MenuItem } from '@material-ui/core';
+import { Chip, ChipProps, Menu, MenuItem } from '@mui/material';
 import { getClassName } from '../../../../utils/getClassName';
 import { configStore } from '../../../../store/config.store';
 import { notifySubject } from '../../../../components/common/notify';
 
-export interface ConfigChipProp {
-  className?: string;
+export interface ConfigChipProp extends ChipProps {
   config: TotalConfig;
 }
 
-export default function ConfigChip(props: ConfigChipProp): JSX.Element {
+export default function ConfigChip({ config, sx, ...props }: ConfigChipProp): JSX.Element {
   /**
    * menu 的位置信息,不显示时为 null
    * */
@@ -19,7 +18,7 @@ export default function ConfigChip(props: ConfigChipProp): JSX.Element {
     mouseY: number;
   } | null>(null);
   const deleteConfig = React.useCallback(() => {
-    if (!configStore.deleteByMainPageUrl(props.config.mainPageUrl)) {
+    if (!configStore.deleteByMainPageUrl(config.mainPageUrl)) {
       notifySubject.next({
         message: '默认源不可删除',
         options: {
@@ -27,10 +26,12 @@ export default function ConfigChip(props: ConfigChipProp): JSX.Element {
         },
       });
     }
-  }, [props.config.mainPageUrl]);
+  }, [config.mainPageUrl]);
   return (
     <>
       <Chip
+        {...props}
+        sx={sx}
         className={getClassName(props.className)}
         onClick={(event) => {
           /**
@@ -44,7 +45,7 @@ export default function ConfigChip(props: ConfigChipProp): JSX.Element {
         }}
         onDelete={deleteConfig}
         color={'primary'}
-        label={props.config.name}
+        label={config.name}
       />
       <Menu
         anchorReference="anchorPosition"
@@ -56,7 +57,7 @@ export default function ConfigChip(props: ConfigChipProp): JSX.Element {
       >
         <MenuItem
           onClick={() => {
-            utools.shellOpenExternal(props.config.mainPageUrl);
+            utools.shellOpenExternal(config.mainPageUrl);
             setMenuPosition(null);
           }}
         >

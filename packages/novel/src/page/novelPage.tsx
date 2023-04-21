@@ -2,40 +2,17 @@ import React from 'react';
 import { useQuery } from '../hooks/useQuery';
 import { useAsyncFnWithNotify } from '../hooks/async/useAsyncFnWithNotify';
 import { NovelInfo } from '../utils/web/novelInfo';
-import { Avatar, Card, CardContent, CardHeader, IconButton, makeStyles, Tooltip, Typography } from '@material-ui/core';
+import { Avatar, Box, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
 import { historyStore } from '../store/history.store';
 import MyBreadcrumbs from '../components/myBreadcrumbs';
-import { createStyles } from '@material-ui/core/styles';
 import { useActiveConfig } from '../hooks/data/useActiveConfig';
 import ChapterLink from '../components/common/chapterLink';
-import { Star, StarBorder } from '@material-ui/icons';
+import { Star, StarBorder } from '@mui/icons-material';
 import { ReadRecord, TotalDataBuild } from '../utils/data/totalData';
 import { useIsStar } from '../hooks/data/useIsStar';
 
-const useClasses = makeStyles((theme) =>
-  createStyles({
-    main: {
-      margin: theme.spacing(1),
-      marginTop: 0,
-      height: `calc(100% - ${theme.spacing(1)}px)`,
-      overflow: 'auto',
-    },
-    directories: {
-      width: '100%',
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    chapter: {
-      width: '33%',
-      fontSize: 15,
-      marginTop: theme.spacing(0.5),
-    },
-  }),
-);
-
 export default function NovelPage(): JSX.Element {
-  const classes = useClasses();
   /**
    * 小说 id
    * */
@@ -72,7 +49,14 @@ export default function NovelPage(): JSX.Element {
     <MyBreadcrumbs>
       <Loading state={{ ...state, retry: fn }}>
         {state.value && novelId && activeConfig && (
-          <Card className={classes.main}>
+          <Card
+            sx={{
+              margin: 1,
+              marginTop: 0,
+              height: (theme) => `calc(100% - ${theme.spacing(1)})`,
+              overflow: 'auto',
+            }}
+          >
             <CardHeader
               avatar={<Avatar src={state.value.image} />}
               title={state.value.name}
@@ -115,17 +99,17 @@ export default function NovelPage(): JSX.Element {
               <Typography gutterBottom color={'textSecondary'}>
                 最后更新时间 : {state.value.lastUpdateTime}
               </Typography>
-              <div className={classes.directories}>
+              <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
                 {state.value.directories.map((value) => (
                   <ChapterLink
-                    className={classes.chapter}
+                    sx={{ width: '33%', fontSize: '15px', marginTop: 0.5 }}
                     chapter={value}
                     url={activeConfig.mainPageUrl}
                     key={value.chapterId}
                     novelId={novelId}
                   />
                 ))}
-              </div>
+              </Box>
             </CardContent>
           </Card>
         )}

@@ -1,20 +1,10 @@
 import React from 'react';
-import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
 import { SearchListItem } from '../../../utils/web/search';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { ExitToApp } from '@material-ui/icons';
+import { ExitToApp } from '@mui/icons-material';
 import { TotalConfig } from '../../../utils/web/config/totalConfig';
 import { historyStore } from '../../../store/history.store';
 import ChapterLink from '../../../components/common/chapterLink';
-
-const useClasses = makeStyles((theme) =>
-  createStyles({
-    card: {
-      margin: theme.spacing(1),
-      width: `calc(50% - ${theme.spacing(2)}px)`,
-    },
-  }),
-);
 
 export interface SearchItemProp {
   /**
@@ -28,9 +18,8 @@ export interface SearchItemProp {
 }
 
 export default function SearchItemView(props: SearchItemProp): JSX.Element {
-  const classes = useClasses();
   return (
-    <Card className={classes.card}>
+    <Card sx={{ margin: 1, width: (theme) => `calc(50% - ${theme.spacing(2)})` }}>
       <CardHeader
         avatar={<Avatar src={props.searchItem.image} />}
         title={props.searchItem.novelName}

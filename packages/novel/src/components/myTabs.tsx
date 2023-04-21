@@ -1,56 +1,19 @@
 import React from 'react';
-import { createStyles, makeStyles, Paper, Tab, Tabs } from '@material-ui/core';
-import { historyStore, useActiveLocation } from '../store/history.store';
-import { getClassName } from '../utils/getClassName';
-import { Outlet } from 'react-router-dom';
-
-const useStyle = makeStyles(() =>
-  createStyles({
-    page: {
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    tabs: {
-      flex: '0 0 auto',
-    },
-    main: {
-      flex: '1 1 0',
-      position: 'relative',
-    },
-  }),
-);
+import { Box, Tab, Tabs } from '@mui/material';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export default function MyTabs(): JSX.Element {
-  const [myLocation] = useActiveLocation();
-  const style = useStyle();
+  const location = useLocation();
+  const navigator = useNavigate();
+
   return (
-    <div className={style.page}>
-      <Paper className={style.tabs} square>
+    <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ flex: '0 0 auto', borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           onChange={(event, value: '/' | '/bookshelf' | '/readFile' | '/setting' | '/sponsorship') => {
-            let name: string;
-            switch (value) {
-              case '/':
-                name = '搜索';
-                break;
-              case '/bookshelf':
-                name = '书架';
-                break;
-              case '/readFile':
-                name = '读取文件';
-                break;
-              case '/setting':
-                name = '设置';
-                break;
-              case '/sponsorship':
-                name = '支持作者';
-                break;
-            }
-            historyStore.replace({ pathname: value, name });
+            navigator(value);
           }}
-          value={myLocation.pathname}
+          value={location.pathname}
           centered
           indicatorColor="primary"
           textColor="primary"
@@ -61,10 +24,10 @@ export default function MyTabs(): JSX.Element {
           <Tab label="设置" value={'/setting'} />
           <Tab label="支持作者" value={'/sponsorship'} />
         </Tabs>
-      </Paper>
-      <main className={getClassName(style.main)}>
+      </Box>
+      <Box component="main" sx={{ flex: '1 1 0', position: 'relative' }}>
         <Outlet />
-      </main>
-    </div>
+      </Box>
+    </Box>
   );
 }
