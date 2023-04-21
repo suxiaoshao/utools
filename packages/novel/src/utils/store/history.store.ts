@@ -1,19 +1,19 @@
-import { createHashHistory, createLocation, Location, LocationDescriptorObject } from 'history';
+import { createHashHistory, Path } from 'history';
 import { Store } from './store';
 
 const thisHistory = createHashHistory();
 
-export interface MyLocation extends Location {
+export interface MyLocation extends Partial<Path> {
   name: string;
 }
 
-export interface MyLocationDescriptorObject extends LocationDescriptorObject {
+export interface MyLocationDescriptorObject extends Partial<Path> {
   name: string;
 }
 
 export class HistoryStore extends Store<MyLocation[]> {
   public constructor() {
-    const thisLocation = createLocation({ pathname: '/' });
+    const thisLocation = { pathname: '/' };
     super([{ ...thisLocation, name: '搜索' }]);
   }
 
@@ -22,8 +22,7 @@ export class HistoryStore extends Store<MyLocation[]> {
    * */
   public push(path: MyLocationDescriptorObject): void {
     thisHistory.push(path);
-    const thisLocation = createLocation(path);
-    this.setData([...this.data, { ...thisLocation, name: path.name }]);
+    this.setData([...this.data, { ...path, name: path.name }]);
   }
 
   /**
@@ -32,8 +31,7 @@ export class HistoryStore extends Store<MyLocation[]> {
   public replace(path: MyLocationDescriptorObject): void {
     thisHistory.replace(path);
     this.data.pop();
-    const thisLocation = createLocation(path);
-    this.setData([...this.data, { ...thisLocation, name: path.name }]);
+    this.setData([...this.data, { ...path, name: path.name }]);
   }
 
   /**
@@ -41,8 +39,7 @@ export class HistoryStore extends Store<MyLocation[]> {
    * */
   public goHome(): void {
     thisHistory.push({ pathname: '/' });
-    const thisLocation = createLocation({ pathname: '/' });
-    this.setData([{ ...thisLocation, name: '搜索' }]);
+    this.setData([{ pathname: '/', name: '搜索' }]);
   }
 
   /**

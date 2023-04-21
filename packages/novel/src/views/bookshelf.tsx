@@ -1,4 +1,3 @@
-import React from 'react';
 import MyTabs from '../components/myTabs';
 import {
   Avatar,
@@ -40,7 +39,7 @@ export default function Bookshelf(): JSX.Element {
   const { readRecords, updateReadRecords } = useReadRecords();
   const classes = useClasses();
   return (
-    <MyTabs>
+    <div>
       <TableContainer className={classes.table} component={Paper}>
         <Table>
           <TableHead>
@@ -97,6 +96,6 @@ export default function Bookshelf(): JSX.Element {
           </TableBody>
         </Table>
       </TableContainer>
-    </MyTabs>
+    </div>
   );
 }

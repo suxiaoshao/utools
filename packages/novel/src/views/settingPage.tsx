@@ -17,11 +17,11 @@ const useClasses = makeStyles(() =>
 export default function SettingPage(): JSX.Element {
   const classes = useClasses();
   return (
-    <MyTabs className={classes.page}>
+    <div className={classes.page}>
       <ThemeEdit />
       <FontCard />
       <ConfigCard />
       <DocsMore />
-    </MyTabs>
+    </div>
   );
 }

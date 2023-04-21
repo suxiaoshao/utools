@@ -72,7 +72,7 @@ export default function SearchPage(): JSX.Element {
     }
   }, [fn, searchName, activeConfig]);
   return (
-    <MyTabs className={classes.all}>
+    <div className={classes.all}>
       <SearchInput
         onSearchNameChange={setNewSearchName}
         searchName={newSearchName}
@@ -92,6 +92,6 @@ export default function SearchPage(): JSX.Element {
             ))}
         </Loading>
       </div>
-    </MyTabs>
+    </div>
   );
 }

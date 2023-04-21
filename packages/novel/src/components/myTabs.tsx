@@ -2,6 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles, Paper, Tab, Tabs } from '@material-ui/core';
 import { historyStore, useActiveLocation } from '../utils/store/history.store';
 import { getClassName } from '../utils/getClassName';
+import { Outlet } from 'react-router-dom';
 
 const useStyle = makeStyles(() =>
   createStyles({
@@ -21,7 +22,7 @@ const useStyle = makeStyles(() =>
   }),
 );
 
-export default function MyTabs(props: { children?: React.ReactNode; className?: string }): JSX.Element {
+export default function MyTabs(): JSX.Element {
   const [myLocation] = useActiveLocation();
   const style = useStyle();
   return (
@@ -61,7 +62,9 @@ export default function MyTabs(props: { children?: React.ReactNode; className?: 
           <Tab label="支持作者" value={'/sponsorship'} />
         </Tabs>
       </Paper>
-      <main className={getClassName(style.main, props.className)}>{props.children}</main>
+      <main className={getClassName(style.main)}>
+        <Outlet />
+      </main>
     </div>
   );
 }

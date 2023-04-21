@@ -39,7 +39,7 @@ export default function Sponsorship(): JSX.Element {
   const [imgSrc, setImgSrc] = React.useState<string>(alipay);
   const style = useStyle();
   return (
-    <MyTabs className={style.page}>
+    <div className={style.page}>
       <div className={style.main}>
         <img src={imgSrc} className={style.img} alt={'二维码'} />
         {/* 切换二维码按钮 */}
@@ -60,6 +60,6 @@ export default function Sponsorship(): JSX.Element {
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
-    </MyTabs>
+    </div>
   );
 }
