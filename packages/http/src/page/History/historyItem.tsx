@@ -73,7 +73,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
   const [modifyOpen, setModifyOpen] = React.useState<boolean>(false);
   return (
     <>
-      <Card sx={(theme) => ({ margin: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(2)}px` })}>
+      <Card sx={(theme) => ({ margin: `0 ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)}` })}>
         <CardHeader
           avatar={
             /**
@@ -98,7 +98,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
             props.http.tags?.map((value) => (
               <Chip
                 color={'primary'}
-                sx={(theme) => ({ margin: `${theme.spacing(0.5)}px ${theme.spacing(1)}px` })}
+                sx={(theme) => ({ margin: `${theme.spacing(0.5)} ${theme.spacing(1)}` })}
                 key={value.tagId}
                 label={value.tagName}
               />

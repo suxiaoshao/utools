@@ -29,8 +29,8 @@ export const CommonStyle = {
   },
   tableContainer: {
     m: 1,
-    height: (theme: Theme) => `calc(100% - ${theme.spacing(2)}px)`,
-    width: (theme: Theme) => `calc(100% - ${theme.spacing(2)}px) !important`,
+    height: (theme: Theme) => `calc(100% - ${theme.spacing(2)})`,
+    width: (theme: Theme) => `calc(100% - ${theme.spacing(2)}) !important`,
   },
   tableInput: {
     width: '100%',

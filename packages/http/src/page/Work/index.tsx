@@ -22,18 +22,20 @@ export default function Work(): JSX.Element {
   const [httpArray] = useHttpArray();
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-      {/* 选项卡 */}
-      <Tabs
-        sx={{ flex: '0 0 auto', width: '100%' }}
-        value={workIndex}
-        variant="scrollable"
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        {httpArray.map((item, index) => (
-          <WorkTab index={index} httpManager={item} key={index} />
-        ))}
-      </Tabs>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', flex: '0 0 auto' }}>
+        {/* 选项卡 */}
+        <Tabs
+          sx={{ width: '100%' }}
+          value={workIndex}
+          variant="scrollable"
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          {httpArray.map((item, index) => (
+            <WorkTab index={index} httpManager={item} key={index} />
+          ))}
+        </Tabs>
+      </Box>
       {/* 全部的 http 请求页面 */}
       {httpArray.map((item, index) => (
         <TabPanelDisappear
@@ -42,7 +44,7 @@ export default function Work(): JSX.Element {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            maxHeight: 'calc(100% - 48px)',
+            maxHeight: 'calc(100% - 44px)',
           }}
           key={index}
           index={workIndex}

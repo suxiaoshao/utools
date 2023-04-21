@@ -32,13 +32,15 @@ export default function CookiePage(): JSX.Element {
    * */
   const [formCookie, setFormCookie] = React.useState<Cookie | null>(null);
   return (
-    <Box sx={{ overflow: 'auto', position: 'relative', p: 3, width: '100%', height: '100%' }}>
+    <Box sx={{ overflow: 'auto', position: 'relative', p: 2, width: '100%', height: '100%' }}>
       {/* loading 页面 */}
       <LoadingPage />
-      {/* cookieCard domain 相同的一起展示 */}
-      {domains.map((value) => (
-        <CookieCard domain={value} key={value} />
-      ))}
+      <Box>
+        {/* cookieCard domain 相同的一起展示 */}
+        {domains.map((value) => (
+          <CookieCard domain={value} key={value} />
+        ))}
+      </Box>
       {/* 需要修改或者添加的 cookie ,formCookie 为空的时候不展示 */}
       <CookieForm
         formCookie={formCookie}

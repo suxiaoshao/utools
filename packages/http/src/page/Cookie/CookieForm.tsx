@@ -7,11 +7,13 @@ import {
   DialogTitle,
   FormControlLabel,
   Switch,
+  SxProps,
   TextField,
+  Theme,
 } from '@mui/material';
 import { Cookie } from '../../utils/http/cookie';
-import { DateTimePicker } from '@mui/lab';
-import { Dayjs } from 'dayjs';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 /**
  * @author sushao
@@ -30,12 +32,14 @@ export interface CookieFormProp {
   onChangeCookie(newCookie: Cookie | null): void;
 }
 
+const ItemSx: SxProps<Theme> = { mt: 2 };
+
 export default function CookieForm(props: CookieFormProp): JSX.Element {
   const { formCookie } = props;
   return (
     <>
       {formCookie !== null && (
-        <Dialog open={true}>
+        <Dialog open={formCookie !== null} fullWidth maxWidth="sm">
           <DialogTitle>修改/添加 cookie</DialogTitle>
           <DialogContent>
             <Box component="form" sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -49,6 +53,7 @@ export default function CookieForm(props: CookieFormProp): JSX.Element {
                 }}
                 error={formCookie.name === ''}
                 helperText={formCookie.name === '' ? 'name 不能为空' : undefined}
+                sx={ItemSx}
               />
               {/* value */}
               <TextField
@@ -60,6 +65,7 @@ export default function CookieForm(props: CookieFormProp): JSX.Element {
                 }}
                 error={formCookie.value === ''}
                 helperText={formCookie.value === '' ? 'value 不能为空' : undefined}
+                sx={ItemSx}
               />
               {/* domain */}
               <TextField
@@ -71,6 +77,7 @@ export default function CookieForm(props: CookieFormProp): JSX.Element {
                 }}
                 error={formCookie.domain === ''}
                 helperText={formCookie.domain === '' ? 'domain 不能为空' : undefined}
+                sx={ItemSx}
               />
               {/* path */}
               <TextField
@@ -82,9 +89,10 @@ export default function CookieForm(props: CookieFormProp): JSX.Element {
                 }}
                 error={formCookie.path.match(/^\//) === null}
                 helperText={formCookie.path.match(/^\//) === null ? `path 需要以 '/' 开头` : undefined}
+                sx={ItemSx}
               />
               {/* maxAge 为 null 时不显示修改 maxAge 的表单 */}
-              <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex', ...ItemSx }}>
                 {formCookie.maxAge !== null ? (
                   <>
                     <Switch
@@ -126,7 +134,7 @@ export default function CookieForm(props: CookieFormProp): JSX.Element {
                 )}
               </Box>
               {/* expires 为 null 时不显示修改 expires 的表单 */}
-              <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex', ...ItemSx }}>
                 {formCookie.expires !== null ? (
                   <>
                     <Switch
@@ -139,13 +147,13 @@ export default function CookieForm(props: CookieFormProp): JSX.Element {
                     />
                     <DateTimePicker
                       label={'expires'}
-                      value={props.formCookie?.expires}
-                      onChange={(date: Dayjs) => {
+                      value={dayjs(props.formCookie?.expires)}
+                      onChange={(date) => {
                         formCookie.expires = date?.toDate() ?? new Date();
                         props.onChangeCookie(formCookie.clone());
                       }}
                       sx={{ flex: '1 1 0' }}
-                      format="yyyy/MM/dd HH:mm"
+                      format="YYYY/MM/DD HH:mm"
                       ampm={false}
                       disablePast
                     />

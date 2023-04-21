@@ -30,7 +30,7 @@ export interface TagsFormProp extends BoxProps {
  * @since 0.2.2
  * @description tags 选择表单组件
  * */
-export default function TagsForm({ selectedTags, onSelectedTasChanges, ...props }: TagsFormProp): JSX.Element {
+export default function TagsForm({ selectedTags, onSelectedTasChanges, sx, ...props }: TagsFormProp): JSX.Element {
   /**
    * 所有的 tags
    * */
@@ -42,7 +42,7 @@ export default function TagsForm({ selectedTags, onSelectedTasChanges, ...props 
     return allTags.filter((value) => !selectedTags.some((value1) => value1.tagId === value.tagId));
   }, [allTags, selectedTags]);
   return (
-    <Box {...props} sx={{ display: 'flex' }}>
+    <Box {...props} sx={{ ...{ display: 'flex' }, ...sx }}>
       {/* 已被选择的标签 */}
       <Card sx={{ flex: '1 1 0', display: 'flex', flexDirection: 'column', m: 1 }}>
         <CardHeader

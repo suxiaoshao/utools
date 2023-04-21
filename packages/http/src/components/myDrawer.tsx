@@ -1,4 +1,4 @@
-import { Box, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, List, ListItemButton, ListItemIcon, ListItemText, Paper } from '@mui/material';
 import { AvTimer, History, MonetizationOn, NetworkCheck } from '@mui/icons-material';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 
@@ -71,20 +71,16 @@ function MyRouterListItem(props: MyRouterListItemProp) {
 export default function MyDrawer(): JSX.Element {
   return (
     <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
-      <List
-        sx={(theme) => ({
-          flex: `0 0 ${listWidth}px`,
-          display: 'flex',
-          flexDirection: 'column',
-          background: theme.palette.background.paper,
-        })}
-      >
+      <List sx={{ flex: `0 0 ${listWidth}px` }} component={Paper} square elevation={1}>
         <MyRouterListItem path="/" icon={<NetworkCheck />} text={'工作区'} />
         <MyRouterListItem icon={<History />} text={'历史记录'} path={'/history'} />
         <MyRouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
         <MyRouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />
       </List>
-      <Box component="main" sx={{ display: 'flex', width: '100%', height: '100%' }}>
+      <Box
+        component="main"
+        sx={{ display: 'flex', height: '100%', flex: `1 1 0`, maxWidth: `calc(100% - ${listWidth}px)` }}
+      >
         <Outlet />
       </Box>
     </Box>

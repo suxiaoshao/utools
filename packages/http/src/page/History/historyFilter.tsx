@@ -61,7 +61,7 @@ export interface HistoryFilterProp {
  * */
 export default function HistoryFilter(props: HistoryFilterProp): JSX.Element {
   return (
-    <Paper sx={(theme) => ({ width: `calc(100% - ${theme.spacing(4)}px)`, margin: theme.spacing(2) })}>
+    <Paper sx={(theme) => ({ width: `calc(100% - ${theme.spacing(4)})`, margin: theme.spacing(2) })}>
       <Box component="form" sx={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}>
         {/* 筛选 http 方法 */}
         <Tooltip title={<Typography variant={'body2'}>筛选 http 方法</Typography>}>
@@ -70,7 +70,7 @@ export default function HistoryFilter(props: HistoryFilterProp): JSX.Element {
         <Divider
           sx={{
             height: 28,
-            margin: 4,
+            margin: 0.5,
           }}
           orientation="vertical"
         />

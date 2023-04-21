@@ -44,8 +44,8 @@ export default function ReqBody(): JSX.Element {
       <TabPanelDisappear
         sx={(theme) => ({
           margin: 1,
-          height: `calc(100% - ${theme.spacing(2)}px)`,
-          width: `calc(100% - ${theme.spacing(2)}px)`,
+          height: `calc(100% - ${theme.spacing(2)})`,
+          width: `calc(100% - ${theme.spacing(2)})`,
         })}
         index={'form-data'}
         value={request.bodyChoose}
@@ -55,8 +55,8 @@ export default function ReqBody(): JSX.Element {
       <TabPanelDisappear
         sx={(theme) => ({
           margin: 1,
-          height: `calc(100% - ${theme.spacing(2)}px)`,
-          width: `calc(100% - ${theme.spacing(2)}px)`,
+          height: `calc(100% - ${theme.spacing(2)})`,
+          width: `calc(100% - ${theme.spacing(2)})`,
         })}
         index={'x-www-form-urlencoded'}
         value={request.bodyChoose}

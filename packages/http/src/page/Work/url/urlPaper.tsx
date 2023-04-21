@@ -23,12 +23,12 @@ export default function UrlPaper(): JSX.Element {
         display: 'flex',
         alignItems: 'center',
         width: 'calc(100% - 16px)',
-        margin: '2px 8px',
+        margin: '8px 8px',
         flex: '0 0 auto',
       }}
     >
       <MethodSelector />
-      <Divider sx={{ height: 28, margin: 4 }} orientation="vertical" />
+      <Divider sx={{ height: 28, margin: 0.5 }} orientation="vertical" />
       <InputBase
         placeholder="url"
         sx={{ ml: 1, flex: 1 }}
@@ -39,7 +39,7 @@ export default function UrlPaper(): JSX.Element {
         }}
       />
       <SendButton />
-      <Divider sx={{ height: 28, margin: 4 }} orientation="vertical" />
+      <Divider sx={{ height: 28, margin: 0.5 }} orientation="vertical" />
       <ChangeButton />
       <SaveButton />
     </Paper>

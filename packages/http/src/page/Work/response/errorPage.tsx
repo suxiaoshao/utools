@@ -14,8 +14,8 @@ export default function ErrorPage(): JSX.Element {
   return (
     <Paper
       sx={(theme) => ({
-        width: `calc(100% - ${theme.spacing(2)}px)`,
-        height: `calc(100% - ${theme.spacing(2)}px)`,
+        width: `calc(100% - ${theme.spacing(2)})`,
+        height: `calc(100% - ${theme.spacing(2)})`,
         margin: theme.spacing(1),
         display: 'flex',
         alignItems: 'center',
