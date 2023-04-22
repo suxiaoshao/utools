@@ -2,6 +2,7 @@ import React from 'react';
 import { editor } from 'monaco-editor';
 import monankai from './monankai';
 import { Box, BoxProps } from '@mui/material';
+import './init';
 
 editor.defineTheme('monankai', monankai);
 
@@ -80,9 +81,15 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
    * */
   React.useEffect(() => {
     if (!readonly) {
-      edit?.onMouseLeave(() => {
-        onChangeCode?.(edit?.getValue());
+      const id = edit?.getModel()?.onDidChangeContent(() => {
+        const content = edit?.getValue();
+        if (content) {
+          onChangeCode?.(content);
+        }
       });
+      return () => {
+        id?.dispose();
+      };
     }
     // eslint-disable-next-line
   }, [edit, readonly]);

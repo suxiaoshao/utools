@@ -7,7 +7,7 @@ import { JSONSchema4 } from 'json-schema';
 // @ts-ignore
 self.MonacoEnvironment = {
   getWorker() {
-    return new Worker('http://localhost:8082/jsonWorker.js');
+    return new Worker('./jsonWorker.js');
   },
 };
 editor.defineTheme('monankai', monankai);

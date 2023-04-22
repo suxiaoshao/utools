@@ -1,9 +1,8 @@
 import React from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@mui/lab';
 import { ResponseContext } from './response';
 import MySelector from '../../../components/common/mySelector';
 import { ResponseContentType, ResponseTextType } from '../../../utils/http/httpResponse';
-import { Box } from '@mui/material';
+import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { CommonStyle } from '../../../hooks/useRestyle';
 
 const contentItemList = (['text', 'image'] as const).map((value) => {

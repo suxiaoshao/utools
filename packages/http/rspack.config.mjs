@@ -5,6 +5,11 @@ const isProduction = process.env.NODE_ENV === 'production';
 const config = defineConfig({
   entry: {
     main: './src/main.tsx',
+    jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
+    cssWorker: './node_modules/monaco-editor/esm/vs/language/css/css.worker.js',
+    htmlWorker: './node_modules/monaco-editor/esm/vs/language/html/html.worker.js',
+    tsWorker: './node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js',
+    editorWorker: './node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
   },
   output: {
     path: './build/web',
@@ -14,6 +19,7 @@ const config = defineConfig({
     html: [
       {
         template: './index.html',
+        chunks: ['main'],
       },
     ],
   },

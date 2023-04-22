@@ -75,7 +75,7 @@ export default function ReqBody(): JSX.Element {
         <Edit
           code={request.text}
           language={request.textChoose}
-          sx={{ width: '100%', height: '100%', margin: 0, overflow: 'hidden' }}
+          sx={{ width: '100%', height: '100%' }}
           onChangeCode={(newCode) => {
             request.text = newCode;
             fatherUpdate();
