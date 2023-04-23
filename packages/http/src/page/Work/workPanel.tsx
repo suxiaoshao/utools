@@ -23,7 +23,7 @@ export const HttpContext = React.createContext<{
 }>({
   httpManager: HttpManager.getNewHttp(),
   fatherUpdate() {
-    console.log(111);
+    /**  */
   },
 });
 

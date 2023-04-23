@@ -30,7 +30,7 @@ export const ResponseContext = React.createContext<{
 }>({
   response: HttpResponse.getNewResponseContent(),
   fatherUpdate() {
-    console.log(111);
+    /**  */
   },
 });
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import './init';
 import { editor } from 'monaco-editor';
 import monankai from './monankai';
 import { Box, BoxProps } from '@mui/material';
-import './init';
 
 editor.defineTheme('monankai', monankai);
 
@@ -42,7 +42,7 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
   /**
    * 编辑器绑定的 dom 的引用
    * */
-  const editRef = React.useRef<HTMLDivElement>(null);
+  const [editRef, setEditRef] = React.useState<HTMLDivElement>();
   /**
    * 编辑器实体
    * */
@@ -51,9 +51,13 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
    * 编辑器要绑定的 dom 生成时,再这个 dom 上新建一个编辑器,并赋值给 edit
    * */
   React.useEffect(() => {
-    if (editRef.current !== null) {
-      setEdit(
-        editor.create(editRef?.current, {
+    setEdit((oldEditor) => {
+      if ((oldEditor === undefined || oldEditor.getModel()?.getLanguageId() !== language) && editRef !== undefined) {
+        oldEditor?.dispose();
+        while (editRef.firstChild) {
+          editRef.removeChild(editRef.firstChild);
+        }
+        const newEditor = editor.create(editRef, {
           value: code,
           theme: 'vs-dark',
           automaticLayout: true,
@@ -63,19 +67,12 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
             enabled: false,
           },
           readOnly: readonly,
-        }),
-      );
-    }
-    // eslint-disable-next-line
-  }, [editRef]);
-  /**
-   * 编辑器退出时,使用 editor 的方法注销编辑器
-   * */
-  React.useEffect(() => {
-    return () => {
-      edit?.dispose();
-    };
-  }, [edit]);
+        });
+        return newEditor;
+      }
+    });
+  }, [code, editRef, language, readonly]);
+
   /**
    * props.readonly 改变时修改编辑器的只读属性
    * */
@@ -97,34 +94,24 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
    * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
    * */
   React.useEffect(() => {
-    if (code !== edit?.getValue()) {
+    if (code !== edit?.getValue() && !readonly) {
       edit?.setValue(code);
     }
-  }, [edit, code]);
-  /**
-   * props.language改变时,重设编辑器的语言
-   * */
-  React.useEffect(() => {
-    edit?.setModel(editor.createModel(code, language));
-    // eslint-disable-next-line
-  }, [edit, language]);
-  /**
-   * 以上任意一值改变时,观察是否是只读的,如果是:自动格式化代码
-   * */
-  React.useEffect(() => {
-    if (readonly) {
-      window.setTimeout(() => {
-        edit?.updateOptions({
-          readOnly: false,
-        });
-        edit?.trigger('anyString', 'editor.action.formatDocument', '');
-        window.setTimeout(() => {
-          edit?.updateOptions({
-            readOnly: true,
-          });
-        }, Math.max(code.length / 50, 300));
-      }, 100);
+  }, [edit, code, readonly]);
+  const format = useCallback(async () => {
+    if (readonly && edit) {
+      edit.updateOptions({
+        readOnly: false,
+      });
+      await edit.getAction('editor.action.formatDocument')?.run();
+      edit.updateOptions({
+        readOnly: readonly,
+      });
     }
-  }, [edit, code, language, readonly]);
-  return <Box {...props} ref={editRef} />;
+  }, [edit, readonly]);
+  useEffect(() => {
+    format();
+  }, [format]);
+
+  return <Box {...props} ref={setEditRef} />;
 }

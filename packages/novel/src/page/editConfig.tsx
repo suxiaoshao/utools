@@ -1,6 +1,5 @@
 import MyBreadcrumbs from '../components/myBreadcrumbs';
 import React from 'react';
-import '../utils/edit/init';
 import Edit from '../components/common/editor/edit';
 import { Close, ExitToApp, Save } from '@mui/icons-material';
 import { configStore } from '../store/config.store';

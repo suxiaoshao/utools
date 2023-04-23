@@ -27,7 +27,7 @@ export const RequestContext = React.createContext<{
 }>({
   request: HttpRequest.getNewRequestContent(),
   fatherUpdate() {
-    console.log(111);
+    /**  */
   },
 });
 

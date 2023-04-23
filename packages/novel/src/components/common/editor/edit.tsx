@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import '../../../utils/edit/init';
+import './init';
 import { editor } from 'monaco-editor';
-// import { model } from '../../../utils/edit/init';
+import { model } from './init';
 import { Box, BoxProps, useTheme } from '@mui/material';
-import { model } from '../../../utils/edit/init';
 
 /**
  * @author sushao
@@ -33,7 +32,7 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
   /**
    * 编辑器绑定的 dom 的引用
    * */
-  const editRef = React.useRef<HTMLDivElement>(null);
+  const [editRef, setEditRef] = React.useState<HTMLDivElement>();
   /**
    * 编辑器实体
    * */
@@ -43,9 +42,9 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
    * 编辑器要绑定的 dom 生成时,再这个 dom 上新建一个编辑器,并赋值给 edit
    * */
   React.useEffect(() => {
-    if (editRef.current !== null) {
-      setEdit(
-        editor.create(editRef?.current, {
+    setEdit((oldEditor) => {
+      if (oldEditor === undefined && editRef !== undefined) {
+        return editor.create(editRef, {
           theme: theme.palette.mode === 'dark' ? 'vs-dark' : undefined,
           automaticLayout: true,
           fontSize: 16,
@@ -57,11 +56,11 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
             enabled: true,
             delay: 100,
           },
-        }),
-      );
-    }
-    // eslint-disable-next-line
-  }, [editRef]);
+          language: 'json',
+        });
+      }
+    });
+  }, [editRef, theme.palette.mode]);
   /**
    * 编辑器退出时,使用 editor 的方法注销编辑器
    * */
@@ -92,5 +91,5 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
       edit?.setValue(code);
     }
   }, [edit, code]);
-  return <Box {...props} sx={sx} ref={editRef} />;
+  return <Box {...props} sx={sx} ref={setEditRef} />;
 }

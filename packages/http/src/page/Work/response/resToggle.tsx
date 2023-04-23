@@ -56,10 +56,12 @@ export default function ResToggle(props: { value: string; onchangeValue(newValue
               fatherUpdate();
             }}
             itemList={contentItemList}
+            variant="outlined"
           />
           {response.contentType === 'text' && (
             <MySelector<ResponseTextType>
               value={response.textType}
+              variant="outlined"
               onValueChange={(newValue) => {
                 response.textType = newValue;
                 fatherUpdate();

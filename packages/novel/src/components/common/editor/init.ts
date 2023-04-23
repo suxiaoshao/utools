@@ -6,8 +6,10 @@ import { JSONSchema4 } from 'json-schema';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 self.MonacoEnvironment = {
-  getWorker() {
-    return new Worker('./jsonWorker.js');
+  getWorker(_: string, label: string) {
+    console.log(label);
+    if (label === 'json') return new Worker('./jsonWorker.js');
+    return new Worker('./editorWorker.js');
   },
 };
 editor.defineTheme('monankai', monankai);
