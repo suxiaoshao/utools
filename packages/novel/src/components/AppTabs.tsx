@@ -3,7 +3,7 @@ import { Box, Tab, Tabs } from '@mui/material';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useCustomNavigate } from '../app/history/historySlice';
 
-export default function MyTabs(): JSX.Element {
+export default function AppTabs(): JSX.Element {
   const location = useLocation();
   const navigator = useCustomNavigate();
 

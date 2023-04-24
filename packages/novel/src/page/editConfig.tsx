@@ -1,4 +1,3 @@
-import AppBreadcrumbs from '../components/AppBreadcrumbs';
 import React from 'react';
 import Edit from '../components/common/editor/edit';
 import { Close, ExitToApp, Save } from '@mui/icons-material';
@@ -70,7 +69,7 @@ export default function EditConfig(): JSX.Element {
   const [open, setOpen] = React.useState(false);
   const navigate = useCustomNavigate();
   return (
-    <AppBreadcrumbs sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
       <Box sx={{ flex: '1 1 0', width: '100%', height: '100%', overflow: 'hidden' }}>
         <Edit sx={{ width: '100%', height: '100%' }} onChangeCode={setCode} code={code} />
       </Box>
@@ -118,6 +117,6 @@ export default function EditConfig(): JSX.Element {
           tooltipTitle={'查看默认源配置'}
         />
       </SpeedDial>
-    </AppBreadcrumbs>
+    </Box>
   );
 }

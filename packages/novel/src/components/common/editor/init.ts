@@ -7,7 +7,6 @@ import { JSONSchema4 } from 'json-schema';
 // @ts-ignore
 self.MonacoEnvironment = {
   getWorker(_: string, label: string) {
-    console.log(label);
     if (label === 'json') return new Worker('./jsonWorker.js');
     return new Worker('./editorWorker.js');
   },

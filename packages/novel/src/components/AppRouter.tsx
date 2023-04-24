@@ -8,9 +8,10 @@ import NovelPage from '../page/novelPage';
 import ReadFile from '../page/readFile';
 import Sponsorship from '../page/sponsorship';
 import TestPage from '../page/testPage';
-import MyTabs from './myTabs';
+import AppTabs from './AppTabs';
 import { useEffect } from 'react';
 import { useCustomNavigate } from '../app/history/historySlice';
+import AppBreadcrumbs from './AppBreadcrumbs';
 
 export default function AppRouter() {
   const navigate = useCustomNavigate();
@@ -25,7 +26,7 @@ export default function AppRouter() {
   }, [navigate]);
   return (
     <Routes>
-      <Route element={<MyTabs />}>
+      <Route element={<AppTabs />}>
         <Route path="/" element={<SearchPage />}></Route>
         <Route path="/bookshelf" element={<Bookshelf />}></Route>
         <Route path="/setting" element={<SettingPage />}></Route>
@@ -33,9 +34,11 @@ export default function AppRouter() {
         <Route path="/test" element={<TestPage />}></Route>
         <Route path="/readFile" element={<ReadFile />}></Route>
       </Route>
-      <Route path="/novel" element={<NovelPage />}></Route>
-      <Route path="/chapter" element={<ChapterPage />}></Route>
-      <Route path="/editConfig" element={<EditConfig />}></Route>
+      <Route element={<AppBreadcrumbs />}>
+        <Route path="/novel" element={<NovelPage />}></Route>
+        <Route path="/chapter" element={<ChapterPage />}></Route>
+        <Route path="/editConfig" element={<EditConfig />}></Route>
+      </Route>
     </Routes>
   );
 }

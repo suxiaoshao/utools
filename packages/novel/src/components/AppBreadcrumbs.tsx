@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, BoxProps, Breadcrumbs, Link } from '@mui/material';
+import { Box, Breadcrumbs, Link } from '@mui/material';
 import { useAppSelector } from '../app/hooks';
 import { SelectHistory, useCustomNavigate } from '../app/history/historySlice';
+import { Outlet } from 'react-router-dom';
 
-export default function AppBreadcrumbs({ sx, children, ...props }: BoxProps): JSX.Element {
+export default function AppBreadcrumbs(): JSX.Element {
   const allLocation = useAppSelector(SelectHistory);
   const navigate = useCustomNavigate();
   return (
@@ -13,11 +14,9 @@ export default function AppBreadcrumbs({ sx, children, ...props }: BoxProps): JS
           <Link
             color={index !== allLocation.length - 1 ? 'inherit' : 'textPrimary'}
             href={`#${value.to.toString()}`}
-            key={value.to.toString()}
+            key={index}
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
-              console.log(allLocation.length - index);
-
               navigate(value.name, { tag: 'goBack', data: allLocation.length - index - 1 });
             }}
           >
@@ -25,8 +24,8 @@ export default function AppBreadcrumbs({ sx, children, ...props }: BoxProps): JS
           </Link>
         ))}
       </Breadcrumbs>
-      <Box {...props} sx={{ flex: '1 1 0', overflow: 'hidden', ...sx }}>
-        {children}
+      <Box sx={{ flex: '1 1 0', overflow: 'hidden' }}>
+        <Outlet />
       </Box>
     </Box>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
-import AppBreadcrumbs from '../components/AppBreadcrumbs';
 import { FontSize, useFontSize } from '../store/setting.store';
 import { useChapterRouter } from '../hooks/page/useChapterRouter';
 import { useChapterData } from '../hooks/page/useChapterData';
@@ -108,7 +107,7 @@ export default function ChapterPage(): JSX.Element {
     );
   }, [pushNovel, pushToChapter, state.value]);
   return (
-    <AppBreadcrumbs sx={{ padding: 1, overflow: 'auto' }}>
+    <Box sx={{ padding: 1, overflow: 'auto', width: '100%', height: '100%' }}>
       <Loading state={{ ...state, retry: fn }}>
         {state.value && (
           <>
@@ -116,7 +115,7 @@ export default function ChapterPage(): JSX.Element {
               {state.value.chapterName}
             </Typography>
             {action}
-            {state.value.contentList.map((value) => (
+            {state.value.contentList.map((value, index) => (
               <Typography
                 sx={{
                   textIndent: '2em',
@@ -125,7 +124,7 @@ export default function ChapterPage(): JSX.Element {
                 paragraph
                 variant={'body1'}
                 component={'p'}
-                key={value}
+                key={index}
               >
                 {value}
               </Typography>
@@ -134,6 +133,6 @@ export default function ChapterPage(): JSX.Element {
           </>
         )}
       </Loading>
-    </AppBreadcrumbs>
+    </Box>
   );
 }
