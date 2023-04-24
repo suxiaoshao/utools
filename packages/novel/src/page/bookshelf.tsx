@@ -18,11 +18,11 @@ import ChapterLink from '../components/common/chapterLink';
 import { Delete } from '@mui/icons-material';
 import { useReadRecords } from '../hooks/data/useReadRecords';
 import { TotalDataBuild } from '../utils/data/totalData';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../app/history/historySlice';
 
 export default function Bookshelf(): JSX.Element {
   const { readRecords, updateReadRecords } = useReadRecords();
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
       <TableContainer
@@ -49,7 +49,10 @@ export default function Bookshelf(): JSX.Element {
                 <TableCell padding={'none'} sx={{ maxWidth: 30 }}>
                   <ListItemButton
                     onClick={() => {
-                      navigate(`/novel?novelId=${value.novelId}&url=${value.mainPageUrl}`);
+                      navigate(value.name, {
+                        tag: 'push',
+                        data: `/novel?novelId=${value.novelId}&url=${value.mainPageUrl}`,
+                      });
                     }}
                   >
                     <ListItemAvatar>

@@ -1,6 +1,5 @@
 import { useAsyncFnWithNotify } from '../async/useAsyncFnWithNotify';
 import { Content, ContentData } from '../../utils/web/content';
-import { historyStore } from '../../store/history.store';
 import React from 'react';
 import { TotalConfig } from '../../utils/web/config/totalConfig';
 import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
@@ -20,7 +19,6 @@ export function useChapterData(
       if (activeConfig && novelId && chapterId) {
         const novel = new Content(activeConfig);
         const date = await novel.getContent(novelId, chapterId);
-        historyStore.updateActiveName(date.chapterName);
         return date;
       } else {
         throw new Error('参数错误');

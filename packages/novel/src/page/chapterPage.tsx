@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
-import MyBreadcrumbs from '../components/myBreadcrumbs';
+import AppBreadcrumbs from '../components/AppBreadcrumbs';
 import { FontSize, useFontSize } from '../store/setting.store';
 import { useChapterRouter } from '../hooks/page/useChapterRouter';
 import { useChapterData } from '../hooks/page/useChapterData';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../app/history/historySlice';
 
 export interface FontStyleProp {
   fontSize: FontSize;
@@ -16,7 +16,7 @@ export default function ChapterPage(): JSX.Element {
    * 路由数据
    * */
   const { activeConfig, novelId, chapterId } = useChapterRouter();
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const [fontSize] = useFontSize();
   /**
    * 章节数据
@@ -27,16 +27,22 @@ export default function ChapterPage(): JSX.Element {
    * */
   const pushToChapter = React.useCallback(
     (chapterId: string) => {
-      navigate(`/chapter?novelId=${novelId}&url=${activeConfig?.mainPageUrl}&chapterId=${chapterId}`);
+      navigate(`${state.value?.chapterName}`, {
+        tag: 'replace',
+        data: `/chapter?novelId=${novelId}&url=${activeConfig?.mainPageUrl}&chapterId=${chapterId}`,
+      });
     },
-    [navigate, novelId, activeConfig?.mainPageUrl],
+    [navigate, state.value?.chapterName, novelId, activeConfig?.mainPageUrl],
   );
   /**
    * 跳转目录
    * */
   const pushNovel = React.useCallback(() => {
-    navigate(`/novel?novelId=${novelId}&url=${activeConfig?.mainPageUrl}`);
-  }, [activeConfig?.mainPageUrl, navigate, novelId]);
+    navigate(state.value?.novelName ?? '', {
+      tag: 'push',
+      data: `/novel?novelId=${novelId}&url=${activeConfig?.mainPageUrl}`,
+    });
+  }, [activeConfig?.mainPageUrl, navigate, novelId, state.value?.novelName]);
   /**
    * 左右翻页
    * */
@@ -102,7 +108,7 @@ export default function ChapterPage(): JSX.Element {
     );
   }, [pushNovel, pushToChapter, state.value]);
   return (
-    <MyBreadcrumbs sx={{ padding: 1, overflow: 'auto' }}>
+    <AppBreadcrumbs sx={{ padding: 1, overflow: 'auto' }}>
       <Loading state={{ ...state, retry: fn }}>
         {state.value && (
           <>
@@ -128,6 +134,6 @@ export default function ChapterPage(): JSX.Element {
           </>
         )}
       </Loading>
-    </MyBreadcrumbs>
+    </AppBreadcrumbs>
   );
 }

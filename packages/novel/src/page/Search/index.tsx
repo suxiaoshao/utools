@@ -7,7 +7,7 @@ import SearchItemView from './components/searchItemView';
 import { useQuery } from '../../hooks/useQuery';
 import { useTotalConfigs } from '../../store/config.store';
 import { Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../../app/history/historySlice';
 
 /**
  * 搜索页
@@ -33,18 +33,13 @@ export default function SearchPage(): JSX.Element {
    * 显示的 搜索词
    * */
   const [newSearchName, setNewSearchName] = React.useState(searchName);
-  const navigator = useNavigate();
+  const navigator = useCustomNavigate();
   /**
    * 跳转指令
    * */
   const push = React.useCallback(
     (search: string, mainPage: string) => {
-      navigator(
-        {
-          search: `searchName=${search}&mainPageUrl=${mainPage}`,
-        },
-        { replace: true },
-      );
+      navigator('搜索', { tag: 'replace', data: `/?searchName=${search}&mainPageUrl=${mainPage}` });
     },
     [navigator],
   );

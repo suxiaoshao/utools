@@ -4,7 +4,7 @@ import { SearchListItem } from '../../../utils/web/search';
 import { ExitToApp } from '@mui/icons-material';
 import { TotalConfig } from '../../../utils/web/config/totalConfig';
 import ChapterLink from '../../../components/common/chapterLink';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../../../app/history/historySlice';
 
 export interface SearchItemProp {
   /**
@@ -18,7 +18,7 @@ export interface SearchItemProp {
 }
 
 export default function SearchItemView(props: SearchItemProp): JSX.Element {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   return (
     <Card sx={{ margin: 1, width: (theme) => `calc(50% - ${theme.spacing(2)})` }}>
       <CardHeader
@@ -29,7 +29,10 @@ export default function SearchItemView(props: SearchItemProp): JSX.Element {
           <Tooltip title={'前往小说页面'}>
             <IconButton
               onClick={() => {
-                navigate(`/novel?novelId=${props.searchItem.novelId}&url=${props.activeConfig.mainPageUrl}`);
+                navigate(props.searchItem.novelName, {
+                  tag: 'push',
+                  data: `/novel?novelId=${props.searchItem.novelId}&url=${props.activeConfig.mainPageUrl}`,
+                });
               }}
             >
               <ExitToApp />

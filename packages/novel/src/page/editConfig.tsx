@@ -1,11 +1,11 @@
-import MyBreadcrumbs from '../components/myBreadcrumbs';
+import AppBreadcrumbs from '../components/AppBreadcrumbs';
 import React from 'react';
 import Edit from '../components/common/editor/edit';
 import { Close, ExitToApp, Save } from '@mui/icons-material';
 import { configStore } from '../store/config.store';
 import { notifySubject } from '../components/common/notify';
 import { Box, SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../app/history/historySlice';
 
 const defaultCode = `{
     "mainPageUrl": "",
@@ -68,9 +68,9 @@ const defaultCode = `{
 export default function EditConfig(): JSX.Element {
   const [code, setCode] = React.useState(defaultCode);
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   return (
-    <MyBreadcrumbs sx={{ display: 'flex', flexDirection: 'column' }}>
+    <AppBreadcrumbs sx={{ display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: '1 1 0', width: '100%', height: '100%', overflow: 'hidden' }}>
         <Edit sx={{ width: '100%', height: '100%' }} onChangeCode={setCode} code={code} />
       </Box>
@@ -97,7 +97,7 @@ export default function EditConfig(): JSX.Element {
                 },
               });
             } else {
-              navigate(-1);
+              navigate('', { tag: 'goBack', data: 1 });
             }
           }}
           icon={<Save />}
@@ -107,7 +107,7 @@ export default function EditConfig(): JSX.Element {
           icon={<Close />}
           tooltipTitle={'取消'}
           onClick={() => {
-            navigate(-1);
+            navigate('', { tag: 'goBack', data: 1 });
           }}
         />
         <SpeedDialAction
@@ -118,6 +118,6 @@ export default function EditConfig(): JSX.Element {
           tooltipTitle={'查看默认源配置'}
         />
       </SpeedDial>
-    </MyBreadcrumbs>
+    </AppBreadcrumbs>
   );
 }

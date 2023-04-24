@@ -7,3 +7,4 @@ window.nodeFs = fs;
 window.nodePath = path;
 
 window.nodeDirname = __dirname;
+window.nodeFetch = fetch;

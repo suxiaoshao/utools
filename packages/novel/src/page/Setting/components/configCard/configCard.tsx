@@ -4,11 +4,11 @@ import { brown } from '@mui/material/colors';
 import { useTotalConfigs } from '../../../../store/config.store';
 import ConfigChip from './configChip';
 import { settingSx } from '../themeEdit/themeEdit';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../../../../app/history/historySlice';
 
 export default function ConfigCard(): JSX.Element {
   const [allConfigs] = useTotalConfigs();
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   return (
     <Card sx={settingSx.card}>
       <CardHeader
@@ -22,7 +22,7 @@ export default function ConfigCard(): JSX.Element {
           <Tooltip title={'添加配置'}>
             <IconButton
               onClick={() => {
-                navigate('/editConfig');
+                navigate('添加新源', { tag: 'push', data: '/editConfig' });
               }}
             >
               <Add />

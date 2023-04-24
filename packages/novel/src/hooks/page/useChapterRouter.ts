@@ -2,7 +2,7 @@ import { useQuery } from '../useQuery';
 import { useActiveConfig } from '../data/useActiveConfig';
 import React from 'react';
 import { TotalConfig } from '../../utils/web/config/totalConfig';
-import { useNavigate } from 'react-router-dom';
+import { useCustomNavigate } from '../../app/history/historySlice';
 
 export function useChapterRouter(): { activeConfig: TotalConfig; chapterId: string; novelId: string } {
   /**
@@ -17,13 +17,13 @@ export function useChapterRouter(): { activeConfig: TotalConfig; chapterId: stri
    * 章节id
    * */
   const chapterId = useQuery('chapterId');
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   /**
    * 路由无效跳转首页
    * */
   React.useEffect(() => {
     if (!(activeConfig && novelId && chapterId)) {
-      navigate('/');
+      navigate('搜索', { tag: 'push', data: '/' });
     }
   }, [activeConfig, chapterId, navigate, novelId]);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

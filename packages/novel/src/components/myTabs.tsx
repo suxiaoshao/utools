@@ -1,17 +1,36 @@
 import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useCustomNavigate } from '../app/history/historySlice';
 
 export default function MyTabs(): JSX.Element {
   const location = useLocation();
-  const navigator = useNavigate();
+  const navigator = useCustomNavigate();
 
   return (
     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: '0 0 auto', borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           onChange={(event, value: '/' | '/bookshelf' | '/readFile' | '/setting' | '/sponsorship') => {
-            navigator(value);
+            let name: string;
+            switch (value) {
+              case '/':
+                name = '搜索';
+                break;
+              case '/bookshelf':
+                name = '书架';
+                break;
+              case '/readFile':
+                name = '读取文件';
+                break;
+              case '/setting':
+                name = '设置';
+                break;
+              case '/sponsorship':
+                name = '支持作者';
+                break;
+            }
+            navigator(name, { tag: 'replace', data: value });
           }}
           value={location.pathname}
           centered

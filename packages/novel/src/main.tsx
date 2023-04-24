@@ -8,14 +8,8 @@ import { writeToFile } from './utils/data/util';
 import { configStore } from './store/config.store';
 import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
 import { settingStore } from './store/setting.store';
-import { redirect } from 'react-router-dom';
 async function main() {
   if (window.utools) {
-    utools.onPluginEnter((params) => {
-      if (params.code === 'bookshelf') {
-        redirect('/bookshelf');
-      }
-    });
     /**
      * 插件退出时
      * */
