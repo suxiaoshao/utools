@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import 'fontsource-roboto';
-import init from '../data/pkg';
 import { writeToFile } from './utils/data/util';
 import { configStore } from './store/config.store';
 import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
 import { settingStore } from './store/setting.store';
+import init from '../data/pkg/data';
 async function main() {
   if (window.utools) {
     /**

@@ -1,16 +1,16 @@
 import { HashRouter } from 'react-router-dom';
-import { MyThemeProvider } from './components/myTheme';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import AppRouter from './components/AppRouter';
+import { CustomTheme } from 'theme';
 
 function App(): JSX.Element {
   return (
     <Provider store={store}>
       <HashRouter>
-        <MyThemeProvider>
+        <CustomTheme>
           <AppRouter />
-        </MyThemeProvider>
+        </CustomTheme>
       </HashRouter>
     </Provider>
   );

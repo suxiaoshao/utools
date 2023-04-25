@@ -1,0 +1,14 @@
+{
+  "name": "theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.tsx",
+  "types": "src/index.tsx",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material/material-color-utilities": "0.2.5",
+    "@mui/system": "^5.12.1"
+  }
+}

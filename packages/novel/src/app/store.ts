@@ -1,9 +1,11 @@
 import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { historySlice } from './history/historySlice';
+import { themeReducer } from 'theme';
 
 const store = configureStore({
   reducer: {
     history: historySlice.reducer,
+    theme: themeReducer,
   },
 });
 export default store;
