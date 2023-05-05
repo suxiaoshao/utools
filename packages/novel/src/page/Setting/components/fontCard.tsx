@@ -12,11 +12,14 @@ import {
 } from '@mui/material';
 import { ChromeReaderMode } from '@mui/icons-material';
 import { deepPurple } from '@mui/material/colors';
-import { FontSize, useFontSize } from '../../../store/setting.store';
 import FontSizeTypo from './fontSizeTypo';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { FontSize, SelectFontSize } from '../../../app/font/fontSlice';
+import { updateFontSize } from '../../../app/font/fontSlice';
 
 export default function FontCard(): JSX.Element {
-  const [fontSize, setFortSize] = useFontSize();
+  const dispatch = useAppDispatch();
+  const fontSize = useAppSelector(SelectFontSize);
   return (
     <Card sx={{ margin: 2 }}>
       <CardHeader
@@ -33,7 +36,7 @@ export default function FontCard(): JSX.Element {
           <RadioGroup
             value={fontSize}
             onChange={(event, value) => {
-              setFortSize(parseInt(value) as FontSize);
+              dispatch(updateFontSize(parseInt(value) as FontSize));
             }}
             row
           >

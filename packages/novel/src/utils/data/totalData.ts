@@ -1,6 +1,5 @@
 import { Chapter } from '../web/novelInfo';
 import { getBuffer } from './util';
-import { SettingConfig } from '../../store/setting.store';
 import { TotalConfig } from '../web/config/totalConfig';
 import { TotalData } from '../../../data/pkg/data';
 
@@ -20,7 +19,6 @@ export class TotalDataBuild {
 export interface TotalDataProp {
   totalConfig: TotalConfig[];
   readRecord: ReadRecord[];
-  setting: SettingConfig;
 }
 
 export interface ReadRecord {

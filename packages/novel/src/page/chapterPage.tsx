@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Loading } from '../components/common/loading';
-import { FontSize, useFontSize } from '../store/setting.store';
 import { useChapterRouter } from '../hooks/page/useChapterRouter';
 import { useChapterData } from '../hooks/page/useChapterData';
 import { useCustomNavigate } from '../app/history/historySlice';
+import { useAppSelector } from '../app/hooks';
+import { FontSize, SelectFontSize } from '../app/font/fontSlice';
 
 export interface FontStyleProp {
   fontSize: FontSize;
@@ -16,7 +17,7 @@ export default function ChapterPage(): JSX.Element {
    * */
   const { activeConfig, novelId, chapterId } = useChapterRouter();
   const navigate = useCustomNavigate();
-  const [fontSize] = useFontSize();
+  const fontSize = useAppSelector(SelectFontSize);
   /**
    * 章节数据
    * */

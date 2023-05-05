@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { FontSize } from '../../../store/setting.store';
+import { FontSize } from '../../../app/font/fontSlice';
 
 export interface FontSizeTypoProp {
   fontSize: FontSize;

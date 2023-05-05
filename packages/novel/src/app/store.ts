@@ -1,11 +1,13 @@
 import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { historySlice } from './history/historySlice';
 import { themeReducer } from 'theme';
+import { fontSlice } from './font/fontSlice';
 
 const store = configureStore({
   reducer: {
     history: historySlice.reducer,
     theme: themeReducer,
+    font: fontSlice.reducer,
   },
 });
 export default store;

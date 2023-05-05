@@ -111,8 +111,8 @@ importers:
   packages/http:
     dependencies:
       '@mui/x-date-pickers':
-        specifier: ^6.3.0
-        version: 6.3.0(dayjs@1.11.7)
+        specifier: ^6.3.1
+        version: 6.3.1(dayjs@1.11.7)
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -754,8 +754,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-date-pickers@6.3.0(dayjs@1.11.7):
-    resolution: {integrity: sha512-Qux/nRGb0HueZU4L0h1QEqmORCrpgLukWWhG1Im6cFCmLtZbBey/0JuAFRa+OgvIXgGktDt8SY/FYsRkfGt2TQ==}
+  /@mui/x-date-pickers@6.3.1(dayjs@1.11.7):
+    resolution: {integrity: sha512-YPQrsi10rpeEUJkp77NkHqkcZbzAAWITl3MZJ8Mv8ZiS9MEFKmr2kU+SPWUomDByor2UlaS9EmvtslQW74hiWg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0

@@ -7,7 +7,6 @@ use wasm_bindgen::JsValue;
 
 use crate::store::config::total_config::TotalConfig;
 use crate::store::read_record::{Chapter, ReadRecord};
-use crate::store::setting::SettingConfig;
 
 #[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
@@ -18,7 +17,6 @@ pub struct TotalData {
     read_record: Vec<ReadRecord>,
     #[serde(skip, default = "Vec::new")]
     func: Vec<Function>,
-    setting: SettingConfig,
 }
 
 /// # 变成数据
@@ -38,7 +36,6 @@ impl TotalData {
             total_config: TotalConfig::default(),
             read_record: vec![],
             func: vec![],
-            setting: SettingConfig::get_default(),
         });
         // 修改错误配置
         total_data.check_data();
@@ -50,7 +47,6 @@ impl TotalData {
         let new_data = Self::load(buf);
         self.read_record = new_data.read_record;
         self.total_config = new_data.total_config;
-        self.setting = new_data.setting;
     }
     /// # 获取数据
     #[wasm_bindgen(js_name=toData)]
@@ -59,7 +55,7 @@ impl TotalData {
     }
     /// # 添加监听数据改变
     #[wasm_bindgen(js_name=addOnChangeFunc)]
-    pub fn add_on_change_func(&mut self, func: js_sys::Function) {
+    pub fn add_on_change_func(&mut self, func: Function) {
         self.func.push(func);
     }
     pub fn on_update(&mut self) {
@@ -72,7 +68,6 @@ impl TotalData {
     }
     /// 检测数据并修改
     pub fn check_data(&mut self) {
-        self.setting.check_value();
         // 更新最新的 config
         if self.total_config.len() <= TotalConfig::default().len() {
             self.total_config = TotalConfig::default();
@@ -231,19 +226,13 @@ impl TotalData {
 /// # 设置相关
 #[wasm_bindgen]
 impl TotalData {
-    /// # 获取所有配置
-    #[wasm_bindgen(js_name=getSetting)]
-    pub fn get_setting(&self) -> JsValue {
-        JsValue::from(self.setting.clone())
-    }
     /// # 更新设置
     #[wasm_bindgen(js_name=updateSetting)]
     pub fn update_setting(&mut self, new_setting: JsValue) -> bool {
-        let new_setting = match serde_wasm_bindgen::from_value(new_setting) {
+        match serde_wasm_bindgen::from_value(new_setting) {
             Ok(e) => e,
             Err(_) => return false,
         };
-        self.setting = new_setting;
         self.on_update();
         true
     }
