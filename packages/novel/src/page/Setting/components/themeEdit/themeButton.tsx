@@ -1,16 +1,12 @@
 import React from 'react';
-import { ThemeValue } from '../../../../store/setting.store';
-import { ButtonBase, ButtonProps, ThemeProvider } from '@mui/material';
-import { getThemeByThemeValue } from '../../../../hooks/useThemeValue';
+import { ButtonBase, ButtonProps, ThemeProvider, createTheme } from '@mui/material';
 
 export interface ThemeEnvProp {
-  theme: ThemeValue;
   children: React.ReactNode;
 }
 
 export function ThemeEnv(props: ThemeEnvProp): JSX.Element {
-  const [theme] = getThemeByThemeValue(props.theme);
-  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+  return <ThemeProvider theme={createTheme({})}>{props.children}</ThemeProvider>;
 }
 
 export default function ThemeButton({ children, disabled, ...props }: ButtonProps): JSX.Element {

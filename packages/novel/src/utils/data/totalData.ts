@@ -1,6 +1,6 @@
 import { Chapter } from '../web/novelInfo';
 import { getBuffer } from './util';
-import { SettingConfig, ThemeValue } from '../../store/setting.store';
+import { SettingConfig } from '../../store/setting.store';
 import { TotalConfig } from '../web/config/totalConfig';
 import { TotalData } from '../../../data/pkg/data';
 
@@ -21,7 +21,6 @@ export interface TotalDataProp {
   totalConfig: TotalConfig[];
   readRecord: ReadRecord[];
   setting: SettingConfig;
-  theme: ThemeValue[];
 }
 
 export interface ReadRecord {

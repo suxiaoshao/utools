@@ -18,7 +18,7 @@ async function main() {
     await init();
     const totalData = TotalDataBuild.getTotalData();
     writeToFile(totalData.toData());
-    totalData.addOnchangeFunc((data: TotalDataProp) => {
+    totalData.addOnChangeFunc((data: TotalDataProp) => {
       configStore.setData(data.totalConfig);
       settingStore.setData(data.setting);
     });

@@ -1,10 +1,6 @@
-import { Avatar, Card, CardContent, CardHeader, FormControl, FormLabel, Switch, Typography } from '@mui/material';
-import React from 'react';
-import { useSettingTheme } from '../../../../store/setting.store';
+import { Avatar, Card, CardContent, CardHeader, FormControl, Typography } from '@mui/material';
 import { Style } from '@mui/icons-material';
 import { orange } from '@mui/material/colors';
-import ThemeValueForm from './themeValueForm';
-import { useThemeList } from '../../../../hooks/data/useThemeList';
 
 export const settingSx = {
   green: {
@@ -20,8 +16,6 @@ export const settingSx = {
 };
 
 export default function ThemeEdit(): JSX.Element {
-  const [theme, setTheme] = useSettingTheme();
-  const themeList = useThemeList();
   return (
     <Card sx={settingSx.card}>
       <CardHeader
@@ -35,7 +29,7 @@ export default function ThemeEdit(): JSX.Element {
       <CardContent>
         <FormControl component="fieldset" sx={settingSx.form}>
           <Typography gutterBottom>是否跟随 utools 主题</Typography>
-          <Switch
+          {/* <Switch
             color="primary"
             checked={!('name' in theme)}
             onChange={() => {
@@ -45,8 +39,8 @@ export default function ThemeEdit(): JSX.Element {
                 setTheme(themeList[0]);
               }
             }}
-          />
-          {!('name' in theme) ? (
+          /> */}
+          {/* {!('name' in theme) ? (
             <>
               <Typography gutterBottom>明亮模式主题</Typography>
               <ThemeValueForm
@@ -75,7 +69,7 @@ export default function ThemeEdit(): JSX.Element {
                 }}
               />
             </>
-          )}
+          )} */}
         </FormControl>
       </CardContent>
     </Card>

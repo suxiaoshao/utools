@@ -1,4 +1,4 @@
-use std::collections::BTreeSet;
+use std::collections::btree_set::BTreeSet;
 
 use js_sys::{Array, Function};
 use serde::{Deserialize, Serialize};
@@ -8,7 +8,6 @@ use wasm_bindgen::JsValue;
 use crate::store::config::total_config::TotalConfig;
 use crate::store::read_record::{Chapter, ReadRecord};
 use crate::store::setting::SettingConfig;
-use crate::store::theme::Theme;
 
 #[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
@@ -20,13 +19,12 @@ pub struct TotalData {
     #[serde(skip, default = "Vec::new")]
     func: Vec<Function>,
     setting: SettingConfig,
-    theme: Vec<Theme>,
 }
 
 /// # 变成数据
-impl Into<Vec<u8>> for TotalData {
-    fn into(self) -> Vec<u8> {
-        Vec::from(serde_json::to_string(&self).unwrap())
+impl From<TotalData> for Vec<u8> {
+    fn from(val: TotalData) -> Self {
+        Vec::from(serde_json::to_string(&val).unwrap())
     }
 }
 
@@ -41,7 +39,6 @@ impl TotalData {
             read_record: vec![],
             func: vec![],
             setting: SettingConfig::get_default(),
-            theme: Theme::get_default(),
         });
         // 修改错误配置
         total_data.check_data();
@@ -54,7 +51,6 @@ impl TotalData {
         self.read_record = new_data.read_record;
         self.total_config = new_data.total_config;
         self.setting = new_data.setting;
-        self.theme = new_data.theme
     }
     /// # 获取数据
     #[wasm_bindgen(js_name=toData)]
@@ -62,15 +58,15 @@ impl TotalData {
         Vec::from(serde_json::to_string(&self).unwrap())
     }
     /// # 添加监听数据改变
-    #[wasm_bindgen(js_name=addOnchangeFunc)]
-    pub fn add_onchange_func(&mut self, func: js_sys::Function) {
+    #[wasm_bindgen(js_name=addOnChangeFunc)]
+    pub fn add_on_change_func(&mut self, func: js_sys::Function) {
         self.func.push(func);
     }
     pub fn on_update(&mut self) {
         self.check_data();
         self.func.iter().for_each(|func: &Function| {
             let this = JsValue::null();
-            let total_data = JsValue::from_serde(&self).unwrap();
+            let total_data = serde_wasm_bindgen::to_value(&self).unwrap();
             let _ = func.call1(&this, &total_data);
         })
     }
@@ -88,12 +84,12 @@ impl TotalData {
             .filter(|&read_cord| {
                 self.total_config
                     .iter()
-                    .any(|config| read_cord.match_url(&*config.main_page_url))
+                    .any(|config| read_cord.match_url(&config.main_page_url))
             })
-            .map(|read_cord| read_cord.clone())
+            .cloned()
             .collect::<BTreeSet<ReadRecord>>()
             .iter()
-            .map(|x| x.clone())
+            .cloned()
             .collect();
     }
 }
@@ -105,7 +101,7 @@ impl TotalData {
     #[wasm_bindgen(js_name=addReadRecord)]
     pub fn add_read_record(&mut self, new_read_record: JsValue) -> bool {
         // 读取数据
-        let new_read_record: ReadRecord = match JsValue::into_serde(&new_read_record) {
+        let new_read_record: ReadRecord = match serde_wasm_bindgen::from_value(new_read_record) {
             Err(_) => return false,
             Ok(e) => e,
         };
@@ -138,7 +134,7 @@ impl TotalData {
     pub fn get_all_read_record(&self) -> Array {
         self.read_record
             .iter()
-            .filter_map(|x| JsValue::from_serde(x).ok())
+            .filter_map(|x| serde_wasm_bindgen::to_value(x).ok())
             .collect()
     }
     /// # 查找是否已存在记录
@@ -151,12 +147,8 @@ impl TotalData {
     /// # 删除阅读记录
     #[wasm_bindgen(js_name=removeRecord)]
     pub fn remove_record(&mut self, novel_id: String, main_page_url: String) {
-        self.read_record = self
-            .read_record
-            .iter()
-            .filter(|&item| item.main_page_url != main_page_url || item.novel_id != novel_id)
-            .map(|item| item.clone())
-            .collect();
+        self.read_record
+            .retain(|item| item.main_page_url != main_page_url || item.novel_id != novel_id);
         self.on_update();
     }
     /// # 更新阅读记录
@@ -167,7 +159,7 @@ impl TotalData {
         novel_id: String,
         main_page_url: String,
     ) -> bool {
-        let chapter: Chapter = match JsValue::into_serde(&chapter) {
+        let chapter: Chapter = match serde_wasm_bindgen::from_value(chapter) {
             Err(_) => return false,
             Ok(e) => e,
         };
@@ -198,7 +190,7 @@ impl TotalData {
     pub fn get_all_config(&self) -> Vec<JsValue> {
         self.total_config
             .iter()
-            .filter_map(|x| JsValue::from_serde(x).ok())
+            .filter_map(|x| serde_wasm_bindgen::to_value(x).ok())
             .collect()
     }
     /// # 删除配置
@@ -211,12 +203,8 @@ impl TotalData {
         {
             return false;
         };
-        self.total_config = self
-            .total_config
-            .iter()
-            .filter(|config| config.main_page_url != main_page_url)
-            .map(|x| x.clone())
-            .collect();
+        self.total_config
+            .retain(|config| config.main_page_url != main_page_url);
         self.on_update();
         true
     }
@@ -246,28 +234,17 @@ impl TotalData {
     /// # 获取所有配置
     #[wasm_bindgen(js_name=getSetting)]
     pub fn get_setting(&self) -> JsValue {
-        JsValue::from((&self).setting.clone())
+        JsValue::from(self.setting.clone())
     }
     /// # 更新设置
     #[wasm_bindgen(js_name=updateSetting)]
     pub fn update_setting(&mut self, new_setting: JsValue) -> bool {
-        let new_setting = match JsValue::into_serde(&new_setting) {
+        let new_setting = match serde_wasm_bindgen::from_value(new_setting) {
             Ok(e) => e,
             Err(_) => return false,
         };
         self.setting = new_setting;
         self.on_update();
         true
-    }
-}
-/// # 主题相关
-#[wasm_bindgen]
-impl TotalData {
-    #[wasm_bindgen(js_name=getAllTheme)]
-    pub fn get_all_theme(&self) -> Vec<JsValue> {
-        self.theme
-            .iter()
-            .map(|x| JsValue::from_serde(x).unwrap())
-            .collect()
     }
 }

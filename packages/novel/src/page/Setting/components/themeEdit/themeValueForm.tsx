@@ -1,7 +1,3 @@
-import React from 'react';
-import { ThemeValue } from '../../../../store/setting.store';
-import ThemeButton, { ThemeEnv } from './themeButton';
-import { useThemeList } from '../../../../hooks/data/useThemeList';
 import { Box } from '@mui/material';
 
 const classes = {
@@ -32,25 +28,24 @@ const classes = {
 };
 
 export interface ThemeFormProp {
-  /**
-   * 绑定的主题值
-   * */
-  value: ThemeValue;
-
-  /**
-   * 修改
-   * */
-  onChange(newValue: ThemeValue): void;
+  // /**
+  //  * 绑定的主题值
+  //  * */
+  // value: ThemeValue;
+  // /**
+  //  * 修改
+  //  * */
+  // onChange(newValue: ThemeValue): void;
 }
 
 /**
  * 编辑 settingValue
  * */
-export default function ThemeValueForm(props: ThemeFormProp): JSX.Element {
-  const themeList = useThemeList();
+export default function ThemeValueForm({}: ThemeFormProp): JSX.Element {
+  // const themeList = useThemeList();
   return (
     <Box sx={classes.main}>
-      {themeList.map((value) => (
+      {/* {themeList.map((value) => (
         <ThemeEnv theme={value} key={value.name}>
           <ThemeButton
             onClick={() => {
@@ -61,7 +56,7 @@ export default function ThemeValueForm(props: ThemeFormProp): JSX.Element {
             {value.name}
           </ThemeButton>
         </ThemeEnv>
-      ))}
+      ))} */}
     </Box>
   );
 }

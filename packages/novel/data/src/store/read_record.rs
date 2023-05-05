@@ -40,23 +40,17 @@ impl PartialEq for ReadRecord {
 impl Eq for ReadRecord {}
 impl PartialOrd for ReadRecord {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        if self.main_page_url < other.main_page_url {
-            Some(Ordering::Less)
-        } else if self.main_page_url > other.main_page_url {
-            Some(Ordering::Greater)
-        } else {
-            Some(self.novel_id.cmp(&other.novel_id))
+        match self.main_page_url.partial_cmp(&other.main_page_url)? {
+            Ordering::Equal => self.novel_id.partial_cmp(&other.novel_id),
+            other => Some(other),
         }
     }
 }
 impl Ord for ReadRecord {
     fn cmp(&self, other: &Self) -> Ordering {
-        if self.main_page_url < other.main_page_url {
-            Ordering::Less
-        } else if self.main_page_url > other.main_page_url {
-            Ordering::Greater
-        } else {
-            self.novel_id.cmp(&other.novel_id)
+        match self.main_page_url.cmp(&other.main_page_url) {
+            Ordering::Equal => self.novel_id.cmp(&other.novel_id),
+            other => other,
         }
     }
 }

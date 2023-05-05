@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -27,12 +27,19 @@ export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
   useEffect(() => {
     setYouThemeToCssVars(youTheme);
   }, [youTheme]);
-  useEffect(() => {
-    colorSchemaMatch.addEventListener('change', (e) => {
+  const changeListener = useCallback(
+    (e: MediaQueryListEvent) => {
       const colorScheme = e.matches ? 'dark' : 'light';
       dispatch(setSystemColorScheme(colorScheme));
-    });
-  }, [dispatch]);
+    },
+    [dispatch],
+  );
+  useEffect(() => {
+    colorSchemaMatch.addEventListener('change', changeListener);
+    return () => {
+      colorSchemaMatch.removeEventListener('change', changeListener);
+    };
+  }, [changeListener]);
   return (
     <ThemeProvider theme={createTheme(muiTheme)}>
       <CssBaseline />
