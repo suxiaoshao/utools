@@ -1,9 +1,10 @@
 import React from 'react';
 import { TotalConfig } from '../../../../utils/web/config/totalConfig';
 import { Chip, ChipProps, Menu, MenuItem } from '@mui/material';
-import { getClassName } from '../../../../utils/getClassName';
-import { configStore } from '../../../../store/config.store';
-import { notifySubject } from '../../../../components/common/notify';
+import { TotalDataBuild } from '../../../../utils/data/totalData';
+import { useAppDispatch } from '../../../../app/hooks';
+import { initConfig } from '../../../../app/config/configSlice';
+import { enqueueSnackbar } from 'notify';
 
 export interface ConfigChipProp extends ChipProps {
   config: TotalConfig;
@@ -17,22 +18,23 @@ export default function ConfigChip({ config, sx, ...props }: ConfigChipProp): JS
     mouseX: number;
     mouseY: number;
   } | null>(null);
+  const dispatch = useAppDispatch();
   const deleteConfig = React.useCallback(() => {
-    if (!configStore.deleteByMainPageUrl(config.mainPageUrl)) {
-      notifySubject.next({
-        message: '默认源不可删除',
-        options: {
-          variant: 'error',
-        },
+    const totalData = TotalDataBuild.getTotalData();
+    const result = totalData.deleteConfig(config.mainPageUrl);
+    if (!result) {
+      enqueueSnackbar('默认源不可删除', {
+        variant: 'error',
       });
+    } else {
+      dispatch(initConfig());
     }
-  }, [config.mainPageUrl]);
+  }, [config.mainPageUrl, dispatch]);
   return (
     <>
       <Chip
         {...props}
         sx={sx}
-        className={getClassName(props.className)}
         onClick={(event) => {
           /**
            * 右键点击时设置点击的坐标为 menu的位置

@@ -2,12 +2,14 @@ import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { historySlice } from './history/historySlice';
 import { themeReducer } from 'theme';
 import { fontSlice } from './font/fontSlice';
+import { configSlice } from './config/configSlice';
 
 const store = configureStore({
   reducer: {
     history: historySlice.reducer,
     theme: themeReducer,
     font: fontSlice.reducer,
+    config: configSlice.reducer,
   },
 });
 export default store;

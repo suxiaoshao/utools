@@ -10,10 +10,9 @@
     "axios": "^1.4.0",
     "cheerio": "1.0.0-rc.12",
     "monaco-editor": "^0.38.0",
-    "notistack": "^3.0.1",
     "react-use": "^17.4.0",
-    "rxjs": "^7.8.1",
-    "theme": "workspace:*"
+    "theme": "workspace:*",
+    "notify": "workspace:*"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.11"

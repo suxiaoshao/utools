@@ -2,7 +2,8 @@ import { Divider, IconButton, InputBase, Paper, Theme, Tooltip } from '@mui/mate
 import MySelector from '../../../components/common/mySelector';
 import { ExitToApp, Search } from '@mui/icons-material';
 import { TotalConfig } from '../../../utils/web/config/totalConfig';
-import { useTotalConfigs } from '../../../store/config.store';
+import { useAppSelector } from '../../../app/hooks';
+import { SelectConfig } from '../../../app/config/configSlice';
 
 export const urlStyle = {
   form: (theme: Theme) => ({
@@ -76,7 +77,7 @@ export interface SearchInputProp {
  * @description 搜索输入框
  * */
 export default function SearchInput(props: SearchInputProp): JSX.Element {
-  const [totalConfigs] = useTotalConfigs();
+  const totalConfigs = useAppSelector(SelectConfig);
   return (
     <Paper component="form" sx={urlStyle.form}>
       <MySelector<string | undefined>

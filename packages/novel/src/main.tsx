@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { writeToFile } from './utils/data/util';
-import { configStore } from './store/config.store';
-import { TotalDataBuild, TotalDataProp } from './utils/data/totalData';
+import { TotalDataBuild } from './utils/data/totalData';
 import init from '../data/pkg/data';
+import store from './app/store';
+import { initConfig } from './app/config/configSlice';
 async function main() {
   if (window.utools) {
     /**
@@ -17,11 +18,7 @@ async function main() {
     await init();
     const totalData = TotalDataBuild.getTotalData();
     writeToFile(totalData.toData());
-    totalData.addOnChangeFunc((data: TotalDataProp) => {
-      configStore.setData(data.totalConfig);
-    });
-    // 初始化配置
-    configStore.setData(totalData.getAllConfig());
+    store.dispatch(initConfig());
     ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <React.StrictMode>
         <App />

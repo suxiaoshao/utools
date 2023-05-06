@@ -1,7 +1,7 @@
 import { useAsyncFn } from 'react-use';
 import React, { DependencyList } from 'react';
 import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
-import { useSnackbar } from 'notistack';
+import { enqueueSnackbar } from 'notify';
 
 /**
  * 包装了提醒信息的 useAsyncFn
@@ -15,7 +15,6 @@ export function useAsyncFnWithNotify<T>(
   deps?: DependencyList,
 ): AsyncFnReturn<() => Promise<T>> {
   const [state, fetch] = useAsyncFn(fn, deps);
-  const { enqueueSnackbar } = useSnackbar();
   React.useEffect(() => {
     /**
      * 成功的时候发出信息
@@ -33,6 +32,6 @@ export function useAsyncFnWithNotify<T>(
         variant: 'error',
       });
     }
-  }, [enqueueSnackbar, state, successMessage]);
+  }, [state, successMessage]);
   return [state, fetch];
 }

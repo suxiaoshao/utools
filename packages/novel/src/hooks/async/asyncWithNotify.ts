@@ -1,4 +1,4 @@
-import { notifySubject } from '../../components/common/notify';
+import { enqueueSnackbar } from 'notify';
 
 export interface AsyncFunc<T> {
   (): Promise<T>;
@@ -13,21 +13,15 @@ export function asyncWithNotify<T>(func: AsyncFunc<T>, message?: string): Promis
   return func()
     .then((value) => {
       if (message !== undefined) {
-        notifySubject.next({
-          message,
-          options: {
-            variant: 'success',
-          },
+        enqueueSnackbar(message, {
+          variant: 'success',
         });
       }
       return value;
     })
     .catch((err: Error) => {
-      notifySubject.next({
-        message: err.message,
-        options: {
-          variant: 'error',
-        },
+      enqueueSnackbar(err.message, {
+        variant: 'error',
       });
       throw err;
     });

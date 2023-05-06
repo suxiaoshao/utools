@@ -1,10 +1,12 @@
 import React from 'react';
 import Edit from '../components/common/editor/edit';
 import { Close, ExitToApp, Save } from '@mui/icons-material';
-import { configStore } from '../store/config.store';
-import { notifySubject } from '../components/common/notify';
 import { Box, SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 import { useCustomNavigate } from '../app/history/historySlice';
+import { useAppDispatch } from '../app/hooks';
+import { TotalDataBuild } from '../utils/data/totalData';
+import { initConfig } from '../app/config/configSlice';
+import { enqueueSnackbar } from 'notify';
 
 const defaultCode = `{
     "mainPageUrl": "",
@@ -68,6 +70,7 @@ export default function EditConfig(): JSX.Element {
   const [code, setCode] = React.useState(defaultCode);
   const [open, setOpen] = React.useState(false);
   const navigate = useCustomNavigate();
+  const dispatch = useAppDispatch();
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
       <Box sx={{ flex: '1 1 0', width: '100%', height: '100%', overflow: 'hidden' }}>
@@ -87,16 +90,15 @@ export default function EditConfig(): JSX.Element {
       >
         <SpeedDialAction
           onClick={() => {
-            const message = configStore.addConfig(code);
+            const totalData = TotalDataBuild.getTotalData();
+            const message = totalData.addConfig(code);
             if (message) {
-              notifySubject.next({
-                message,
-                options: {
-                  variant: 'error',
-                },
+              enqueueSnackbar(message, {
+                variant: 'error',
               });
             } else {
               navigate('', { tag: 'goBack', data: 1 });
+              dispatch(initConfig());
             }
           }}
           icon={<Save />}

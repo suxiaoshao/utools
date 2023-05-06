@@ -5,15 +5,16 @@ import { useAsyncFnWithNotify } from '../../hooks/async/useAsyncFnWithNotify';
 import { Loading } from '../../components/common/loading';
 import SearchItemView from './components/searchItemView';
 import { useQuery } from '../../hooks/useQuery';
-import { useTotalConfigs } from '../../store/config.store';
 import { Box } from '@mui/material';
 import { useCustomNavigate } from '../../app/history/historySlice';
+import { useAppSelector } from '../../app/hooks';
+import { SelectConfig } from '../../app/config/configSlice';
 
 /**
  * 搜索页
  * */
 export default function SearchPage(): JSX.Element {
-  const [totalConfigs] = useTotalConfigs();
+  const totalConfigs = useAppSelector(SelectConfig);
   /**
    * 搜索关键词
    * */

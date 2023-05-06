@@ -1,13 +1,14 @@
 import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip } from '@mui/material';
 import { Add, PermDataSetting } from '@mui/icons-material';
 import { brown } from '@mui/material/colors';
-import { useTotalConfigs } from '../../../../store/config.store';
 import ConfigChip from './configChip';
 import { settingSx } from '../themeEdit/themeEdit';
 import { useCustomNavigate } from '../../../../app/history/historySlice';
+import { useAppSelector } from '../../../../app/hooks';
+import { SelectConfig } from '../../../../app/config/configSlice';
 
 export default function ConfigCard(): JSX.Element {
-  const [allConfigs] = useTotalConfigs();
+  const allConfigs = useAppSelector(SelectConfig);
   const navigate = useCustomNavigate();
   return (
     <Card sx={settingSx.card}>
