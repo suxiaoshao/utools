@@ -1,25 +1,23 @@
-import React from 'react';
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
+import { useMemo } from 'react';
+import { Avatar, Card, CardContent, CardHeader, FormControl, Slider, Typography } from '@mui/material';
 import { ChromeReaderMode } from '@mui/icons-material';
 import { deepPurple } from '@mui/material/colors';
 import FontSizeTypo from './fontSizeTypo';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { FontSize, SelectFontSize } from '../../../app/font/fontSlice';
 import { updateFontSize } from '../../../app/font/fontSlice';
+import { Mark } from '@mui/base';
 
 export default function FontCard(): JSX.Element {
   const dispatch = useAppDispatch();
   const fontSize = useAppSelector(SelectFontSize);
+  const mark = useMemo<Mark[]>(
+    () =>
+      Array(10)
+        .fill(1)
+        .map((value, index) => ({ value: index + 1, label: <FontSizeTypo fontSize={(index + 1) as FontSize} /> })),
+    [],
+  );
   return (
     <Card sx={{ margin: 2 }}>
       <CardHeader
@@ -33,24 +31,19 @@ export default function FontCard(): JSX.Element {
       <CardContent>
         <FormControl component="fieldset" sx={{ width: '100%' }}>
           <Typography gutterBottom>阅读页面字体大小</Typography>
-          <RadioGroup
+          <Slider
+            sx={{ ml: 4, mr: 4, width: (theme) => `calc(100% - ${theme.spacing(8)})` }}
             value={fontSize}
             onChange={(event, value) => {
-              dispatch(updateFontSize(parseInt(value) as FontSize));
+              dispatch(updateFontSize(value as FontSize));
             }}
-            row
-          >
-            {Array(10)
-              .fill(1)
-              .map((value, index) => (
-                <FormControlLabel
-                  key={index}
-                  value={index + 1}
-                  control={<Radio />}
-                  label={<FontSizeTypo fontSize={(index + 1) as FontSize} />}
-                />
-              ))}
-          </RadioGroup>
+            getAriaValueText={(value) => `${value}℃`}
+            valueLabelDisplay="auto"
+            step={1}
+            marks={mark}
+            min={1}
+            max={10}
+          />
         </FormControl>
       </CardContent>
     </Card>

@@ -3,9 +3,15 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { argbFromHex, themeFromSourceColor } from '@material/material-color-utilities';
 import { youThemeToMuiTheme } from './youTheme';
 
+export enum ColorSetting {
+  System = 'system',
+  Light = 'light',
+  Dark = 'dark',
+}
+
 export type ThemeSliceType = {
   color: string;
-  colorSetting: 'dark' | 'light' | 'system';
+  colorSetting: ColorSetting;
   systemColorScheme: 'light' | 'dark';
 };
 const getColorScheme = (
@@ -22,7 +28,7 @@ export const colorSchemaMatch = window.matchMedia('(prefers-color-scheme: dark)'
 
 function getInitDate(): ThemeSliceType {
   const color: string = utools.dbStorage.getItem('color') ?? '#9cd67e';
-  const colorSetting = (utools.dbStorage.getItem('colorSetting') ?? 'system') as ThemeSliceType['colorSetting'];
+  const colorSetting = (utools.dbStorage.getItem('colorSetting') ?? 'system') as ColorSetting;
   const systemColorScheme = colorSchemaMatch.matches ? 'dark' : 'light';
   utools.dbStorage.setItem('color', color);
   utools.dbStorage.setItem('colorSetting', colorSetting);
@@ -40,16 +46,19 @@ export const themeSlice = createSlice({
     setSystemColorScheme: (state, action: PayloadAction<ThemeSliceType['systemColorScheme']>) => {
       state.systemColorScheme = action.payload;
     },
-    updateColor(state, action: PayloadAction<Pick<ThemeSliceType, 'color' | 'colorSetting'>>) {
-      const { color, colorSetting } = action.payload;
+    updateColor(state, action: PayloadAction<string>) {
+      const color = action.payload;
       state.color = color;
       utools.dbStorage.setItem('color', color);
+    },
+    updateColorSetting(state, action: PayloadAction<ColorSetting>) {
+      const colorSetting = action.payload;
       state.colorSetting = colorSetting;
       utools.dbStorage.setItem('colorSetting', colorSetting);
     },
   },
 });
-export const { setSystemColorScheme, updateColor } = themeSlice.actions;
+export const { setSystemColorScheme, updateColor, updateColorSetting } = themeSlice.actions;
 
 export const selectColorMode = (state: RootState) =>
   getColorScheme(state.theme.colorSetting, state.theme.systemColorScheme);

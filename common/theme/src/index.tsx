@@ -51,5 +51,3 @@ export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
 export { hexFromArgb } from '@material/material-color-utilities';
 
 export { default as themeReducer, selectActiveYouTheme } from './themeSlice';
-
-export { default as ThemeDrawerItem } from './ThemeDrawerItem';

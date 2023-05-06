@@ -1,6 +1,19 @@
-import { Avatar, Card, CardContent, CardHeader, FormControl, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material';
 import { Style } from '@mui/icons-material';
 import { orange } from '@mui/material/colors';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { ColorSetting, updateColor, updateColorSetting } from 'theme/src/themeSlice';
 
 export const settingSx = {
   green: {
@@ -16,6 +29,10 @@ export const settingSx = {
 };
 
 export default function ThemeEdit(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const color = useAppSelector((state) => state.theme.color);
+  const colorMode = useAppSelector((state) => state.theme.colorSetting);
+
   return (
     <Card sx={settingSx.card}>
       <CardHeader
@@ -28,48 +45,32 @@ export default function ThemeEdit(): JSX.Element {
       />
       <CardContent>
         <FormControl component="fieldset" sx={settingSx.form}>
-          <Typography gutterBottom>是否跟随 utools 主题</Typography>
-          {/* <Switch
-            color="primary"
-            checked={!('name' in theme)}
-            onChange={() => {
-              if ('name' in theme) {
-                setTheme({ dark: themeList[0], light: themeList[1] });
-              } else {
-                setTheme(themeList[0]);
-              }
+          <InputLabel id="demo-simple-select-label">主题设置</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            value={colorMode}
+            label="主题设置"
+            onChange={(event) => {
+              dispatch(updateColorSetting(event.target.value as ColorSetting));
             }}
-          /> */}
-          {/* {!('name' in theme) ? (
-            <>
-              <Typography gutterBottom>明亮模式主题</Typography>
-              <ThemeValueForm
-                value={theme.light}
-                onChange={(newValue) => {
-                  theme.light = newValue;
-                  setTheme(theme);
-                }}
-              />
-              <Typography gutterBottom>暗黑模式主题</Typography>
-              <ThemeValueForm
-                value={theme.dark}
-                onChange={(newValue) => {
-                  theme.dark = newValue;
-                  setTheme(theme);
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <FormLabel>固定主题</FormLabel>
-              <ThemeValueForm
-                value={theme}
-                onChange={(newValue) => {
-                  setTheme(newValue);
-                }}
-              />
-            </>
-          )} */}
+          >
+            <MenuItem value={ColorSetting.Dark}>暗黑模式主题</MenuItem>
+            <MenuItem value={ColorSetting.Light}>明亮模式主题</MenuItem>
+            <MenuItem value={ColorSetting.System}>跟随系统</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{ ...settingSx.form, mt: 2 }}>
+          <Typography gutterBottom>颜色设置</Typography>
+          <Box
+            component="input"
+            type="color"
+            value={color}
+            onChange={(event) => {
+              console.log(event.target.value);
+
+              dispatch(updateColor(event.target.value));
+            }}
+          />
         </FormControl>
       </CardContent>
     </Card>
