@@ -18,5 +18,5 @@
     "types": ["utools-api-types"]
   },
   "include": ["packages/*/src", "common/*/src", "config"],
-  "exclude": ["./**/node_modules", "node_modules", "packages/novel/data/pkg"]
+  "exclude": ["**/node_modules", "node_modules", "packages/novel/data/pkg"]
 }

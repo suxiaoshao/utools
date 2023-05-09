@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "packages/novel/data",
+]
+[profile.release]
+strip = "symbols"
