@@ -17,6 +17,12 @@
     "jsx": "react-jsx",
     "types": ["utools-api-types"]
   },
-  "include": ["packages/*/src", "common/*/src", "config"],
+  "include": [
+    "packages/*/src",
+    "common/*/src",
+    "config",
+    "packages/*/rspack.config.ts",
+    "packages/http/rspack.config.mts"
+  ],
   "exclude": ["**/node_modules", "node_modules", "packages/novel/data/pkg"]
 }
