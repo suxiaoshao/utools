@@ -12,12 +12,13 @@ import {
 } from '@mui/material';
 import { Delete, Edit, Reply } from '@mui/icons-material';
 import { httpArray } from '../../store/httpArray';
-import { workIndex } from '../../store/workIndex';
 import { useNavigate } from 'react-router-dom';
 import SaveHttp from '../../components/common/httpSave/saveHttp';
 import { brown, green, grey, lightBlue, orange, purple, red } from '@mui/material/colors';
 import { HttpManager } from '../../utils/http/httpManager';
 import { HttpEntity } from '../../database/entity/http.entity';
+import { useAppDispatch } from '../../app/hooks';
+import { updateActiveTab } from '../../app/features/tabsSlice';
 
 const Color = {
   DELETE: {
@@ -71,6 +72,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
    * 是否打开修改页面
    * */
   const [modifyOpen, setModifyOpen] = React.useState<boolean>(false);
+  const dispatch = useAppDispatch();
   return (
     <>
       <Card sx={(theme) => ({ margin: `0 ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)}` })}>
@@ -115,7 +117,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
             <IconButton
               onClick={() => {
                 const index = httpArray.addFromHttpManager(HttpManager.fromEntity(props.http));
-                workIndex.setData(index);
+                dispatch(updateActiveTab(index));
                 myHistory({ pathname: '/' });
               }}
             >

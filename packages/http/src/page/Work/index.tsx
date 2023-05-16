@@ -1,9 +1,10 @@
 import { Box, Tabs } from '@mui/material';
 import WorkPanel from './workPanel';
 import { useHttpArray } from '../../store/httpArray';
-import { useWorkIndex } from '../../store/workIndex';
 import { TabPanelDisappear } from '../../components/common/tabPanel';
 import WorkTab from './workTab';
+import { useAppSelector } from '../../app/hooks';
+import { SelectIndex } from '../../app/features/tabsSlice';
 
 /**
  * @author sushao
@@ -15,7 +16,7 @@ export default function Work(): JSX.Element {
   /**
    * 被激活的 http 请求下标
    * */
-  const [workIndex] = useWorkIndex();
+  const workIndex = useAppSelector(SelectIndex);
   /**
    * 全部的 http 请求
    * */

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
-import { Close, Send } from '@mui/icons-material';
+import { Send } from '@mui/icons-material';
 import { HttpContext } from '../workPanel';
-import { useSnackbar } from 'notistack';
+import { enqueueSnackbar } from 'notify';
 
 /**
  * @author sushao
@@ -12,7 +12,6 @@ import { useSnackbar } from 'notistack';
  * */
 export default function SendButton(): JSX.Element {
   const { httpManager, fatherUpdate } = React.useContext(HttpContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   return (
     <Tooltip title={<Typography variant={'body2'}>发送请求</Typography>}>
       <Box sx={{ position: 'relative' }}>
@@ -34,17 +33,6 @@ export default function SendButton(): JSX.Element {
             if (message) {
               enqueueSnackbar(message, {
                 variant: 'error',
-                // eslint-disable-next-line react/display-name
-                action: (key) => (
-                  <IconButton
-                    size="small"
-                    onClick={() => {
-                      closeSnackbar(key);
-                    }}
-                  >
-                    <Close />
-                  </IconButton>
-                ),
                 autoHideDuration: 2000,
               });
             }

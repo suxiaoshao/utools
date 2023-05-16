@@ -10,10 +10,16 @@ use axum::{
 use serde_json::json;
 
 pub fn get_route() -> Router {
-    Router::new().fallback(any(handler))
+    Router::new()
+        .route("/cookie", any(cookie))
+        .fallback(any(request))
 }
 
-async fn handler(method: Method, headers: HeaderMap, url: OriginalUri) -> impl IntoResponse {
+async fn cookie(cookie: Option<String>) -> impl IntoResponse {
+    Json(json!({ "cookie": cookie }))
+}
+
+async fn request(method: Method, headers: HeaderMap, url: OriginalUri) -> impl IntoResponse {
     let headers = headers
         .iter()
         .map(|(k, v)| (k.as_str(), v.to_str().unwrap()))

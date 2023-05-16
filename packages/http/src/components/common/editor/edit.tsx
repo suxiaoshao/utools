@@ -82,7 +82,7 @@ export default function Edit({
   /**
    * props.readonly 改变时修改编辑器的只读属性
    * */
-  React.useEffect(() => {
+  useEffect(() => {
     if (!readonly) {
       const id = edit?.getModel()?.onDidChangeContent(() => {
         const content = edit?.getValue();
@@ -94,7 +94,7 @@ export default function Edit({
         id?.dispose();
       };
     }
-  }, [edit, readonly]);
+  }, [edit, readonly, onChangeCode]);
   /**
    * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
    * */
