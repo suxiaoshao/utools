@@ -15,7 +15,6 @@ export interface SqlData {
   requests: RequestEntity[];
   cookies: CookieEntity[];
   httpTags: HttpTagEntity[];
-  loading: boolean;
 }
 
 /**
@@ -32,7 +31,6 @@ export class SqlStore extends Store<SqlData> {
       httpTags: [],
       requests: [],
       cookies: [],
-      loading: true,
     });
   }
 
@@ -69,7 +67,6 @@ export class SqlStore extends Store<SqlData> {
       requests: requests,
       tags: tags,
       httpTags: httpTags,
-      loading: false,
     });
     httpArray.asyncBySqlUpdate(this.getData().https);
   }

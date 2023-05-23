@@ -6,7 +6,7 @@ import { TagEntity } from '../../database/entity/tag.entity';
 
 axios.defaults.withCredentials = true;
 
-export type MyMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'PATCH';
+export type HttpMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'PATCH';
 
 /**
  * @author sushao
@@ -22,7 +22,7 @@ export class HttpManager {
    * 当前页面是否显示 request 页面
    * */
   isRequest: boolean;
-  method: MyMethod;
+  method: HttpMethod;
   request: HttpRequest;
   response: HttpResponse;
   /**
@@ -69,7 +69,7 @@ export class HttpManager {
     url: string,
     name: string,
     isRequest: boolean,
-    method: MyMethod,
+    method: HttpMethod,
     requestContent: HttpRequest,
     responseContent: HttpResponse,
   ) {

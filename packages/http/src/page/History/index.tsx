@@ -3,9 +3,7 @@ import { Box } from '@mui/material';
 import HistoryFilter from './historyFilter';
 import { TagEntity } from '../../database/entity/tag.entity';
 import HistoryContent from './historyContent';
-import { MyMethod } from '../../utils/http/httpManager';
-import LoadingPage from '../../components/common/loadingPage';
-
+import { HttpMethod } from '../../utils/http/httpManager';
 /**
  * @author sushao
  * @version 0.2.2
@@ -24,10 +22,9 @@ export default function HistoryPage(): JSX.Element {
   /**
    * 选择的方法
    * */
-  const [method, setMethod] = React.useState<MyMethod | undefined>(undefined);
+  const [method, setMethod] = React.useState<HttpMethod | undefined>(undefined);
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative', width: '100%', height: '100%' }}>
-      <LoadingPage />
       {/* 筛选表单 */}
       <HistoryFilter
         tags={selectedTags}

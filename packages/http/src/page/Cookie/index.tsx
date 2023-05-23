@@ -5,7 +5,6 @@ import CookieForm from './CookieForm';
 import { Box, Fab } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { useSqlData } from '../../store/sqlStore';
-import LoadingPage from '../../components/common/loadingPage';
 
 /**
  * @author sushao
@@ -34,7 +33,6 @@ export default function CookiePage(): JSX.Element {
   return (
     <Box sx={{ overflow: 'auto', position: 'relative', p: 2, width: '100%', height: '100%' }}>
       {/* loading 页面 */}
-      <LoadingPage />
       <Box>
         {/* cookieCard domain 相同的一起展示 */}
         {domains.map((value) => (

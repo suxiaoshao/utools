@@ -6,7 +6,6 @@ import { HttpEntity } from '../../../database/entity/http.entity';
 import { HttpManager } from '../../../utils/http/httpManager';
 import { useSqlData } from '../../../store/sqlStore';
 import { TagEntity } from '../../../database/entity/tag.entity';
-import LoadingPage from '../loadingPage';
 import { TransitionProps } from '@mui/material/transitions';
 import { enqueueSnackbar } from 'notify';
 
@@ -135,7 +134,6 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
           position: 'relative',
         }}
       >
-        <LoadingPage />
         {/* http 名字 文本框 */}
         <TextField
           sx={{ width: '40%', mt: 1, flex: '0 0 auto' }}
