@@ -4,11 +4,10 @@ import { Close, SaveAlt } from '@mui/icons-material';
 import TagsForm from '../tag/tagsForm';
 import { HttpEntity } from '../../../database/entity/http.entity';
 import { HttpManager } from '../../../utils/http/httpManager';
-import { useSnackbar } from 'notistack';
 import { useSqlData } from '../../../store/sqlStore';
 import { TagEntity } from '../../../database/entity/tag.entity';
-import LoadingPage from '../loadingPage';
 import { TransitionProps } from '@mui/material/transitions';
+import { enqueueSnackbar } from 'notify';
 
 /**
  * @author sushao
@@ -70,10 +69,6 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
    * */
   const [name, setName] = React.useState<string>(httpManager.name);
   /**
-   * 显示通知的工具
-   * */
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  /**
    * 一下任意一个东西被修改时,从数据库中读取这个 http 关联的 tag 赋值给被选择的 tag
    * */
   React.useEffect(() => {
@@ -116,17 +111,6 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
                      * */
                     enqueueSnackbar('保存失败', {
                       variant: 'error',
-                      // eslint-disable-next-line react/display-name
-                      action: (key) => (
-                        <IconButton
-                          size="small"
-                          onClick={() => {
-                            closeSnackbar(key);
-                          }}
-                        >
-                          <Close />
-                        </IconButton>
-                      ),
                       autoHideDuration: 2000,
                     });
                   }
@@ -150,7 +134,6 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
           position: 'relative',
         }}
       >
-        <LoadingPage />
         {/* http 名字 文本框 */}
         <TextField
           sx={{ width: '40%', mt: 1, flex: '0 0 auto' }}

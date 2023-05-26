@@ -1,4 +1,4 @@
-import { MyMethod } from '../../utils/http/httpManager';
+import { HttpMethod } from '../../utils/http/httpManager';
 import { RequestEntity } from './request.entity';
 import { TagEntity } from './tag.entity';
 import { sqlStore } from '../../store/sqlStore';
@@ -9,7 +9,7 @@ export interface HttpProp {
   httpId: number;
   url: string;
   name: string;
-  method: MyMethod;
+  method: HttpMethod;
   requestId: number;
 }
 
@@ -29,7 +29,7 @@ export class HttpEntity {
    * 数据库中保存的名字
    * */
   name: string;
-  method: MyMethod;
+  method: HttpMethod;
   /**
    * 数据库中和这个 http 相对应的 request 数据
    * */
@@ -43,7 +43,7 @@ export class HttpEntity {
     httpId: number | null,
     url: string,
     name: string,
-    method: MyMethod,
+    method: HttpMethod,
     request: RequestEntity,
     tags: TagEntity[],
   ) {

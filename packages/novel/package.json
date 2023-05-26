@@ -10,11 +10,11 @@
     "axios": "^1.4.0",
     "cheerio": "1.0.0-rc.12",
     "monaco-editor": "^0.38.0",
+    "notify": "workspace:*",
     "react-use": "^17.4.0",
-    "theme": "workspace:*",
-    "notify": "workspace:*"
+    "theme": "workspace:*"
   },
   "devDependencies": {
-    "@types/json-schema": "^7.0.11"
+    "@types/json-schema": "^7.0.12"
   }
 }

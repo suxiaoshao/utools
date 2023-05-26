@@ -1,12 +1,15 @@
-import React from 'react';
-import './app.css';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Sponsorship from './page/Sponsorship';
 import Work from './page/Work';
-import { MyThemeProvider } from './components/myTheme';
 import CookiePage from './page/Cookie';
 import HistoryPage from './page/History';
 import MyDrawer from './components/myDrawer';
+import { Provider } from 'react-redux';
+import store from './app/store';
+import { CustomTheme } from 'theme';
+import { SnackbarProvider } from 'notify';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 /**
  * @author sushao
@@ -16,17 +19,23 @@ import MyDrawer from './components/myDrawer';
  * */
 export default function App(): JSX.Element {
   return (
-    <Router>
-      <MyThemeProvider>
-        <Routes>
-          <Route path="/" element={<MyDrawer />}>
-            <Route index element={<Work />}></Route>
-            <Route path="/sponsorship" element={<Sponsorship />}></Route>
-            <Route path="/cookies" element={<CookiePage />}></Route>
-            <Route path="/history" element={<HistoryPage />}></Route>
-          </Route>
-        </Routes>
-      </MyThemeProvider>
-    </Router>
+    <Provider store={store}>
+      <CustomTheme>
+        <SnackbarProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Router>
+              <Routes>
+                <Route path="/" element={<MyDrawer />}>
+                  <Route index element={<Work />}></Route>
+                  <Route path="/sponsorship" element={<Sponsorship />}></Route>
+                  <Route path="/cookies" element={<CookiePage />}></Route>
+                  <Route path="/history" element={<HistoryPage />}></Route>
+                </Route>
+              </Routes>
+            </Router>
+          </LocalizationProvider>
+        </SnackbarProvider>
+      </CustomTheme>
+    </Provider>
   );
 }

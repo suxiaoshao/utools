@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, ButtonProps, Divider, InputBase, Paper, Tooltip, Typography } from '@mui/material';
 import { TagEntity } from '../../database/entity/tag.entity';
 import MySelector, { ItemListProp, MySelectorProp } from '../../components/common/mySelector';
-import { MyMethod } from '../../utils/http/httpManager';
+import { HttpMethod } from '../../utils/http/httpManager';
 import { myMethodList } from '../Work/url/methodSelector';
 import HistoryTags from './historyTags';
 
@@ -11,10 +11,10 @@ const itemList = [
     value: undefined,
     text: '全部匹配',
   },
-  ...(myMethodList as ItemListProp<MyMethod | undefined>[]),
+  ...(myMethodList as ItemListProp<HttpMethod | undefined>[]),
 ];
 
-const ThisSelector = React.forwardRef<HTMLButtonElement, MySelectorProp<MyMethod | undefined> & ButtonProps>(
+const ThisSelector = React.forwardRef<HTMLButtonElement, MySelectorProp<HttpMethod | undefined> & ButtonProps>(
   MySelector,
 );
 
@@ -36,12 +36,12 @@ export interface HistoryFilterProp {
   /**
    * 赛选的方法名, undefined 时不筛选方法
    * */
-  method: MyMethod | undefined;
+  method: HttpMethod | undefined;
 
   /**
    * 改变筛选的方法触发的方法
    * */
-  ocChangeMethod(newMethod: MyMethod | undefined): void;
+  ocChangeMethod(newMethod: HttpMethod | undefined): void;
 
   /**
    * 改变筛选的名字触发的方法

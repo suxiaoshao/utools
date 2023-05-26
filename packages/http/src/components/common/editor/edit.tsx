@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { startTransition, useCallback, useEffect } from 'react';
 import './init';
-import { editor } from 'monaco-editor';
+import * as monaco from 'monaco-editor';
 import monankai from './monankai';
 import { Box, BoxProps } from '@mui/material';
 
-editor.defineTheme('monankai', monankai);
+monaco.editor.defineTheme('monankai', monankai);
 
 /**
  * @author sushao
@@ -38,7 +38,13 @@ export interface NotReadOnlyEditProp extends BoxProps {
  * @since 0.2.2
  * @description 编辑器组件
  * */
-export default function Edit({ code, language, readonly, onChangeCode, ...props }: NotReadOnlyEditProp): JSX.Element {
+export default function Edit({
+  code,
+  language,
+  readonly = false,
+  onChangeCode,
+  ...props
+}: NotReadOnlyEditProp): JSX.Element {
   /**
    * 编辑器绑定的 dom 的引用
    * */
@@ -46,7 +52,7 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
   /**
    * 编辑器实体
    * */
-  const [edit, setEdit] = React.useState<editor.IStandaloneCodeEditor | undefined>();
+  const [edit, setEdit] = React.useState<monaco.editor.IStandaloneCodeEditor | undefined>();
   /**
    * 编辑器要绑定的 dom 生成时,再这个 dom 上新建一个编辑器,并赋值给 edit
    * */
@@ -57,7 +63,7 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
         while (editRef.firstChild) {
           editRef.removeChild(editRef.firstChild);
         }
-        const newEditor = editor.create(editRef, {
+        const newEditor = monaco.editor.create(editRef, {
           value: code,
           theme: 'vs-dark',
           automaticLayout: true,
@@ -76,7 +82,7 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
   /**
    * props.readonly 改变时修改编辑器的只读属性
    * */
-  React.useEffect(() => {
+  useEffect(() => {
     if (!readonly) {
       const id = edit?.getModel()?.onDidChangeContent(() => {
         const content = edit?.getValue();
@@ -88,8 +94,7 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
         id?.dispose();
       };
     }
-    // eslint-disable-next-line
-  }, [edit, readonly]);
+  }, [edit, readonly, onChangeCode]);
   /**
    * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
    * */
@@ -110,7 +115,9 @@ export default function Edit({ code, language, readonly, onChangeCode, ...props 
     }
   }, [edit, readonly]);
   useEffect(() => {
-    format();
+    startTransition(() => {
+      format();
+    });
   }, [format]);
 
   return <Box {...props} ref={setEditRef} />;

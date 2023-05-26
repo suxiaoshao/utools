@@ -1,6 +1,22 @@
-import { defineConfig } from '@rspack/cli';
+import { defineConfig, definePlugin } from '@rspack/cli';
+import { spawn } from 'child_process';
 
 const isProduction = process.env.NODE_ENV === 'production';
+
+const plugin = definePlugin({
+  apply: (compiler) => {
+    compiler.hooks.environment.tap('ConsoleLogOnBuildWebpackPlugin', () => {
+      console.log('afterEnvironment');
+      const child = spawn('cargo', ['watch', '-C', './server', '-x', 'run --release']);
+      child.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+      });
+      child.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`);
+      });
+    });
+  },
+});
 
 const config = defineConfig({
   entry: {
@@ -51,5 +67,6 @@ const config = defineConfig({
     path: 'path',
     crypto: 'crypto',
   },
+  plugins: [plugin],
 });
 export default config;

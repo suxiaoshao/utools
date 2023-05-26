@@ -1,7 +1,7 @@
 import React from 'react';
 import { TagEntity } from '../../database/entity/tag.entity';
 import HistoryItem from './historyItem';
-import { MyMethod } from '../../utils/http/httpManager';
+import { HttpMethod } from '../../utils/http/httpManager';
 import { HttpEntity } from '../../database/entity/http.entity';
 import { useSqlData } from '../../store/sqlStore';
 import { Box, BoxProps } from '@mui/material';
@@ -24,7 +24,7 @@ export interface HistoryContentProp extends BoxProps {
   /**
    * 匹配的方法 ,为 undefined 时全匹配
    * */
-  method: MyMethod | undefined;
+  method: HttpMethod | undefined;
 }
 
 /**
