@@ -1,4 +1,5 @@
 import { defineConfig, definePlugin } from '@rspack/cli';
+import type { RspackOptions } from '@rspack/core';
 import { spawn } from 'child_process';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -18,7 +19,7 @@ const plugin = definePlugin({
   },
 });
 
-const config = defineConfig({
+const config: RspackOptions = defineConfig({
   entry: {
     main: './src/main.tsx',
     jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
