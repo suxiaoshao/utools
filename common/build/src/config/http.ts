@@ -1,23 +1,9 @@
 import { defineConfig, definePlugin } from '@rspack/cli';
 import type { RspackOptions } from '@rspack/core';
-import { spawn } from 'child_process';
+import ServerConfig from '../plugin/http/ServerConfig';
+import PackUpx from '../plugin/PackUpx';
 
 const isProduction = process.env.NODE_ENV === 'production';
-
-const plugin = definePlugin({
-  apply: (compiler) => {
-    compiler.hooks.environment.tap('ConsoleLogOnBuildWebpackPlugin', () => {
-      console.log('afterEnvironment');
-      const child = spawn('cargo', ['watch', '-C', './server', '-x', 'run --release']);
-      child.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-      });
-      child.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-      });
-    });
-  },
-});
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -68,6 +54,6 @@ const config: RspackOptions = defineConfig({
     path: 'path',
     crypto: 'crypto',
   },
-  plugins: [plugin],
+  plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()])],
 });
 export default config;
