@@ -1,4 +1,4 @@
-import { defineConfig, definePlugin } from '@rspack/cli';
+import { defineConfig } from '@rspack/cli';
 import type { RspackOptions } from '@rspack/core';
 import ServerConfig from '../plugin/http/ServerConfig';
 import PackUpx from '../plugin/PackUpx';
