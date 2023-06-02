@@ -1,8 +1,10 @@
 import { defineConfig } from '@rspack/cli';
+import { RspackOptions } from '@rspack/core';
+import PackUpx from '../plugin/PackUpx';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const config = defineConfig({
+const config: RspackOptions = defineConfig({
   entry: {
     main: './src/main.tsx',
     jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
@@ -43,5 +45,6 @@ const config = defineConfig({
     historyApiFallback: true,
   },
   devtool: isProduction ? false : undefined,
+  plugins: [...(isProduction ? [new PackUpx('novel')] : [])],
 });
 export default config;

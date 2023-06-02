@@ -18,5 +18,6 @@
       "explain": "进入http测试",
       "cmds": ["http", "测试", "test"]
     }
-  ]
+  ],
+  "name": "a6a2de81"
 }

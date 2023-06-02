@@ -7,9 +7,9 @@
     "build": "rspack build"
   },
   "dependencies": {
-    "@mui/x-date-pickers": "^6.5.0",
+    "@mui/x-date-pickers": "^6.6.0",
     "axios": "^1.4.0",
-    "dayjs": "^1.11.7",
+    "dayjs": "^1.11.8",
     "monaco-editor": "^0.38.0",
     "notify": "workspace:*",
     "rxjs": "^7.8.1",
@@ -17,7 +17,8 @@
     "theme": "workspace:^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.2.4",
-    "@types/sql.js": "^1.4.4"
+    "@types/node": "^20.2.5",
+    "@types/sql.js": "^1.4.4",
+    "build": "workspace:*"
   }
 }

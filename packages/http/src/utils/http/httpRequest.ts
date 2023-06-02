@@ -158,7 +158,7 @@ export class HttpRequest {
         const formData = new FormData();
         this.dataForms.forEach((value) => {
           const data = value.getData();
-          if (value.isFile) {
+          if (value.isFile && data instanceof File) {
             formData.append(value.key, data, value.getFileName());
           } else {
             formData.append(value.key, data);

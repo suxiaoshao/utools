@@ -22,5 +22,7 @@
       "explain": "进入书架",
       "cmds": ["书架", "bookshelf"]
     }
-  ]
+  ],
+  "name": "ad8b8635",
+  "version": "0.5.2"
 }

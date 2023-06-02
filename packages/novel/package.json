@@ -12,7 +12,8 @@
     "monaco-editor": "^0.38.0",
     "notify": "workspace:*",
     "react-use": "^17.4.0",
-    "theme": "workspace:*"
+    "theme": "workspace:*",
+    "build": "workspace:*"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.12"
