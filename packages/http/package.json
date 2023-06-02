@@ -9,7 +9,7 @@
   "dependencies": {
     "@mui/x-date-pickers": "^6.6.0",
     "axios": "^1.4.0",
-    "dayjs": "^1.11.7",
+    "dayjs": "^1.11.8",
     "monaco-editor": "^0.38.0",
     "notify": "workspace:*",
     "rxjs": "^7.8.1",

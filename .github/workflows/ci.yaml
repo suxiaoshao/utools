@@ -34,8 +34,6 @@ jobs:
         with:
           toolchain: stable
           override: true
-      - name: protoc
-        run: sudo apt update && sudo apt install protobuf-compiler mold clang -y
       - name: server Lint
         working-directory: server
         run: cargo clippy --all
