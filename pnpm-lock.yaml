@@ -150,6 +150,8 @@ importers:
         specifier: ^5.13.2
         version: 5.13.2
 
+  common/types: {}
+
   packages/http:
     dependencies:
       '@mui/x-date-pickers':
@@ -176,6 +178,9 @@ importers:
       theme:
         specifier: workspace:^1.0.0
         version: link:../../common/theme
+      types:
+        specifier: workspace:*
+        version: link:../../common/types
     devDependencies:
       '@types/node':
         specifier: ^20.2.5
@@ -210,6 +215,9 @@ importers:
       theme:
         specifier: workspace:*
         version: link:../../common/theme
+      types:
+        specifier: workspace:*
+        version: link:../../common/types
     devDependencies:
       '@types/json-schema':
         specifier: ^7.0.12

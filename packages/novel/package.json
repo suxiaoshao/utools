@@ -13,7 +13,8 @@
     "notify": "workspace:*",
     "react-use": "^17.4.0",
     "theme": "workspace:*",
-    "build": "workspace:*"
+    "build": "workspace:*",
+    "types": "workspace:*"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.12"

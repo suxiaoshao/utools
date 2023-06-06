@@ -3,6 +3,7 @@ import { RootState } from '../store';
 import { To, useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { Enum } from 'types';
 
 export type CustomLocation = {
   name: string;
@@ -35,11 +36,6 @@ export const historySlice = createSlice({
 export const { addLocation, goBack, replaceLocation } = historySlice.actions;
 
 export const SelectHistory = (state: RootState) => state.history.value;
-
-export type Enum<TAG extends string, DATA> = {
-  tag: TAG;
-  data: DATA;
-};
 
 export type RouterJump = Enum<'push', To> | Enum<'replace', To> | Enum<'goBack', number>;
 
