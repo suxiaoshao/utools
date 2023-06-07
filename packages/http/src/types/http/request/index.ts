@@ -1,6 +1,6 @@
 import { UploadFileProps } from './formData';
-import { Header } from './header';
-import { HttpText } from './text';
+import { Header } from '../header';
+import { HttpText } from '../text';
 import { XForm } from './xForm';
 
 export enum BodyType {

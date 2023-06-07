@@ -1,4 +1,5 @@
 import { HttpRequest } from './request';
+import { HttpResponse } from './response';
 
 export enum HttpMethod {
   GET = 'GET',
@@ -15,4 +16,5 @@ export interface Http {
   name: string;
   method: HttpMethod;
   request: HttpRequest;
+  response: HttpResponse;
 }
