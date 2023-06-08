@@ -1,9 +1,9 @@
 import React from 'react';
-import { TagEntity } from '../../database/entity/tag.entity';
+import { TagEntity } from '@http/database/entity/tag.entity';
 import HistoryItem from './historyItem';
-import { HttpMethod } from '../../utils/http/httpManager';
-import { HttpEntity } from '../../database/entity/http.entity';
-import { useSqlData } from '../../store/sqlStore';
+import { HttpMethod } from '@http/utils/http/httpManager';
+import { HttpEntity } from '@http/database/entity/http.entity';
+import { useSqlData } from '@http/store/sqlStore';
 import { Box, BoxProps } from '@mui/material';
 
 /**

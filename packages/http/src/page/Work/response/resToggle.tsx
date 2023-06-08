@@ -1,9 +1,9 @@
 import React from 'react';
 import { ResponseContext } from './response';
-import MySelector from '../../../components/common/mySelector';
-import { ResponseContentType, ResponseTextType } from '../../../utils/http/httpResponse';
+import MySelector from '@http/components/common/mySelector';
+import { ResponseContentType, ResponseTextType } from '@http/utils/http/httpResponse';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 const contentItemList = (['text', 'image'] as const).map((value) => {
   return {

@@ -12,13 +12,13 @@ import {
   TableRow,
   Tooltip,
 } from '@mui/material';
-import { RequestUploadFile } from '../../../../utils/http/requestUploadFile';
+import { RequestUploadFile } from '@http/utils/http/requestUploadFile';
 import { Delete, Error, InsertDriveFile, Refresh } from '@mui/icons-material';
-import { useForceUpdate } from '../../../../hooks/useForceUpdate';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import MySelector from '../../../../components/common/mySelector';
-import { useTableAdd } from '../../../../hooks/useTableAdd';
+import { useTableAdd } from '@http/hooks/useTableAdd';
 import { RequestContext } from '../request';
-import { CommonStyle } from '../../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
  * @author sushao

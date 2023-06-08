@@ -1,9 +1,9 @@
 import React from 'react';
 import { InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { useTableAdd } from '../../../../hooks/useTableAdd';
-import { RequestXForm } from '../../../../utils/http/requestXForm';
+import { useTableAdd } from '@http/hooks/useTableAdd';
+import { RequestXForm } from '@http/utils/http/requestXForm';
 import UpdateTable from '../updateTable';
-import { useForceUpdate } from '../../../../hooks/useForceUpdate';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { RequestContext } from '../request';
 
 /**

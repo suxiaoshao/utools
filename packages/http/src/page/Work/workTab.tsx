@@ -1,10 +1,10 @@
 import React from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, Tab } from '@mui/material';
-import { HttpManager } from '../../utils/http/httpManager';
-import { httpArray } from '../../store/httpArray';
+import { HttpManager } from '@http/utils/http/httpManager';
+import { httpArray } from '@http/store/httpArray';
 import { Add, Delete } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { SelectIndex, updateActiveTab } from '../../app/features/tabsSlice';
+import { useAppDispatch, useAppSelector } from '@http/app/hooks';
+import { SelectIndex, updateActiveTab } from '@http/app/features/tabsSlice';
 
 /**
  * @author sushao

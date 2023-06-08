@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import HistoryFilter from './historyFilter';
-import { TagEntity } from '../../database/entity/tag.entity';
+import { TagEntity } from '@http/database/entity/tag.entity';
 import HistoryContent from './historyContent';
-import { HttpMethod } from '../../utils/http/httpManager';
+import { HttpMethod } from '@http/utils/http/httpManager';
 /**
  * @author sushao
  * @version 0.2.2

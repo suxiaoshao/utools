@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Style } from '@mui/icons-material';
 import { orange } from '@mui/material/colors';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '@novel/app/hooks';
 import { ColorSetting, updateColor, updateColorSetting } from 'theme/src/themeSlice';
 
 export const settingSx = {

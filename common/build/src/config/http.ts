@@ -1,4 +1,5 @@
 import { defineConfig } from '@rspack/cli';
+import { resolve } from 'path';
 import type { RspackOptions } from '@rspack/core';
 import ServerConfig from '../plugin/http/ServerConfig';
 import PackUpx from '../plugin/PackUpx';
@@ -55,5 +56,10 @@ const config: RspackOptions = defineConfig({
     crypto: 'crypto',
   },
   plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()])],
+  resolve: {
+    alias: {
+      '@http': resolve(process.cwd(), './src'),
+    },
+  },
 });
 export default config;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Breadcrumbs, Link } from '@mui/material';
-import { useAppSelector } from '../app/hooks';
-import { SelectHistory, useCustomNavigate } from '../app/history/historySlice';
+import { useAppSelector } from '@novel/app/hooks';
+import { SelectHistory, useCustomNavigate } from '@novel/app/history/historySlice';
 import { Outlet } from 'react-router-dom';
 
 export default function AppBreadcrumbs(): JSX.Element {

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Search } from '../../utils/web/search';
+import { Search } from '@novel/utils/web/search';
 import SearchInput from './components/searchInput';
-import { useAsyncFnWithNotify } from '../../hooks/async/useAsyncFnWithNotify';
-import { Loading } from '../../components/common/loading';
+import { useAsyncFnWithNotify } from '@novel/hooks/async/useAsyncFnWithNotify';
+import { Loading } from '@novel/components/common/loading';
 import SearchItemView from './components/searchItemView';
-import { useQuery } from '../../hooks/useQuery';
+import { useQuery } from '@novel/hooks/useQuery';
 import { Box } from '@mui/material';
-import { useCustomNavigate } from '../../app/history/historySlice';
-import { useAppSelector } from '../../app/hooks';
-import { SelectConfig } from '../../app/config/configSlice';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { useAppSelector } from '@novel/app/hooks';
+import { SelectConfig } from '@novel/app/config/configSlice';
 
 /**
  * 搜索页

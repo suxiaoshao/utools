@@ -1,8 +1,8 @@
 import React from 'react';
 import ReqFormData from './reqFormData';
 import XForm from './XForm';
-import Edit from '../../../../components/common/editor/edit';
-import { TabPanelDisappear } from '../../../../components/common/tabPanel';
+import Edit from '@http/components/common/editor/edit';
+import { TabPanelDisappear } from '@http/components/common/tabPanel';
 import { RequestContext } from '../request';
 
 // todo delete

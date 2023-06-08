@@ -1,9 +1,9 @@
 import React from 'react';
 import UrlPaper from './url/urlPaper';
-import { HttpManager } from '../../utils/http/httpManager';
+import { HttpManager } from '@http/utils/http/httpManager';
 import Request from './request/request';
 import Response from './response/response';
-import { NoneFunc, useForceUpdate } from '../../hooks/useForceUpdate';
+import { NoneFunc, useForceUpdate } from '@http/hooks/useForceUpdate';
 
 /**
  * @author sushao

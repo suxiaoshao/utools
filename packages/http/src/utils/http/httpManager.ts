@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosResponse, CancelTokenSource } from 'axios';
 import { HttpResponse } from './httpResponse';
 import { HttpRequest } from './httpRequest';
-import { HttpEntity } from '../../database/entity/http.entity';
-import { TagEntity } from '../../database/entity/tag.entity';
+import { HttpEntity } from '@http/database/entity/http.entity';
+import { TagEntity } from '@http/database/entity/tag.entity';
 
 axios.defaults.withCredentials = true;
 

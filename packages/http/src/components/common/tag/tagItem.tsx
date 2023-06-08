@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip, ChipProps, Menu, MenuItem, TextField } from '@mui/material';
-import { TagEntity } from '../../../database/entity/tag.entity';
+import { TagEntity } from '@http/database/entity/tag.entity';
 
 /**
  * @author sushao

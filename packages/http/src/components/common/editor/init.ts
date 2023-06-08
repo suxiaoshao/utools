@@ -14,7 +14,7 @@ self.MonacoEnvironment = {
     if (label === 'html') return htmlWorker;
     return editorWorker;
   },
-  createTrustedTypesPolicy(policyName, option) {
+  createTrustedTypesPolicy() {
     return undefined;
   },
 };

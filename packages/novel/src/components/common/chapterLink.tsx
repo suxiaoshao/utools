@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, LinkProps } from '@mui/material';
-import { Chapter } from '../../utils/web/novelInfo';
-import { useCustomNavigate } from '../../app/history/historySlice';
+import { Chapter } from '@novel/utils/web/novelInfo';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
 
 export interface ChapterLinkProp extends LinkProps {
   chapter: Chapter;

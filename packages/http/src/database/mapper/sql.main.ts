@@ -1,5 +1,5 @@
-import { sqlStore } from '../../store/sqlStore';
-import { getDataFile } from '../../utils/update/localPath';
+import { sqlStore } from '@http/store/sqlStore';
+import { getDataFile } from '@http/utils/update/localPath';
 import sqlInit, { Database } from 'sql.js';
 
 export let database: Database | undefined = undefined;

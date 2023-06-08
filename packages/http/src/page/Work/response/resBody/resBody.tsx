@@ -1,7 +1,7 @@
 import React from 'react';
-import { TabPanelDisappear, TabPanelHidden } from '../../../../components/common/tabPanel';
+import { TabPanelDisappear, TabPanelHidden } from '@http/components/common/tabPanel';
 import { ResponseContext } from '../response';
-import Edit from '../../../../components/common/editor/edit';
+import Edit from '@http/components/common/editor/edit';
 import ResImage from './resImage';
 
 /**

@@ -3,11 +3,11 @@ import ReqToggle from './reqToggle';
 import Params from './params';
 import ReqHeaders from './reqHeaders';
 import ReqBody from './reqBody/reqBody';
-import { TabPanelDisappear } from '../../../components/common/tabPanel';
+import { TabPanelDisappear } from '@http/components/common/tabPanel';
 import { HttpContext } from '../workPanel';
-import { HttpRequest } from '../../../utils/http/httpRequest';
-import { NoneFunc, useForceUpdate } from '../../../hooks/useForceUpdate';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { HttpRequest } from '@http/utils/http/httpRequest';
+import { NoneFunc, useForceUpdate } from '@http/hooks/useForceUpdate';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
  * @author sushao

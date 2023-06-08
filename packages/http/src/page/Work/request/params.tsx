@@ -11,9 +11,9 @@ import {
   TableRow,
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import { useTableAdd } from '../../../hooks/useTableAdd';
+import { useTableAdd } from '@http/hooks/useTableAdd';
 import { HttpContext } from '../workPanel';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
  * @author sushao

@@ -3,9 +3,9 @@ import { Avatar, Card, CardContent, CardHeader, FormControl, Slider, Typography 
 import { ChromeReaderMode } from '@mui/icons-material';
 import { deepPurple } from '@mui/material/colors';
 import FontSizeTypo from './fontSizeTypo';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { FontSize, SelectFontSize } from '../../../app/font/fontSlice';
-import { updateFontSize } from '../../../app/font/fontSlice';
+import { useAppDispatch, useAppSelector } from '@novel/app/hooks';
+import { FontSize, SelectFontSize } from '@novel/app/font/fontSlice';
+import { updateFontSize } from '@novel/app/font/fontSlice';
 import { Mark } from '@mui/base';
 
 export default function FontCard(): JSX.Element {

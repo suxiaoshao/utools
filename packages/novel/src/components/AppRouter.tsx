@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
-import SearchPage from '../page/Search';
-import SettingPage from '../page/Setting';
-import Bookshelf from '../page/bookshelf';
-import ChapterPage from '../page/chapterPage';
-import EditConfig from '../page/editConfig';
-import NovelPage from '../page/novelPage';
-import ReadFile from '../page/readFile';
-import Sponsorship from '../page/sponsorship';
-import TestPage from '../page/testPage';
+import SearchPage from '@novel/page/Search';
+import SettingPage from '@novel/page/Setting';
+import Bookshelf from '@novel/page/bookshelf';
+import ChapterPage from '@novel/page/chapterPage';
+import EditConfig from '@novel/page/editConfig';
+import NovelPage from '@novel/page/novelPage';
+import ReadFile from '@novel/page/readFile';
+import Sponsorship from '@novel/page/sponsorship';
+import TestPage from '@novel/page/testPage';
 import AppTabs from './AppTabs';
 import { useEffect } from 'react';
-import { useCustomNavigate } from '../app/history/historySlice';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
 import AppBreadcrumbs from './AppBreadcrumbs';
 
 export default function AppRouter() {

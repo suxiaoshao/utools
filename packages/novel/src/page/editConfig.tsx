@@ -1,11 +1,11 @@
 import React from 'react';
-import Edit from '../components/common/editor/edit';
+import Edit from '@novel/components/common/editor/edit';
 import { Close, ExitToApp, Save } from '@mui/icons-material';
 import { Box, SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
-import { useCustomNavigate } from '../app/history/historySlice';
-import { useAppDispatch } from '../app/hooks';
-import { TotalDataBuild } from '../utils/data/totalData';
-import { initConfig } from '../app/config/configSlice';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { useAppDispatch } from '@novel/app/hooks';
+import { TotalDataBuild } from '@novel/utils/data/totalData';
+import { initConfig } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
 
 const defaultCode = `{

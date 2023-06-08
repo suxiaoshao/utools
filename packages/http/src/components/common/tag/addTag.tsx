@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardActions, IconButton, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { TagEntity } from '../../../database/entity/tag.entity';
+import { TagEntity } from '@http/database/entity/tag.entity';
 
 /**
  * @author sushao

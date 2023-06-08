@@ -1,8 +1,8 @@
 import { useQuery } from '../useQuery';
 import { useActiveConfig } from '../data/useActiveConfig';
 import React from 'react';
-import { TotalConfig } from '../../utils/web/config/totalConfig';
-import { useCustomNavigate } from '../../app/history/historySlice';
+import { TotalConfig } from '@novel/utils/web/config/totalConfig';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
 
 export function useChapterRouter(): { activeConfig: TotalConfig; chapterId: string; novelId: string } {
   /**

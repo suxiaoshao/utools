@@ -1,15 +1,15 @@
 import React from 'react';
-import { useQuery } from '../hooks/useQuery';
-import { useAsyncFnWithNotify } from '../hooks/async/useAsyncFnWithNotify';
-import { NovelInfo } from '../utils/web/novelInfo';
+import { useQuery } from '@novel/hooks/useQuery';
+import { useAsyncFnWithNotify } from '@novel/hooks/async/useAsyncFnWithNotify';
+import { NovelInfo } from '@novel/utils/web/novelInfo';
 import { Avatar, Box, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
-import { Loading } from '../components/common/loading';
-import { useActiveConfig } from '../hooks/data/useActiveConfig';
-import ChapterLink from '../components/common/chapterLink';
+import { Loading } from '@novel/components/common/loading';
+import { useActiveConfig } from '@novel/hooks/data/useActiveConfig';
+import ChapterLink from '@novel/components/common/chapterLink';
 import { Star, StarBorder } from '@mui/icons-material';
-import { ReadRecord, TotalDataBuild } from '../utils/data/totalData';
-import { useIsStar } from '../hooks/data/useIsStar';
-import { useCustomNavigate } from '../app/history/historySlice';
+import { ReadRecord, TotalDataBuild } from '@novel/utils/data/totalData';
+import { useIsStar } from '@novel/hooks/data/useIsStar';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
 
 export default function NovelPage(): JSX.Element {
   /**

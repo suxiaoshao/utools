@@ -2,10 +2,10 @@ import React from 'react';
 import { AppBar, Box, Dialog, IconButton, Slide, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
 import { Close, SaveAlt } from '@mui/icons-material';
 import TagsForm from '../tag/tagsForm';
-import { HttpEntity } from '../../../database/entity/http.entity';
-import { HttpManager } from '../../../utils/http/httpManager';
-import { useSqlData } from '../../../store/sqlStore';
-import { TagEntity } from '../../../database/entity/tag.entity';
+import { HttpEntity } from '@http/database/entity/http.entity';
+import { HttpManager } from '@http/utils/http/httpManager';
+import { useSqlData } from '@http/store/sqlStore';
+import { TagEntity } from '@http/database/entity/tag.entity';
 import { TransitionProps } from '@mui/material/transitions';
 import { enqueueSnackbar } from 'notify';
 

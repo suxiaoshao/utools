@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HttpManager } from '../../utils/http/httpManager';
 import { RootState } from '../store';
+import { Http } from '@http/types/http';
+import { newHttp } from '@http/utils/http_new';
 
 export type TabsSliceType = {
-  tabs: HttpManager[];
+  tabs: Http[];
   activeTab: number;
 };
 
@@ -11,7 +12,7 @@ export const colorSchemaMatch = window.matchMedia('(prefers-color-scheme: dark)'
 
 function getInitDate(): TabsSliceType {
   return {
-    tabs: [HttpManager.getNewHttp()],
+    tabs: [newHttp()],
     activeTab: 0,
   };
 }
@@ -21,7 +22,7 @@ export const tabsSlice = createSlice({
   initialState: getInitDate(),
   reducers: {
     addTab(state) {
-      state.tabs.push(HttpManager.getNewHttp());
+      state.tabs.push(newHttp());
       state.activeTab = state.tabs.length - 1;
     },
     deleteTab(state, action: PayloadAction<number>) {
@@ -31,7 +32,7 @@ export const tabsSlice = createSlice({
     updateActiveTab(state, action: PayloadAction<number>) {
       state.activeTab = action.payload;
     },
-    addFromHttpManager(state, action: PayloadAction<HttpManager>) {
+    addFromHttpManager(state, action: PayloadAction<Http>) {
       state.tabs.push(action.payload);
       state.activeTab = state.tabs.length - 1;
     },

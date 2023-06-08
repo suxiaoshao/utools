@@ -1,4 +1,5 @@
 import { defineConfig } from '@rspack/cli';
+import { resolve } from 'path';
 import { RspackOptions } from '@rspack/core';
 import PackUpx from '../plugin/PackUpx';
 
@@ -46,5 +47,10 @@ const config: RspackOptions = defineConfig({
   },
   devtool: isProduction ? false : undefined,
   plugins: [...(isProduction ? [new PackUpx('novel')] : [])],
+  resolve: {
+    alias: {
+      '@novel': resolve(process.cwd(), './src'),
+    },
+  },
 });
 export default config;

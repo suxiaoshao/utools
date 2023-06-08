@@ -1,5 +1,5 @@
-import { useSqlData } from '../store/sqlStore';
-import { TagEntity } from '../database/entity/tag.entity';
+import { useSqlData } from '@http/store/sqlStore';
+import { TagEntity } from '@http/database/entity/tag.entity';
 import React from 'react';
 
 /**

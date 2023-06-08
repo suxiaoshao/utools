@@ -10,14 +10,14 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { Header, OtherHeader } from '../../../utils/http/header';
+import { Header, OtherHeader } from '@http/utils/http/header';
 import { Check, Clear } from '@mui/icons-material';
-import { useTableAdd } from '../../../hooks/useTableAdd';
+import { useTableAdd } from '@http/hooks/useTableAdd';
 import UpdateTable from './updateTable';
-import { useForceUpdate } from '../../../hooks/useForceUpdate';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { RequestContext } from './request';
 import { HttpContext } from '../workPanel';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
  * @author sushao

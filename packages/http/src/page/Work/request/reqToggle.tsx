@@ -1,9 +1,9 @@
 import React from 'react';
-import MySelector, { ItemListProp } from '../../../components/common/mySelector';
-import { RequestBodyChoose, RequestTextChoose } from '../../../utils/http/httpRequest';
+import MySelector, { ItemListProp } from '@http/components/common/mySelector';
+import { RequestBodyChoose, RequestTextChoose } from '@http/utils/http/httpRequest';
 import { RequestContext } from './request';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 const bodyItemList: ItemListProp<RequestBodyChoose>[] = (
   ['none', 'text', 'form-data', 'x-www-form-urlencoded'] as const
