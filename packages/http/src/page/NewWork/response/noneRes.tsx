@@ -1,16 +1,14 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
-import { ResponseContext } from './response';
-import MyError from '@http/components/icon/myError';
+import { Box, Paper, Typography } from '@mui/material';
+import empty from '@http/assets/emptyResponse.svg';
 
 /**
  * @author sushao
  * @version 0.2.2
  * @since 0.2.2
- * @description 错误页面
+ * @description 还未发送数据时显示的空页面
  * */
-export default function ErrorPage(): JSX.Element {
-  const { response } = React.useContext(ResponseContext);
+export default function NoneRes(): JSX.Element {
   return (
     <Paper
       sx={(theme) => ({
@@ -23,8 +21,8 @@ export default function ErrorPage(): JSX.Element {
         flexDirection: 'column',
       })}
     >
-      <MyError sx={{ width: '30vh', height: '30vh' }} />
-      <Typography variant="h6">{response.getCode()}</Typography>
+      <Box component={'img'} sx={{ width: '30vh', height: '30vh' }} src={empty} alt={''} />
+      <Typography variant="h6">还未发送 http 请求</Typography>
     </Paper>
   );
 }

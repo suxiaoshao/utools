@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, BoxProps, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
-import TagItem from '@http/components/common/tag/tagItem';
-import AddTag from '@http/components/common/tag/addTag';
+import TagItem from './tagItem';
+import AddTag from './addTag';
 import { AddCircle, ArrowBack, ArrowForward } from '@mui/icons-material';
 import { TagEntity } from '@http/database/entity/tag.entity';
 import { useAllTags } from '@http/hooks/useAllTags';

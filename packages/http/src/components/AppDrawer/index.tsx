@@ -10,7 +10,7 @@ const listWidth = 170;
  * @since 0.2.2
  * @description 侧边栏路由按钮的 prop
  * */
-export interface MyRouterListItemProp {
+export interface RouterListItemProp {
   /**
    * 按钮 icon
    * */
@@ -30,7 +30,7 @@ export interface MyRouterListItemProp {
  * @since 0.2.2
  * @description 侧边栏按钮
  * */
-function MyRouterListItem(props: MyRouterListItemProp) {
+function RouterListItem(props: RouterListItemProp) {
   /**
    * 路由信息
    * */
@@ -68,14 +68,14 @@ function MyRouterListItem(props: MyRouterListItemProp) {
  * @since 0.2.2
  * @description 侧边栏组件
  * */
-export default function MyDrawer(): JSX.Element {
+export default function AppDrawer(): JSX.Element {
   return (
     <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
       <List sx={{ flex: `0 0 ${listWidth}px` }} component={Paper} square elevation={1}>
-        <MyRouterListItem path="/" icon={<NetworkCheck />} text={'工作区'} />
-        <MyRouterListItem icon={<History />} text={'历史记录'} path={'/history'} />
-        <MyRouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
-        <MyRouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />
+        <RouterListItem path="/" icon={<NetworkCheck />} text={'工作区'} />
+        <RouterListItem icon={<History />} text={'历史记录'} path={'/history'} />
+        <RouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
+        <RouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />
       </List>
       <Box
         component="main"

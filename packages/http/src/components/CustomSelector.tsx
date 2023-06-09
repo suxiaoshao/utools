@@ -40,7 +40,7 @@ export interface MySelectorProp<T extends number | string | undefined | null> {
   onValueChange(newValue: T): void;
 }
 
-function MySelector<T extends number | string | undefined | null>(
+function CustomSelector<T extends number | string | undefined | null>(
   { sx, itemList, value, onValueChange, ...props }: MySelectorProp<T> & ButtonProps,
   ref?: ((instance: HTMLButtonElement | null) => void) | React.RefObject<HTMLButtonElement> | null | undefined,
 ): JSX.Element {
@@ -89,4 +89,4 @@ function MySelector<T extends number | string | undefined | null>(
   );
 }
 
-export default MySelector;
+export default CustomSelector;

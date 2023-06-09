@@ -13,7 +13,7 @@ import {
 import { Delete, Edit, Reply } from '@mui/icons-material';
 import { httpArray } from '@http/store/httpArray';
 import { useNavigate } from 'react-router-dom';
-import SaveHttp from '@http/components/common/httpSave/saveHttp';
+import SaveHttp from '@http/components/httpSave/saveHttp';
 import { brown, green, grey, lightBlue, orange, purple, red } from '@mui/material/colors';
 import { HttpManager } from '@http/utils/http/httpManager';
 import { HttpEntity } from '@http/database/entity/http.entity';

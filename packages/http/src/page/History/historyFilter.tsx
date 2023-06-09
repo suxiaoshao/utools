@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, ButtonProps, Divider, InputBase, Paper, Tooltip, Typography } from '@mui/material';
 import { TagEntity } from '@http/database/entity/tag.entity';
-import MySelector, { ItemListProp, MySelectorProp } from '@http/components/common/mySelector';
+import CustomSelector, { ItemListProp, MySelectorProp } from '@http/components/CustomSelector';
 import { HttpMethod } from '@http/utils/http/httpManager';
 import { myMethodList } from '../Work/url/methodSelector';
 import HistoryTags from './historyTags';
@@ -15,7 +15,7 @@ const itemList = [
 ];
 
 const ThisSelector = React.forwardRef<HTMLButtonElement, MySelectorProp<HttpMethod | undefined> & ButtonProps>(
-  MySelector,
+  CustomSelector,
 );
 
 /**
