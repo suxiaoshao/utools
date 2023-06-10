@@ -2,6 +2,7 @@ import { defineConfig } from '@rspack/cli';
 import { resolve } from 'path';
 import { RspackOptions } from '@rspack/core';
 import PackUpx from '../plugin/PackUpx';
+import WasmPack from '../plugin/novel/WasmPack';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -46,7 +47,7 @@ const config: RspackOptions = defineConfig({
     historyApiFallback: true,
   },
   devtool: isProduction ? false : undefined,
-  plugins: [...(isProduction ? [new PackUpx('novel')] : [])],
+  plugins: [...(isProduction ? [new WasmPack(), new PackUpx('novel')] : [])],
   resolve: {
     alias: {
       '@novel': resolve(process.cwd(), './src'),
