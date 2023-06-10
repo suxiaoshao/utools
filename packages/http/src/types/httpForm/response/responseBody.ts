@@ -1,5 +1,5 @@
+import { HttpText } from '@http/types/http/text';
 import { Enum } from 'types';
-import { HttpText } from '../text';
 
 export type ResponseBody =
   | Enum<'text', HttpText>

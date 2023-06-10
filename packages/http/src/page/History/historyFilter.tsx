@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, ButtonProps, Divider, InputBase, Paper, Tooltip, Typography } from '@mui/material';
+import { Box, Divider, InputBase, Paper, Tooltip, Typography } from '@mui/material';
 import { TagEntity } from '@http/database/entity/tag.entity';
-import CustomSelector, { ItemListProp, MySelectorProp } from '@http/components/CustomSelector';
+import CustomSelector, { ItemListProp, CustomSelectorProp } from '@http/components/CustomSelector';
 import { HttpMethod } from '@http/utils/http/httpManager';
 import { myMethodList } from '../Work/url/methodSelector';
 import HistoryTags from './historyTags';
@@ -14,9 +14,7 @@ const itemList = [
   ...(myMethodList as ItemListProp<HttpMethod | undefined>[]),
 ];
 
-const ThisSelector = React.forwardRef<HTMLButtonElement, MySelectorProp<HttpMethod | undefined> & ButtonProps>(
-  CustomSelector,
-);
+const ThisSelector = React.forwardRef<HTMLButtonElement, CustomSelectorProp<HttpMethod | undefined>>(CustomSelector);
 
 /**
  * @author sushao
@@ -65,7 +63,7 @@ export default function HistoryFilter(props: HistoryFilterProp): JSX.Element {
       <Box component="form" sx={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}>
         {/* 筛选 http 方法 */}
         <Tooltip title={<Typography variant={'body2'}>筛选 http 方法</Typography>}>
-          <ThisSelector sx={{ p: 1 }} value={props.method} onValueChange={props.ocChangeMethod} itemList={itemList} />
+          <ThisSelector sx={{ p: 1 }} value={props.method} onChange={props.ocChangeMethod} itemList={itemList} />
         </Tooltip>
         <Divider
           sx={{

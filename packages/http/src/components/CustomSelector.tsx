@@ -24,7 +24,8 @@ export interface ItemListProp<T> {
  * @since 0.2.2
  * @description 选择器组建的 prop
  * */
-export interface MySelectorProp<T extends number | string | undefined | null> {
+export interface CustomSelectorProp<T extends number | string | undefined | null>
+  extends Omit<ButtonProps, 'onChange' | 'value'> {
   /**
    * 被选择的值
    * */
@@ -37,11 +38,11 @@ export interface MySelectorProp<T extends number | string | undefined | null> {
   /**
    * 修改值的触发方法
    * */
-  onValueChange(newValue: T): void;
+  onChange(newValue: T): void;
 }
 
 function CustomSelector<T extends number | string | undefined | null>(
-  { sx, itemList, value, onValueChange, ...props }: MySelectorProp<T> & ButtonProps,
+  { sx, itemList, value, onChange: onValueChange, ...props }: CustomSelectorProp<T>,
   ref?: ((instance: HTMLButtonElement | null) => void) | React.RefObject<HTMLButtonElement> | null | undefined,
 ): JSX.Element {
   /**

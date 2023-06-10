@@ -24,7 +24,7 @@ export default function MethodSelector(): JSX.Element {
   return (
     <CustomSelector<HttpMethod>
       value={httpManager.method}
-      onValueChange={(newValue) => {
+      onChange={(newValue) => {
         httpManager.method = newValue;
         forceUpdate();
       }}

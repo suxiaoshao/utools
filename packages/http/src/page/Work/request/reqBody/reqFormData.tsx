@@ -133,7 +133,7 @@ export default function ReqFormData(): JSX.Element {
                   variant="contained"
                   color="primary"
                   value={value.isFile ? 'file' : 'text'}
-                  onValueChange={(newValue) => {
+                  onChange={(newValue) => {
                     if (newValue === 'text') {
                       value.setNotFile();
                     } else {
@@ -180,7 +180,7 @@ export default function ReqFormData(): JSX.Element {
                 variant="contained"
                 color="primary"
                 value={'text'}
-                onValueChange={(newValue) => {
+                onChange={(newValue) => {
                   if (newValue === 'text') {
                     dataForms.push(new RequestUploadFile('', false, '', null));
                   } else {

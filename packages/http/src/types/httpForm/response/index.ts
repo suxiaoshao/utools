@@ -1,7 +1,7 @@
 import { Enum } from 'types';
-import { Header } from '../header';
 import { ResponseBody } from './responseBody';
-export type HttpResponse = Enum<'error', string> | Enum<'loading'> | Enum<'init'> | Enum<'success', SuccessResponse>;
+import { Header } from '@http/utils/http/header';
+export type ResponseForm = Enum<'error', string> | Enum<'loading'> | Enum<'init'> | Enum<'success', SuccessResponse>;
 
 export interface SuccessResponse {
   status: number;

@@ -51,7 +51,7 @@ export default function ResToggle(props: { value: string; onchangeValue(newValue
         <>
           <CustomSelector<ResponseContentType>
             value={response.contentType}
-            onValueChange={(newValue) => {
+            onChange={(newValue) => {
               response.contentType = newValue;
               fatherUpdate();
             }}
@@ -62,7 +62,7 @@ export default function ResToggle(props: { value: string; onchangeValue(newValue
             <CustomSelector<ResponseTextType>
               value={response.textType}
               variant="outlined"
-              onValueChange={(newValue) => {
+              onChange={(newValue) => {
                 response.textType = newValue;
                 fatherUpdate();
               }}

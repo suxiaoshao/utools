@@ -1,5 +1,5 @@
-import { HttpRequest } from './request';
-import { HttpResponse } from './response';
+import { HttpResponse } from '@http/utils/http/httpResponse';
+import { HttpRequest } from '../httpForm/request';
 
 export enum HttpMethod {
   GET = 'GET',
@@ -17,4 +17,5 @@ export interface Http {
   method: HttpMethod;
   request: HttpRequest;
   response: HttpResponse;
+  isRequest: boolean;
 }

@@ -1,9 +1,6 @@
 import React from 'react';
-import { HttpContext } from '../workPanel';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { SaveAlt } from '@mui/icons-material';
-import SaveHttp from '@http/components/httpSave/saveHttp';
-import { httpArray } from '@http/store/httpArray';
 
 /**
  * @author sushao
@@ -12,8 +9,7 @@ import { httpArray } from '@http/store/httpArray';
  * @description 保存此 http 请求的按钮
  * */
 export default function SaveButton(): JSX.Element {
-  const [saveHttpOpen, setSaveHttpOpen] = React.useState<boolean>(false);
-  const { httpManager } = React.useContext(HttpContext);
+  const [, setSaveHttpOpen] = React.useState<boolean>(false);
   return (
     <>
       <Tooltip title={<Typography variant="body2">保存此请求</Typography>}>
@@ -26,7 +22,8 @@ export default function SaveButton(): JSX.Element {
           <SaveAlt />
         </IconButton>
       </Tooltip>
-      <SaveHttp
+      {/* todo */}
+      {/* <SaveHttp
         open={saveHttpOpen}
         onClose={() => {
           setSaveHttpOpen(false);
@@ -37,7 +34,7 @@ export default function SaveButton(): JSX.Element {
           httpArray.update();
         }}
         httpManager={httpManager}
-      />
+      /> */}
     </>
   );
 }

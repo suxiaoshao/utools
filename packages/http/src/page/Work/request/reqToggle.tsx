@@ -68,7 +68,7 @@ export default function ReqToggle(props: {
           <CustomSelector<RequestBodyChoose>
             variant="outlined"
             value={request.bodyChoose}
-            onValueChange={(newValue) => {
+            onChange={(newValue) => {
               request.bodyChoose = newValue;
               fatherUpdate();
             }}
@@ -79,7 +79,7 @@ export default function ReqToggle(props: {
             <CustomSelector<RequestTextChoose>
               variant="outlined"
               value={request.textChoose}
-              onValueChange={(newValue) => {
+              onChange={(newValue) => {
                 request.textChoose = newValue;
                 fatherUpdate();
               }}

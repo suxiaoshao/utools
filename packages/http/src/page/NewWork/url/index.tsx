@@ -1,11 +1,10 @@
-import React from 'react';
 import { Divider, InputBase, Paper } from '@mui/material';
-import { HttpContext } from '../workPanel';
-import { httpArray } from '@http/store/httpArray';
 import SaveButton from './saveButton';
 import SendButton from './sendButton';
 import ChangeButton from './changeButton';
 import MethodSelector from './methodSelector';
+import { useFormContext } from 'react-hook-form';
+import { HttpForm } from '@http/types/httpForm';
 
 /**
  * @author sushao
@@ -14,7 +13,7 @@ import MethodSelector from './methodSelector';
  * @description http url 输入栏组件,用于管理 http 方法,链接,发送,切换视图
  * */
 export default function UrlPaper(): JSX.Element {
-  const { httpManager } = React.useContext(HttpContext);
+  const { register } = useFormContext<HttpForm>();
   return (
     <Paper
       component="form"
@@ -29,15 +28,7 @@ export default function UrlPaper(): JSX.Element {
     >
       <MethodSelector />
       <Divider sx={{ height: 28, margin: 0.5 }} orientation="vertical" />
-      <InputBase
-        placeholder="url"
-        sx={{ ml: 1, flex: 1 }}
-        value={httpManager.url}
-        onChange={(event) => {
-          httpManager.url = event.target.value;
-          httpArray.update();
-        }}
-      />
+      <InputBase placeholder="url" sx={{ ml: 1, flex: 1 }} {...register('request.url')} />
       <SendButton />
       <Divider sx={{ height: 28, margin: 0.5 }} orientation="vertical" />
       <ChangeButton />

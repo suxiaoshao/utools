@@ -1,11 +1,18 @@
-import React from 'react';
 import CustomSelector from '@http/components/CustomSelector';
-import { HttpContext } from '../workPanel';
-import { useForceUpdate } from '@http/hooks/useForceUpdate';
-import { HttpMethod } from '@http/utils/http/httpManager';
+import { HttpMethod } from '@http/types/http';
+import { useFormContext, Controller } from 'react-hook-form';
+import { HttpForm } from '@http/types/httpForm';
 
 export const myMethodList: { text: string; value: HttpMethod }[] = (
-  ['GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'] as const
+  [
+    HttpMethod.DELETE,
+    HttpMethod.GET,
+    HttpMethod.HEAD,
+    HttpMethod.OPTIONS,
+    HttpMethod.PATCH,
+    HttpMethod.POST,
+    HttpMethod.PUT,
+  ] as const
 ).map((value) => {
   return {
     text: value,
@@ -19,17 +26,12 @@ export const myMethodList: { text: string; value: HttpMethod }[] = (
  * @description 切换 http 方法的组件
  * */
 export default function MethodSelector(): JSX.Element {
-  const forceUpdate = useForceUpdate();
-  const { httpManager } = React.useContext(HttpContext);
+  const { control } = useFormContext<HttpForm>();
   return (
-    <CustomSelector<HttpMethod>
-      value={httpManager.method}
-      onValueChange={(newValue) => {
-        httpManager.method = newValue;
-        forceUpdate();
-      }}
-      itemList={myMethodList}
-      sx={{ p: 1 }}
+    <Controller
+      name="request.method"
+      render={({ field }) => <CustomSelector<HttpMethod> {...field} itemList={myMethodList} sx={{ p: 1 }} />}
+      control={control}
     />
   );
 }

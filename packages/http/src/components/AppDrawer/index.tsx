@@ -73,6 +73,7 @@ export default function AppDrawer(): JSX.Element {
     <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
       <List sx={{ flex: `0 0 ${listWidth}px` }} component={Paper} square elevation={1}>
         <RouterListItem path="/" icon={<NetworkCheck />} text={'工作区'} />
+        <RouterListItem path="/new_work" icon={<NetworkCheck />} text={'新工作区'} />
         <RouterListItem icon={<History />} text={'历史记录'} path={'/history'} />
         <RouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
         <RouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />

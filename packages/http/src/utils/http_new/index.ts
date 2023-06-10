@@ -1,15 +1,15 @@
-import { Http, HttpMethod } from '@http/types/http';
-import { BodyType, HttpRequest } from '@http/types/http/request';
-import { HttpResponse } from '@http/types/http/response';
+import { HttpMethod } from '@http/types/http';
+import { BodyType, HttpRequest } from '@http/types/httpForm/request';
 import { TextType } from '@http/types/http/text';
+import { HttpForm, TabType } from '@http/types/httpForm';
+import { ResponseForm } from '@http/types/httpForm/response';
 
-export function newHttp(): Http {
+export function newHttp(): HttpForm {
   return {
-    url: '',
     name: '',
-    method: HttpMethod.GET,
     request: newRequest(),
     response: newResponse(),
+    tab: TabType.request,
   };
 }
 
@@ -23,10 +23,12 @@ export function newRequest(): HttpRequest {
       textType: TextType.plain,
     },
     xForm: [],
+    method: HttpMethod.GET,
+    url: '',
   };
 }
 
-export function newResponse(): HttpResponse {
+export function newResponse(): ResponseForm {
   return {
     tag: 'init',
     data: undefined,

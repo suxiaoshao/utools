@@ -1,10 +1,9 @@
 import React from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, Tab } from '@mui/material';
-import { HttpManager } from '@http/utils/http/httpManager';
-import { httpArray } from '@http/store/httpArray';
 import { Add, Delete } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@http/app/hooks';
-import { SelectIndex, updateActiveTab } from '@http/app/features/tabsSlice';
+import { SelectTabCanDelete, addTab, deleteTab, updateActiveTab } from '@http/app/features/tabsSlice';
+import { HttpForm } from '@http/types/httpForm';
 
 /**
  * @author sushao
@@ -20,7 +19,7 @@ export interface WorkTabProp {
   /**
    * 这个 tab 的http 请求
    * */
-  httpManager: HttpManager;
+  httpManager: HttpForm;
 }
 
 /**
@@ -34,7 +33,7 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
    * 设置激活的 http 请求的下标
    * */
   const dispatch = useAppDispatch();
-  const activeIndex = useAppSelector(SelectIndex);
+  const tabCanDelete = useAppSelector(SelectTabCanDelete);
   /**
    * menu 出现的位置, 为 null 则不显示
    * */
@@ -62,7 +61,7 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
             display: 'block',
           },
         }}
-        label={props.httpManager.name || props.httpManager.url || '空'}
+        label={props.httpManager.name || props.httpManager.request.url || '空'}
         onClick={() => {
           dispatch(updateActiveTab(props.index));
         }}
@@ -78,7 +77,7 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
       >
         <MenuItem
           onClick={() => {
-            dispatch(updateActiveTab(httpArray.addHttpManager()));
+            dispatch(addTab());
             setMenuPosition(null);
           }}
         >
@@ -87,13 +86,10 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
           </ListItemIcon>
           <ListItemText>添加新请求</ListItemText>
         </MenuItem>
-        {httpArray.isDeleteHttpManager() && (
+        {tabCanDelete && (
           <MenuItem
             onClick={() => {
-              const httpLength = httpArray.deleteHttpManager(props.index);
-              if (httpLength < activeIndex) {
-                dispatch(updateActiveTab(httpLength));
-              }
+              dispatch(deleteTab(props.index));
               setMenuPosition(null);
             }}
           >

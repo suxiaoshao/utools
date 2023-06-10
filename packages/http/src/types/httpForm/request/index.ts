@@ -1,7 +1,8 @@
 import { UploadFileProps } from './formData';
-import { Header } from '../header';
-import { HttpText } from '../text';
+import { Header } from '../../http/header';
+import { HttpText } from '../../http/text';
 import { XForm } from './xForm';
+import { HttpMethod } from '@http/types/http';
 
 export enum BodyType {
   none = 'none',
@@ -12,6 +13,8 @@ export enum BodyType {
 }
 
 export interface HttpRequest {
+  url: string;
+  method: HttpMethod;
   bodyType: BodyType;
   text: HttpText;
   formData: UploadFileProps[];

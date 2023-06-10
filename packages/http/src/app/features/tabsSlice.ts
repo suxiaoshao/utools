@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { Http } from '@http/types/http';
 import { newHttp } from '@http/utils/http_new';
+import { HttpForm } from '@http/types/httpForm';
 
 export type TabsSliceType = {
-  tabs: Http[];
+  tabs: HttpForm[];
   activeTab: number;
 };
 
@@ -27,12 +27,12 @@ export const tabsSlice = createSlice({
     },
     deleteTab(state, action: PayloadAction<number>) {
       state.tabs.splice(action.payload, 1);
-      state.activeTab = Math.max(state.tabs.length - 1, state.activeTab);
+      state.activeTab = Math.min(state.tabs.length - 1, state.activeTab);
     },
     updateActiveTab(state, action: PayloadAction<number>) {
       state.activeTab = action.payload;
     },
-    addFromHttpManager(state, action: PayloadAction<Http>) {
+    addFromHttpManager(state, action: PayloadAction<HttpForm>) {
       state.tabs.push(action.payload);
       state.activeTab = state.tabs.length - 1;
     },
@@ -43,3 +43,4 @@ export const { addFromHttpManager, addTab, deleteTab, updateActiveTab } = tabsSl
 export const SelectIndex = (state: RootState) => state.tabs.activeTab;
 export const SelectActiveTab = (state: RootState) => state.tabs.tabs[state.tabs.activeTab];
 export const SelectTabs = (state: RootState) => state.tabs.tabs;
+export const SelectTabCanDelete = (state: RootState) => state.tabs.tabs.length > 1;

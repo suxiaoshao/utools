@@ -1,10 +1,9 @@
 import { Box, Tabs } from '@mui/material';
 import WorkPanel from './workPanel';
-import { useHttpArray } from '@http/store/httpArray';
 import { TabPanelDisappear } from '@http/components/TabPanel';
 import WorkTab from './workTab';
 import { useAppSelector } from '@http/app/hooks';
-import { SelectIndex } from '@http/app/features/tabsSlice';
+import { SelectIndex, SelectTabs } from '@http/app/features/tabsSlice';
 
 /**
  * @author sushao
@@ -20,7 +19,7 @@ export default function Work(): JSX.Element {
   /**
    * 全部的 http 请求
    * */
-  const [httpArray] = useHttpArray();
+  const httpArray = useAppSelector(SelectTabs);
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', flex: '0 0 auto' }}>
