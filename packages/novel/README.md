@@ -1,10 +1,93 @@
 # 小说阅读器使用文档
 
+## 打包教程
+
+因为法律原因，本插件不能在 utools 官方插件市场上架。
+所以我提供打包教程供大家自行打包使用
+
+### 依赖库安装
+
+#### node npm 安装
+
+进入 [官网](https://nodejs.org/zh-cn/download/),自行下载
+
+完成后打开命令行输入
+
+```shell
+node -v
+npm -v
+```
+
+没有报错说明安装完成，
+如果报错也可能是 `node`, `npm` 路径没有加到环境变量
+
+最后再安装 yarn
+
+执行
+
+```shell
+npm install yarn -g
+```
+
+如果没有流畅访问国外网站的条件，也可给 `yarn` `npm` 换源，
+照这 [此教程](https://zhuanlan.zhihu.com/p/35856841) 即可
+
+#### rust wasm-pack 安装
+
+到 `rust` [官网](https://www.rust-lang.org/zh-CN/learn/get-started)
+
+照着教程走就 ok
+
+如果遇到下载速度的问题可参考一下文章:
+[Rust 下载安装加速指南](https://zhuanlan.zhihu.com/p/126201430),
+[windows 下 rust 安装工具链 下载加速](https://www.cnblogs.com/skycandy/p/11402170.html)
+
+安装完成之后也可配置 `rust` 的换源，推荐使用字节源(速度比较快)
+
+进入 [此网站](https://rsproxy.cn/) ,复制 `~/.cargo/config:` 下的内容添加到
+你本地的 `~/.cargo/config` 文件里
+
+或者按照 [这篇文章](https://segmentfault.com/a/1190000017483415) 换成中科大源
+
+安装好 `rust` 后安装 `wasm-pack`
+
+命令行下运行
+
+```shell
+cargo install wasm-pack
+```
+
+安装之后运行
+
+```shell
+wasm-pack --version
+```
+
+如果能正确显示版本说明安装成功
+
+### 打包过程
+
+进入项目根目录运行以下命令来安装项目的依赖包
+
+```shell
+yarn install
+```
+
+打包前端代码，运行
+
+```shell
+yarn build
+```
+
+进入 utools 开发者插件,点击新建项目，
+必要内容填好后，点击 `选择 plugin.json 文件` 选择 `build/plugin.json` 文件，
+然后点击打包即可完成
+
 ## 联系方式
 
 如出现 bug 或者希望添加的功能可用以下联系方式联系
 
-1. 我的个人博客[sushao'bolg](https://www.sushao.blog)
+1. 我的个人博客[sushao' blog](https://www.sushao.blog)
 
 2. 我的 github[sushao](https://github.com/suxiaoshao)
 
@@ -14,7 +97,7 @@
 
 ## 更新
 
-## v0.5.0
+### v0.5.0
 
 1. 添加源自定义源
 
@@ -54,13 +137,13 @@
 
 可以打开设置页面自定义源,添加源是通过 `json` 文件形式创建的
 
-![](https://files.catbox.moe/0drsf1.png)
+![json 示例](https://files.catbox.moe/0drsf1.png)
 
 每一项都会有提示,mainPageUrl 不允许重复
 
 并且可以在上一个页面删除源(不允许删除默认源), 删除源后,这个源的阅读记录也会被删除
 
-![](https://files.catbox.moe/sknfho.png)
+![删除示例](https://files.catbox.moe/sknfho.png)
 
 以下是默认源的例子
 

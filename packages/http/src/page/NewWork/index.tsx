@@ -50,7 +50,7 @@ export default function Work(): JSX.Element {
           index={workIndex}
           value={index}
         >
-          <WorkPanel http={item} />
+          <WorkPanel http={item} index={index} />
         </TabPanelDisappear>
       ))}
     </Box>

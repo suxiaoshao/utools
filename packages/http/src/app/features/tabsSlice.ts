@@ -36,9 +36,12 @@ export const tabsSlice = createSlice({
       state.tabs.push(action.payload);
       state.activeTab = state.tabs.length - 1;
     },
+    editHttp(state, action: PayloadAction<{ index: number; http: HttpForm }>) {
+      state.tabs[action.payload.index] = action.payload.http;
+    },
   },
 });
-export const { addFromHttpManager, addTab, deleteTab, updateActiveTab } = tabsSlice.actions;
+export const { addFromHttpManager, addTab, deleteTab, updateActiveTab, editHttp } = tabsSlice.actions;
 
 export const SelectIndex = (state: RootState) => state.tabs.activeTab;
 export const SelectActiveTab = (state: RootState) => state.tabs.tabs[state.tabs.activeTab];

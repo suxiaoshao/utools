@@ -2,7 +2,7 @@
 
 ## 联系方式
 
-1. 我的个人博客[sushao'bolg](https://www.sushao.top)
+1. 我的个人博客[sushao‘blog](https://www.sushao.top)
 
 2. 我的 github[sushao](https://github.com/suxiaoshao)
 
@@ -43,7 +43,7 @@
 
    这个目录也储存了 `setting.json` 设置文件和 `old.json` 旧数据文件
 
-   如果想要多台机子同步的话,可以手动迁移 `utools\databse\http` 文件夹下的文件.
+   如果想要多台机子同步的话,可以手动迁移 `utools\database\http` 文件夹下的文件.
 
    - 数据迁移
 
