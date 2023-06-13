@@ -1,23 +1,17 @@
-import { UploadFileProps } from './formData';
 import { Header } from '../../http/header';
-import { HttpText } from '../../http/text';
-import { XForm } from './xForm';
 import { HttpMethod } from '@http/types/http';
+import { RequestBody } from './body';
 
-export enum BodyType {
-  none = 'none',
-  text = 'text',
-  data = 'data',
-  xForm = 'x-www-form-urlencoded',
-  formData = 'formData',
+export enum RequestTab {
+  params = 'params',
+  headers = 'headers',
+  body = 'body',
 }
 
 export interface HttpRequest {
   url: string;
   method: HttpMethod;
-  bodyType: BodyType;
-  text: HttpText;
-  formData: UploadFileProps[];
-  xForm: XForm[];
   headers: Header[];
+  body: RequestBody;
+  tab: RequestTab;
 }

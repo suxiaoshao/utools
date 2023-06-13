@@ -1,9 +1,11 @@
-import { useForm, FormProvider } from 'react-hook-form';
-import { HttpForm } from '@http/types/httpForm';
-import Url from './Url';
+import { useForm, FormProvider, useWatch } from 'react-hook-form';
+import { HttpForm, TabType } from '@http/types/httpForm';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from '@http/app/hooks';
 import { editHttp } from '@http/app/features/tabsSlice';
+import Url from './Url';
+import Request from './Request';
+import Response from './Response';
 
 export interface WorkPanelProps {
   http: HttpForm;
@@ -18,6 +20,7 @@ export interface WorkPanelProps {
  * */
 export default function WorkPanel({ http, index }: WorkPanelProps): JSX.Element {
   const methods = useForm<HttpForm>({ defaultValues: http });
+  const tab = useWatch({ control: methods.control, name: 'tab' });
   const dispatch = useAppDispatch();
   const onSubmit = useMemo(
     () =>
@@ -31,10 +34,19 @@ export default function WorkPanel({ http, index }: WorkPanelProps): JSX.Element 
       onSubmit();
     };
   }, [onSubmit]);
+  const content = useMemo(() => {
+    switch (tab) {
+      case TabType.request:
+        return <Request />;
+      case TabType.response:
+        return <Response />;
+    }
+  }, [tab]);
 
   return (
     <FormProvider {...methods}>
       <Url />
+      {content}
     </FormProvider>
   );
 }

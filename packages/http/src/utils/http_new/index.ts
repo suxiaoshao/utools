@@ -1,8 +1,9 @@
 import { HttpMethod } from '@http/types/http';
-import { BodyType, HttpRequest } from '@http/types/httpForm/request';
+import { HttpRequest, RequestTab } from '@http/types/httpForm/request';
 import { TextType } from '@http/types/http/text';
 import { HttpForm, TabType } from '@http/types/httpForm';
 import { ResponseForm } from '@http/types/httpForm/response';
+import { BodyType } from '@http/types/httpForm/request/body';
 
 export function newHttp(): HttpForm {
   return {
@@ -15,16 +16,19 @@ export function newHttp(): HttpForm {
 
 export function newRequest(): HttpRequest {
   return {
-    bodyType: BodyType.none,
-    formData: [],
     headers: [],
-    text: {
-      text: '',
-      textType: TextType.plain,
-    },
-    xForm: [],
+    tab: RequestTab.params,
     method: HttpMethod.GET,
     url: '',
+    body: {
+      bodyType: BodyType.none,
+      text: {
+        text: '',
+        textType: TextType.plain,
+      },
+      formData: [],
+      xForm: [],
+    },
   };
 }
 
