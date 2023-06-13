@@ -16,3 +16,6 @@ export interface RequestBody {
   formData: UploadFileProps[];
   xForm: XForm[];
 }
+
+export * from './formData';
+export * from './xForm';

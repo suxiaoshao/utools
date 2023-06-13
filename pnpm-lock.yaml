@@ -1180,7 +1180,7 @@ packages:
       core-js-pure: 3.31.0
       error-stack-parser: 2.1.4
       find-up: 5.0.0
-      html-entities: 2.3.5
+      html-entities: 2.3.6
       loader-utils: 2.0.4
       react-refresh: 0.14.0
       schema-utils: 3.2.0
@@ -1218,7 +1218,7 @@ packages:
       core-js-pure: 3.31.0
       error-stack-parser: 2.1.4
       find-up: 5.0.0
-      html-entities: 2.3.5
+      html-entities: 2.3.6
       loader-utils: 2.0.4
       schema-utils: 3.2.0
       source-map: 0.7.4
@@ -1603,12 +1603,12 @@ packages:
   /@types/eslint-scope@3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
-      '@types/eslint': 8.40.1
+      '@types/eslint': 8.40.2
       '@types/estree': 0.0.51
     dev: true
 
-  /@types/eslint@8.40.1:
-    resolution: {integrity: sha512-vRb792M4mF1FBT+eoLecmkpLXwxsBHvWWRGJjzbYANBM6DtiJc6yETyv4rqDA6QNjF1pkj1U7LMA6dGb3VYlHw==}
+  /@types/eslint@8.40.2:
+    resolution: {integrity: sha512-PRVjQ4Eh9z9pmmtaq8nTjZjQwKFk7YIHIud3lRoKRBgUQjgjRmoGxxGEPXQkF+lH7QkHJRNr5F4aBgYCW0lqpQ==}
     dependencies:
       '@types/estree': 0.0.51
       '@types/json-schema': 7.0.12
@@ -3786,8 +3786,8 @@ packages:
       whatwg-encoding: 2.0.0
     dev: true
 
-  /html-entities@2.3.5:
-    resolution: {integrity: sha512-72TJlcMkYsEJASa/3HnX7VT59htM7iSHbH59NSZbtc+22Ap0Txnlx91sfeB+/A7wNZg7UxtZdhAW4y+/jimrdg==}
+  /html-entities@2.3.6:
+    resolution: {integrity: sha512-9o0+dcpIw2/HxkNuYKxSJUF/MMRZQECK4GnF+oQOmJ83yCVHTWgCH5aOXxK5bozNRmM8wtgryjHD3uloPBDEGw==}
     dev: true
 
   /html-escaper@2.0.2:
@@ -6323,7 +6323,7 @@ packages:
       default-gateway: 6.0.3
       express: 4.18.1
       graceful-fs: 4.2.11
-      html-entities: 2.3.5
+      html-entities: 2.3.6
       http-proxy-middleware: 2.0.6(@types/express@4.17.17)
       ipaddr.js: 2.1.0
       launch-editor: 2.6.0

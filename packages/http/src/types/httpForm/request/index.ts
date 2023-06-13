@@ -1,6 +1,7 @@
 import { Header } from '../../http/header';
 import { HttpMethod } from '@http/types/http';
 import { RequestBody } from './body';
+import { RequestParams } from './params';
 
 export enum RequestTab {
   params = 'params',
@@ -14,4 +15,8 @@ export interface HttpRequest {
   headers: Header[];
   body: RequestBody;
   tab: RequestTab;
+  params: RequestParams[];
 }
+
+export * from './body';
+export * from './params';

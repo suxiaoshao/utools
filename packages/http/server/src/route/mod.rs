@@ -28,5 +28,7 @@ async fn request(method: Method, headers: HeaderMap, url: OriginalUri) -> impl I
         "method": method.as_str(),
         "headers": headers,
         "path": url.path(),
+        "query": url.query(),
+        "original-url": url.to_string()
     }))
 }

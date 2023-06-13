@@ -11,3 +11,6 @@ export interface HttpForm {
   request: HttpRequest;
   response: ResponseForm;
 }
+
+export * from './request';
+export * from './response';

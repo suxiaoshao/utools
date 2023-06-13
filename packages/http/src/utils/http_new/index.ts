@@ -29,6 +29,7 @@ export function newRequest(): HttpRequest {
       formData: [],
       xForm: [],
     },
+    params: [],
   };
 }
 
@@ -38,3 +39,6 @@ export function newResponse(): ResponseForm {
     data: undefined,
   };
 }
+
+export * from './header';
+export * from './params';

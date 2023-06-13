@@ -11,3 +11,5 @@ export interface SuccessResponse {
   endTime: number;
   body: ResponseBody;
 }
+
+export * from './responseBody';
