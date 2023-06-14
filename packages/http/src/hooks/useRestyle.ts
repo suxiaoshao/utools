@@ -15,8 +15,10 @@ export const CommonStyle = {
   toggle: {
     flex: '0 0 auto',
     display: 'flex',
-    width: '100%',
-    justifyContent: 'space-around',
+    width: (theme: Theme) => `calc(100% - ${theme.spacing(2)})`,
+    justifyContent: 'space-between',
+    ml: 1,
+    mr: 1,
   },
   page: {
     flex: '1 1 0',

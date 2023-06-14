@@ -12,11 +12,11 @@ monaco.editor.defineTheme('monankai', monankai);
  * @since 0.2.2
  * @description 可写情况下的 editProp
  * */
-export interface NotReadOnlyEditProp extends BoxProps {
+export interface NotReadOnlyEditProp extends Omit<BoxProps, 'onChange'> {
   /**
    * 要显示的代码字符串
    * */
-  code: string;
+  value: string;
   /**
    * 使用哪种语言显示
    * */
@@ -29,7 +29,7 @@ export interface NotReadOnlyEditProp extends BoxProps {
   /**
    * 当编辑器代码改变时触发的方法
    * */
-  onChangeCode?(newCode: string): void;
+  onChange?(newCode: string): void;
 }
 
 /**
@@ -39,10 +39,10 @@ export interface NotReadOnlyEditProp extends BoxProps {
  * @description 编辑器组件
  * */
 export default function Edit({
-  code,
+  value: code,
   language,
   readonly = false,
-  onChangeCode,
+  onChange: onChangeCode,
   ...props
 }: NotReadOnlyEditProp): JSX.Element {
   /**
@@ -95,14 +95,6 @@ export default function Edit({
       };
     }
   }, [edit, readonly, onChangeCode]);
-  /**
-   * props.code 改变时,如果 props.code和编辑器本身储存的 code 不一样,则重设编辑器的值
-   * */
-  React.useEffect(() => {
-    if (code !== edit?.getValue() && !readonly) {
-      edit?.setValue(code);
-    }
-  }, [edit, code, readonly]);
   const format = useCallback(async () => {
     if (readonly && edit) {
       edit.updateOptions({

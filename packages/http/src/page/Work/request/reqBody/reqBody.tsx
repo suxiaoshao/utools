@@ -5,32 +5,6 @@ import Edit from '@http/components/editor/edit';
 import { TabPanelDisappear } from '@http/components/TabPanel';
 import { RequestContext } from '../request';
 
-// todo delete
-// const useReqBodyStyle = makeStyles((theme) =>
-//   createStyles({
-//     tabPanel: {
-//       width: '100%',
-//       height: '100%',
-//     },
-//     tableContainer: {
-//       margin: theme.spacing(1),
-//       height: `calc(100% - ${theme.spacing(1) * 2}px)`,
-//       width: `calc(100% - ${theme.spacing(1) * 2}px)`,
-//     },
-//     edit: {
-//       width: '100%',
-//       height: '100%',
-//       margin: 0,
-//       overflow: 'hidden',
-//     },
-//     editFather: {
-//       width: '100%',
-//       height: '100%',
-//       paddingTop: '3px',
-//     },
-//   }),
-// );
-
 /**
  * @author sushao
  * @version 0.2.2
@@ -73,10 +47,10 @@ export default function ReqBody(): JSX.Element {
         value={request.bodyChoose}
       >
         <Edit
-          code={request.text}
+          value={request.text}
           language={request.textChoose}
           sx={{ width: '100%', height: '100%' }}
-          onChangeCode={(newCode) => {
+          onChange={(newCode) => {
             request.text = newCode;
             fatherUpdate();
           }}

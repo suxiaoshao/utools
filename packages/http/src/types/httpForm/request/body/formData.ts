@@ -1,6 +1,10 @@
+export enum UploadFileType {
+  file = 'file',
+  text = 'text',
+}
 export interface UploadFileProps {
   path: string | null;
   key: string;
-  isFile: boolean;
-  value: string;
+  type: UploadFileType;
+  text: string;
 }

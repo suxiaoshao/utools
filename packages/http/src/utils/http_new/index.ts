@@ -42,3 +42,5 @@ export function newResponse(): ResponseForm {
 
 export * from './header';
 export * from './params';
+export * from './xForm';
+export * from './formData';
