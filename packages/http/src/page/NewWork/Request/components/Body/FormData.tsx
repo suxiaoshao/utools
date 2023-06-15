@@ -1,5 +1,7 @@
+import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
+import FileUpload from '@http/components/FileUpload';
 import { CommonStyle } from '@http/hooks/useRestyle';
-import { HttpForm } from '@http/types/httpForm';
+import { HttpForm, UploadFileType } from '@http/types/httpForm';
 import { newFormData } from '@http/utils/http_new';
 import { Add, Delete } from '@mui/icons-material';
 import {
@@ -13,7 +15,17 @@ import {
   TableBody,
   InputBase,
 } from '@mui/material';
-import { useFormContext, useFieldArray } from 'react-hook-form';
+import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
+const typeItems: ItemListProp<UploadFileType>[] = [
+  {
+    text: UploadFileType.text,
+    value: UploadFileType.text,
+  },
+  {
+    text: UploadFileType.file,
+    value: UploadFileType.file,
+  },
+];
 
 export default function FormData() {
   const { control, register } = useFormContext<HttpForm>();
@@ -35,6 +47,7 @@ export default function FormData() {
             </TableCell>
             <TableCell>key</TableCell>
             <TableCell>value</TableCell>
+            <TableCell>select</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
@@ -52,12 +65,33 @@ export default function FormData() {
               <TableCell>
                 <InputBase sx={CommonStyle.tableInput} {...register(`request.body.formData.${index}.key`)} />
               </TableCell>
-              <TableCell>
-                <InputBase
-                  sx={{ ...CommonStyle.tableInput, ...(false ? CommonStyle.tableInputDelete : {}) }}
-                  {...register(`request.body.formData.${index}.text`)}
-                />
-              </TableCell>
+              <Controller
+                control={control}
+                name={`request.body.formData.${index}.type`}
+                render={({ field }) => (
+                  <>
+                    <TableCell>
+                      {field.value === UploadFileType.file ? (
+                        <Controller
+                          control={control}
+                          name={`request.body.formData.${index}.file`}
+                          render={({ field }) => <FileUpload {...field} />}
+                        />
+                      ) : (
+                        <InputBase sx={CommonStyle.tableInput} {...register(`request.body.formData.${index}.text`)} />
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <CustomSelector<UploadFileType>
+                        variant="contained"
+                        color="primary"
+                        {...field}
+                        itemList={typeItems}
+                      />
+                    </TableCell>
+                  </>
+                )}
+              />
             </TableRow>
           ))}
         </TableBody>

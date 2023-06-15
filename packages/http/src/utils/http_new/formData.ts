@@ -5,6 +5,6 @@ export function newFormData(): UploadFileProps {
     key: '',
     text: '',
     type: UploadFileType.text,
-    path: null,
+    file: null,
   };
 }

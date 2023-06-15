@@ -53,10 +53,7 @@ export default function Params() {
                 <InputBase sx={CommonStyle.tableInput} {...register(`request.params.${index}.key`)} />
               </TableCell>
               <TableCell>
-                <InputBase
-                  sx={{ ...CommonStyle.tableInput, ...(false ? CommonStyle.tableInputDelete : {}) }}
-                  {...register(`request.params.${index}.value`)}
-                />
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.params.${index}.value`)} />
               </TableCell>
             </TableRow>
           ))}

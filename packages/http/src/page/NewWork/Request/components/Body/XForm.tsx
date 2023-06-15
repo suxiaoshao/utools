@@ -53,10 +53,7 @@ export default function XForm() {
                 <InputBase sx={CommonStyle.tableInput} {...register(`request.body.xForm.${index}.key`)} />
               </TableCell>
               <TableCell>
-                <InputBase
-                  sx={{ ...CommonStyle.tableInput, ...(false ? CommonStyle.tableInputDelete : {}) }}
-                  {...register(`request.body.xForm.${index}.value`)}
-                />
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.body.xForm.${index}.value`)} />
               </TableCell>
             </TableRow>
           ))}

@@ -53,10 +53,7 @@ export default function Headers() {
                 <InputBase sx={CommonStyle.tableInput} {...register(`request.headers.${index}.key`)} />
               </TableCell>
               <TableCell>
-                <InputBase
-                  sx={{ ...CommonStyle.tableInput, ...(false ? CommonStyle.tableInputDelete : {}) }}
-                  {...register(`request.headers.${index}.value`)}
-                />
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.headers.${index}.value`)} />
               </TableCell>
             </TableRow>
           ))}
