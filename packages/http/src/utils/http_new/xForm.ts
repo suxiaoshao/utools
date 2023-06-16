@@ -4,5 +4,6 @@ export function newXForm(): XForm {
   return {
     key: '',
     value: '',
+    isChecked: true,
   };
 }

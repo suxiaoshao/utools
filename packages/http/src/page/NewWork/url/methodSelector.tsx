@@ -1,7 +1,6 @@
 import CustomSelector from '@http/components/CustomSelector';
-import { HttpMethod } from '@http/types/http';
 import { useFormContext, Controller } from 'react-hook-form';
-import { HttpForm } from '@http/types/httpForm';
+import { HttpForm, HttpMethod } from '@http/types/httpForm';
 
 export const myMethodList: { text: string; value: HttpMethod }[] = (
   [

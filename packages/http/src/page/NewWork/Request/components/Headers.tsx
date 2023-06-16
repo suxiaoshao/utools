@@ -1,8 +1,9 @@
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { HttpForm } from '@http/types/httpForm';
-import { newHeader } from '@http/utils/http_new/header';
+import { getExtraHeaders, newHeader } from '@http/utils/http_new/header';
 import { Add, Delete } from '@mui/icons-material';
 import {
+  Checkbox,
   IconButton,
   InputBase,
   Paper,
@@ -13,34 +14,44 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useMemo } from 'react';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 
 export default function Headers() {
   const { control, register } = useFormContext<HttpForm>();
   const { fields, append, remove } = useFieldArray({ control, name: 'request.headers' });
+  const request = useWatch({ control, name: 'request' });
+  const extraHeaders = useMemo(() => getExtraHeaders(request), [request]);
   return (
     <TableContainer sx={CommonStyle.tableContainer} component={Paper}>
       <Table stickyHeader size="small" sx={CommonStyle.table}>
         {/* 表头 */}
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox">
+            <TableCell>key</TableCell>
+            <TableCell>value</TableCell>
+            <TableCell padding="none" width={80}>
               <IconButton
                 onClick={() => {
                   append(newHeader());
                 }}
               >
-                <Add />
+                <Add fontSize="small" />
               </IconButton>
             </TableCell>
-            <TableCell>key</TableCell>
-            <TableCell>value</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {fields.map((value, index) => (
             <TableRow key={value.id}>
-              <TableCell padding="checkbox">
+              <TableCell>
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.headers.${index}.key`)} />
+              </TableCell>
+              <TableCell>
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.headers.${index}.value`)} />
+              </TableCell>
+              <TableCell padding="none">
+                <Checkbox size="small" defaultChecked {...register(`request.headers.${index}.isChecked`)} />
                 <IconButton
                   onClick={() => {
                     remove(index);
@@ -49,12 +60,13 @@ export default function Headers() {
                   <Delete fontSize="small" />
                 </IconButton>
               </TableCell>
-              <TableCell>
-                <InputBase sx={CommonStyle.tableInput} {...register(`request.headers.${index}.key`)} />
-              </TableCell>
-              <TableCell>
-                <InputBase sx={CommonStyle.tableInput} {...register(`request.headers.${index}.value`)} />
-              </TableCell>
+            </TableRow>
+          ))}
+          {extraHeaders.map((value, index) => (
+            <TableRow key={index}>
+              <TableCell>{value.key}</TableCell>
+              <TableCell>{value.value}</TableCell>
+              <TableCell />
             </TableRow>
           ))}
         </TableBody>

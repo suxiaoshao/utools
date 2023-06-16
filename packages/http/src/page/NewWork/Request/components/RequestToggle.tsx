@@ -4,7 +4,7 @@ import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { BodyType, RequestTab } from '@http/types/httpForm/request';
 import { HttpForm } from '@http/types/httpForm';
 import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
-import { TextType } from '@http/types/http/text';
+import { TextType } from '@http/types/httpForm/common/text';
 
 const bodyItemList: ItemListProp<BodyType>[] = (
   [BodyType.formData, BodyType.none, BodyType.text, BodyType.xForm] as const

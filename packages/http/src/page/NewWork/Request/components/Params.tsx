@@ -1,6 +1,6 @@
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { HttpForm } from '@http/types/httpForm';
-import { newHeader } from '@http/utils/http_new';
+import { newParams } from '@http/utils/http_new';
 import { Add, Delete } from '@mui/icons-material';
 import {
   TableContainer,
@@ -12,6 +12,7 @@ import {
   IconButton,
   TableBody,
   InputBase,
+  Checkbox,
 } from '@mui/material';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 
@@ -24,23 +25,30 @@ export default function Params() {
         {/* 表头 */}
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox">
-              <IconButton
-                onClick={() => {
-                  append(newHeader());
-                }}
-              >
-                <Add />
-              </IconButton>
-            </TableCell>
             <TableCell>key</TableCell>
             <TableCell>value</TableCell>
+            <TableCell padding="none" width={80}>
+              <IconButton
+                onClick={() => {
+                  append(newParams());
+                }}
+              >
+                <Add fontSize="small" />
+              </IconButton>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {fields.map((value, index) => (
             <TableRow key={value.id}>
-              <TableCell padding="checkbox">
+              <TableCell>
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.params.${index}.key`)} />
+              </TableCell>
+              <TableCell>
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.params.${index}.value`)} />
+              </TableCell>
+              <TableCell padding="none">
+                <Checkbox size="small" defaultChecked {...register(`request.params.${index}.isChecked`)} />
                 <IconButton
                   onClick={() => {
                     remove(index);
@@ -48,12 +56,6 @@ export default function Params() {
                 >
                   <Delete fontSize="small" />
                 </IconButton>
-              </TableCell>
-              <TableCell>
-                <InputBase sx={CommonStyle.tableInput} {...register(`request.params.${index}.key`)} />
-              </TableCell>
-              <TableCell>
-                <InputBase sx={CommonStyle.tableInput} {...register(`request.params.${index}.value`)} />
               </TableCell>
             </TableRow>
           ))}

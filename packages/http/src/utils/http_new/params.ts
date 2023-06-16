@@ -4,5 +4,6 @@ export function newParams(): RequestParams {
   return {
     key: '',
     value: '',
+    isChecked: true,
   };
 }

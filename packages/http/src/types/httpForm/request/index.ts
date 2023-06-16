@@ -1,5 +1,5 @@
-import { Header } from '../../http/header';
-import { HttpMethod } from '@http/types/http';
+import { HttpMethod } from '../common';
+import { EditableHeader } from '../common/header';
 import { RequestBody } from './body';
 import { RequestParams } from './params';
 
@@ -12,7 +12,7 @@ export enum RequestTab {
 export interface HttpRequest {
   url: string;
   method: HttpMethod;
-  headers: Header[];
+  headers: EditableHeader[];
   body: RequestBody;
   tab: RequestTab;
   params: RequestParams[];

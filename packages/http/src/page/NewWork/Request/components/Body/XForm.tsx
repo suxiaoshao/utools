@@ -12,6 +12,7 @@ import {
   IconButton,
   TableBody,
   InputBase,
+  Checkbox,
 } from '@mui/material';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 
@@ -24,23 +25,30 @@ export default function XForm() {
         {/* 表头 */}
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox">
+            <TableCell>key</TableCell>
+            <TableCell>value</TableCell>
+            <TableCell padding="none" width={80}>
               <IconButton
                 onClick={() => {
                   append(newXForm());
                 }}
               >
-                <Add />
+                <Add fontSize="small" />
               </IconButton>
             </TableCell>
-            <TableCell>key</TableCell>
-            <TableCell>value</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {fields.map((value, index) => (
             <TableRow key={value.id}>
-              <TableCell padding="checkbox">
+              <TableCell>
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.body.xForm.${index}.key`)} />
+              </TableCell>
+              <TableCell>
+                <InputBase sx={CommonStyle.tableInput} {...register(`request.body.xForm.${index}.value`)} />
+              </TableCell>
+              <TableCell padding="none">
+                <Checkbox size="small" defaultChecked {...register(`request.headers.${index}.isChecked`)} />
                 <IconButton
                   onClick={() => {
                     remove(index);
@@ -48,12 +56,6 @@ export default function XForm() {
                 >
                   <Delete fontSize="small" />
                 </IconButton>
-              </TableCell>
-              <TableCell>
-                <InputBase sx={CommonStyle.tableInput} {...register(`request.body.xForm.${index}.key`)} />
-              </TableCell>
-              <TableCell>
-                <InputBase sx={CommonStyle.tableInput} {...register(`request.body.xForm.${index}.value`)} />
               </TableCell>
             </TableRow>
           ))}

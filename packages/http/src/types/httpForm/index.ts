@@ -14,3 +14,4 @@ export interface HttpForm {
 
 export * from './request';
 export * from './response';
+export * from './common';

@@ -66,8 +66,6 @@ export default function ThemeEdit(): JSX.Element {
             type="color"
             value={color}
             onChange={(event) => {
-              console.log(event.target.value);
-
               dispatch(updateColor(event.target.value));
             }}
           />

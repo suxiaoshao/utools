@@ -1,4 +1,4 @@
-import { HttpText } from '@http/types/http/text';
+import { HttpText } from '../../common/text';
 import { UploadFileProps } from './formData';
 import { XForm } from './xForm';
 

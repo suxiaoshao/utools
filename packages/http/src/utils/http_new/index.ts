@@ -1,9 +1,9 @@
-import { HttpMethod } from '@http/types/http';
 import { HttpRequest, RequestTab } from '@http/types/httpForm/request';
-import { TextType } from '@http/types/http/text';
 import { HttpForm, TabType } from '@http/types/httpForm';
 import { ResponseForm } from '@http/types/httpForm/response';
 import { BodyType } from '@http/types/httpForm/request/body';
+import { HttpMethod } from '@http/types/httpForm/common';
+import { TextType } from '@http/types/httpForm/common/text';
 
 export function newHttp(): HttpForm {
   return {

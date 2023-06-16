@@ -6,5 +6,6 @@ export function newFormData(): UploadFileProps {
     text: '',
     type: UploadFileType.text,
     file: null,
+    isChecked: true,
   };
 }

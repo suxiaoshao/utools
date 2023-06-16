@@ -14,6 +14,7 @@ import {
   IconButton,
   TableBody,
   InputBase,
+  Checkbox,
 } from '@mui/material';
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 const typeItems: ItemListProp<UploadFileType>[] = [
@@ -36,32 +37,23 @@ export default function FormData() {
         {/* 表头 */}
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox">
+            <TableCell>key</TableCell>
+            <TableCell>value</TableCell>
+            <TableCell>select</TableCell>
+            <TableCell padding="none" width={80}>
               <IconButton
                 onClick={() => {
                   append(newFormData());
                 }}
               >
-                <Add />
+                <Add fontSize="small" />
               </IconButton>
             </TableCell>
-            <TableCell>key</TableCell>
-            <TableCell>value</TableCell>
-            <TableCell>select</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {fields.map((value, index) => (
             <TableRow key={value.id}>
-              <TableCell padding="checkbox">
-                <IconButton
-                  onClick={() => {
-                    remove(index);
-                  }}
-                >
-                  <Delete fontSize="small" />
-                </IconButton>
-              </TableCell>
               <TableCell>
                 <InputBase sx={CommonStyle.tableInput} {...register(`request.body.formData.${index}.key`)} />
               </TableCell>
@@ -92,6 +84,16 @@ export default function FormData() {
                   </>
                 )}
               />
+              <TableCell padding="none">
+                <Checkbox size="small" defaultChecked {...register(`request.body.formData.${index}.isChecked`)} />
+                <IconButton
+                  onClick={() => {
+                    remove(index);
+                  }}
+                >
+                  <Delete fontSize="small" />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
