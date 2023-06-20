@@ -1,6 +1,6 @@
 import { HttpMethod } from '../common';
 import { EditableHeader } from '../common/header';
-import { RequestBody } from './body';
+import { RequestBodyForm as RequestBodyForm } from './body';
 import { RequestParams } from './params';
 
 export enum RequestTab {
@@ -9,11 +9,11 @@ export enum RequestTab {
   body = 'body',
 }
 
-export interface HttpRequest {
+export interface RequestForm {
   url: string;
   method: HttpMethod;
   headers: EditableHeader[];
-  body: RequestBody;
+  body: RequestBodyForm;
   tab: RequestTab;
   params: RequestParams[];
 }

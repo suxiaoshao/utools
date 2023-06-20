@@ -9,7 +9,7 @@ export enum BodyType {
   formData = 'formData',
 }
 
-export interface RequestBody {
+export interface RequestBodyForm {
   bodyType: BodyType;
   text: HttpText;
   formData: UploadFileProps[];

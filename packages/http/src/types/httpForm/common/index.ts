@@ -11,3 +11,6 @@ export enum HttpMethod {
 export interface OptionItem {
   isChecked: boolean;
 }
+
+export * from './header';
+export * from './text';

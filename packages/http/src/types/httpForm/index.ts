@@ -1,4 +1,4 @@
-import { HttpRequest } from './request';
+import { RequestForm } from './request';
 import { ResponseForm } from './response';
 
 export enum TabType {
@@ -8,7 +8,7 @@ export enum TabType {
 export interface HttpForm {
   name: string;
   tab: TabType;
-  request: HttpRequest;
+  request: RequestForm;
   response: ResponseForm;
 }
 

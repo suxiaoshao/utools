@@ -40,7 +40,14 @@ export default function RequestToggle(): JSX.Element {
         control={control}
         name="request.tab"
         render={({ field }) => (
-          <ToggleButtonGroup size="small" exclusive {...field}>
+          <ToggleButtonGroup
+            size="small"
+            exclusive
+            {...field}
+            onChange={(event, value) => {
+              field.onChange(value);
+            }}
+          >
             <ToggleButton sx={CommonStyle.toggleButton} value={RequestTab.params}>
               Params
             </ToggleButton>

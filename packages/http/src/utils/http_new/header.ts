@@ -1,5 +1,5 @@
 import { EditableHeader, PureHeader } from '@http/types/httpForm/common/header';
-import { BodyType, HttpRequest } from '@http/types/httpForm';
+import { BodyType, RequestForm } from '@http/types/httpForm';
 import { TextType } from '@http/types/httpForm/common/text';
 
 export enum HeaderName {
@@ -78,11 +78,25 @@ export function getExtraHeaders({
     text: { textType },
   },
   headers,
-}: HttpRequest): PureHeader[] {
+}: RequestForm): PureHeader[] {
   const extraHeaders: PureHeader[] = [];
   const contentTypeHeader = getExtraHeaderFromContentType(bodyType, textType);
   if (contentTypeHeader && !headersHas(contentTypeHeader.key, headers)) {
     extraHeaders.push(contentTypeHeader);
   }
   return extraHeaders;
+}
+
+export function getHeadersFromRequestForm(request: RequestForm): Headers {
+  const extraHeaders = getExtraHeaders(request);
+  const headers = new Headers();
+  request.headers.forEach((header) => {
+    if (header.isChecked) {
+      headers.append(header.key, header.value);
+    }
+  });
+  extraHeaders.forEach((header) => {
+    headers.append(header.key, header.value);
+  });
+  return headers;
 }
