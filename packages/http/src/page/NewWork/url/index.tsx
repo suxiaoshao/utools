@@ -1,6 +1,6 @@
 import { Divider, InputBase, Paper } from '@mui/material';
 import SaveButton from './saveButton';
-import SendButton from './sendButton';
+import SendButton from './SendButton';
 import ChangeButton from './changeButton';
 import MethodSelector from './methodSelector';
 import { useFormContext } from 'react-hook-form';

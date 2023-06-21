@@ -87,7 +87,7 @@ export function getExtraHeaders({
   return extraHeaders;
 }
 
-export function getHeadersFromRequestForm(request: RequestForm): Headers {
+export function getAllHeadersFromRequestForm(request: RequestForm): Headers {
   const extraHeaders = getExtraHeaders(request);
   const headers = new Headers();
   request.headers.forEach((header) => {
@@ -99,4 +99,12 @@ export function getHeadersFromRequestForm(request: RequestForm): Headers {
     headers.append(header.key, header.value);
   });
   return headers;
+}
+
+export function getPureHeadersFromHeaders(headers: Headers): PureHeader[] {
+  const pureHeaders: PureHeader[] = [];
+  headers.forEach((value, key) => {
+    pureHeaders.push({ key, value });
+  });
+  return pureHeaders;
 }

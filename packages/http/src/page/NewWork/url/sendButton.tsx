@@ -1,7 +1,9 @@
 import { Box, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
 import { Send } from '@mui/icons-material';
-import { HttpForm } from '@http/types/httpForm';
-import { useFormContext } from 'react-hook-form';
+import { HttpForm, TabType } from '@http/types/httpForm';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { useCallback } from 'react';
+import { fetchHttp, getHttpRequestFromRequestForm } from '@http/utils/http_new';
 
 /**
  * @author sushao
@@ -10,36 +12,23 @@ import { useFormContext } from 'react-hook-form';
  * @description 发送 http 请求的按钮
  * */
 export default function SendButton(): JSX.Element {
-  const { watch } = useFormContext<HttpForm>();
-  const responseStatus = watch('response.tag');
+  const { setValue, getValues, control } = useFormContext<HttpForm>();
+  const responseStatus = useWatch({ name: 'response.tag', control });
+  const onSend = useCallback(async () => {
+    const requestForm = getValues('request');
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const request = getHttpRequestFromRequestForm(requestForm, signal);
+
+    setValue('tab', TabType.response);
+    setValue('response', { tag: 'loading', data: controller });
+    const response = await fetchHttp(request);
+    setValue('response', response);
+  }, [getValues, setValue]);
   return (
     <Tooltip title={<Typography variant={'body2'}>发送请求</Typography>}>
       <Box sx={{ position: 'relative' }}>
-        <IconButton
-          sx={{ p: 1 }}
-          color="primary"
-          onClick={async () => {
-            // todo
-            // /**
-            //  * 初始化 http 管理对象发送请求需要的状态
-            //  * */
-            // httpManager.loading = true;
-            // httpManager.isRequest = false;
-            // fatherUpdate();
-            // /**
-            //  * 发送请求,如果放回错误信息则提醒用户
-            //  * */
-            // const message = await httpManager.httpSend();
-            // if (message) {
-            //   enqueueSnackbar(message, {
-            //     variant: 'error',
-            //     autoHideDuration: 2000,
-            //   });
-            // }
-            // httpManager.loading = false;
-            // fatherUpdate();
-          }}
-        >
+        <IconButton sx={{ p: 1 }} color="primary" onClick={onSend}>
           <Send />
         </IconButton>
         {responseStatus === 'loading' && (
