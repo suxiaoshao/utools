@@ -45,7 +45,9 @@ export default function RequestToggle(): JSX.Element {
             exclusive
             {...field}
             onChange={(event, value) => {
-              field.onChange(value);
+              if (value) {
+                field.onChange(value);
+              }
             }}
           >
             <ToggleButton sx={CommonStyle.toggleButton} value={RequestTab.params}>

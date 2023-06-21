@@ -2,7 +2,7 @@ import CustomSelector from '@http/components/CustomSelector';
 import { useFormContext, Controller } from 'react-hook-form';
 import { HttpForm, HttpMethod } from '@http/types/httpForm';
 
-export const myMethodList: { text: string; value: HttpMethod }[] = (
+export const MethodList: { text: string; value: HttpMethod }[] = (
   [
     HttpMethod.DELETE,
     HttpMethod.GET,
@@ -29,7 +29,7 @@ export default function MethodSelector(): JSX.Element {
   return (
     <Controller
       name="request.method"
-      render={({ field }) => <CustomSelector<HttpMethod> {...field} itemList={myMethodList} sx={{ p: 1 }} />}
+      render={({ field }) => <CustomSelector<HttpMethod> {...field} itemList={MethodList} sx={{ p: 1 }} />}
       control={control}
     />
   );

@@ -34,3 +34,14 @@ export function getTextFromResponse(contentType: string, text: string): HttpText
       };
   }
 }
+
+export function verifyTextTypeByContentType(contentType: string): boolean {
+  return (
+    contentType.includes('text') ||
+    contentType.includes('json') ||
+    contentType.includes('xml') ||
+    contentType.includes('html') ||
+    contentType.includes('css') ||
+    contentType.includes('javascript')
+  );
+}

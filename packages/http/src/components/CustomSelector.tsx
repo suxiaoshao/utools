@@ -90,4 +90,4 @@ function CustomSelector<T extends number | string | undefined | null>(
   );
 }
 
-export default CustomSelector;
+export default React.forwardRef(CustomSelector) as typeof CustomSelector;

@@ -1,5 +1,5 @@
 import { ResponseBody } from '@http/types/httpForm';
-import { getTextFromResponse } from '../text';
+import { getTextFromResponse, verifyTextTypeByContentType } from '../text';
 
 export async function getResponseBodyFromResponse(response: Response): Promise<ResponseBody> {
   const contentType = response.headers.get('content-type');
@@ -10,12 +10,7 @@ export async function getResponseBodyFromResponse(response: Response): Promise<R
     };
   }
   switch (true) {
-    case contentType.includes('text') ||
-      contentType.includes('json') ||
-      contentType.includes('xml') ||
-      contentType.includes('html') ||
-      contentType.includes('css') ||
-      contentType.includes('javascript'):
+    case verifyTextTypeByContentType(contentType):
       const text = await response.text();
       return { tag: 'text', data: getTextFromResponse(contentType, text) };
     case contentType.includes('image'):

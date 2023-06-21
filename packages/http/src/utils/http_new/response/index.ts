@@ -1,4 +1,4 @@
-import { SuccessResponse } from '@http/types/httpForm';
+import { ResponseTab, SuccessResponse } from '@http/types/httpForm';
 import { getPureHeadersFromHeaders } from '..';
 import { getResponseBodyFromResponse } from './body';
 
@@ -14,6 +14,7 @@ export async function getResponseFormFromHttp(
     startTime,
     endTime,
     body: await getResponseBodyFromResponse(response),
+    tab: ResponseTab.body,
   };
 }
 
