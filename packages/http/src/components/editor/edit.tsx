@@ -73,6 +73,7 @@ export default function Edit({
             enabled: false,
           },
           readOnly: readonly,
+          wordWrap: 'on',
         });
         return newEditor;
       }
