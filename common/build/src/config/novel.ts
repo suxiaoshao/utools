@@ -9,8 +9,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 const config: RspackOptions = defineConfig({
   entry: {
     main: './src/main.tsx',
-    jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
-    editorWorker: './node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
   },
   output: {
     path: './build/web',
