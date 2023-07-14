@@ -11,7 +11,7 @@ tokio = { version = "1.29.1", features = ["full"] }
 
 anyhow = "1.0.71"
 
-serde = { version = "1.0.166", features = ["derive"] }
-serde_json = "1.0.100"
+serde = { version = "1.0.171", features = ["derive"] }
+serde_json = "1.0.102"
 
 base64 = "0.21.2"

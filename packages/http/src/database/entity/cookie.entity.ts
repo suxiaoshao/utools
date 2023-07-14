@@ -117,8 +117,8 @@ export class CookieEntity {
     this.delete();
     execSql(`insert into cookie(domain, path, name, value, createTime, maxAge, expires)
             VALUES ('${this.domain}', '${this.path}', '${this.name}', '${this.value}', ${this.createTime}, ${
-      this.maxAge
-    }, ${this.expires ? `'${this.expires.toISOString()}'` : null});`);
+              this.maxAge
+            }, ${this.expires ? `'${this.expires.toISOString()}'` : null});`);
   }
 
   /**

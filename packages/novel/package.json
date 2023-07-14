@@ -10,7 +10,7 @@
     "axios": "^1.4.0",
     "build": "workspace:*",
     "cheerio": "1.0.0-rc.12",
-    "monaco-editor": "^0.39.0",
+    "monaco-editor": "^0.40.0",
     "notify": "workspace:*",
     "react-use": "^17.4.0",
     "theme": "workspace:*",
