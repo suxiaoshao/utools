@@ -31,7 +31,7 @@ function getExtraHeadersFromTextType(textType: TextType): PureHeader {
         key: HeaderName.contentType,
         value: 'text/html',
       };
-    case TextType.plain:
+    case TextType.plaintext:
       return {
         key: HeaderName.contentType,
         value: 'text/plain',

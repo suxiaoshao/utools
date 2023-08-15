@@ -16,7 +16,7 @@ const bodyItemList: ItemListProp<BodyType>[] = (
 });
 
 const textItemList: ItemListProp<TextType>[] = (
-  [TextType.json, TextType.html, TextType.xml, TextType.css, TextType.javascript, TextType.plain] as const
+  [TextType.json, TextType.html, TextType.xml, TextType.css, TextType.javascript, TextType.plaintext] as const
 ).map((value) => {
   return {
     text: value,

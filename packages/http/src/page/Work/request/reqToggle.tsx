@@ -13,14 +13,14 @@ const bodyItemList: ItemListProp<RequestBodyChoose>[] = (
     value: value,
   };
 });
-const textItemList: ItemListProp<RequestTextChoose>[] = (['json', 'html', 'xml', 'javascript', 'plain'] as const).map(
-  (value) => {
-    return {
-      text: value,
-      value: value,
-    };
-  },
-);
+const textItemList: ItemListProp<RequestTextChoose>[] = (
+  ['json', 'html', 'xml', 'javascript', 'plaintext'] as const
+).map((value) => {
+  return {
+    text: value,
+    value: value,
+  };
+});
 
 /**
  * @author sushao

@@ -48,18 +48,21 @@ export default function Edit({
   /**
    * 编辑器绑定的 dom 的引用
    * */
-  const [editRef, setEditRef] = React.useState<HTMLDivElement>();
+  const [editRef, setEditRef] = React.useState<HTMLDivElement | undefined>(undefined);
   /**
    * 编辑器实体
    * */
-  const [edit, setEdit] = React.useState<monaco.editor.IStandaloneCodeEditor | undefined>();
+  const [edit, setEdit] = React.useState<monaco.editor.IStandaloneCodeEditor | undefined>(undefined);
   /**
    * 编辑器要绑定的 dom 生成时,再这个 dom 上新建一个编辑器,并赋值给 edit
    * */
-  React.useEffect(() => {
-    setEdit((oldEditor) => {
-      if ((oldEditor === undefined || oldEditor.getModel()?.getLanguageId() !== language) && editRef !== undefined) {
-        oldEditor?.dispose();
+  useEffect(() => {
+    if (editRef !== undefined) {
+      if (
+        (edit === undefined && editRef.firstChild === null) ||
+        (edit !== undefined && edit?.getModel()?.getLanguageId() && edit?.getModel()?.getLanguageId() !== language)
+      ) {
+        edit?.dispose();
         while (editRef.firstChild) {
           editRef.removeChild(editRef.firstChild);
         }
@@ -75,10 +78,10 @@ export default function Edit({
           readOnly: readonly,
           wordWrap: 'on',
         });
-        return newEditor;
+        return setEdit(newEditor);
       }
-    });
-  }, [code, editRef, language, readonly]);
+    }
+  }, [code, edit, editRef, language, readonly]);
 
   /**
    * props.readonly 改变时修改编辑器的只读属性

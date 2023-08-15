@@ -29,7 +29,7 @@ export function getTextFromResponse(contentType: string, text: string): HttpText
       };
     default:
       return {
-        textType: TextType.plain,
+        textType: TextType.plaintext,
         text,
       };
   }

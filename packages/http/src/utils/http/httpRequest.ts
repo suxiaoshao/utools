@@ -5,7 +5,7 @@ import { RequestEntity } from '@http/database/entity/request.entity';
 import { sqlStore } from '@http/store/sqlStore';
 
 export type RequestBodyChoose = 'none' | 'text' | 'form-data' | 'x-www-form-urlencoded';
-export type RequestTextChoose = 'json' | 'html' | 'xml' | 'javascript' | 'plain';
+export type RequestTextChoose = 'json' | 'html' | 'xml' | 'javascript' | 'plaintext';
 
 export interface HeaderObject {
   [key: string]: string;
@@ -60,7 +60,7 @@ export class HttpRequest {
     return new HttpRequest(
       null,
       'none',
-      'plain',
+      'plaintext',
       '',
       [],
       [],
@@ -98,7 +98,7 @@ export class HttpRequest {
           case 'html':
             contentTypeHeader.value = 'text/html; charset=utf-8';
             break;
-          case 'plain':
+          case 'plaintext':
             contentTypeHeader.value = 'text/plain; charset=utf-8';
             break;
           case 'javascript':

@@ -1,5 +1,5 @@
-import 'monaco-editor/esm/vs/editor/editor.main';
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 self.MonacoEnvironment = {
   getWorker: function (moduleId, label) {
     if (label === 'json') {
@@ -16,7 +16,4 @@ self.MonacoEnvironment = {
     }
     return new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker', import.meta.url));
   },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  createTrustedTypesPolicy: self.MonacoEnvironment?.createTrustedTypesPolicy,
 };

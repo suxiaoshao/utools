@@ -1,5 +1,5 @@
 export enum TextType {
-  plain = 'plain',
+  plaintext = 'plaintext',
   json = 'json',
   html = 'html',
   xml = 'xml',

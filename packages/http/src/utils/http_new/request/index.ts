@@ -13,7 +13,7 @@ export function newRequest(): RequestForm {
       bodyType: BodyType.none,
       text: {
         text: '',
-        textType: TextType.plain,
+        textType: TextType.plaintext,
       },
       formData: [],
       xForm: [],

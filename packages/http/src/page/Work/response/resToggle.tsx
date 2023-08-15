@@ -11,7 +11,7 @@ const contentItemList = (['text', 'image'] as const).map((value) => {
     text: value,
   };
 });
-const textItemList = (['plain', 'json', 'xml', 'html', 'css', 'javascript'] as const).map((value) => {
+const textItemList = (['plaintext', 'json', 'xml', 'html', 'css', 'javascript'] as const).map((value) => {
   return {
     value: value,
     text: value,
