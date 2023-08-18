@@ -1,11 +1,12 @@
 import { BodyType, RequestBodyForm } from '@http/types/httpForm';
 import { getSearchParams } from './xForm';
 import { getFormData } from './formData';
+import type { BodyInit as NodeBodyInit } from 'node-fetch';
 
-export function getHttpBody({ bodyType, text, formData, xForm }: RequestBodyForm): BodyInit | null {
+export function getHttpBody({ bodyType, text, formData, xForm }: RequestBodyForm): NodeBodyInit | undefined {
   switch (bodyType) {
     case BodyType.none:
-      return null;
+      return undefined;
     case BodyType.text:
       return text.text;
     case BodyType.xForm:

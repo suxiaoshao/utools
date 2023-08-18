@@ -2,6 +2,7 @@ import { RequestForm, RequestTab, HttpMethod, BodyType, TextType } from '@http/t
 import { getHttpParamsFromParams } from './params';
 import { getAllHeadersFromRequestForm } from '../headers';
 import { getHttpBody } from './body';
+import type { Request as NodeRequest } from 'node-fetch';
 
 export function newRequest(): RequestForm {
   return {
@@ -22,7 +23,7 @@ export function newRequest(): RequestForm {
   };
 }
 
-export function getHttpRequestFromRequestForm(requestForm: RequestForm, signal: AbortSignal): Request {
+export function getHttpRequestFromRequestForm(requestForm: RequestForm, signal: AbortSignal): NodeRequest {
   const { method, params } = requestForm;
   // url
   const url = new URL(requestForm.url);
@@ -35,7 +36,7 @@ export function getHttpRequestFromRequestForm(requestForm: RequestForm, signal: 
   const body = getHttpBody(requestForm.body);
 
   // request
-  const request = new Request(url, { method, headers: httpHeaders, body, signal });
+  const request = new window.nodeFetch.Request(url, { method, headers: httpHeaders, body, signal });
   return request;
 }
 

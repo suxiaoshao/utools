@@ -1,6 +1,7 @@
 import { EditableHeader, PureHeader } from '@http/types/httpForm/common/header';
 import { BodyType, RequestForm } from '@http/types/httpForm';
 import { TextType } from '@http/types/httpForm/common/text';
+import type { Headers as NodeHeaders } from 'node-fetch';
 
 export enum HeaderName {
   contentType = 'Content-Type',
@@ -87,9 +88,9 @@ export function getExtraHeaders({
   return extraHeaders;
 }
 
-export function getAllHeadersFromRequestForm(request: RequestForm): Headers {
+export function getAllHeadersFromRequestForm(request: RequestForm): NodeHeaders {
   const extraHeaders = getExtraHeaders(request);
-  const headers = new Headers();
+  const headers = new window.nodeFetch.Headers();
   request.headers.forEach((header) => {
     if (header.isChecked) {
       headers.append(header.key, header.value);
@@ -101,7 +102,7 @@ export function getAllHeadersFromRequestForm(request: RequestForm): Headers {
   return headers;
 }
 
-export function getPureHeadersFromHeaders(headers: Headers): PureHeader[] {
+export function getPureHeadersFromHeaders(headers: NodeHeaders): PureHeader[] {
   const pureHeaders: PureHeader[] = [];
   headers.forEach((value, key) => {
     pureHeaders.push({ key, value });

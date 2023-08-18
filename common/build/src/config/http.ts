@@ -14,6 +14,7 @@ const config: RspackOptions = defineConfig({
     path: './build/web',
     publicPath: isProduction ? './' : undefined,
     globalObject: 'self',
+    clean: isProduction ? true : undefined,
   },
   builtins: {
     html: [

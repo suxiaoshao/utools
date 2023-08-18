@@ -1,7 +1,8 @@
 import { ResponseBody } from '@http/types/httpForm';
 import { getTextFromResponse, verifyTextTypeByContentType } from '../text';
+import type { Response as NodeResponse } from 'node-fetch';
 
-export async function getResponseBodyFromResponse(response: Response): Promise<ResponseBody> {
+export async function getResponseBodyFromResponse(response: NodeResponse): Promise<ResponseBody> {
   const contentType = response.headers.get('content-type');
   if (!contentType) {
     return {
@@ -14,13 +15,16 @@ export async function getResponseBodyFromResponse(response: Response): Promise<R
       const text = await response.text();
       return { tag: 'text', data: getTextFromResponse(contentType, text) };
     case contentType.includes('image'):
-      const blob = await response.blob();
+      const buffer = await response.arrayBuffer();
+      const blob = new Blob([buffer]);
       return { tag: 'image', data: URL.createObjectURL(blob) };
     case contentType.includes('audio'):
-      const audioBlob = await response.blob();
+      const audioBuffer = await response.arrayBuffer();
+      const audioBlob = new Blob([audioBuffer]);
       return { tag: 'audio', data: URL.createObjectURL(audioBlob) };
     case contentType.includes('video'):
-      const videoBlob = await response.blob();
+      const videoBuffer = await response.arrayBuffer();
+      const videoBlob = new Blob([videoBuffer]);
       return { tag: 'video', data: URL.createObjectURL(videoBlob) };
     default:
       return {
