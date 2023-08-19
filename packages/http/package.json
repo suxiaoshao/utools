@@ -13,13 +13,15 @@
     "monaco-editor": "^0.41.0",
     "notify": "workspace:*",
     "rxjs": "^7.8.1",
+    "set-cookie-parser": "^2.6.0",
     "sql.js": "1.8.0",
     "theme": "workspace:^1.0.0",
     "types": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.5.0",
+    "@types/node": "^20.5.1",
     "@types/node-fetch": "^2.6.4",
+    "@types/set-cookie-parser": "^2.4.3",
     "@types/sql.js": "^1.4.4",
     "build": "workspace:*",
     "form-data": "^4.0.0"

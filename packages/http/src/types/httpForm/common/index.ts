@@ -14,3 +14,4 @@ export interface OptionItem {
 
 export * from './header';
 export * from './text';
+export * from './cookie';

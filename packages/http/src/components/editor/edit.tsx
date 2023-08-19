@@ -1,4 +1,4 @@
-import React, { startTransition, useCallback, useEffect } from 'react';
+import React, { startTransition, useCallback, useEffect, useImperativeHandle } from 'react';
 import './init';
 import * as monaco from 'monaco-editor';
 import monankai from './monankai';
@@ -38,13 +38,10 @@ export interface NotReadOnlyEditProp extends Omit<BoxProps, 'onChange'> {
  * @since 0.2.2
  * @description 编辑器组件
  * */
-export default function Edit({
-  value: code,
-  language,
-  readonly = false,
-  onChange: onChangeCode,
-  ...props
-}: NotReadOnlyEditProp): JSX.Element {
+function Edit(
+  { value: code, language, readonly = false, onChange: onChangeCode, ...props }: NotReadOnlyEditProp,
+  ref?: React.Ref<HTMLDivElement | undefined>,
+): JSX.Element {
   /**
    * 编辑器绑定的 dom 的引用
    * */
@@ -115,6 +112,9 @@ export default function Edit({
       format();
     });
   }, [format]);
+  useImperativeHandle(ref, () => editRef, [editRef]);
 
   return <Box {...props} ref={setEditRef} />;
 }
+
+export default React.forwardRef(Edit);

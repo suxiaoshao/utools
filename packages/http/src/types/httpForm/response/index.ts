@@ -1,6 +1,7 @@
 import { Enum } from 'types';
 import { ResponseBody } from './responseBody';
 import { PureHeader } from '../common';
+import { PureCookie } from '../common/cookie';
 export type ResponseForm =
   | Enum<'error', string>
   | Enum<'loading', AbortController>
@@ -21,6 +22,7 @@ export interface SuccessResponse {
   endTime: number;
   body: ResponseBody;
   tab: ResponseTab;
+  cookies: PureCookie[];
 }
 
 export * from './responseBody';
