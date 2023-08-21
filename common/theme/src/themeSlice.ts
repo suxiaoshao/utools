@@ -27,11 +27,11 @@ const getColorScheme = (
 export const colorSchemaMatch = window.matchMedia('(prefers-color-scheme: dark)');
 
 function getInitDate(): ThemeSliceType {
-  const color: string = utools.dbStorage.getItem('color') ?? '#9cd67e';
-  const colorSetting = (utools.dbStorage.getItem('colorSetting') ?? 'system') as ColorSetting;
+  const color: string = window?.utools?.dbStorage?.getItem('color') ?? '#9cd67e';
+  const colorSetting = (window?.utools?.dbStorage?.getItem('colorSetting') ?? 'system') as ColorSetting;
   const systemColorScheme = colorSchemaMatch.matches ? 'dark' : 'light';
-  utools.dbStorage.setItem('color', color);
-  utools.dbStorage.setItem('colorSetting', colorSetting);
+  window?.utools?.dbStorage?.setItem('color', color);
+  window?.utools?.dbStorage?.setItem('colorSetting', colorSetting);
   return {
     color,
     colorSetting,
@@ -49,12 +49,12 @@ export const themeSlice = createSlice({
     updateColor(state, action: PayloadAction<string>) {
       const color = action.payload;
       state.color = color;
-      utools.dbStorage.setItem('color', color);
+      window?.utools?.dbStorage?.setItem('color', color);
     },
     updateColorSetting(state, action: PayloadAction<ColorSetting>) {
       const colorSetting = action.payload;
       state.colorSetting = colorSetting;
-      utools.dbStorage.setItem('colorSetting', colorSetting);
+      window?.utools?.dbStorage?.setItem('colorSetting', colorSetting);
     },
   },
 });

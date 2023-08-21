@@ -8,7 +8,7 @@
 
 2. 我的 github[sushao](https://github.com/suxiaoshao)
 
-3. 这个插件的开源地址[utools-novel-reader](https://github.com/suxiaoshao/utools-novel-reader)
+3. 这个插件的开源地址[utools-novel-reader](https://github.com/suxiaoshao/utools/tree/main/packages/novel)
 
 4. 这是我插件在官方论坛的[帖子](https://yuanliao.info/d/1392)，这个帖子下回复我会有提醒的
 

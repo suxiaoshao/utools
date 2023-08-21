@@ -1,8 +1,8 @@
 import React from 'react';
-import alipay from '../assets/alipay.jpg';
-import wepay from '../assets/wepay.jpg';
-import Alipay from '../components/common/icon/alipay';
-import WePay from '../components/common/icon/wepay';
+import alipay from '@http/assets/alipay.jpg';
+import wepay from '@http/assets/wepay.jpg';
+import Alipay from '@http/components/icon/alipay';
+import WePay from '@http/components/icon/wepay';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 /**
  * @author sushao

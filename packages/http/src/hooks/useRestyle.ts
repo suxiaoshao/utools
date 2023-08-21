@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material';
+import { SxProps, Theme } from '@mui/material';
 
 export const CommonStyle = {
   main: {
@@ -15,8 +15,10 @@ export const CommonStyle = {
   toggle: {
     flex: '0 0 auto',
     display: 'flex',
-    width: '100%',
-    justifyContent: 'space-around',
+    width: (theme) => `calc(100% - ${theme.spacing(2)})`,
+    justifyContent: 'space-between',
+    ml: 1,
+    mr: 1,
   },
   page: {
     flex: '1 1 0',
@@ -29,8 +31,8 @@ export const CommonStyle = {
   },
   tableContainer: {
     m: 1,
-    height: (theme: Theme) => `calc(100% - ${theme.spacing(2)})`,
-    width: (theme: Theme) => `calc(100% - ${theme.spacing(2)}) !important`,
+    height: (theme) => `calc(100% - ${theme.spacing(2)})`,
+    width: (theme) => `calc(100% - ${theme.spacing(2)}) !important`,
   },
   tableInput: {
     width: '100%',
@@ -38,4 +40,4 @@ export const CommonStyle = {
   tableInputDelete: {
     textDecoration: 'line-through',
   },
-};
+} satisfies Record<string, SxProps<Theme>>;

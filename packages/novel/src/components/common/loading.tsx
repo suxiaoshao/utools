@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
-import ErrorImage from '../../assets/monkey.png';
+import ErrorImage from '@novel/assets/monkey.png';
 import { Refresh } from '@mui/icons-material';
 
 type LoadingState<T> =

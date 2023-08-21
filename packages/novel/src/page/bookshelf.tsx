@@ -14,11 +14,11 @@ import {
   TableRow,
   Tooltip,
 } from '@mui/material';
-import ChapterLink from '../components/common/chapterLink';
+import ChapterLink from '@novel/components/common/chapterLink';
 import { Delete } from '@mui/icons-material';
-import { useReadRecords } from '../hooks/data/useReadRecords';
-import { TotalDataBuild } from '../utils/data/totalData';
-import { useCustomNavigate } from '../app/history/historySlice';
+import { useReadRecords } from '@novel/hooks/data/useReadRecords';
+import { TotalDataBuild } from '@novel/utils/data/totalData';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
 
 export default function Bookshelf(): JSX.Element {
   const { readRecords, updateReadRecords } = useReadRecords();

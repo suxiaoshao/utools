@@ -1,8 +1,8 @@
 import { useQuery } from '../useQuery';
 import React from 'react';
-import { TotalConfig } from '../../utils/web/config/totalConfig';
-import { useAppSelector } from '../../app/hooks';
-import { SelectConfig } from '../../app/config/configSlice';
+import { TotalConfig } from '@novel/utils/web/config/totalConfig';
+import { useAppSelector } from '@novel/app/hooks';
+import { SelectConfig } from '@novel/app/config/configSlice';
 
 export function useActiveConfig(): TotalConfig | undefined {
   const mainPageUrl = useQuery('url');

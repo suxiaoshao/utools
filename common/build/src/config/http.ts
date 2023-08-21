@@ -1,4 +1,5 @@
 import { defineConfig } from '@rspack/cli';
+import { resolve } from 'path';
 import type { RspackOptions } from '@rspack/core';
 import ServerConfig from '../plugin/http/ServerConfig';
 import PackUpx from '../plugin/PackUpx';
@@ -8,15 +9,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 const config: RspackOptions = defineConfig({
   entry: {
     main: './src/main.tsx',
-    jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
-    cssWorker: './node_modules/monaco-editor/esm/vs/language/css/css.worker.js',
-    htmlWorker: './node_modules/monaco-editor/esm/vs/language/html/html.worker.js',
-    tsWorker: './node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js',
-    editorWorker: './node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
   },
   output: {
     path: './build/web',
     publicPath: isProduction ? './' : undefined,
+    globalObject: 'self',
+    clean: isProduction ? true : undefined,
   },
   builtins: {
     html: [
@@ -55,5 +53,10 @@ const config: RspackOptions = defineConfig({
     crypto: 'crypto',
   },
   plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()])],
+  resolve: {
+    alias: {
+      '@http': resolve(process.cwd(), './src'),
+    },
+  },
 });
 export default config;

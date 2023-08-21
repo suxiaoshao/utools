@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import empty from '../../../assets/emptyResponse.svg';
+import empty from '@http/assets/emptyResponse.svg';
 
 /**
  * @author sushao

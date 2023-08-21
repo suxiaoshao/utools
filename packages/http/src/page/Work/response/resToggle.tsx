@@ -1,9 +1,9 @@
 import React from 'react';
 import { ResponseContext } from './response';
-import MySelector from '../../../components/common/mySelector';
-import { ResponseContentType, ResponseTextType } from '../../../utils/http/httpResponse';
+import CustomSelector from '@http/components/CustomSelector';
+import { ResponseContentType, ResponseTextType } from '@http/utils/http/httpResponse';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 const contentItemList = (['text', 'image'] as const).map((value) => {
   return {
@@ -11,7 +11,7 @@ const contentItemList = (['text', 'image'] as const).map((value) => {
     text: value,
   };
 });
-const textItemList = (['plain', 'json', 'xml', 'html', 'css', 'javascript'] as const).map((value) => {
+const textItemList = (['plaintext', 'json', 'xml', 'html', 'css', 'javascript'] as const).map((value) => {
   return {
     value: value,
     text: value,
@@ -49,9 +49,9 @@ export default function ResToggle(props: { value: string; onchangeValue(newValue
       </ToggleButtonGroup>
       {props.value === 'body' && (
         <>
-          <MySelector<ResponseContentType>
+          <CustomSelector<ResponseContentType>
             value={response.contentType}
-            onValueChange={(newValue) => {
+            onChange={(newValue) => {
               response.contentType = newValue;
               fatherUpdate();
             }}
@@ -59,10 +59,10 @@ export default function ResToggle(props: { value: string; onchangeValue(newValue
             variant="outlined"
           />
           {response.contentType === 'text' && (
-            <MySelector<ResponseTextType>
+            <CustomSelector<ResponseTextType>
               value={response.textType}
               variant="outlined"
-              onValueChange={(newValue) => {
+              onChange={(newValue) => {
                 response.textType = newValue;
                 fatherUpdate();
               }}

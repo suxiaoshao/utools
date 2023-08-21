@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Paper } from '@mui/material';
 import { ResponseContext } from '../response';
-import logo from '../../../../assets/fail.svg';
+import logo from '@http/assets/fail.svg';
 
 /**
  * @author sushao

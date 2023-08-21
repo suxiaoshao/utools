@@ -1,15 +1,11 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { Loading } from '../components/common/loading';
-import { useChapterRouter } from '../hooks/page/useChapterRouter';
-import { useChapterData } from '../hooks/page/useChapterData';
-import { useCustomNavigate } from '../app/history/historySlice';
-import { useAppSelector } from '../app/hooks';
-import { FontSize, SelectFontSize } from '../app/font/fontSlice';
-
-export interface FontStyleProp {
-  fontSize: FontSize;
-}
+import { Loading } from '@novel/components/common/loading';
+import { useChapterRouter } from '@novel/hooks/page/useChapterRouter';
+import { useChapterData } from '@novel/hooks/page/useChapterData';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { useAppSelector } from '@novel/app/hooks';
+import { SelectFontSize } from '@novel/app/font/fontSlice';
 
 export default function ChapterPage(): JSX.Element {
   /**

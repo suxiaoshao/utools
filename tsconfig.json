@@ -15,7 +15,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["utools-api-types"]
+    "types": ["utools-api-types"],
+    "paths": {
+      "@http/*": ["./packages/http/src/*"],
+      "@novel/*": ["./packages/novel/src/*"]
+    },
+    "baseUrl": "."
   },
   "include": [
     "packages/*/src",

@@ -11,14 +11,14 @@ import {
   Typography,
 } from '@mui/material';
 import { Delete, Edit, Reply } from '@mui/icons-material';
-import { httpArray } from '../../store/httpArray';
+import { httpArray } from '@http/store/httpArray';
 import { useNavigate } from 'react-router-dom';
-import SaveHttp from '../../components/common/httpSave/saveHttp';
+import SaveHttp from '@http/components/httpSave/saveHttp';
 import { brown, green, grey, lightBlue, orange, purple, red } from '@mui/material/colors';
-import { HttpManager } from '../../utils/http/httpManager';
-import { HttpEntity } from '../../database/entity/http.entity';
-import { useAppDispatch } from '../../app/hooks';
-import { updateActiveTab } from '../../app/features/tabsSlice';
+import { HttpManager } from '@http/utils/http/httpManager';
+import { HttpEntity } from '@http/database/entity/http.entity';
+import { useAppDispatch } from '@http/app/hooks';
+import { updateActiveTab } from '@http/app/features/tabsSlice';
 
 const Color = {
   DELETE: {

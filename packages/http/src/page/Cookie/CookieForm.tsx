@@ -11,7 +11,7 @@ import {
   TextField,
   Theme,
 } from '@mui/material';
-import { Cookie } from '../../utils/http/cookie';
+import { Cookie } from '@http/utils/http/cookie';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 

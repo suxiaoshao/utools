@@ -12,13 +12,13 @@ import {
   TableRow,
   Tooltip,
 } from '@mui/material';
-import { RequestUploadFile } from '../../../../utils/http/requestUploadFile';
+import { RequestUploadFile } from '@http/utils/http/requestUploadFile';
 import { Delete, Error, InsertDriveFile, Refresh } from '@mui/icons-material';
-import { useForceUpdate } from '../../../../hooks/useForceUpdate';
-import MySelector from '../../../../components/common/mySelector';
-import { useTableAdd } from '../../../../hooks/useTableAdd';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
+import CustomSelector from '../../../../components/CustomSelector';
+import { useTableAdd } from '@http/hooks/useTableAdd';
 import { RequestContext } from '../request';
-import { CommonStyle } from '../../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
  * @author sushao
@@ -129,11 +129,11 @@ export default function ReqFormData(): JSX.Element {
                 )}
               </TableCell>
               <TableCell>
-                <MySelector<'text' | 'file'>
+                <CustomSelector<'text' | 'file'>
                   variant="contained"
                   color="primary"
                   value={value.isFile ? 'file' : 'text'}
-                  onValueChange={(newValue) => {
+                  onChange={(newValue) => {
                     if (newValue === 'text') {
                       value.setNotFile();
                     } else {
@@ -176,11 +176,11 @@ export default function ReqFormData(): JSX.Element {
               />
             </TableCell>
             <TableCell>
-              <MySelector<'text' | 'file'>
+              <CustomSelector<'text' | 'file'>
                 variant="contained"
                 color="primary"
                 value={'text'}
-                onValueChange={(newValue) => {
+                onChange={(newValue) => {
                   if (newValue === 'text') {
                     dataForms.push(new RequestUploadFile('', false, '', null));
                   } else {

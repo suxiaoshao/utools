@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReadRecord, TotalDataBuild } from '../../utils/data/totalData';
+import { ReadRecord, TotalDataBuild } from '@novel/utils/data/totalData';
 
 /**
  * 获取阅读记录数据

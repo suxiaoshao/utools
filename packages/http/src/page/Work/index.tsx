@@ -1,10 +1,10 @@
 import { Box, Tabs } from '@mui/material';
 import WorkPanel from './workPanel';
-import { useHttpArray } from '../../store/httpArray';
-import { TabPanelDisappear } from '../../components/common/tabPanel';
+import { useHttpArray } from '@http/store/httpArray';
+import { TabPanelDisappear } from '@http/components/TabPanel';
 import WorkTab from './workTab';
-import { useAppSelector } from '../../app/hooks';
-import { SelectIndex } from '../../app/features/tabsSlice';
+import { useAppSelector } from '@http/app/hooks';
+import { SelectIndex } from '@http/app/features/tabsSlice';
 
 /**
  * @author sushao

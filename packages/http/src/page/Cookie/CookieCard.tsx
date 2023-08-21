@@ -10,11 +10,11 @@ import {
   Typography,
 } from '@mui/material';
 import { Add, DeleteForever, ExpandMore } from '@mui/icons-material';
-import { Cookie } from '../../utils/http/cookie';
+import { Cookie } from '@http/utils/http/cookie';
 import CookieForm from './CookieForm';
-import { useSqlData } from '../../store/sqlStore';
-import { CookieEntity } from '../../database/entity/cookie.entity';
-import { execSql } from '../../database/mapper/util';
+import { useSqlData } from '@http/store/sqlStore';
+import { CookieEntity } from '@http/database/entity/cookie.entity';
+import { execSql } from '@http/database/mapper/util';
 
 /**
  * @author sushao

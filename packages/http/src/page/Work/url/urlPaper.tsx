@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, InputBase, Paper } from '@mui/material';
 import { HttpContext } from '../workPanel';
-import { httpArray } from '../../../store/httpArray';
+import { httpArray } from '@http/store/httpArray';
 import SaveButton from './saveButton';
 import SendButton from './sendButton';
 import ChangeButton from './changeButton';

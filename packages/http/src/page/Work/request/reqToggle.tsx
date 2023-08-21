@@ -1,9 +1,9 @@
 import React from 'react';
-import MySelector, { ItemListProp } from '../../../components/common/mySelector';
-import { RequestBodyChoose, RequestTextChoose } from '../../../utils/http/httpRequest';
+import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
+import { RequestBodyChoose, RequestTextChoose } from '@http/utils/http/httpRequest';
 import { RequestContext } from './request';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 const bodyItemList: ItemListProp<RequestBodyChoose>[] = (
   ['none', 'text', 'form-data', 'x-www-form-urlencoded'] as const
@@ -13,14 +13,14 @@ const bodyItemList: ItemListProp<RequestBodyChoose>[] = (
     value: value,
   };
 });
-const textItemList: ItemListProp<RequestTextChoose>[] = (['json', 'html', 'xml', 'javascript', 'plain'] as const).map(
-  (value) => {
-    return {
-      text: value,
-      value: value,
-    };
-  },
-);
+const textItemList: ItemListProp<RequestTextChoose>[] = (
+  ['json', 'html', 'xml', 'javascript', 'plaintext'] as const
+).map((value) => {
+  return {
+    text: value,
+    value: value,
+  };
+});
 
 /**
  * @author sushao
@@ -65,10 +65,10 @@ export default function ReqToggle(props: {
       {/* 页面为 body 时 ,切换内容按钮*/}
       {props.value === 'body' && (
         <>
-          <MySelector<RequestBodyChoose>
+          <CustomSelector<RequestBodyChoose>
             variant="outlined"
             value={request.bodyChoose}
-            onValueChange={(newValue) => {
+            onChange={(newValue) => {
               request.bodyChoose = newValue;
               fatherUpdate();
             }}
@@ -76,10 +76,10 @@ export default function ReqToggle(props: {
           />
           {/* 内容为 text 时,切换语言按钮 */}
           {request.bodyChoose === 'text' && (
-            <MySelector<RequestTextChoose>
+            <CustomSelector<RequestTextChoose>
               variant="outlined"
               value={request.textChoose}
-              onValueChange={(newValue) => {
+              onChange={(newValue) => {
                 request.textChoose = newValue;
                 fatherUpdate();
               }}

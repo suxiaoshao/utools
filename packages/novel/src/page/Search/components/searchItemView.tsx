@@ -1,10 +1,10 @@
 import React from 'react';
 import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
-import { SearchListItem } from '../../../utils/web/search';
+import { SearchListItem } from '@novel/utils/web/search';
 import { ExitToApp } from '@mui/icons-material';
-import { TotalConfig } from '../../../utils/web/config/totalConfig';
-import ChapterLink from '../../../components/common/chapterLink';
-import { useCustomNavigate } from '../../../app/history/historySlice';
+import { TotalConfig } from '@novel/utils/web/config/totalConfig';
+import ChapterLink from '@novel/components/common/chapterLink';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
 
 export interface SearchItemProp {
   /**

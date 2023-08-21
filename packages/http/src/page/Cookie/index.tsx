@@ -1,10 +1,10 @@
 import React from 'react';
 import CookieCard from './CookieCard';
-import { Cookie } from '../../utils/http/cookie';
+import { Cookie } from '@http/utils/http/cookie';
 import CookieForm from './CookieForm';
 import { Box, Fab } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { useSqlData } from '../../store/sqlStore';
+import { useSqlData } from '@http/store/sqlStore';
 
 /**
  * @author sushao

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Paper, Typography } from '@mui/material';
 import { ResponseContext } from './response';
-import MyError from '../../../components/common/icon/myError';
+import MyError from '@http/components/icon/myError';
 
 /**
  * @author sushao

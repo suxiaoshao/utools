@@ -3,7 +3,7 @@ import { Cookie } from './cookie';
 import { AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios';
 
 export type ResponseContentType = 'text' | 'image' | 'none' | 'error';
-export type ResponseTextType = 'plain' | 'json' | 'xml' | 'html' | 'css' | 'javascript';
+export type ResponseTextType = 'plaintext' | 'json' | 'xml' | 'html' | 'css' | 'javascript';
 
 export interface AxiosHeaderObject {
   [key: string]: string | string[];
@@ -52,7 +52,7 @@ export class HttpResponse {
   }
 
   static getNewResponseContent(): HttpResponse {
-    return new HttpResponse('none', 'utf-8', new ArrayBuffer(0), [], -1, -1, 'plain', '', -1);
+    return new HttpResponse('none', 'utf-8', new ArrayBuffer(0), [], -1, -1, 'plaintext', '', -1);
   }
 
   /**
@@ -105,7 +105,7 @@ export class HttpResponse {
    * */
   private setChoose(): void {
     this.contentType = 'text';
-    this.textType = 'plain';
+    this.textType = 'plaintext';
     const value = this.headers
       .find((value) => value.key === 'content-type' || value.key === 'Content-Type')
       ?.value?.split(';')?.[0];
@@ -122,7 +122,7 @@ export class HttpResponse {
       } else if (value.includes('javascript')) {
         this.textType = 'javascript';
       } else {
-        this.textType = 'plain';
+        this.textType = 'plaintext';
       }
     } else if (value?.includes('image')) {
       this.contentType = 'image';

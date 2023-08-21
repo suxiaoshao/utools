@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Chip, Typography } from '@mui/material';
-import { useAllTags } from '../../hooks/useAllTags';
-import { TagEntity } from '../../database/entity/tag.entity';
+import { useAllTags } from '@http/hooks/useAllTags';
+import { TagEntity } from '@http/database/entity/tag.entity';
 
 /**
  * @author sushao

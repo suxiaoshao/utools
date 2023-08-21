@@ -1,9 +1,9 @@
 import { Divider, IconButton, InputBase, Paper, Theme, Tooltip } from '@mui/material';
-import MySelector from '../../../components/common/mySelector';
+import MySelector from '@novel/components/common/mySelector';
 import { ExitToApp, Search } from '@mui/icons-material';
-import { TotalConfig } from '../../../utils/web/config/totalConfig';
-import { useAppSelector } from '../../../app/hooks';
-import { SelectConfig } from '../../../app/config/configSlice';
+import { TotalConfig } from '@novel/utils/web/config/totalConfig';
+import { useAppSelector } from '@novel/app/hooks';
+import { SelectConfig } from '@novel/app/config/configSlice';
 
 export const urlStyle = {
   form: (theme: Theme) => ({

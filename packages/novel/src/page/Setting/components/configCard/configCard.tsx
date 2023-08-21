@@ -3,9 +3,9 @@ import { Add, PermDataSetting } from '@mui/icons-material';
 import { brown } from '@mui/material/colors';
 import ConfigChip from './configChip';
 import { settingSx } from '../themeEdit/themeEdit';
-import { useCustomNavigate } from '../../../../app/history/historySlice';
-import { useAppSelector } from '../../../../app/hooks';
-import { SelectConfig } from '../../../../app/config/configSlice';
+import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { useAppSelector } from '@novel/app/hooks';
+import { SelectConfig } from '@novel/app/config/configSlice';
 
 export default function ConfigCard(): JSX.Element {
   const allConfigs = useAppSelector(SelectConfig);

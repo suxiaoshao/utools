@@ -1,7 +1,7 @@
-import { HttpMethod } from '../../utils/http/httpManager';
+import { HttpMethod } from '@http/utils/http/httpManager';
 import { RequestEntity } from './request.entity';
 import { TagEntity } from './tag.entity';
-import { sqlStore } from '../../store/sqlStore';
+import { sqlStore } from '@http/store/sqlStore';
 import { execSql, execSqlAndReturn, readFromQueryResult } from '../mapper/util';
 import { HttpTagEntity } from './httpTag.entity';
 

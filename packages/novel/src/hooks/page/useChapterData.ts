@@ -1,10 +1,10 @@
 import { useAsyncFnWithNotify } from '../async/useAsyncFnWithNotify';
-import { Content, ContentData } from '../../utils/web/content';
+import { Content, ContentData } from '@novel/utils/web/content';
 import React from 'react';
-import { TotalConfig } from '../../utils/web/config/totalConfig';
+import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
-import { TotalDataBuild } from '../../utils/data/totalData';
-import { Chapter } from '../../utils/web/novelInfo';
+import { TotalDataBuild } from '@novel/utils/data/totalData';
+import { Chapter } from '@novel/utils/web/novelInfo';
 
 export function useChapterData(
   activeConfig: TotalConfig,

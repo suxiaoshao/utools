@@ -1,7 +1,7 @@
 import React from 'react';
-import { TabPanelDisappear, TabPanelHidden } from '../../../../components/common/tabPanel';
+import { TabPanelDisappear, TabPanelHidden } from '@http/components/TabPanel';
 import { ResponseContext } from '../response';
-import Edit from '../../../../components/common/editor/edit';
+import Edit from '@http/components/editor/edit';
 import ResImage from './resImage';
 
 /**
@@ -36,7 +36,7 @@ export default function ResBody(): JSX.Element {
       >
         <Edit
           sx={{ width: '100%', height: '100%', margin: 0, overflow: 'hidden' }}
-          code={response.getCode()}
+          value={response.getCode()}
           language={response.textType}
           readonly
         />

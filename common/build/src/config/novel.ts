@@ -1,18 +1,19 @@
 import { defineConfig } from '@rspack/cli';
+import { resolve } from 'path';
 import { RspackOptions } from '@rspack/core';
 import PackUpx from '../plugin/PackUpx';
+import WasmPack from '../plugin/novel/WasmPack';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 const config: RspackOptions = defineConfig({
   entry: {
     main: './src/main.tsx',
-    jsonWorker: './node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
-    editorWorker: './node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
   },
   output: {
     path: './build/web',
     publicPath: isProduction ? './' : undefined,
+    clean: isProduction ? true : undefined,
   },
   builtins: {
     html: [
@@ -45,6 +46,11 @@ const config: RspackOptions = defineConfig({
     historyApiFallback: true,
   },
   devtool: isProduction ? false : undefined,
-  plugins: [...(isProduction ? [new PackUpx('novel')] : [])],
+  plugins: [...(isProduction ? [new WasmPack(), new PackUpx('novel')] : [])],
+  resolve: {
+    alias: {
+      '@novel': resolve(process.cwd(), './src'),
+    },
+  },
 });
 export default config;

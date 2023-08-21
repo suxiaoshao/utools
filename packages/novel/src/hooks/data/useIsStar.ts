@@ -1,5 +1,5 @@
 import React from 'react';
-import { TotalDataBuild } from '../../utils/data/totalData';
+import { TotalDataBuild } from '@novel/utils/data/totalData';
 
 export interface IsStar {
   isStar: boolean;

@@ -1,16 +1,16 @@
 import React from 'react';
-import { TabPanelDisappear } from '../../../components/common/tabPanel';
+import { TabPanelDisappear } from '@http/components/TabPanel';
 import ResToggle from './resToggle';
 import ResHeaders from './resHeaders';
 import { HttpContext } from '../workPanel';
-import { HttpResponse } from '../../../utils/http/httpResponse';
-import { NoneFunc, useForceUpdate } from '../../../hooks/useForceUpdate';
+import { HttpResponse } from '@http/utils/http/httpResponse';
+import { NoneFunc, useForceUpdate } from '@http/hooks/useForceUpdate';
 import { Backdrop, Button, LinearProgress } from '@mui/material';
 import ResBody from './resBody/resBody';
 import NoneRes from './noneRes';
 import ResCookie from './resCookie';
 import ErrorPage from './errorPage';
-import { CommonStyle } from '../../../hooks/useRestyle';
+import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
  * @author sushao

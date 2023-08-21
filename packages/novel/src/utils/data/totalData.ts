@@ -1,7 +1,7 @@
 import { Chapter } from '../web/novelInfo';
 import { getBuffer } from './util';
 import { TotalConfig } from '../web/config/totalConfig';
-import { TotalData } from '../../../data/pkg/data';
+import { TotalData } from '../../../data/pkg';
 
 export class TotalDataBuild {
   private static totalData?: TotalData;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { TotalConfig } from '../../../../utils/web/config/totalConfig';
+import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import { Chip, ChipProps, Menu, MenuItem } from '@mui/material';
-import { TotalDataBuild } from '../../../../utils/data/totalData';
-import { useAppDispatch } from '../../../../app/hooks';
-import { initConfig } from '../../../../app/config/configSlice';
+import { TotalDataBuild } from '@novel/utils/data/totalData';
+import { useAppDispatch } from '@novel/app/hooks';
+import { initConfig } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
 
 export interface ConfigChipProp extends ChipProps {

@@ -1,4 +1,4 @@
-import { CookieEntity } from '../../database/entity/cookie.entity';
+import { CookieEntity } from '@http/database/entity/cookie.entity';
 
 export class Cookie {
   name: string;

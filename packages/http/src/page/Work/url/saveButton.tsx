@@ -2,8 +2,8 @@ import React from 'react';
 import { HttpContext } from '../workPanel';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { SaveAlt } from '@mui/icons-material';
-import SaveHttp from '../../../components/common/httpSave/saveHttp';
-import { httpArray } from '../../../store/httpArray';
+import SaveHttp from '@http/components/httpSave/saveHttp';
+import { httpArray } from '@http/store/httpArray';
 
 /**
  * @author sushao
