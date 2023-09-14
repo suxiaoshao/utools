@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import { render, waitFor, screen, cleanup } from '@testing-library/react';
 import { enqueueSnackbar, SnackbarProvider } from '.';
-import { afterEach, expect, describe, it } from 'vitest';
+import { afterEach, expect, describe, it } from '@jest/globals';
 
 describe('notify', () => {
   afterEach(() => {

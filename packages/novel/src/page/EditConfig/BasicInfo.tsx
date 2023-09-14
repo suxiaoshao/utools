@@ -2,7 +2,7 @@ import { Box, SxProps, TextField, Theme } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { Config } from '.';
 
-const commonStyle: Record<'form' | 'item', SxProps<Theme>> = {
+export const commonStyle: Record<'form' | 'item', SxProps<Theme>> = {
   form: {
     p: 1,
   },
