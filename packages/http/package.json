@@ -19,7 +19,7 @@
     "types": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.6.0",
+    "@types/node": "^20.6.2",
     "@types/node-fetch": "^2.6.5",
     "@types/set-cookie-parser": "^2.4.3",
     "@types/sql.js": "^1.4.4",
