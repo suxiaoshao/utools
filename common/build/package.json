@@ -8,8 +8,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@electron/asar": "^3.2.4",
-    "@rspack/core": "0.3.4"
+    "@electron/asar": "^3.2.7",
+    "@rspack/core": "0.3.6"
   },
   "scripts": {
     "build": "tsc --build tsconfig.json",
