@@ -3,8 +3,8 @@ import { resolve } from 'path';
 import type { RspackOptions } from '@rspack/core';
 import ServerConfig from '../plugin/http/ServerConfig';
 import PackUpx from '../plugin/PackUpx';
-
-const isProduction = process.env.NODE_ENV === 'production';
+import { isProduction } from '../const';
+import BuildInstall from '../plugin/BuildInstall';
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -52,10 +52,16 @@ const config: RspackOptions = defineConfig({
     path: 'path',
     crypto: 'crypto',
   },
-  plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()])],
+  plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()]), new BuildInstall()],
   resolve: {
-    alias: {
-      '@http': resolve(process.cwd(), './src'),
+    tsConfig: {
+      configFile: resolve(__dirname, '../../../../tsconfig.json'),
+      references: 'auto',
+    },
+  },
+  experiments: {
+    rspackFuture: {
+      newResolver: true,
     },
   },
 });

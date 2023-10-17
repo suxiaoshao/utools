@@ -3,8 +3,7 @@ import { resolve } from 'path';
 import { RspackOptions } from '@rspack/core';
 import PackUpx from '../plugin/PackUpx';
 import WasmPack from '../plugin/novel/WasmPack';
-
-const isProduction = process.env.NODE_ENV === 'production';
+import { isProduction } from '../const';
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -48,8 +47,14 @@ const config: RspackOptions = defineConfig({
   devtool: isProduction ? false : undefined,
   plugins: [...(isProduction ? [new WasmPack(), new PackUpx('novel')] : [])],
   resolve: {
-    alias: {
-      '@novel': resolve(process.cwd(), './src'),
+    tsConfig: {
+      configFile: resolve(__dirname, '../../../../tsconfig.json'),
+      references: 'auto',
+    },
+  },
+  experiments: {
+    rspackFuture: {
+      newResolver: true,
     },
   },
 });
