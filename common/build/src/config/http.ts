@@ -1,10 +1,11 @@
 import { defineConfig } from '@rspack/cli';
 import { resolve } from 'path';
-import type { RspackOptions } from '@rspack/core';
+import type { RspackOptions, RspackPluginInstance } from '@rspack/core';
 import ServerConfig from '../plugin/http/ServerConfig';
 import PackUpx from '../plugin/PackUpx';
 import { isProduction } from '../const';
 import BuildInstall from '../plugin/BuildInstall';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -52,7 +53,11 @@ const config: RspackOptions = defineConfig({
     path: 'path',
     crypto: 'crypto',
   },
-  plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()]), new BuildInstall()],
+  plugins: [
+    ...(isProduction ? [new PackUpx('http')] : [new ServerConfig()]),
+    new BuildInstall(),
+    new MonacoWebpackPlugin() as unknown as RspackPluginInstance,
+  ],
   resolve: {
     tsConfig: {
       configFile: resolve(__dirname, '../../../../tsconfig.json'),

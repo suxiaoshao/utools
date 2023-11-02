@@ -9,7 +9,8 @@
   "license": "ISC",
   "devDependencies": {
     "@electron/asar": "^3.2.7",
-    "@rspack/core": "0.3.7"
+    "@rspack/core": "0.3.10",
+    "monaco-editor-webpack-plugin": "^7.1.0"
   },
   "scripts": {
     "build": "tsc --build tsconfig.json",

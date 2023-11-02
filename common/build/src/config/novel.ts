@@ -1,9 +1,10 @@
 import { defineConfig } from '@rspack/cli';
 import { resolve } from 'path';
-import { RspackOptions } from '@rspack/core';
+import { RspackOptions, RspackPluginInstance } from '@rspack/core';
 import PackUpx from '../plugin/PackUpx';
 import WasmPack from '../plugin/novel/WasmPack';
 import { isProduction } from '../const';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -45,7 +46,10 @@ const config: RspackOptions = defineConfig({
     historyApiFallback: true,
   },
   devtool: isProduction ? false : undefined,
-  plugins: [...(isProduction ? [new WasmPack(), new PackUpx('novel')] : [])],
+  plugins: [
+    ...(isProduction ? [new WasmPack(), new PackUpx('novel')] : []),
+    new MonacoWebpackPlugin({}) as unknown as RspackPluginInstance,
+  ],
   resolve: {
     tsConfig: {
       configFile: resolve(__dirname, '../../../../tsconfig.json'),
