@@ -1,5 +1,10 @@
+/*
+ * @Author: Su Weijie weijie.su@shopee.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: Su Weijie weijie.su@shopee.com
+ * @LastEditTime: 2023-11-05 02:29:20
+ */
 import React, { useEffect } from 'react';
-import './init';
 import './model';
 import { editor } from 'monaco-editor';
 import { Box, BoxProps, useTheme } from '@mui/material';

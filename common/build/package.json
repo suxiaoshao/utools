@@ -8,8 +8,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@electron/asar": "^3.2.7",
-    "@rspack/core": "0.3.10",
+    "@electron/asar": "^3.2.8",
+    "@rspack/core": "0.3.11",
     "monaco-editor-webpack-plugin": "^7.1.0"
   },
   "scripts": {
