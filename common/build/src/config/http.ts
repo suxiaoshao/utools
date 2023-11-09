@@ -1,3 +1,10 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-10-18 16:57:14
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-09 19:09:39
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/common/build/src/config/http.ts
+ */
 import { defineConfig } from '@rspack/cli';
 import { resolve } from 'path';
 import type { RspackOptions, RspackPluginInstance } from '@rspack/core';
@@ -6,6 +13,8 @@ import PackUpx from '../plugin/PackUpx';
 import { isProduction } from '../const';
 import BuildInstall from '../plugin/BuildInstall';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
+import HtmlPlugin from '@rspack/plugin-html';
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -16,14 +25,6 @@ const config: RspackOptions = defineConfig({
     publicPath: isProduction ? './' : undefined,
     globalObject: 'self',
     clean: isProduction ? true : undefined,
-  },
-  builtins: {
-    html: [
-      {
-        template: './index.html',
-        chunks: ['main'],
-      },
-    ],
   },
   module: {
     rules: [
@@ -38,6 +39,14 @@ const config: RspackOptions = defineConfig({
       {
         test: /\.jpg$/,
         type: 'asset',
+      },
+      {
+        test: /\.js$/,
+        type: 'jsx',
+      },
+      {
+        test: /\.ts$/,
+        type: 'tsx',
       },
     ],
   },
@@ -54,9 +63,13 @@ const config: RspackOptions = defineConfig({
     crypto: 'crypto',
   },
   plugins: [
-    ...(isProduction ? [new PackUpx('http')] : [new ServerConfig()]),
+    ...(isProduction ? [new PackUpx('http')] : [new ServerConfig(), new ReactRefreshPlugin()]),
     new BuildInstall(),
     new MonacoWebpackPlugin() as unknown as RspackPluginInstance,
+    new HtmlPlugin({
+      template: './index.html',
+      chunks: ['main'],
+    }),
   ],
   resolve: {
     tsConfig: {
@@ -67,6 +80,7 @@ const config: RspackOptions = defineConfig({
   experiments: {
     rspackFuture: {
       newResolver: true,
+      disableTransformByDefault: true,
     },
   },
 });

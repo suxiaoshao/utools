@@ -2,7 +2,7 @@
  * @Author: suxiaoshao suxiaoshao@gmail.com
  * @Date: 2023-08-21 18:17:36
  * @LastEditors: suxiaoshao suxiaoshao@gmail.com
- * @LastEditTime: 2023-11-09 17:53:06
+ * @LastEditTime: 2023-11-09 18:34:24
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/components/AppBreadcrumbs.tsx
  */
 import React from 'react';
@@ -20,7 +20,7 @@ export default function AppBreadcrumbs(): JSX.Element {
         id="breadcrumbs"
         sx={{ flex: '0 0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
-        <Breadcrumbs maxItems={3} sx={{ ml: 1 }}>
+        <Breadcrumbs maxItems={3} sx={{ m: 1 }}>
           {allLocation.map((value, index) => (
             <Link
               color={index !== allLocation.length - 1 ? 'inherit' : 'textPrimary'}

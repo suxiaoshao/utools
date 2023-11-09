@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["utools-api-types"],
+    "types": ["utools-api-types", "node"],
     "paths": {
       "@http/*": ["./packages/http/src/*"],
       "@novel/*": ["./packages/novel/src/*"]
@@ -27,7 +27,8 @@
     "common/*/src",
     "config",
     "packages/*/rspack.config.ts",
-    "packages/http/rspack.config.mts"
+    "packages/http/rspack.config.mts",
+    "packages/novel/rspack.config.ts"
   ],
   "exclude": ["**/node_modules", "node_modules", "packages/novel/data/pkg"]
 }
