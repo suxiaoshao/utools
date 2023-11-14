@@ -1,10 +1,10 @@
 import { getHtml } from './util';
 import * as cheerio from 'cheerio';
-import { TotalConfig } from './config/totalConfig';
-import { SearchConfig } from './config/searchConfig';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
 import { Chapter } from './novelInfo';
+import { TotalConfig } from '@novel/page/EditConfig/const';
+import { SearchConfig } from '@novel/types/config';
 
 /**
  * @author sushao

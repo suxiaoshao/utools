@@ -135,6 +135,6 @@ export const schema = Yup.object().shape({
     }),
 });
 
-export type Config = Yup.InferType<typeof schema>;
+export type TotalConfig = Yup.InferType<typeof schema>;
 
 export const steps = ['基本信息', '搜索', '目录', '章节内容'];

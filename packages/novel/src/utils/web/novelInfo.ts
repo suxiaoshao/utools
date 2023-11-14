@@ -1,9 +1,9 @@
 import * as cheerio from 'cheerio';
 import { getHtml } from './util';
-import { DirectoryConfig, InfoConfig } from './config/novelInfoConfig';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
-import { TotalConfig } from './config/totalConfig';
+import { TotalConfig } from '@novel/page/EditConfig/const';
+import { DirectoryConfig, InfoConfig } from '@novel/types/config';
 
 //章节信息
 export interface Chapter {

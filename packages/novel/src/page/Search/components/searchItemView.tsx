@@ -1,10 +1,16 @@
-import React from 'react';
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-10 18:51:14
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/page/Search/components/searchItemView.tsx
+ */
 import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
 import { SearchListItem } from '@novel/utils/web/search';
 import { ExitToApp } from '@mui/icons-material';
-import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import ChapterLink from '@novel/components/common/chapterLink';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { TotalConfig } from '@novel/page/EditConfig/const';
 
 export interface SearchItemProp {
   /**

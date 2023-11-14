@@ -1,10 +1,17 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-10 18:53:30
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/hooks/page/useChapterData.ts
+ */
 import { useAsyncFnWithNotify } from '../async/useAsyncFnWithNotify';
 import { Content, ContentData } from '@novel/utils/web/content';
 import React from 'react';
-import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
 import { Chapter } from '@novel/utils/web/novelInfo';
+import { TotalConfig } from '@novel/page/EditConfig/const';
 
 export function useChapterData(
   activeConfig: TotalConfig,

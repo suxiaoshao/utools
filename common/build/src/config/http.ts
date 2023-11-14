@@ -2,7 +2,7 @@
  * @Author: suxiaoshao suxiaoshao@gmail.com
  * @Date: 2023-10-18 16:57:14
  * @LastEditors: suxiaoshao suxiaoshao@gmail.com
- * @LastEditTime: 2023-11-09 19:09:39
+ * @LastEditTime: 2023-11-14 18:56:37
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/common/build/src/config/http.ts
  */
 import { defineConfig } from '@rspack/cli';
@@ -41,12 +41,26 @@ const config: RspackOptions = defineConfig({
         type: 'asset',
       },
       {
-        test: /\.js$/,
-        type: 'jsx',
-      },
-      {
-        test: /\.ts$/,
-        type: 'tsx',
+        test: /\.tsx?$/,
+        use: {
+          loader: 'builtin:swc-loader',
+          options: {
+            sourceMap: true,
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+                tsx: true,
+              },
+              transform: {
+                react: {
+                  runtime: 'automatic',
+                  development: !isProduction,
+                  refresh: !isProduction,
+                },
+              },
+            },
+          },
+        },
       },
     ],
   },

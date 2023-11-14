@@ -1,6 +1,6 @@
 import { Box, SxProps, TextField, Theme, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import { Config } from '../const';
+import { TotalConfig } from '../const';
 
 export const commonStyle: Record<'form' | 'item' | 'container' | 'title', SxProps<Theme>> = {
   container: {
@@ -27,7 +27,7 @@ export default function BasicInfo() {
   const {
     register,
     formState: { errors },
-  } = useFormContext<Config>();
+  } = useFormContext<TotalConfig>();
   return (
     <Box sx={{ ...commonStyle.container, mt: 0 }}>
       <Typography sx={commonStyle.title} variant={'h6'}>
