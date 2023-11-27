@@ -7,8 +7,8 @@
     "build": "rspack build"
   },
   "dependencies": {
-    "@mui/x-date-pickers": "^6.18.1",
-    "axios": "^1.6.1",
+    "@mui/x-date-pickers": "^6.18.2",
+    "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "monaco-editor": "^0.44.0",
     "notify": "workspace:*",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@types/node-fetch": "^2.6.9",
-    "@types/set-cookie-parser": "^2.4.6",
+    "@types/set-cookie-parser": "^2.4.7",
     "@types/sql.js": "^1.4.9",
     "build": "workspace:*",
     "form-data": "^4.0.0"

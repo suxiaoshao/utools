@@ -2,7 +2,7 @@
  * @Author: suxiaoshao suxiaoshao@gmail.com
  * @Date: 2023-10-18 16:57:14
  * @LastEditors: suxiaoshao suxiaoshao@gmail.com
- * @LastEditTime: 2023-11-14 18:56:37
+ * @LastEditTime: 2023-11-17 18:03:01
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/common/build/src/config/http.ts
  */
 import { defineConfig } from '@rspack/cli';

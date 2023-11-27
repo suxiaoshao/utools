@@ -54,7 +54,7 @@ export const defaultCode = `{
         "chapter": ""
     }
 }`;
-export const schema = Yup.object().shape({
+export const configSchema = Yup.object().shape({
   mainPageUrl: Yup.string().url().required('主页链接不能为空').label('主页链接'),
   name: Yup.string().required('小说源名不能为空').label('小说源名'),
   search: Yup.object()
@@ -135,6 +135,6 @@ export const schema = Yup.object().shape({
     }),
 });
 
-export type TotalConfig = Yup.InferType<typeof schema>;
+export type TotalConfig = Yup.InferType<typeof configSchema>;
 
 export const steps = ['基本信息', '搜索', '目录', '章节内容'];

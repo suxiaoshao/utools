@@ -12,7 +12,7 @@ import BasicInfo from './components/BasicInfo';
 import SearchForm from './components/SearchForm';
 import NovelForm from './components/NovelForm';
 import ChapterForm from './components/ChapterForm';
-import { TotalConfig, schema } from './const';
+import { TotalConfig, configSchema } from './const';
 import { createPortal } from 'react-dom';
 import { Toolbar } from './components/Toolbar';
 import useCheckDomElement from '@novel/hooks/useCheckDomElement';
@@ -28,7 +28,7 @@ import { enqueueSnackbar } from 'notify';
  * */
 export default function EditConfig(): JSX.Element {
   const methods = useForm<TotalConfig>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(configSchema),
     mode: 'all',
   });
   const container = useCheckDomElement('#breadcrumbs');
