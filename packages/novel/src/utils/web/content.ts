@@ -1,9 +1,16 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 17:58:09
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-10 18:49:11
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/utils/web/content.ts
+ */
 import { getHtml } from './util';
 import * as cheerio from 'cheerio';
-import { ContentConfig } from './config/contentConfig';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
-import { TotalConfig } from './config/totalConfig';
+import { TotalConfig } from '@novel/page/EditConfig/const';
+import { ContentConfig } from '@novel/types/config';
 
 /**
  * 文章内容数据
@@ -53,13 +60,12 @@ export class Content {
     const novelName = $content(this.config.novelName).text();
     const preChapterId = this.regex.getChapter($content(this.config.preChapterId).attr('href'));
     const nextChapterId = this.regex.getChapter($content(this.config.nextChapterId).attr('href'));
-    const contentList =
-      this.config.contentSplit !== null
-        ? $content(this.config.content)
-            .text()
-            .split(this.config.contentSplit)
-            .filter((value) => value !== '')
-        : Array.from($content(this.config.content)).map((element) => $content(element).text());
+    const contentList = this.config.contentSplit
+      ? $content(this.config.content)
+          .text()
+          .split(this.config.contentSplit)
+          .filter((value) => value !== '')
+      : Array.from($content(this.config.content)).map((element) => $content(element).text());
     return {
       contentList,
       chapterName,

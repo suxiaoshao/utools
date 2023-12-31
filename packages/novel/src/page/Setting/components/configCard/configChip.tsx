@@ -1,10 +1,17 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-10 18:49:26
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/page/Setting/components/configCard/configChip.tsx
+ */
 import React from 'react';
-import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import { Chip, ChipProps, Menu, MenuItem } from '@mui/material';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
 import { useAppDispatch } from '@novel/app/hooks';
 import { initConfig } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
+import { TotalConfig } from '@novel/page/EditConfig/const';
 
 export interface ConfigChipProp extends ChipProps {
   config: TotalConfig;

@@ -205,8 +205,8 @@ impl TotalData {
     }
     /// # 添加配置
     #[wasm_bindgen(js_name=addConfig)]
-    pub fn add_config(&mut self, code: &str) -> Option<String> {
-        let config: TotalConfig = match serde_json::from_str(code) {
+    pub fn add_config(&mut self, config: JsValue) -> Option<String> {
+        let config: TotalConfig = match serde_wasm_bindgen::from_value(config) {
             Err(_) => return Some(String::from("json 配置格式不正确")),
             Ok(e) => e,
         };

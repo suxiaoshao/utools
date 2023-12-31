@@ -1,7 +1,14 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-10 18:39:53
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/utils/data/totalData.ts
+ */
 import { Chapter } from '../web/novelInfo';
 import { getBuffer } from './util';
-import { TotalConfig } from '../web/config/totalConfig';
 import { TotalData } from '../../../data/pkg';
+import { TotalConfig } from '@novel/page/EditConfig/const';
 
 export class TotalDataBuild {
   private static totalData?: TotalData;

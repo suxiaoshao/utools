@@ -1,10 +1,20 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-10-18 16:57:14
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-17 18:03:01
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/common/build/src/config/http.ts
+ */
 import { defineConfig } from '@rspack/cli';
 import { resolve } from 'path';
-import type { RspackOptions } from '@rspack/core';
+import type { RspackOptions, RspackPluginInstance } from '@rspack/core';
 import ServerConfig from '../plugin/http/ServerConfig';
 import PackUpx from '../plugin/PackUpx';
-
-const isProduction = process.env.NODE_ENV === 'production';
+import { isProduction } from '../const';
+import BuildInstall from '../plugin/BuildInstall';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
+import HtmlPlugin from '@rspack/plugin-html';
 
 const config: RspackOptions = defineConfig({
   entry: {
@@ -15,14 +25,6 @@ const config: RspackOptions = defineConfig({
     publicPath: isProduction ? './' : undefined,
     globalObject: 'self',
     clean: isProduction ? true : undefined,
-  },
-  builtins: {
-    html: [
-      {
-        template: './index.html',
-        chunks: ['main'],
-      },
-    ],
   },
   module: {
     rules: [
@@ -38,6 +40,28 @@ const config: RspackOptions = defineConfig({
         test: /\.jpg$/,
         type: 'asset',
       },
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'builtin:swc-loader',
+          options: {
+            sourceMap: true,
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+                tsx: true,
+              },
+              transform: {
+                react: {
+                  runtime: 'automatic',
+                  development: !isProduction,
+                  refresh: !isProduction,
+                },
+              },
+            },
+          },
+        },
+      },
     ],
   },
   devServer: {
@@ -52,10 +76,25 @@ const config: RspackOptions = defineConfig({
     path: 'path',
     crypto: 'crypto',
   },
-  plugins: [...(isProduction ? [new PackUpx('http')] : [new ServerConfig()])],
+  plugins: [
+    ...(isProduction ? [new PackUpx('http')] : [new ServerConfig(), new ReactRefreshPlugin()]),
+    new BuildInstall(),
+    new MonacoWebpackPlugin() as unknown as RspackPluginInstance,
+    new HtmlPlugin({
+      template: './index.html',
+      chunks: ['main'],
+    }),
+  ],
   resolve: {
-    alias: {
-      '@http': resolve(process.cwd(), './src'),
+    tsConfig: {
+      configFile: resolve(__dirname, '../../../../tsconfig.json'),
+      references: 'auto',
+    },
+  },
+  experiments: {
+    rspackFuture: {
+      newResolver: true,
+      disableTransformByDefault: true,
     },
   },
 });

@@ -1,8 +1,15 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-10 18:53:42
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/hooks/page/useChapterRouter.ts
+ */
 import { useQuery } from '../useQuery';
 import { useActiveConfig } from '../data/useActiveConfig';
 import React from 'react';
-import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { TotalConfig } from '@novel/page/EditConfig/const';
 
 export function useChapterRouter(): { activeConfig: TotalConfig; chapterId: string; novelId: string } {
   /**

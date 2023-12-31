@@ -1,9 +1,9 @@
 import * as cheerio from 'cheerio';
 import { getHtml } from './util';
-import { DirectoryConfig, InfoConfig } from './config/novelInfoConfig';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
-import { TotalConfig } from './config/totalConfig';
+import { TotalConfig } from '@novel/page/EditConfig/const';
+import { DirectoryConfig, InfoConfig } from '@novel/types/config';
 
 //章节信息
 export interface Chapter {
@@ -53,12 +53,14 @@ export class NovelInfo {
    * 正则配置
    * */
   regex: RegexUtil;
+  mainUrl: string;
 
   constructor(config: TotalConfig) {
     this.directory = config.novel.directory;
     this.info = config.novel.info;
     this.url = new UrlUtil(config.url);
     this.regex = new RegexUtil(config.regex);
+    this.mainUrl = config.mainPageUrl;
   }
 
   /**
@@ -99,6 +101,14 @@ export class NovelInfo {
       })
       .filter((value) => value !== null) as Chapter[];
   }
+  getImgUrl($searchItem: cheerio.CheerioAPI): string | undefined {
+    const imgUrl = $searchItem(this.info.image).attr('src');
+    if (!imgUrl) {
+      return undefined;
+    }
+    const url = new URL(imgUrl, this.mainUrl);
+    return url.href;
+  }
 
   /**
    * 获取小说基本信息
@@ -107,7 +117,7 @@ export class NovelInfo {
     const novelName = $info(this.info.name).text();
     const authorName = $info(this.info.author).text().split('：').reverse()[0];
     const lastUpdateTime = $info(this.info.lastUpdateTime).text().split('：').reverse()[0];
-    const image = $info(this.info.image).attr('src');
+    const image = this.getImgUrl($info);
     const desc = $info(this.info.desc).text();
     const latestChapterName = $info(this.info.latestChapterId).text().split('：').reverse()[0];
     const lastId = this.regex.getChapter($info(this.info.latestChapterId).attr('href'));

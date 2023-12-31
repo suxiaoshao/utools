@@ -1,3 +1,10 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-08-21 18:17:36
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-11-09 18:34:24
+ * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/components/AppBreadcrumbs.tsx
+ */
 import React from 'react';
 import { Box, Breadcrumbs, Link } from '@mui/material';
 import { useAppSelector } from '@novel/app/hooks';
@@ -9,21 +16,26 @@ export default function AppBreadcrumbs(): JSX.Element {
   const navigate = useCustomNavigate();
   return (
     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Breadcrumbs maxItems={3} sx={{ flex: '0 0 auto', margin: 1 }}>
-        {allLocation.map((value, index) => (
-          <Link
-            color={index !== allLocation.length - 1 ? 'inherit' : 'textPrimary'}
-            href={`#${value.to.toString()}`}
-            key={index}
-            onClick={(e: React.MouseEvent) => {
-              e.preventDefault();
-              navigate(value.name, { tag: 'goBack', data: allLocation.length - index - 1 });
-            }}
-          >
-            {value.name}
-          </Link>
-        ))}
-      </Breadcrumbs>
+      <Box
+        id="breadcrumbs"
+        sx={{ flex: '0 0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+      >
+        <Breadcrumbs maxItems={3} sx={{ m: 1 }}>
+          {allLocation.map((value, index) => (
+            <Link
+              color={index !== allLocation.length - 1 ? 'inherit' : 'textPrimary'}
+              href={`#${value.to.toString()}`}
+              key={index}
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault();
+                navigate(value.name, { tag: 'goBack', data: allLocation.length - index - 1 });
+              }}
+            >
+              {value.name}
+            </Link>
+          ))}
+        </Breadcrumbs>
+      </Box>
       <Box sx={{ flex: '1 1 0', overflow: 'hidden' }}>
         <Outlet />
       </Box>

@@ -1,10 +1,11 @@
 import { getHtml } from './util';
 import * as cheerio from 'cheerio';
-import { TotalConfig } from './config/totalConfig';
-import { SearchConfig } from './config/searchConfig';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
 import { Chapter } from './novelInfo';
+import { TotalConfig } from '@novel/page/EditConfig/const';
+import { SearchConfig } from '@novel/types/config';
+import { CheerioAPI } from 'cheerio';
 
 /**
  * @author sushao
@@ -66,11 +67,13 @@ export class Search {
    * 正则配置
    * */
   regex: RegexUtil;
+  mainUrl: string;
 
   constructor(config: TotalConfig) {
     this.config = config.search;
     this.url = new UrlUtil(config.url);
     this.regex = new RegexUtil(config.regex);
+    this.mainUrl = config.mainPageUrl;
   }
 
   public async getSearchList(searchName: string): Promise<SearchListItem[]> {
@@ -93,6 +96,15 @@ export class Search {
     return searchList;
   }
 
+  getImgUrl($searchItem: CheerioAPI): string | undefined {
+    const imgUrl = $searchItem(this.config.image).attr('src');
+    if (!imgUrl) {
+      return undefined;
+    }
+    const url = new URL(imgUrl, this.mainUrl);
+    return url.href;
+  }
+
   public getSearchItem(html: string): SearchListItem | null {
     /**
      * 获取小说名,作者名,最后章节小说名
@@ -103,7 +115,7 @@ export class Search {
     const latestChapterName: string = $searchItem(this.config.latestChapterId).text();
     const label = $searchItem(this.config.label).text();
     const desc = $searchItem(this.config.desc).text();
-    const image = $searchItem(this.config.image).attr('src');
+    const image = this.getImgUrl($searchItem);
     /**
      * 获取最近更新时间
      * */

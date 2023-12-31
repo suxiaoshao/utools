@@ -3,7 +3,7 @@ import SearchPage from '@novel/page/Search';
 import SettingPage from '@novel/page/Setting';
 import Bookshelf from '@novel/page/bookshelf';
 import ChapterPage from '@novel/page/chapterPage';
-import EditConfig from '@novel/page/editConfig';
+import EditConfig from '@novel/page/EditConfig';
 import NovelPage from '@novel/page/novelPage';
 import ReadFile from '@novel/page/readFile';
 import Sponsorship from '@novel/page/sponsorship';

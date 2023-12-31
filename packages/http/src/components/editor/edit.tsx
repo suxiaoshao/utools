@@ -1,5 +1,4 @@
 import React, { startTransition, useCallback, useEffect, useImperativeHandle } from 'react';
-import './init';
 import * as monaco from 'monaco-editor';
 import monankai from './monankai';
 import { Box, BoxProps } from '@mui/material';

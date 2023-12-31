@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
-import { TotalConfig } from '@novel/utils/web/config/totalConfig';
 import { enqueueSnackbar } from 'notify';
+import { TotalConfig } from '@novel/page/EditConfig/const';
 
 export interface ConfigSliceType {
   value: TotalConfig[];

@@ -38,20 +38,17 @@ impl PartialEq for ReadRecord {
     }
 }
 impl Eq for ReadRecord {}
-impl PartialOrd for ReadRecord {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        match self.main_page_url.partial_cmp(&other.main_page_url)? {
-            Ordering::Equal => self.novel_id.partial_cmp(&other.novel_id),
-            other => Some(other),
-        }
-    }
-}
 impl Ord for ReadRecord {
     fn cmp(&self, other: &Self) -> Ordering {
         match self.main_page_url.cmp(&other.main_page_url) {
             Ordering::Equal => self.novel_id.cmp(&other.novel_id),
             other => other,
         }
+    }
+}
+impl PartialOrd for ReadRecord {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
     }
 }
 /// # 章节数据
