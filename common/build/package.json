@@ -9,9 +9,9 @@
   "license": "ISC",
   "devDependencies": {
     "@electron/asar": "^3.2.8",
-    "@rspack/core": "0.4.0",
-    "@rspack/plugin-html": "^0.4.0",
-    "@rspack/plugin-react-refresh": "^0.4.0",
+    "@rspack/core": "0.4.5",
+    "@rspack/plugin-html": "^0.4.5",
+    "@rspack/plugin-react-refresh": "^0.4.5",
     "monaco-editor-webpack-plugin": "^7.1.0"
   },
   "scripts": {
