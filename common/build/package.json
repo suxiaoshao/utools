@@ -2,8 +2,7 @@
   "name": "build",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,10 +11,7 @@
     "@rspack/core": "0.4.5",
     "@rspack/plugin-html": "^0.4.5",
     "@rspack/plugin-react-refresh": "^0.4.5",
-    "monaco-editor-webpack-plugin": "^7.1.0"
-  },
-  "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "postinstall": "pnpm run build"
+    "monaco-editor-webpack-plugin": "^7.1.0",
+    "@rsbuild/plugin-react": "^0.2.5"
   }
 }
