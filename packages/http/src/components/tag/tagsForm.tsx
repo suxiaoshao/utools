@@ -42,7 +42,7 @@ export default function TagsForm({ selectedTags, onSelectedTasChanges, sx, ...pr
     return allTags.filter((value) => !selectedTags.some((value1) => value1.tagId === value.tagId));
   }, [allTags, selectedTags]);
   return (
-    <Box {...props} sx={{ ...{ display: 'flex' }, ...sx }}>
+    <Box {...props} sx={{ display: 'flex', ...sx }}>
       {/* 已被选择的标签 */}
       <Card sx={{ flex: '1 1 0', display: 'flex', flexDirection: 'column', m: 1 }}>
         <CardHeader

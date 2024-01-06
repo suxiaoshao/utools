@@ -1,9 +1,16 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2024-01-06 01:37:31
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2024-01-07 02:02:58
+ * @FilePath: /utools/common/build/src/plugin/PackUpx.ts
+ */
 import { createPackage } from '@electron/asar';
-import { Compiler, RspackPluginInstance } from '@rspack/core';
 import * as fs from 'fs';
 import { pipeline } from 'stream';
 import * as zlib from 'zlib';
 import { promisify } from 'util';
+import { RsbuildPlugin } from '@rsbuild/core';
 
 const pipelineAsync = promisify(pipeline);
 const unlinkAsync = promisify(fs.unlink);
@@ -31,17 +38,16 @@ async function compressFile(inputFilePath: string, outputFilePath: string): Prom
   }
 }
 
-export default class PackUpx implements RspackPluginInstance {
-  name: string;
-  constructor(name: string) {
-    this.name = name;
-  }
-  apply(compiler: Compiler) {
-    compiler.hooks.afterDone.tap('PackUpxWebpackPlugin', async () => {
-      console.log('afterDone');
-      await createPackage('build', `dist/${this.name}.asar`);
-      console.log('afterDone done');
-      await compressFile(`dist/${this.name}.asar`, `dist/${this.name}.upx`);
-    });
-  }
+export function pluginPackUpx(name: string): RsbuildPlugin {
+  return {
+    name: 'plugin-pack-upx',
+    setup(api) {
+      api.onAfterBuild(async () => {
+        console.log('afterDone');
+        await createPackage('build', `dist/${name}.asar`);
+        console.log('afterDone done');
+        await compressFile(`dist/${name}.asar`, `dist/${name}.upx`);
+      });
+    },
+  };
 }

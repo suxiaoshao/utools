@@ -2,7 +2,6 @@
   "pluginName": "小说阅读",
   "description": "一个小说阅读工具",
   "author": "sushao",
-  "preload": "preload.js",
   "logo": "read.png",
   "main": "web/index.html",
   "homepage": "https://github.com/suxiaoshao/utools-novel-reader",

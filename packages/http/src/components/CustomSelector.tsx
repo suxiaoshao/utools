@@ -1,3 +1,10 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2023-12-31 16:03:02
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2023-12-31 16:14:34
+ * @FilePath: /utools/packages/http/src/components/CustomSelector.tsx
+ */
 import { Button, ButtonProps, Menu, MenuItem } from '@mui/material';
 import React from 'react';
 
@@ -54,7 +61,7 @@ function CustomSelector<T extends number | string | undefined | null>(
       {/* 触发菜单的按钮*/}
       <Button
         {...props}
-        sx={{ ...sx, ...{ textTransform: 'none' } }}
+        sx={{ ...sx, textTransform: 'none' }}
         onClick={(e) => {
           setMenuEl(e.currentTarget);
         }}
