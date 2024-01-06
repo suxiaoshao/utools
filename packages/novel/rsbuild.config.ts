@@ -2,14 +2,14 @@
  * @Author: suxiaoshao suxiaoshao@gmail.com
  * @Date: 2024-01-01 00:17:15
  * @LastEditors: suxiaoshao suxiaoshao@gmail.com
- * @LastEditTime: 2024-01-01 02:31:11
+ * @LastEditTime: 2024-01-07 02:02:04
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/http/rsbuild.config.ts
  */
 import { defineConfig } from '@rsbuild/core';
 import { resolve } from 'path';
-import { MonacoWebpackPlugin, PackUpx, pluginReact, WasmPack } from 'build';
+import { MonacoWebpackPlugin, pluginReact, pluginPackUpx, pluginWasmPack } from 'build';
 export default defineConfig({
-  plugins: [pluginReact()],
+  plugins: [pluginReact(), pluginPackUpx('novel'), pluginWasmPack()],
   server: {
     port: 8082,
   },
@@ -35,10 +35,6 @@ export default defineConfig({
     },
     bundlerChain: (chain, { isProd }) => {
       chain.plugin('monaco').use(MonacoWebpackPlugin);
-      if (isProd) {
-        chain.plugin('upx-pack').use(PackUpx, ['novel']);
-        chain.plugin('wasm-pack').use(WasmPack);
-      }
     },
   },
 });
