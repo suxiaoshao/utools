@@ -3,24 +3,26 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "rsbuild dev --open",
+    "dev": "rsbuild dev",
     "build": "rsbuild build",
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@mui/x-date-pickers": "^6.18.7",
-    "axios": "^1.6.5",
+    "@mui/x-date-pickers": "^6.19.6",
+    "axios": "^1.6.7",
     "dayjs": "^1.11.10",
-    "monaco-editor": "^0.45.0",
+    "monaco-editor": "^0.46.0",
     "notify": "workspace:*",
     "rxjs": "^7.8.1",
     "set-cookie-parser": "^2.6.0",
-    "sql.js": "1.9.0",
-    "theme": "workspace:^1.0.0",
-    "types": "workspace:*"
+    "sql.js": "1.10.2",
+    "theme": "workspace:^",
+    "types": "workspace:*",
+    "styles": "workspace:*"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.6.10",
+    "@rsbuild/plugin-node-polyfill": "^0.4.12",
+    "@types/node-fetch": "^2.6.11",
     "@types/set-cookie-parser": "^2.4.7",
     "@types/sql.js": "^1.4.9",
     "build": "workspace:*",

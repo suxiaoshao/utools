@@ -1,3 +1,11 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2024-01-06 01:37:31
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2024-03-08 20:50:05
+ * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/app/features/tabsSlice.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { newHttp } from '@http/utils/http_new';
@@ -37,13 +45,18 @@ export const tabsSlice = createSlice({
       state.activeTab = state.tabs.length - 1;
     },
     editHttp(state, action: PayloadAction<{ index: number; http: HttpForm }>) {
-      state.tabs[action.payload.index] = action.payload.http;
+      if (action.payload.index < state.tabs.length && action.payload.index >= 0) {
+        state.tabs[action.payload.index] = action.payload.http;
+      }
     },
+  },
+  selectors: {
+    SelectIndex: (state) => state.activeTab,
+    SelectActiveTab: (state) => state.tabs[state.activeTab],
+    SelectTabs: (state) => state.tabs,
+    SelectTabCanDelete: (state) => state.tabs.length > 1,
   },
 });
 export const { addFromHttpManager, addTab, deleteTab, updateActiveTab, editHttp } = tabsSlice.actions;
 
-export const SelectIndex = (state: RootState) => state.tabs.activeTab;
-export const SelectActiveTab = (state: RootState) => state.tabs.tabs[state.tabs.activeTab];
-export const SelectTabs = (state: RootState) => state.tabs.tabs;
-export const SelectTabCanDelete = (state: RootState) => state.tabs.tabs.length > 1;
+export const { SelectActiveTab, SelectIndex, SelectTabCanDelete, SelectTabs } = tabsSlice.selectors;
