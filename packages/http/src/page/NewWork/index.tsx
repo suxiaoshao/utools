@@ -1,9 +1,17 @@
+/*
+ * @Author: suxiaoshao suxiaoshao@gmail.com
+ * @Date: 2024-01-06 01:37:31
+ * @LastEditors: suxiaoshao suxiaoshao@gmail.com
+ * @LastEditTime: 2024-03-08 20:51:48
+ * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/page/NewWork/index.tsx
+ */
 import { Box, Tabs } from '@mui/material';
 import WorkPanel from './workPanel';
 import { TabPanelDisappear } from '@http/components/TabPanel';
 import WorkTab from './workTab';
-import { useAppSelector } from '@http/app/hooks';
-import { SelectIndex, SelectTabs } from '@http/app/features/tabsSlice';
+import { useAppDispatch, useAppSelector } from '@http/app/hooks';
+import { SelectIndex, SelectTabs, addTab, deleteTab, updateActiveTab } from '@http/app/features/tabsSlice';
+import CustomTabs, { CustomTab } from '@http/components/CustomTab';
 
 /**
  * @author sushao
@@ -20,22 +28,29 @@ export default function Work(): JSX.Element {
    * 全部的 http 请求
    * */
   const httpArray = useAppSelector(SelectTabs);
+  const dispatch = useAppDispatch();
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', flex: '0 0 auto' }}>
-        {/* 选项卡 */}
-        <Tabs
-          sx={{ width: '100%' }}
-          value={workIndex}
-          variant="scrollable"
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          {httpArray.map((item, index) => (
-            <WorkTab index={index} httpManager={item} key={index} />
-          ))}
-        </Tabs>
-      </Box>
+      <CustomTabs
+        onAdd={() => {
+          dispatch(addTab());
+        }}
+      >
+        {httpArray.map((item, index) => (
+          <CustomTab
+            label={item.name || item.request.url || '空'}
+            active={workIndex === index}
+            key={index}
+            onClose={() => {
+              dispatch(deleteTab(index));
+            }}
+            onClick={() => {
+              dispatch(updateActiveTab(index));
+            }}
+          />
+        ))}
+      </CustomTabs>
+
       {/* 全部的 http 请求页面 */}
       {httpArray.map((item, index) => (
         <TabPanelDisappear

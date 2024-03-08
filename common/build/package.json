@@ -7,8 +7,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@electron/asar": "^3.2.8",
-    "@rsbuild/plugin-react": "^0.2.17",
+    "@electron/asar": "^3.2.9",
+    "@rsbuild/plugin-react": "^0.4.12",
     "monaco-editor-webpack-plugin": "^7.1.0"
   }
 }

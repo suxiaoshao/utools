@@ -2,7 +2,7 @@
  * @Author: suxiaoshao suxiaoshao@gmail.com
  * @Date: 2023-09-26 17:24:42
  * @LastEditors: suxiaoshao suxiaoshao@gmail.com
- * @LastEditTime: 2023-11-27 16:02:36
+ * @LastEditTime: 2024-03-08 20:55:48
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/page/EditConfig/components/ExportDialog.tsx
  */
 import { AppBar, Box, Button, Dialog, IconButton, Input, Toolbar, Typography } from '@mui/material';
@@ -70,10 +70,10 @@ export default function ExportDialog({ handleToggle, open }: ToggleReturn) {
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
             导入
           </Typography>
-          <Button autoFocus color="inherit" onClick={handleClear}>
+          <Button color="inherit" onClick={handleClear}>
             清空
           </Button>
-          <Button autoFocus color="inherit" onClick={handleSave}>
+          <Button color="inherit" onClick={handleSave}>
             保存
           </Button>
         </Toolbar>
