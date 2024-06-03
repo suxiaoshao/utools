@@ -15,7 +15,7 @@ export class HttpArray extends Store<HttpManager[]> {
 
   /**
    * 添加
-   * @return {number} httpManager 的总数
+   * @returns {number} httpManager 的总数
    * */
   public addHttpManager(): number {
     this.setData([...this.data, HttpManager.getNewHttp()]);
@@ -25,7 +25,7 @@ export class HttpArray extends Store<HttpManager[]> {
   /**
    * 删除
    * @param index {number} 需要删除的 httpManager 的下标
-   * @return {number} httpManager 的总数
+   * @returns {number} httpManager 的总数
    * */
   public deleteHttpManager(index: number): number {
     this.data.splice(index, 1);

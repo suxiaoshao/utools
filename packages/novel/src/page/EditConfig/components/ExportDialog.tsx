@@ -14,7 +14,7 @@ import Edit from '@novel/components/common/editor/edit';
 import { useFormContext } from 'react-hook-form';
 import { TotalConfig } from '../const';
 import { enqueueSnackbar } from 'common/notify/src';
-import { ValidationError } from 'yup';
+import { isValiError } from 'valibot';
 
 export default function ExportDialog({ handleToggle, open }: ToggleReturn) {
   const [code, setCode] = useState<string>();
@@ -48,7 +48,7 @@ export default function ExportDialog({ handleToggle, open }: ToggleReturn) {
         case e instanceof SyntaxError:
           enqueueSnackbar(`导入的数据格式不正确:${e.message}`, { variant: 'error' });
           break;
-        case e instanceof ValidationError:
+        case isValiError(e):
           enqueueSnackbar(`导入的数据格式不正确:${e.message}`, { variant: 'error' });
           break;
         case e instanceof Error:

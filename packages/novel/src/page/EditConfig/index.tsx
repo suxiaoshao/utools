@@ -6,7 +6,7 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/page/EditConfig/index.tsx
  */
 import { Box } from '@mui/material';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { valibotResolver } from '@hookform/resolvers/valibot';
 import { FormProvider, useForm } from 'react-hook-form';
 import BasicInfo from './components/BasicInfo';
 import SearchForm from './components/SearchForm';
@@ -28,7 +28,7 @@ import { enqueueSnackbar } from 'notify';
  * */
 export default function EditConfig(): JSX.Element {
   const methods = useForm<TotalConfig>({
-    resolver: yupResolver(configSchema),
+    resolver: valibotResolver(configSchema),
     mode: 'all',
   });
   const container = useCheckDomElement('#breadcrumbs');

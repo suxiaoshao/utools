@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 import { To, useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -31,11 +30,14 @@ export const historySlice = createSlice({
       state.value.push(action.payload);
     },
   },
+  selectors: {
+    SelectHistory: (state) => state.value,
+  },
 });
 
 export const { addLocation, goBack, replaceLocation } = historySlice.actions;
 
-export const SelectHistory = (state: RootState) => state.history.value;
+export const { SelectHistory } = historySlice.selectors;
 
 export type RouterJump = Enum<'push', To> | Enum<'replace', To> | Enum<'goBack', number>;
 

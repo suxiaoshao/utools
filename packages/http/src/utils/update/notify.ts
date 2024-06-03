@@ -26,7 +26,7 @@ export function checkVersion(): void {
  * @description 获取版本内容,如果版本不存在则返回 undefined
  * @version 0.2.1
  * @since 0.2.1
- * @return Version 返回的版本信息
+ * @returns Version 返回的版本信息
  * */
 export function getVersion(): Version {
   const path = getHttpDir();

@@ -10,7 +10,7 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-serde = { version = "1.0.197", features = ["derive"] }
+serde = { version = "1.0.203", features = ["derive"] }
 wasm-bindgen = { version = "0.2.92", features = [] }
 js-sys = "0.3.69"
 web-sys = { version = "0.3.69", features = [
@@ -20,5 +20,5 @@ web-sys = { version = "0.3.69", features = [
   'Node',
   'Window',
 ] }
-serde_json = "1.0.114"
+serde_json = "1.0.117"
 serde-wasm-bindgen = "0.6.5"

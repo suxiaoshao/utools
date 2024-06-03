@@ -7,11 +7,21 @@
  */
 import { defineConfig } from '@rsbuild/core';
 import { resolve } from 'path';
-import { MonacoWebpackPlugin, pluginReact, pluginPackUpx, pluginWasmPack } from 'build';
+import {
+  pluginReact,
+  pluginPackUpx,
+  pluginWasmPack,
+  pluginLightningcss,
+  codeInspectorPlugin,
+  RsdoctorRspackPlugin,
+} from 'build';
 export default defineConfig({
-  plugins: [pluginReact(), pluginPackUpx('novel'), pluginWasmPack()],
+  plugins: [pluginReact(), pluginPackUpx('novel'), pluginWasmPack(), pluginLightningcss()],
   server: {
     port: 8082,
+  },
+  dev: {
+    lazyCompilation: true,
   },
   source: {
     entry: {
@@ -33,8 +43,13 @@ export default defineConfig({
         },
       },
     },
-    bundlerChain: (chain, { isProd }) => {
-      chain.plugin('monaco').use(MonacoWebpackPlugin);
+    bundlerChain: (chain) => {
+      if (process.env.RSDOCTOR) {
+        chain.plugin('rsdoctor').use(new RsdoctorRspackPlugin());
+      }
+      if (process.env.NODE_ENV === 'development') {
+        chain.plugin('code-inspector').use(codeInspectorPlugin({ bundler: 'rspack' }));
+      }
     },
   },
 });

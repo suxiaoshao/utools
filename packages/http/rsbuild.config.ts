@@ -7,12 +7,30 @@
  */
 import { defineConfig } from '@rsbuild/core';
 import { resolve } from 'path';
-import { MonacoWebpackPlugin, pluginReact, pluginBuildInstall, pluginPackUpx, pluginServerConfig } from 'build';
+import {
+  pluginReact,
+  pluginBuildInstall,
+  pluginPackUpx,
+  pluginServerConfig,
+  pluginLightningcss,
+  codeInspectorPlugin,
+  RsdoctorRspackPlugin,
+} from 'build';
 import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
 export default defineConfig({
-  plugins: [pluginReact(), pluginBuildInstall(), pluginPackUpx('http'), pluginServerConfig(), pluginNodePolyfill()],
+  plugins: [
+    pluginReact(),
+    pluginBuildInstall(),
+    pluginPackUpx('http'),
+    pluginServerConfig(),
+    pluginNodePolyfill(),
+    pluginLightningcss(),
+  ],
   server: {
     port: 8083,
+  },
+  dev: {
+    lazyCompilation: true,
   },
   source: {
     entry: {
@@ -34,8 +52,13 @@ export default defineConfig({
         },
       },
     },
-    bundlerChain: (chain, { isProd }) => {
-      chain.plugin('monaco').use(MonacoWebpackPlugin);
+    bundlerChain: (chain) => {
+      if (process.env.RSDOCTOR) {
+        chain.plugin('rsdoctor').use(new RsdoctorRspackPlugin());
+      }
+      if (process.env.NODE_ENV === 'development') {
+        chain.plugin('code-inspector').use(codeInspectorPlugin({ bundler: 'rspack' }));
+      }
     },
   },
 });

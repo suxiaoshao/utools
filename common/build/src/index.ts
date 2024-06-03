@@ -6,5 +6,7 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/common/build/src/index.ts
  */
 export * from './plugin';
-export { default as MonacoWebpackPlugin } from 'monaco-editor-webpack-plugin';
 export { pluginReact } from '@rsbuild/plugin-react';
+export { codeInspectorPlugin } from 'code-inspector-plugin';
+export { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+export { pluginLightningcss } from '@rsbuild/plugin-lightningcss';
