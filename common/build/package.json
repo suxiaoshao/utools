@@ -8,8 +8,8 @@
   "license": "ISC",
   "devDependencies": {
     "@electron/asar": "^3.2.10",
-    "@rsbuild/plugin-lightningcss": "^0.7.2",
-    "@rsbuild/plugin-react": "^0.7.2",
-    "@rsdoctor/rspack-plugin": "^0.2.5"
+    "@rsbuild/plugin-lightningcss": "^0.7.3",
+    "@rsbuild/plugin-react": "^0.7.3",
+    "@rsdoctor/rspack-plugin": "^0.3.1"
   }
 }
