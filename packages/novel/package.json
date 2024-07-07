@@ -11,7 +11,7 @@
     "axios": "^1.7.2",
     "build": "workspace:*",
     "cheerio": "1.0.0-rc.12",
-    "monaco-editor": "^0.49.0",
+    "monaco-editor": "^0.50.0",
     "notify": "workspace:*",
     "react-dropzone": "^14.2.3",
     "react-use": "^17.5.0",

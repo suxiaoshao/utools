@@ -4,6 +4,7 @@ import { HttpForm, TabType } from '@http/types/httpForm';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useCallback } from 'react';
 import { fetchHttp, getHttpRequestFromRequestForm } from '@http/utils/http_new';
+import { AbortSignal } from 'node-fetch/externals';
 
 /**
  * @author sushao
@@ -18,7 +19,7 @@ export default function SendButton(): JSX.Element {
     const requestForm = getValues('request');
     const controller = new AbortController();
     const signal = controller.signal;
-    const request = getHttpRequestFromRequestForm(requestForm, signal);
+    const request = getHttpRequestFromRequestForm(requestForm, signal as AbortSignal);
 
     setValue('tab', TabType.response);
     setValue('response', { tag: 'loading', data: controller });

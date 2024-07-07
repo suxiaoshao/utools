@@ -29,13 +29,15 @@ function translateCookie(
   };
 }
 
-function getSameSite(sameSite?: string): CookieSameSite {
+function getSameSite(sameSite?: Cookie['sameSite']): CookieSameSite {
   switch (sameSite) {
     case 'lax':
       return CookieSameSite.lax;
     case 'strict':
+    case true:
       return CookieSameSite.strict;
     case 'none':
+    case false:
       return CookieSameSite.none;
     default:
       return CookieSameSite.lax;
