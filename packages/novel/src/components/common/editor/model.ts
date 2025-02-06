@@ -1,5 +1,16 @@
 import * as monaco from 'monaco-editor';
 import { JSONSchema7 } from 'json-schema';
+
+// @ts-ignore
+self.MonacoEnvironment = {
+  getWorker: function (_moduleId, label) {
+    if (label === 'json') {
+      return new Worker(new URL('monaco-editor/esm/vs/language/json/json.worker', import.meta.url));
+    }
+    return new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker', import.meta.url));
+  },
+};
+
 const schema: JSONSchema7 = {
   $schema: 'http://json-schema.org/draft-04/schema#',
   type: 'object',

@@ -94,7 +94,7 @@ export class HttpManager {
    * @version 0.2.2
    * @since 0.2.2
    * @description http 发送
-   * @return {string} 异常信息,如果没有异常为 void
+   * @returns {string} 异常信息,如果没有异常为 void
    * */
   public async httpSend(): Promise<string | void> {
     /**

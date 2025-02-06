@@ -3,7 +3,7 @@
  * @version 0.2.2
  * @since 0.2.2
  * @description 返回 http 的数据库文件地址,如果没有创建并返回
- * @return {string} http 插件的数据库地址
+ * @returns {string} http 插件的数据库地址
  * */
 export function getDataFile(): string {
   const path = getHttpDir();
@@ -19,7 +19,7 @@ export function getDataFile(): string {
  * @version 0.2.2
  * @since 0.2.2
  * @description 获取 http 插件的数据地址,如果没有这个地址创建并返回
- * @return {string} http数据地址
+ * @returns {string} http数据地址
  * */
 export function getHttpDir(): string {
   const fatherPath = window.nodePath.resolve(window.utools.getPath('userData'), 'database');

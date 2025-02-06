@@ -1,6 +1,6 @@
 import { HttpMethod } from '../common';
 import { EditableHeader } from '../common/header';
-import { RequestBodyForm as RequestBodyForm } from './body';
+import { RequestBodyForm } from './body';
 import { RequestParams } from './params';
 
 export enum RequestTab {

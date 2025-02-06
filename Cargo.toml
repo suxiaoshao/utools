@@ -1,8 +1,5 @@
 [workspace]
-
-members = [
-    "packages/novel/data",
-    "packages/http/server",
-]
+members = ["packages/novel/data", "packages/http/server"]
+resolver = "2"
 [profile.release]
 strip = "symbols"

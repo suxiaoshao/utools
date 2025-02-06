@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
 export type FontSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -18,8 +17,11 @@ export const fontSlice = createSlice({
       utools.dbStorage.setItem('fontSize', action.payload);
     },
   },
+  selectors: {
+    SelectFontSize: (state) => state.fontSize,
+  },
 });
 
 export const { updateFontSize } = fontSlice.actions;
 
-export const SelectFontSize = (state: RootState) => state.font.fontSize;
+export const { SelectFontSize } = fontSlice.selectors;

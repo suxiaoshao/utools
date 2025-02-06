@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
 import { enqueueSnackbar } from 'notify';
 import { TotalConfig } from '@novel/page/EditConfig/const';
@@ -34,8 +33,11 @@ export const configSlice = createSlice({
       state.value = totalData.getAllConfig();
     },
   },
+  selectors: {
+    SelectConfig: (state) => state.value,
+  },
 });
 
 export const { initConfig } = configSlice.actions;
 
-export const SelectConfig = (state: RootState) => state.config.value;
+export const { SelectConfig } = configSlice.selectors;

@@ -3,6 +3,7 @@ import { getHttpParamsFromParams } from './params';
 import { getAllHeadersFromRequestForm } from '../headers';
 import { getHttpBody } from './body';
 import type { Request as NodeRequest } from 'node-fetch';
+import { AbortSignal } from 'node-fetch/externals';
 
 export function newRequest(): RequestForm {
   return {
@@ -36,7 +37,12 @@ export function getHttpRequestFromRequestForm(requestForm: RequestForm, signal: 
   const body = getHttpBody(requestForm.body);
 
   // request
-  const request = new window.nodeFetch.Request(url, { method, headers: httpHeaders, body, signal });
+  const request = new window.nodeFetch.Request(url, {
+    method,
+    headers: httpHeaders,
+    body,
+    signal: signal as AbortSignal,
+  });
   return request;
 }
 
