@@ -16,7 +16,9 @@ import {
   codeInspectorPlugin,
   RsdoctorRspackPlugin,
 } from 'build';
+import { pluginBabel } from '@rsbuild/plugin-babel';
 import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
+
 export default defineConfig({
   plugins: [
     pluginReact(),
@@ -25,6 +27,12 @@ export default defineConfig({
     pluginServerConfig(),
     pluginNodePolyfill(),
     pluginLightningcss(),
+    pluginBabel({
+      include: /\.(?:jsx|tsx)$/,
+      babelLoaderOptions(opts) {
+        opts.plugins?.unshift('babel-plugin-react-compiler');
+      },
+    }),
   ],
   server: {
     port: 8083,

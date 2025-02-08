@@ -147,7 +147,7 @@ export class HttpManager {
         }
         return error.message;
       })
-      .finally((value: void | string) => {
+      .finally(() => {
         this.tokenSource = undefined;
       });
   }

@@ -16,14 +16,15 @@ import { match, P } from 'ts-pattern';
  * @since 0.2.2
  * @description saveHttp 组件显示时展现的动画
  * */
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>,
-) {
+const Transition = function Transition({
+  ref,
+  ...props
+}: TransitionProps & {
+  children: React.ReactElement;
+  ref: React.Ref<unknown>;
+}) {
   return <Slide direction="up" ref={ref} {...props} />;
-});
+};
 
 /**
  * @author sushao
@@ -76,7 +77,7 @@ export default function SaveHttp(props: SaveHttpProp) {
     setSelectedTags(sqlData.https.find((value) => value.httpId === httpManager.httpId)?.tags ?? []);
   }, [props.open, httpManager.httpId, sqlData.https]);
   return (
-    <Dialog fullScreen open={props.open} onClose={props.onClose} TransitionComponent={Transition}>
+    <Dialog fullScreen open={props.open} onClose={props.onClose} slots={{ transition: Transition }}>
       <AppBar sx={{ position: 'relative', display: 'flex' }} color="inherit">
         <Toolbar variant="dense">
           {/* 取消按钮 */}

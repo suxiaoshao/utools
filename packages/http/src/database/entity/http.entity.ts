@@ -102,9 +102,9 @@ export class HttpEntity {
   /**
    * 保存多个 http
    * */
-  public static async saves(httpEntities: HttpEntity[]): Promise<void> {
+  public static saves(httpEntities: HttpEntity[]) {
     for (const httpEntity of httpEntities) {
-      await httpEntity.save();
+      httpEntity.save();
     }
   }
 }

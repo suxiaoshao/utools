@@ -47,6 +47,7 @@ export interface NotReadOnlyEditProp extends Omit<BoxProps, 'onChange'> {
    * 当编辑器代码改变时触发的方法
    * */
   onChange?(newCode: string): void;
+  ref?: React.Ref<HTMLDivElement | undefined>;
 }
 
 /**
@@ -55,10 +56,7 @@ export interface NotReadOnlyEditProp extends Omit<BoxProps, 'onChange'> {
  * @since 0.2.2
  * @description 编辑器组件
  * */
-function Edit(
-  { value: code, language, readonly = false, onChange: onChangeCode, ...props }: NotReadOnlyEditProp,
-  ref?: React.Ref<HTMLDivElement | undefined>,
-) {
+function Edit({ value: code, language, readonly = false, onChange: onChangeCode, ref, ...props }: NotReadOnlyEditProp) {
   /**
    * 编辑器绑定的 dom 的引用
    * */
@@ -133,4 +131,4 @@ function Edit(
   return <Box {...props} ref={setEditRef} />;
 }
 
-export default React.forwardRef(Edit);
+export default Edit;

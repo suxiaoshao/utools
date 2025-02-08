@@ -8,7 +8,7 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@mui/x-date-pickers": "^7.25.0",
+    "@mui/x-date-pickers": "^7.26.0",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "monaco-editor": "^0.52.2",

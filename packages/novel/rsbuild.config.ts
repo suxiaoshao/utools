@@ -15,8 +15,21 @@ import {
   codeInspectorPlugin,
   RsdoctorRspackPlugin,
 } from 'build';
+import { pluginBabel } from '@rsbuild/plugin-babel';
+
 export default defineConfig({
-  plugins: [pluginReact(), pluginPackUpx('novel'), pluginWasmPack(), pluginLightningcss()],
+  plugins: [
+    pluginReact(),
+    pluginPackUpx('novel'),
+    pluginWasmPack(),
+    pluginLightningcss(),
+    pluginBabel({
+      include: /\.(?:jsx|tsx)$/,
+      babelLoaderOptions(opts) {
+        opts.plugins?.unshift('babel-plugin-react-compiler');
+      },
+    }),
+  ],
   server: {
     port: 8082,
   },
