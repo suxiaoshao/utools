@@ -1,9 +1,9 @@
 import { Divider, IconButton, InputBase, Paper, type Theme, Tooltip } from '@mui/material';
 import MySelector from '@novel/components/common/mySelector';
 import { ExitToApp, Search } from '@mui/icons-material';
-import { useAppSelector } from '@novel/app/hooks';
-import { SelectConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
 import type { TotalConfig } from '@novel/page/EditConfig/const';
+import { useShallow } from 'zustand/react/shallow';
 
 export const urlStyle = {
   form: (theme: Theme) => ({
@@ -77,7 +77,7 @@ export interface SearchInputProp {
  * @description 搜索输入框
  * */
 export default function SearchInput(props: SearchInputProp) {
-  const totalConfigs = useAppSelector(SelectConfig);
+  const totalConfigs = useConfigStore(useShallow(({ value }) => value));
   return (
     <Paper component="form" sx={urlStyle.form}>
       <MySelector<string | undefined>

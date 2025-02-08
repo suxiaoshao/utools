@@ -6,13 +6,13 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/components/AppBreadcrumbs.tsx
  */
 import { Box, Breadcrumbs, Link } from '@mui/material';
-import { useAppSelector } from '@novel/app/hooks';
-import { SelectHistory, useCustomNavigate } from '@novel/app/history/historySlice';
+import { useCustomNavigate, useHistoryStore } from '@novel/app/history/historySlice';
 import { Outlet } from 'react-router-dom';
 import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function AppBreadcrumbs() {
-  const allLocation = useAppSelector(SelectHistory);
+  const allLocation = useHistoryStore(useShallow((state) => state.value));
   const navigate = useCustomNavigate();
   return (
     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>

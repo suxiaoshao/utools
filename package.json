@@ -21,19 +21,17 @@
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.1",
     "@hookform/resolvers": "^3.10.0",
-    "@mui/base": "5.0.0-beta.69",
     "@mui/icons-material": "^6.4.3",
     "@mui/lab": "6.0.0-beta.26",
     "@mui/material": "^6.4.3",
-    "@reduxjs/toolkit": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
     "react-use": "^17.6.0",
     "ts-pattern": "^5.6.2",
-    "valibot": "1.0.0-beta.15"
+    "valibot": "1.0.0-beta.15",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

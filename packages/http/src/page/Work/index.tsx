@@ -3,8 +3,8 @@ import WorkPanel from './workPanel';
 import { useHttpArray } from '@http/store/httpArray';
 import { TabPanelDisappear } from '@http/components/TabPanel';
 import WorkTab from './workTab';
-import { useAppSelector } from '@http/app/hooks';
-import { SelectIndex } from '@http/app/features/tabsSlice';
+import { selectIndex, useTabsStore } from '@http/app/features/tabsSlice';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * @author sushao
@@ -16,7 +16,7 @@ export default function Work() {
   /**
    * 被激活的 http 请求下标
    * */
-  const workIndex = useAppSelector(SelectIndex);
+  const workIndex = useTabsStore(useShallow(selectIndex));
   /**
    * 全部的 http 请求
    * */

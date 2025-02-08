@@ -8,11 +8,11 @@
 import React from 'react';
 import { Chip, type ChipProps, Menu, MenuItem } from '@mui/material';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
-import { useAppDispatch } from '@novel/app/hooks';
-import { initConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
 import type { TotalConfig } from '@novel/page/EditConfig/const';
 import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 export interface ConfigChipProp extends ChipProps {
   config: TotalConfig;
@@ -26,18 +26,19 @@ export default function ConfigChip({ config, sx, ...props }: ConfigChipProp) {
     mouseX: number;
     mouseY: number;
   } | null>(null);
-  const dispatch = useAppDispatch();
+  const initConfig = useConfigStore(useShallow(({ initConfig }) => initConfig));
+
   const deleteConfig = React.useCallback(() => {
     const totalData = TotalDataBuild.getTotalData();
     const result = totalData.deleteConfig(config.mainPageUrl);
     if (result) {
-      dispatch(initConfig());
+      initConfig();
     } else {
       enqueueSnackbar('默认源不可删除', {
         variant: 'error',
       });
     }
-  }, [config.mainPageUrl, dispatch]);
+  }, [config.mainPageUrl, initConfig]);
   return (
     <>
       <Chip

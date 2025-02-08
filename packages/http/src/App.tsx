@@ -4,8 +4,6 @@ import Work from './page/Work';
 import CookiePage from './page/Cookie';
 import HistoryPage from './page/History';
 import AppDrawer from './components/AppDrawer';
-import { Provider } from 'react-redux';
-import store from './app/store';
 import { CustomTheme } from 'theme';
 import { SnackbarProvider } from 'notify';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -20,24 +18,22 @@ import NewWork from './page/NewWork';
  * */
 export default function App() {
   return (
-    <Provider store={store}>
-      <CustomTheme>
-        <SnackbarProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Router>
-              <Routes>
-                <Route path="/" element={<AppDrawer />}>
-                  <Route index element={<Work />} />
-                  <Route path="/sponsorship" element={<Sponsorship />} />
-                  <Route path="/cookies" element={<CookiePage />} />
-                  <Route path="/history" element={<HistoryPage />} />
-                  <Route path="/new_work" element={<NewWork />} />
-                </Route>
-              </Routes>
-            </Router>
-          </LocalizationProvider>
-        </SnackbarProvider>
-      </CustomTheme>
-    </Provider>
+    <CustomTheme>
+      <SnackbarProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Router>
+            <Routes>
+              <Route path="/" element={<AppDrawer />}>
+                <Route index element={<Work />} />
+                <Route path="/sponsorship" element={<Sponsorship />} />
+                <Route path="/cookies" element={<CookiePage />} />
+                <Route path="/history" element={<HistoryPage />} />
+                <Route path="/new_work" element={<NewWork />} />
+              </Route>
+            </Routes>
+          </Router>
+        </LocalizationProvider>
+      </SnackbarProvider>
+    </CustomTheme>
   );
 }

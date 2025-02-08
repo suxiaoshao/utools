@@ -1,12 +1,12 @@
 import { useForm, FormProvider, useWatch } from 'react-hook-form';
 import { type HttpForm, TabType } from '@http/types/httpForm';
 import { useEffect, useMemo } from 'react';
-import { useAppDispatch } from '@http/app/hooks';
-import { editHttp } from '@http/app/features/tabsSlice';
+import { useTabsStore } from '@http/app/features/tabsSlice';
 import Url from './Url';
 import Request from './Request';
 import Response from './Response';
 import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 export interface WorkPanelProps {
   http: HttpForm;
@@ -22,13 +22,13 @@ export interface WorkPanelProps {
 export default function WorkPanel({ http, index }: WorkPanelProps) {
   const methods = useForm<HttpForm>({ defaultValues: http });
   const tab = useWatch({ control: methods.control, name: 'tab' });
-  const dispatch = useAppDispatch();
+  const editHttp = useTabsStore(useShallow((state) => state.editHttp));
   const onSubmit = useMemo(
     () =>
       methods.handleSubmit((data) => {
-        dispatch(editHttp({ index: index, http: data }));
+        editHttp(index, data);
       }),
-    [methods, index, dispatch],
+    [methods, index, editHttp],
   );
   useEffect(() => {
     return () => {

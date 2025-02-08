@@ -18,10 +18,10 @@ import { Toolbar } from './components/Toolbar';
 import useCheckDomElement from '@novel/hooks/useCheckDomElement';
 import { useCallback } from 'react';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
-import { useAppDispatch } from '@novel/app/hooks';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { initConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * 编辑源配置
@@ -32,8 +32,8 @@ export default function EditConfig() {
     mode: 'all',
   });
   const container = useCheckDomElement('#breadcrumbs');
-  const dispatch = useAppDispatch();
   const navigate = useCustomNavigate();
+  const initConfig = useConfigStore(useShallow(({ initConfig }) => initConfig));
   const onSubmit = useCallback(
     (data: TotalConfig) => {
       const totalData = TotalDataBuild.getTotalData();
@@ -44,10 +44,10 @@ export default function EditConfig() {
         });
       } else {
         navigate('', { tag: 'goBack', data: 1 });
-        dispatch(initConfig());
+        initConfig();
       }
     },
-    [dispatch, navigate],
+    [navigate, initConfig],
   );
   const handleSubmit = methods.handleSubmit(onSubmit);
 

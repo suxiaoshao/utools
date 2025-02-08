@@ -7,13 +7,13 @@
  */
 import { useQuery } from '../useQuery';
 import React from 'react';
-import { useAppSelector } from '@novel/app/hooks';
-import { SelectConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
 import type { TotalConfig } from '@novel/page/EditConfig/const';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useActiveConfig(): TotalConfig | undefined {
   const mainPageUrl = useQuery('url');
-  const totalConfigs = useAppSelector(SelectConfig);
+  const totalConfigs = useConfigStore(useShallow(({ value }) => value));
   return React.useMemo(() => {
     return totalConfigs.find((value) => value.mainPageUrl === mainPageUrl);
   }, [mainPageUrl, totalConfigs]);

@@ -9,4 +9,3 @@ export * from './plugin';
 export { pluginReact } from '@rsbuild/plugin-react';
 export { codeInspectorPlugin } from 'code-inspector-plugin';
 export { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
-export { pluginLightningcss } from '@rsbuild/plugin-lightningcss';

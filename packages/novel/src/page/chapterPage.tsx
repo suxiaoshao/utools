@@ -4,9 +4,9 @@ import { Loading } from '@novel/components/common/loading';
 import { useChapterRouter } from '@novel/hooks/page/useChapterRouter';
 import { useChapterData } from '@novel/hooks/page/useChapterData';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { useAppSelector } from '@novel/app/hooks';
-import { SelectFontSize } from '@novel/app/font/fontSlice';
 import { match } from 'ts-pattern';
+import { useFontStore } from '@novel/app/font/fontSlice';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function ChapterPage() {
   /**
@@ -14,7 +14,7 @@ export default function ChapterPage() {
    * */
   const { activeConfig, novelId, chapterId } = useChapterRouter();
   const navigate = useCustomNavigate();
-  const fontSize = useAppSelector(SelectFontSize);
+  const fontSize = useFontStore(useShallow((data) => data.fontSize));
   /**
    * 章节数据
    * */

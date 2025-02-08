@@ -7,14 +7,14 @@ import SearchItemView from './components/searchItemView';
 import { useQuery } from '@novel/hooks/useQuery';
 import { Box } from '@mui/material';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { useAppSelector } from '@novel/app/hooks';
-import { SelectConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * 搜索页
  * */
 export default function SearchPage() {
-  const totalConfigs = useAppSelector(SelectConfig);
+  const totalConfigs = useConfigStore(useShallow(({ value }) => value));
   /**
    * 搜索关键词
    * */

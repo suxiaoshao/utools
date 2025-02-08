@@ -6,37 +6,36 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
 import setYouThemeToCssVars from './cssVar';
-import {
-  colorSchemaMatch,
-  selectActiveYouTheme,
-  selectMuiTheme,
-  setSystemColorScheme,
-  useAppDispatch,
-  useAppSelector,
-} from './themeSlice';
+import { colorSchemaMatch, selectActiveYouTheme, selectMuiTheme, useThemeStore } from './themeSlice';
 import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 export interface CustomThemeProps {
   children?: React.ReactNode;
 }
 
 export function CustomTheme({ children }: CustomThemeProps) {
-  const youTheme = useAppSelector(selectActiveYouTheme);
-  const muiTheme = useAppSelector(selectMuiTheme);
-  const dispatch = useAppDispatch();
+  const { setSystemColorScheme, ...state } = useThemeStore(
+    useShallow(({ color, colorSetting, setSystemColorScheme, systemColorScheme }) => ({
+      color,
+      colorSetting,
+      systemColorScheme,
+      setSystemColorScheme,
+    })),
+  );
 
   useEffect(() => {
-    setYouThemeToCssVars(youTheme);
-  }, [youTheme]);
+    setYouThemeToCssVars(selectActiveYouTheme(state));
+  }, [state]);
   const changeListener = useCallback(
     (e: MediaQueryListEvent) => {
       const colorScheme = match(e.matches)
         .with(true, () => 'dark' as const)
         .with(false, () => 'light' as const)
         .exhaustive();
-      dispatch(setSystemColorScheme(colorScheme));
+      setSystemColorScheme(colorScheme);
     },
-    [dispatch],
+    [setSystemColorScheme],
   );
   useEffect(() => {
     colorSchemaMatch.addEventListener('change', changeListener);
@@ -45,7 +44,7 @@ export function CustomTheme({ children }: CustomThemeProps) {
     };
   }, [changeListener]);
   return (
-    <ThemeProvider theme={createTheme(muiTheme)}>
+    <ThemeProvider theme={createTheme(selectMuiTheme(state))}>
       <CssBaseline />
       {children}
     </ThemeProvider>
@@ -54,4 +53,4 @@ export function CustomTheme({ children }: CustomThemeProps) {
 
 export { hexFromArgb } from '@material/material-color-utilities';
 
-export { default as themeReducer, selectActiveYouTheme } from './themeSlice';
+export { useThemeStore, selectActiveYouTheme } from './themeSlice';

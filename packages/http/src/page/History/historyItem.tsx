@@ -17,9 +17,9 @@ import SaveHttp from '@http/components/httpSave/saveHttp';
 import { brown, green, grey, lightBlue, orange, purple, red } from '@mui/material/colors';
 import { HttpManager } from '@http/utils/http/httpManager';
 import type { HttpEntity } from '@http/database/entity/http.entity';
-import { useAppDispatch } from '@http/app/hooks';
-import { updateActiveTab } from '@http/app/features/tabsSlice';
+import { useTabsStore } from '@http/app/features/tabsSlice';
 import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 const Color = {
   DELETE: {
@@ -73,7 +73,7 @@ export default function HistoryItem(props: HistoryItemProp) {
    * 是否打开修改页面
    * */
   const [modifyOpen, setModifyOpen] = React.useState<boolean>(false);
-  const dispatch = useAppDispatch();
+  const updateActiveTab = useTabsStore(useShallow((state) => state.updateActiveTab));
   return (
     <>
       <Card sx={(theme) => ({ margin: `0 ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)}` })}>
@@ -88,7 +88,7 @@ export default function HistoryItem(props: HistoryItemProp) {
           title={props.http.name}
           /** url */
           subheader={`${props.http.url}`}
-          subheaderTypographyProps={{ noWrap: true }}
+          slotProps={{ subheader: { noWrap: true } }}
           sx={{
             '& .MuiCardHeader-content': {
               maxWidth: `calc(100% - ${56}px)`,
@@ -120,7 +120,7 @@ export default function HistoryItem(props: HistoryItemProp) {
             <IconButton
               onClick={() => {
                 const index = httpArray.addFromHttpManager(HttpManager.fromEntity(props.http));
-                dispatch(updateActiveTab(index));
+                updateActiveTab(index);
                 myHistory({ pathname: '/' });
               }}
             >

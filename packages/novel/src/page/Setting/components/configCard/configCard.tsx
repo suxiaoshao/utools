@@ -4,11 +4,11 @@ import { brown } from '@mui/material/colors';
 import ConfigChip from './configChip';
 import { settingSx } from '../themeEdit/themeEdit';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { useAppSelector } from '@novel/app/hooks';
-import { SelectConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function ConfigCard() {
-  const allConfigs = useAppSelector(SelectConfig);
+  const allConfigs = useConfigStore(useShallow(({ value }) => value));
   const navigate = useCustomNavigate();
   return (
     <Card sx={settingSx.card}>

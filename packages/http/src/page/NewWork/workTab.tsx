@@ -1,10 +1,10 @@
 import React from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, Tab } from '@mui/material';
 import { Add, Delete } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '@http/app/hooks';
-import { SelectTabCanDelete, addTab, deleteTab, updateActiveTab } from '@http/app/features/tabsSlice';
+import { selectTabCanDelete, useTabsStore } from '@http/app/features/tabsSlice';
 import type { HttpForm } from '@http/types/httpForm';
 import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * @author sushao
@@ -33,8 +33,14 @@ export default function WorkTab(props: WorkTabProp) {
   /**
    * 设置激活的 http 请求的下标
    * */
-  const dispatch = useAppDispatch();
-  const tabCanDelete = useAppSelector(SelectTabCanDelete);
+  const { addTab, deleteTab, tabCanDelete, updateActiveTab } = useTabsStore(
+    useShallow((state) => ({
+      addTab: state.addTab,
+      deleteTab: state.deleteTab,
+      updateActiveTab: state.updateActiveTab,
+      tabCanDelete: selectTabCanDelete(state),
+    })),
+  );
   /**
    * menu 出现的位置, 为 null 则不显示
    * */
@@ -64,7 +70,7 @@ export default function WorkTab(props: WorkTabProp) {
         }}
         label={props.httpManager.name || props.httpManager.request.url || '空'}
         onClick={() => {
-          dispatch(updateActiveTab(props.index));
+          updateActiveTab(props.index);
         }}
       />
       <Menu
@@ -80,7 +86,7 @@ export default function WorkTab(props: WorkTabProp) {
       >
         <MenuItem
           onClick={() => {
-            dispatch(addTab());
+            addTab();
             setMenuPosition(null);
           }}
         >
@@ -92,7 +98,7 @@ export default function WorkTab(props: WorkTabProp) {
         {tabCanDelete && (
           <MenuItem
             onClick={() => {
-              dispatch(deleteTab(props.index));
+              deleteTab(props.index);
               setMenuPosition(null);
             }}
           >

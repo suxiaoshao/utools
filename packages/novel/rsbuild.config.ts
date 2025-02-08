@@ -7,14 +7,7 @@
  */
 import { defineConfig } from '@rsbuild/core';
 import { resolve } from 'node:path';
-import {
-  pluginReact,
-  pluginPackUpx,
-  pluginWasmPack,
-  pluginLightningcss,
-  codeInspectorPlugin,
-  RsdoctorRspackPlugin,
-} from 'build';
+import { pluginReact, pluginPackUpx, pluginWasmPack, codeInspectorPlugin, RsdoctorRspackPlugin } from 'build';
 import { pluginBabel } from '@rsbuild/plugin-babel';
 
 export default defineConfig({
@@ -22,7 +15,6 @@ export default defineConfig({
     pluginReact(),
     pluginPackUpx('novel'),
     pluginWasmPack(),
-    pluginLightningcss(),
     pluginBabel({
       include: /\.(?:jsx|tsx)$/,
       babelLoaderOptions(opts) {

@@ -12,7 +12,6 @@ import {
   pluginBuildInstall,
   pluginPackUpx,
   pluginServerConfig,
-  pluginLightningcss,
   codeInspectorPlugin,
   RsdoctorRspackPlugin,
 } from 'build';
@@ -26,7 +25,6 @@ export default defineConfig({
     pluginPackUpx('http'),
     pluginServerConfig(),
     pluginNodePolyfill(),
-    pluginLightningcss(),
     pluginBabel({
       include: /\.(?:jsx|tsx)$/,
       babelLoaderOptions(opts) {
