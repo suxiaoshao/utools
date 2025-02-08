@@ -1,6 +1,6 @@
-import { Box, SxProps, TextField, Theme, Typography } from '@mui/material';
+import { Box, type SxProps, TextField, type Theme, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import { TotalConfig } from '../const';
+import type { TotalConfig } from '../const';
 
 export const commonStyle: Record<'form' | 'item' | 'container' | 'title', SxProps<Theme>> = {
   container: {
@@ -30,7 +30,7 @@ export default function BasicInfo() {
   } = useFormContext<TotalConfig>();
   return (
     <Box sx={{ ...commonStyle.container, mt: 0 }}>
-      <Typography sx={commonStyle.title} variant={'h6'}>
+      <Typography sx={commonStyle.title} variant="h6">
         基本信息
       </Typography>
       <Box sx={commonStyle.form}>

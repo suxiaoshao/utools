@@ -10,6 +10,6 @@ declare global {
     nodePath: typeof path;
     db: Database;
     nodeFetch: typeof fetch;
-    nodeFormData: typeof import('form-data');
+    NodeFormData: typeof import('form-data');
   }
 }

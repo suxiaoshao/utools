@@ -1,4 +1,4 @@
-import { object, string, pipe, url, InferInput, nullish } from 'valibot';
+import { object, string, pipe, url, type InferInput, nullish } from 'valibot';
 
 export const configSchema = object({
   mainPageUrl: pipe(string(), url()),

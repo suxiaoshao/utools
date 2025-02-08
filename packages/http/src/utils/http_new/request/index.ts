@@ -1,9 +1,9 @@
-import { RequestForm, RequestTab, HttpMethod, BodyType, TextType } from '@http/types/httpForm';
+import { type RequestForm, RequestTab, HttpMethod, BodyType, TextType } from '@http/types/httpForm';
 import { getHttpParamsFromParams } from './params';
 import { getAllHeadersFromRequestForm } from '../headers';
 import { getHttpBody } from './body';
 import type { Request as NodeRequest } from 'node-fetch';
-import { AbortSignal } from 'node-fetch/externals';
+import type { AbortSignal } from 'node-fetch/externals';
 
 export function newRequest(): RequestForm {
   return {

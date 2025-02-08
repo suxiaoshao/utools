@@ -1,6 +1,6 @@
-import { HttpText } from '../../common/text';
-import { UploadFileProps } from './formData';
-import { XForm } from './xForm';
+import type { HttpText } from '../../common/text';
+import type { UploadFileProps } from './formData';
+import type { XForm } from './xForm';
 
 export enum BodyType {
   none = 'none',
@@ -16,5 +16,5 @@ export interface RequestBodyForm {
   xForm: XForm[];
 }
 
-export * from './formData';
-export * from './xForm';
+export { type UploadFileProps, UploadFileType } from './formData';
+export { type XForm } from './xForm';

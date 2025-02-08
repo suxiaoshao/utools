@@ -19,13 +19,13 @@ async function main() {
     const totalData = TotalDataBuild.getTotalData();
     writeToFile(totalData.toData());
     store.dispatch(initConfig());
-    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    ReactDOM.createRoot(document.querySelector('#root') as HTMLElement).render(
       <React.StrictMode>
         <App />
       </React.StrictMode>,
     );
   } else {
-    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    ReactDOM.createRoot(document.querySelector('#root') as HTMLElement).render(
       <React.StrictMode>
         <App />
       </React.StrictMode>,

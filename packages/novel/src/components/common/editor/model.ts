@@ -1,9 +1,8 @@
 import * as monaco from 'monaco-editor';
-import { JSONSchema7 } from 'json-schema';
+import type { JSONSchema7 } from 'json-schema';
 
-// @ts-ignore
 self.MonacoEnvironment = {
-  getWorker: function (_moduleId, label) {
+  getWorker: (_moduleId, label) => {
     if (label === 'json') {
       return new Worker(new URL('monaco-editor/esm/vs/language/json/json.worker', import.meta.url));
     }

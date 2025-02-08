@@ -1,5 +1,5 @@
 import { CommonStyle } from '@http/hooks/useRestyle';
-import { PureHeader } from '@http/types/httpForm';
+import type { PureHeader } from '@http/types/httpForm';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 export interface HeadersProps {

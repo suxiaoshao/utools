@@ -2,10 +2,10 @@ import { getHtml } from './util';
 import * as cheerio from 'cheerio';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
-import { Chapter } from './novelInfo';
-import { TotalConfig } from '@novel/page/EditConfig/const';
-import { SearchConfig } from '@novel/types/config';
-import { CheerioAPI } from 'cheerio';
+import type { Chapter } from './novelInfo';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
+import type { SearchConfig } from '@novel/types/config';
+import type { CheerioAPI } from 'cheerio';
 
 /**
  * @author sushao
@@ -83,7 +83,7 @@ export class Search {
      * */
     const url = this.url.getSearchUrl(searchName);
     const htmlString = await getHtml(url, this.config.encoding);
-    const $ = cheerio.load(htmlString, { decodeEntities: false });
+    const $ = cheerio.load(htmlString, { xml: { decodeEntities: false } });
     /**
      * 遍历每个搜索结果
      * */
@@ -109,7 +109,7 @@ export class Search {
     /**
      * 获取小说名,作者名,最后章节小说名
      * */
-    const $searchItem = cheerio.load(html, { decodeEntities: false, xmlMode: true });
+    const $searchItem = cheerio.load(html, { xml: { decodeEntities: false, xmlMode: true } });
     const novelName: string = $searchItem(this.config.novelId).text().trim();
     const authorName: string = $searchItem(this.config.authorName).text();
     const latestChapterName: string = $searchItem(this.config.latestChapterId).text();
@@ -139,8 +139,7 @@ export class Search {
           name: latestChapterName,
         },
       };
-    } else {
-      return null;
     }
+    return null;
   }
 }

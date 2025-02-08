@@ -1,4 +1,4 @@
-import { ResponseTab, SuccessResponse } from '@http/types/httpForm';
+import { ResponseTab, type SuccessResponse } from '@http/types/httpForm';
 import { getCookiesFromResponse, getPureHeadersFromHeaders } from '..';
 import { getResponseBodyFromResponse } from './body';
 import type { Response as NodeResponse } from 'node-fetch';

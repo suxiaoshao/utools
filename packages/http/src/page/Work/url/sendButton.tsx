@@ -10,10 +10,10 @@ import { enqueueSnackbar } from 'notify';
  * @since 0.2.2
  * @description 发送 http 请求的按钮
  * */
-export default function SendButton(): JSX.Element {
+export default function SendButton() {
   const { httpManager, fatherUpdate } = React.useContext(HttpContext);
   return (
-    <Tooltip title={<Typography variant={'body2'}>发送请求</Typography>}>
+    <Tooltip title={<Typography variant="body2">发送请求</Typography>}>
       <Box sx={{ position: 'relative' }}>
         <IconButton
           sx={{ p: 1 }}

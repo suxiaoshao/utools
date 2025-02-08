@@ -5,7 +5,7 @@ import AppRouter from './components/AppRouter';
 import { CustomTheme } from 'theme';
 import { SnackbarProvider } from 'notify';
 
-function App(): JSX.Element {
+function App() {
   return (
     <Provider store={store}>
       <CustomTheme>

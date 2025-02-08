@@ -3,7 +3,7 @@ import UrlPaper from './url/urlPaper';
 import { HttpManager } from '@http/utils/http/httpManager';
 import Request from './request/request';
 import Response from './response/response';
-import { NoneFunc, useForceUpdate } from '@http/hooks/useForceUpdate';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
 
 /**
  * @author sushao
@@ -19,7 +19,7 @@ export const HttpContext = React.createContext<{
   /**
    * 更新主动更新 provider
    * */
-  fatherUpdate: NoneFunc;
+  fatherUpdate: () => void;
 }>({
   httpManager: HttpManager.getNewHttp(),
   fatherUpdate() {
@@ -42,7 +42,7 @@ function HttpProvider(props: {
    * http 管理对象
    * */
   http: HttpManager;
-}): JSX.Element {
+}) {
   const forceUpdate = useForceUpdate();
   return (
     <HttpContext.Provider value={{ httpManager: props.http, fatherUpdate: forceUpdate }}>
@@ -62,7 +62,7 @@ export default function WorkPanel(props: {
    * http 管理对象
    * */
   http: HttpManager;
-}): JSX.Element {
+}) {
   return (
     <HttpProvider http={props.http}>
       <UrlPaper />

@@ -7,6 +7,7 @@
  * @Description: 检查 DOM 元素是否存在
  */
 import { useState, useEffect } from 'react';
+import { match, P } from 'ts-pattern';
 
 type ElementSelector = () => Element | null;
 
@@ -15,7 +16,9 @@ function useCheckDomElement(selector: string | ElementSelector): Element | null 
 
   useEffect(() => {
     // 检查元素是否存在并设置元素状态的函数
-    const getElement = typeof selector === 'string' ? () => document.querySelector(selector) : selector;
+    const getElement = match(selector)
+      .with(P.string, (s) => () => document.querySelector(s))
+      .otherwise((selectorFunction) => selectorFunction);
 
     // 检查元素是否存在
     const checkAndSetElement = () => {

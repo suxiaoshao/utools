@@ -1,4 +1,5 @@
-import { editor } from 'monaco-editor';
+// eslint-disable max-lines
+import type { editor } from 'monaco-editor';
 
 export default {
   base: 'vs-dark',

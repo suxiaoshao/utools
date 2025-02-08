@@ -11,7 +11,7 @@ import { RequestContext } from '../request';
  * @since 0.2.2
  * @description request body 部分
  * */
-export default function ReqBody(): JSX.Element {
+export default function ReqBody() {
   const { request, fatherUpdate } = React.useContext(RequestContext);
   return (
     <>
@@ -21,7 +21,7 @@ export default function ReqBody(): JSX.Element {
           height: `calc(100% - ${theme.spacing(2)})`,
           width: `calc(100% - ${theme.spacing(2)})`,
         })}
-        index={'form-data'}
+        index="form-data"
         value={request.bodyChoose}
       >
         <ReqFormData />
@@ -32,7 +32,7 @@ export default function ReqBody(): JSX.Element {
           height: `calc(100% - ${theme.spacing(2)})`,
           width: `calc(100% - ${theme.spacing(2)})`,
         })}
-        index={'x-www-form-urlencoded'}
+        index="x-www-form-urlencoded"
         value={request.bodyChoose}
       >
         <XForm />
@@ -43,7 +43,7 @@ export default function ReqBody(): JSX.Element {
           height: '100%',
           paddingTop: '3px',
         }}
-        index={'text'}
+        index="text"
         value={request.bodyChoose}
       >
         <Edit

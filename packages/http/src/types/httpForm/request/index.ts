@@ -1,7 +1,14 @@
-import { HttpMethod } from '../common';
-import { EditableHeader } from '../common/header';
-import { RequestBodyForm } from './body';
-import { RequestParams } from './params';
+/*
+ * @Author: suxiaoshao 48886207+suxiaoshao@users.noreply.github.com
+ * @Date: 2025-02-06 19:31:40
+ * @LastEditors: suxiaoshao 48886207+suxiaoshao@users.noreply.github.com
+ * @LastEditTime: 2025-02-08 01:42:48
+ * @FilePath: /utools/packages/http/src/types/httpForm/request/index.ts
+ */
+import type { HttpMethod } from '../common';
+import type { EditableHeader } from '../common/header';
+import type { RequestBodyForm } from './body';
+import type { RequestParams } from './params';
 
 export enum RequestTab {
   params = 'params',
@@ -18,5 +25,5 @@ export interface RequestForm {
   params: RequestParams[];
 }
 
-export * from './body';
-export * from './params';
+export { type RequestBodyForm, BodyType, type XForm, type UploadFileProps, UploadFileType } from './body';
+export { type RequestParams } from './params';

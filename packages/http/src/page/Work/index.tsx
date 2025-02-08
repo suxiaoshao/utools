@@ -12,7 +12,7 @@ import { SelectIndex } from '@http/app/features/tabsSlice';
  * @since 0.2.2
  * @description 工作区
  * */
-export default function Work(): JSX.Element {
+export default function Work() {
   /**
    * 被激活的 http 请求下标
    * */

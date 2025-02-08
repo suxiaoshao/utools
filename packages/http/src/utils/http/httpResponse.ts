@@ -1,6 +1,6 @@
 import { Header } from './header';
 import { Cookie } from './cookie';
-import { AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios';
+import type { AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios';
 
 export type ResponseContentType = 'text' | 'image' | 'none' | 'error';
 export type ResponseTextType = 'plaintext' | 'json' | 'xml' | 'html' | 'css' | 'javascript';
@@ -52,7 +52,7 @@ export class HttpResponse {
   }
 
   static getNewResponseContent(): HttpResponse {
-    return new HttpResponse('none', 'utf-8', new ArrayBuffer(0), [], -1, -1, 'plaintext', '', -1);
+    return new HttpResponse('none', 'utf8', new ArrayBuffer(0), [], -1, -1, 'plaintext', '', -1);
   }
 
   /**

@@ -1,8 +1,9 @@
-import React, { MutableRefObject } from 'react';
+import type { RefObject } from 'react';
 import { IconButton, InputBase, TableCell, TableRow } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { CommonStyle } from '@http/hooks/useRestyle';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -18,12 +19,12 @@ export default function UpdateTable(props: {
   /**
    * 最后一个 key input 的引用
    * */
-  keyRef: MutableRefObject<HTMLInputElement | null>;
+  keyRef: RefObject<HTMLInputElement | null>;
   /**
    * 最后一个 value input 的引用
    * */
-  valueRef: MutableRefObject<HTMLInputElement | null>;
-}): JSX.Element {
+  valueRef: RefObject<HTMLInputElement | null>;
+}) {
   const forceUpdate = useForceUpdate();
   return (
     <>
@@ -44,7 +45,9 @@ export default function UpdateTable(props: {
               sx={CommonStyle.tableInput}
               placeholder="key"
               value={value.key}
-              inputRef={index === props.mapList.length - 1 ? props.keyRef : undefined}
+              inputRef={match(index)
+                .with(props.mapList.length - 1, () => props.keyRef)
+                .otherwise(() => null)}
               onChange={(event) => {
                 value.key = event.target.value;
                 forceUpdate();
@@ -56,7 +59,9 @@ export default function UpdateTable(props: {
               sx={CommonStyle.tableInput}
               placeholder="value"
               value={value.value}
-              inputRef={index === props.mapList.length - 1 ? props.valueRef : undefined}
+              inputRef={match(index)
+                .with(props.mapList.length - 1, () => props.valueRef)
+                .otherwise(() => null)}
               onChange={(event) => {
                 value.value = event.target.value;
                 forceUpdate();

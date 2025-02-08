@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { Controller, useFormContext } from 'react-hook-form';
-import { HttpForm, ResponseTab } from '@http/types/httpForm';
+import { type HttpForm, ResponseTab } from '@http/types/httpForm';
 
 /**
  * @author sushao
@@ -10,7 +10,7 @@ import { HttpForm, ResponseTab } from '@http/types/httpForm';
  * @since 0.2.2
  * @description response 的页面切换按钮
  * */
-export default function ResponseToggle(): JSX.Element {
+export default function ResponseToggle() {
   const { control } = useFormContext<HttpForm>();
   return (
     <Box sx={CommonStyle.toggle}>

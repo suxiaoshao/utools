@@ -1,11 +1,12 @@
 import { useForm, FormProvider, useWatch } from 'react-hook-form';
-import { HttpForm, TabType } from '@http/types/httpForm';
+import { type HttpForm, TabType } from '@http/types/httpForm';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from '@http/app/hooks';
 import { editHttp } from '@http/app/features/tabsSlice';
 import Url from './Url';
 import Request from './Request';
 import Response from './Response';
+import { match } from 'ts-pattern';
 
 export interface WorkPanelProps {
   http: HttpForm;
@@ -18,7 +19,7 @@ export interface WorkPanelProps {
  * @since 0.2.2
  * @description http 工作选项卡
  * */
-export default function WorkPanel({ http, index }: WorkPanelProps): JSX.Element {
+export default function WorkPanel({ http, index }: WorkPanelProps) {
   const methods = useForm<HttpForm>({ defaultValues: http });
   const tab = useWatch({ control: methods.control, name: 'tab' });
   const dispatch = useAppDispatch();
@@ -34,14 +35,14 @@ export default function WorkPanel({ http, index }: WorkPanelProps): JSX.Element 
       onSubmit();
     };
   }, [onSubmit]);
-  const content = useMemo(() => {
-    switch (tab) {
-      case TabType.request:
-        return <Request />;
-      case TabType.response:
-        return <Response />;
-    }
-  }, [tab]);
+  const content = useMemo(
+    () =>
+      match(tab)
+        .with(TabType.request, () => <Request />)
+        .with(TabType.response, () => <Response />)
+        .exhaustive(),
+    [tab],
+  );
 
   return (
     <FormProvider {...methods}>

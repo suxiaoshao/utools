@@ -9,7 +9,7 @@ import { CommonStyle } from '@http/hooks/useRestyle';
  * @since 0.2.2
  * @description 显示 response 的 cookies 的数据表格
  * */
-export default function ResCookie(): JSX.Element {
+export default function ResCookie() {
   const { response } = React.useContext(ResponseContext);
   return (
     <TableContainer sx={CommonStyle.tableContainer} component={Paper}>

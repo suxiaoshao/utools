@@ -13,7 +13,7 @@ import { SelectConfig } from '@novel/app/config/configSlice';
 /**
  * 搜索页
  * */
-export default function SearchPage(): JSX.Element {
+export default function SearchPage() {
   const totalConfigs = useAppSelector(SelectConfig);
   /**
    * 搜索关键词
@@ -56,7 +56,7 @@ export default function SearchPage(): JSX.Element {
   );
   React.useEffect(() => {
     if (searchName !== '') {
-      fn().then();
+      fn();
     }
   }, [fn, searchName, activeConfig]);
   return (

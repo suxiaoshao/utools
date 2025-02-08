@@ -14,6 +14,7 @@ import { Delete } from '@mui/icons-material';
 import { useTableAdd } from '@http/hooks/useTableAdd';
 import { HttpContext } from '../workPanel';
 import { CommonStyle } from '@http/hooks/useRestyle';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -26,7 +27,7 @@ function getBaseSuffixUrl(oldUrl: string, paramsList: { value: string; key: stri
   if (!oldUrl.includes('?')) {
     suffixUrl += '?';
   }
-  if (paramsList.length !== 0 && oldUrl[oldUrl.length - 1] !== '&') {
+  if (paramsList.length > 0 && oldUrl[oldUrl.length - 1] !== '&') {
     suffixUrl += '&';
   }
   return suffixUrl;
@@ -38,7 +39,7 @@ function getBaseSuffixUrl(oldUrl: string, paramsList: { value: string; key: stri
  * @since 0.2.2
  * @description params 组件,用于修改 url 链接上 params 的值
  * */
-export default function Params(): JSX.Element {
+export default function Params() {
   const { httpManager, fatherUpdate } = React.useContext(HttpContext);
   const { setKeyFlag, setValueFlag, keyRef, valueRef } = useTableAdd([httpManager.url]);
   /**
@@ -124,7 +125,9 @@ export default function Params(): JSX.Element {
                   sx={CommonStyle.tableInput}
                   placeholder="key"
                   value={value.key}
-                  inputRef={index === paramsList.length - 1 ? keyRef : undefined}
+                  inputRef={match(index)
+                    .with(paramsList.length - 1, () => keyRef)
+                    .otherwise(() => undefined)}
                   onChange={(event) => {
                     const newParamsList = [...paramsList];
                     newParamsList[index].key = event.target.value;
@@ -137,7 +140,9 @@ export default function Params(): JSX.Element {
                   sx={CommonStyle.tableInput}
                   placeholder="value"
                   value={value.value}
-                  inputRef={index === paramsList.length - 1 ? valueRef : undefined}
+                  inputRef={match(index)
+                    .with(paramsList.length - 1, () => valueRef)
+                    .otherwise(() => undefined)}
                   onChange={(event) => {
                     const newParamsList = [...paramsList];
                     newParamsList[index].value = event.target.value;

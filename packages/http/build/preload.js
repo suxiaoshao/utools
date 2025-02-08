@@ -10,4 +10,4 @@ window.nodePath = path;
 
 window.nodeDirname = __dirname;
 window.nodeFetch = fetch;
-window.nodeFormData = formData;
+window.NodeFormData = formData;

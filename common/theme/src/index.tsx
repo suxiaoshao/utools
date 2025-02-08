@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -14,12 +14,13 @@ import {
   useAppDispatch,
   useAppSelector,
 } from './themeSlice';
+import { match } from 'ts-pattern';
 
 export interface CustomThemeProps {
   children?: React.ReactNode;
 }
 
-export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
+export function CustomTheme({ children }: CustomThemeProps) {
   const youTheme = useAppSelector(selectActiveYouTheme);
   const muiTheme = useAppSelector(selectMuiTheme);
   const dispatch = useAppDispatch();
@@ -29,7 +30,10 @@ export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
   }, [youTheme]);
   const changeListener = useCallback(
     (e: MediaQueryListEvent) => {
-      const colorScheme = e.matches ? 'dark' : 'light';
+      const colorScheme = match(e.matches)
+        .with(true, () => 'dark' as const)
+        .with(false, () => 'light' as const)
+        .exhaustive();
       dispatch(setSystemColorScheme(colorScheme));
     },
     [dispatch],

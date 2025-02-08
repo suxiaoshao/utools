@@ -1,10 +1,10 @@
 import { Store } from './classStore';
-import { HttpEntity, HttpProp } from '../database/entity/http.entity';
-import { TagEntity, TagProp } from '../database/entity/tag.entity';
-import { RequestEntity, RequestProp } from '../database/entity/request.entity';
-import { CookieEntity, CookieProp } from '../database/entity/cookie.entity';
-import { HttpTagEntity, HttpTagProp } from '../database/entity/httpTag.entity';
-import { QueryExecResult } from 'sql.js';
+import { HttpEntity, type HttpProp } from '../database/entity/http.entity';
+import { TagEntity, type TagProp } from '../database/entity/tag.entity';
+import { RequestEntity, type RequestProp } from '../database/entity/request.entity';
+import { CookieEntity, type CookieProp } from '../database/entity/cookie.entity';
+import { HttpTagEntity, type HttpTagProp } from '../database/entity/httpTag.entity';
+import type { QueryExecResult } from 'sql.js';
 import { readFromQueryResult } from '../database/mapper/util';
 import { httpArray } from './httpArray';
 import { HttpRequest } from '../utils/http/httpRequest';

@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link, LinkProps } from '@mui/material';
-import { Chapter } from '@novel/utils/web/novelInfo';
+import { Link, type LinkProps } from '@mui/material';
+import type { Chapter } from '@novel/utils/web/novelInfo';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
 
 export interface ChapterLinkProp extends LinkProps {
@@ -9,7 +8,7 @@ export interface ChapterLinkProp extends LinkProps {
   url: string;
 }
 
-export default function ChapterLink({ chapter, novelId, url, ...props }: ChapterLinkProp): JSX.Element {
+export default function ChapterLink({ chapter, novelId, url, ...props }: ChapterLinkProp) {
   const navigate = useCustomNavigate();
   return (
     <Link

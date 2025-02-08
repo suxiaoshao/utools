@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-11-10 19:00:36
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/utils/web/urlUtil.ts
  */
-import { UrlConfig } from '@novel/types/config';
+import type { UrlConfig } from '@novel/types/config';
 export class UrlUtil {
   private config: UrlConfig;
 

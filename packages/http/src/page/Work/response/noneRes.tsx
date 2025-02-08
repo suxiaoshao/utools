@@ -8,7 +8,7 @@ import empty from '@http/assets/emptyResponse.svg';
  * @since 0.2.2
  * @description 还未发送数据时显示的空页面
  * */
-export default function NoneRes(): JSX.Element {
+export default function NoneRes() {
   return (
     <Paper
       sx={(theme) => ({
@@ -21,7 +21,7 @@ export default function NoneRes(): JSX.Element {
         flexDirection: 'column',
       })}
     >
-      <Box component={'img'} sx={{ width: '30vh', height: '30vh' }} src={empty} alt={''} />
+      <Box component="img" sx={{ width: '30vh', height: '30vh' }} src={empty} alt={''} />
       <Typography variant="h6">还未发送 http 请求</Typography>
     </Paper>
   );

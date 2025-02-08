@@ -4,7 +4,7 @@ import SendButton from './SendButton';
 import ChangeButton from './ChangeButton';
 import MethodSelector from './MethodSelector';
 import { useFormContext } from 'react-hook-form';
-import { HttpForm } from '@http/types/httpForm';
+import type { HttpForm } from '@http/types/httpForm';
 
 /**
  * @author sushao
@@ -12,7 +12,7 @@ import { HttpForm } from '@http/types/httpForm';
  * @since 0.2.2
  * @description http url 输入栏组件,用于管理 http 方法,链接,发送,切换视图
  * */
-export default function UrlPaper(): JSX.Element {
+export default function UrlPaper() {
   const { register } = useFormContext<HttpForm>();
   return (
     <Paper

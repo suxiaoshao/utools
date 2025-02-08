@@ -1,5 +1,5 @@
-import { hexFromArgb, Scheme } from '@material/material-color-utilities';
-import { ThemeOptions } from '@mui/material';
+import { hexFromArgb, type Scheme } from '@material/material-color-utilities';
+import type { ThemeOptions } from '@mui/material';
 
 export function youThemeToMuiTheme(theme: ReturnType<Scheme['toJSON']>, mode: 'dark' | 'light' = 'light') {
   return {

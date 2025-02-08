@@ -4,7 +4,7 @@ export interface LoadingProps {
   controller: AbortController;
 }
 
-export default function Loading({ controller }: LoadingProps): JSX.Element {
+export default function Loading({ controller }: LoadingProps) {
   return (
     <>
       <LinearProgress

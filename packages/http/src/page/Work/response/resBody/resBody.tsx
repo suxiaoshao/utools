@@ -10,7 +10,7 @@ import ResImage from './resImage';
  * @since 0.2.2
  * @description response 的 body 页面
  * */
-export default function ResBody(): JSX.Element {
+export default function ResBody() {
   const { response } = React.useContext(ResponseContext);
   return (
     <>
@@ -20,7 +20,7 @@ export default function ResBody(): JSX.Element {
           height: `calc(100% - ${theme.spacing(2)}px)`,
           width: `calc(100% - ${theme.spacing(2)}px)`,
         })}
-        index={'image'}
+        index="image"
         value={response.contentType}
       >
         <ResImage />
@@ -31,7 +31,7 @@ export default function ResBody(): JSX.Element {
           height: '100%',
           paddingTop: '3px',
         }}
-        index={'text'}
+        index="text"
         value={response.contentType}
       >
         <Edit

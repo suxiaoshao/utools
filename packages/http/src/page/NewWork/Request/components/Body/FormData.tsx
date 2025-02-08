@@ -1,7 +1,7 @@
-import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
+import CustomSelector, { type ItemListProp } from '@http/components/CustomSelector';
 import FileUpload from '@http/components/FileUpload';
 import { CommonStyle } from '@http/hooks/useRestyle';
-import { HttpForm, UploadFileType } from '@http/types/httpForm';
+import { type HttpForm, UploadFileType } from '@http/types/httpForm';
 import { newFormData } from '@http/utils/http_new';
 import { Add, Delete } from '@mui/icons-material';
 import {
@@ -17,6 +17,7 @@ import {
   Checkbox,
 } from '@mui/material';
 import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
+import { match } from 'ts-pattern';
 const typeItems: ItemListProp<UploadFileType>[] = [
   {
     text: UploadFileType.text,
@@ -63,15 +64,17 @@ export default function FormData() {
                 render={({ field }) => (
                   <>
                     <TableCell>
-                      {field.value === UploadFileType.file ? (
-                        <Controller
-                          control={control}
-                          name={`request.body.formData.${index}.file`}
-                          render={({ field }) => <FileUpload {...field} />}
-                        />
-                      ) : (
-                        <InputBase sx={CommonStyle.tableInput} {...register(`request.body.formData.${index}.text`)} />
-                      )}
+                      {match(field.value)
+                        .with(UploadFileType.file, () => (
+                          <Controller
+                            control={control}
+                            name={`request.body.formData.${index}.file`}
+                            render={({ field }) => <FileUpload {...field} />}
+                          />
+                        ))
+                        .otherwise(() => (
+                          <InputBase sx={CommonStyle.tableInput} {...register(`request.body.formData.${index}.text`)} />
+                        ))}
                     </TableCell>
                     <TableCell>
                       <CustomSelector<UploadFileType>

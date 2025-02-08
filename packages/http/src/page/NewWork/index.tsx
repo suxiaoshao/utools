@@ -5,10 +5,9 @@
  * @LastEditTime: 2024-03-08 20:51:48
  * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/page/NewWork/index.tsx
  */
-import { Box, Tabs } from '@mui/material';
+import { Box } from '@mui/material';
 import WorkPanel from './workPanel';
 import { TabPanelDisappear } from '@http/components/TabPanel';
-import WorkTab from './workTab';
 import { useAppDispatch, useAppSelector } from '@http/app/hooks';
 import { SelectIndex, SelectTabs, addTab, deleteTab, updateActiveTab } from '@http/app/features/tabsSlice';
 import CustomTabs, { CustomTab } from '@http/components/CustomTab';
@@ -19,7 +18,7 @@ import CustomTabs, { CustomTab } from '@http/components/CustomTab';
  * @since 0.2.2
  * @description 工作区
  * */
-export default function Work(): JSX.Element {
+export default function Work() {
   /**
    * 被激活的 http 请求下标
    * */

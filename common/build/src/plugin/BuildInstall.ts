@@ -5,15 +5,15 @@
  * @LastEditTime: 2024-01-07 01:40:01
  * @FilePath: /utools/common/build/src/plugin/BuildInstall.ts
  */
-import { execSync } from 'child_process';
-import { resolve } from 'path';
+import { execSync } from 'node:child_process';
+import { resolve } from 'node:path';
 import type { RsbuildPlugin } from '@rsbuild/core';
 
 export function pluginBuildInstall(): RsbuildPlugin {
   return {
     name: 'plugin-build-install',
     setup(api) {
-      api.onBeforeCreateCompiler(async () => {
+      api.onBeforeCreateCompiler(() => {
         execSync('npm install', { stdio: 'inherit', cwd: resolve(process.cwd(), './build') });
       });
     },

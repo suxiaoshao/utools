@@ -2,12 +2,13 @@ import React from 'react';
 import { AppBar, Box, Dialog, IconButton, Slide, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
 import { Close, SaveAlt } from '@mui/icons-material';
 import TagsForm from '../tag/tagsForm';
-import { HttpEntity } from '@http/database/entity/http.entity';
-import { HttpManager } from '@http/utils/http/httpManager';
+import type { HttpEntity } from '@http/database/entity/http.entity';
+import type { HttpManager } from '@http/utils/http/httpManager';
 import { useSqlData } from '@http/store/sqlStore';
-import { TagEntity } from '@http/database/entity/tag.entity';
-import { TransitionProps } from '@mui/material/transitions';
+import type { TagEntity } from '@http/database/entity/tag.entity';
+import type { TransitionProps } from '@mui/material/transitions';
 import { enqueueSnackbar } from 'notify';
+import { match, P } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -51,7 +52,7 @@ export interface SaveHttpProp {
   onSave(newHttpEntity: HttpEntity): void;
 }
 
-export default function SaveHttp(props: SaveHttpProp): JSX.Element {
+export default function SaveHttp(props: SaveHttpProp) {
   /**
    * 将要保存的 httpManger
    * */
@@ -79,17 +80,19 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
       <AppBar sx={{ position: 'relative', display: 'flex' }} color="inherit">
         <Toolbar variant="dense">
           {/* 取消按钮 */}
-          <Tooltip title={<Typography variant={'body2'}>取消</Typography>}>
+          <Tooltip title={<Typography variant="body2">取消</Typography>}>
             <IconButton edge="start" color="secondary" onClick={props.onClose}>
               <Close />
             </IconButton>
           </Tooltip>
           {/* http 名 */}
           <Typography variant="h6" sx={{ ml: 2, flex: 1, mr: 2 }}>
-            {(name ?? httpManager.url) || '暂未命名'}
+            {match(name)
+              .with(P.nullish, () => httpManager.url || '暂未命名')
+              .otherwise(() => name)}
           </Typography>
           {/* 保存按钮 */}
-          <Tooltip title={<Typography variant={'body2'}>保存</Typography>}>
+          <Tooltip title={<Typography variant="body2">保存</Typography>}>
             <div>
               <IconButton
                 edge="end"
@@ -105,11 +108,11 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
                   try {
                     await httpEntity.save();
                     props.onSave(httpEntity);
-                  } catch (e) {
+                  } catch (error) {
                     /**
                      * 如果失败,通知用户
                      * */
-                    enqueueSnackbar('保存失败', {
+                    enqueueSnackbar(`保存失败:${error}`, {
                       variant: 'error',
                       autoHideDuration: 2000,
                     });
@@ -139,9 +142,11 @@ export default function SaveHttp(props: SaveHttpProp): JSX.Element {
           sx={{ width: '40%', mt: 1, flex: '0 0 auto' }}
           variant="filled"
           value={name}
-          label={'名字'}
+          label="名字"
           error={name === ''}
-          helperText={name === '' ? 'name 不能为空' : undefined}
+          helperText={match(name)
+            .with('', () => 'name 不能为空')
+            .otherwise(() => undefined)}
           onChange={(event) => {
             setName(event.target.value);
           }}

@@ -6,11 +6,11 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/page/Search/components/searchItemView.tsx
  */
 import { Avatar, Card, CardContent, CardHeader, IconButton, Tooltip, Typography } from '@mui/material';
-import { SearchListItem } from '@novel/utils/web/search';
+import type { SearchListItem } from '@novel/utils/web/search';
 import { ExitToApp } from '@mui/icons-material';
 import ChapterLink from '@novel/components/common/chapterLink';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
 
 export interface SearchItemProp {
   /**
@@ -23,7 +23,7 @@ export interface SearchItemProp {
   activeConfig: TotalConfig;
 }
 
-export default function SearchItemView(props: SearchItemProp): JSX.Element {
+export default function SearchItemView(props: SearchItemProp) {
   const navigate = useCustomNavigate();
   return (
     <Card sx={{ margin: 1, width: (theme) => `calc(50% - ${theme.spacing(2)})` }}>
@@ -32,7 +32,7 @@ export default function SearchItemView(props: SearchItemProp): JSX.Element {
         title={props.searchItem.novelName}
         subheader={`${props.searchItem.label} · ${props.searchItem.authorName}`}
         action={
-          <Tooltip title={'前往小说页面'}>
+          <Tooltip title="前往小说页面">
             <IconButton
               onClick={() => {
                 navigate(props.searchItem.novelName, {
@@ -50,7 +50,7 @@ export default function SearchItemView(props: SearchItemProp): JSX.Element {
         <Typography variant="body2" component="p" gutterBottom>
           {props.searchItem.desc}
         </Typography>
-        <Typography color={'textSecondary'}>
+        <Typography color="textSecondary">
           最后一章 :
           <ChapterLink
             chapter={props.searchItem.latestChapter}
@@ -58,7 +58,7 @@ export default function SearchItemView(props: SearchItemProp): JSX.Element {
             url={props.activeConfig.mainPageUrl}
           />
         </Typography>
-        <Typography color={'textSecondary'}>最后更新时间 : {props.searchItem.updateTime}</Typography>
+        <Typography color="textSecondary">最后更新时间 : {props.searchItem.updateTime}</Typography>
       </CardContent>
     </Card>
   );

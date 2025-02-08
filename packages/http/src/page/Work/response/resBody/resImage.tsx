@@ -9,7 +9,7 @@ import logo from '@http/assets/fail.svg';
  * @since 0.2.2
  * @description 显示图片
  * */
-export default function ResImage(): JSX.Element {
+export default function ResImage() {
   const {
     response: { arrayBuffer },
   } = React.useContext(ResponseContext);

@@ -4,16 +4,15 @@ import { ChromeReaderMode } from '@mui/icons-material';
 import { deepPurple } from '@mui/material/colors';
 import FontSizeTypo from './fontSizeTypo';
 import { useAppDispatch, useAppSelector } from '@novel/app/hooks';
-import { FontSize, SelectFontSize } from '@novel/app/font/fontSlice';
-import { updateFontSize } from '@novel/app/font/fontSlice';
-import { Mark } from '@mui/base';
+import { type FontSize, SelectFontSize, updateFontSize } from '@novel/app/font/fontSlice';
+import type { Mark } from '@mui/base';
 
-export default function FontCard(): JSX.Element {
+export default function FontCard() {
   const dispatch = useAppDispatch();
   const fontSize = useAppSelector(SelectFontSize);
   const mark = useMemo<Mark[]>(
     () =>
-      Array(10)
+      Array.from({ length: 10 })
         .fill(1)
         .map((value, index) => ({ value: index + 1, label: <FontSizeTypo fontSize={(index + 1) as FontSize} /> })),
     [],
@@ -26,7 +25,7 @@ export default function FontCard(): JSX.Element {
             <ChromeReaderMode />
           </Avatar>
         }
-        title={'阅读设置'}
+        title="阅读设置"
       />
       <CardContent>
         <FormControl component="fieldset" sx={{ width: '100%' }}>

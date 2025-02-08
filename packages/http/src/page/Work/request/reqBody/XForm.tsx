@@ -12,7 +12,7 @@ import { RequestContext } from '../request';
  * @since 0.2.2
  * @description x-www-form-urlencoded 数据输入表格
  * */
-export default function XForm(): JSX.Element {
+export default function XForm() {
   const {
     request: { xForms },
   } = React.useContext(RequestContext);
@@ -20,7 +20,7 @@ export default function XForm(): JSX.Element {
   const forceUpdate = useForceUpdate();
   return (
     <TableContainer sx={{ width: '100%', height: '100%' }} component={Paper}>
-      <Table stickyHeader size={'small'}>
+      <Table stickyHeader size="small">
         <TableHead>
           <TableRow>
             <TableCell padding="checkbox" />

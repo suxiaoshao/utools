@@ -8,13 +8,13 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "axios": "^1.7.2",
+    "axios": "^1.7.9",
     "build": "workspace:*",
-    "cheerio": "1.0.0-rc.12",
-    "monaco-editor": "^0.50.0",
+    "cheerio": "1.0.0",
+    "monaco-editor": "^0.52.2",
     "notify": "workspace:*",
-    "react-dropzone": "^14.2.3",
-    "react-use": "^17.5.0",
+    "react-dropzone": "^14.3.5",
+    "react-use": "^17.6.0",
     "theme": "workspace:*",
     "types": "workspace:*"
   },

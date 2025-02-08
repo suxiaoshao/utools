@@ -5,7 +5,7 @@ export interface ErrorTabProps {
   message: string;
 }
 
-export default function ErrorTab({ message }: ErrorTabProps): JSX.Element {
+export default function ErrorTab({ message }: ErrorTabProps) {
   return (
     <Paper
       sx={(theme) => ({

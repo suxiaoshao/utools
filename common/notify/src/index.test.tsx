@@ -18,7 +18,9 @@ describe('notify', () => {
       const snackbar = useSnackbar();
       return (
         <div>
-          <button onClick={() => snackbar.enqueueSnackbar('test click')}>test</button>
+          <button type="button" onClick={() => snackbar.enqueueSnackbar('test click')}>
+            test
+          </button>
         </div>
       );
     }

@@ -6,18 +6,19 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/page/Setting/components/configCard/configChip.tsx
  */
 import React from 'react';
-import { Chip, ChipProps, Menu, MenuItem } from '@mui/material';
+import { Chip, type ChipProps, Menu, MenuItem } from '@mui/material';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
 import { useAppDispatch } from '@novel/app/hooks';
 import { initConfig } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
+import { match } from 'ts-pattern';
 
 export interface ConfigChipProp extends ChipProps {
   config: TotalConfig;
 }
 
-export default function ConfigChip({ config, sx, ...props }: ConfigChipProp): JSX.Element {
+export default function ConfigChip({ config, sx, ...props }: ConfigChipProp) {
   /**
    * menu 的位置信息,不显示时为 null
    * */
@@ -29,12 +30,12 @@ export default function ConfigChip({ config, sx, ...props }: ConfigChipProp): JS
   const deleteConfig = React.useCallback(() => {
     const totalData = TotalDataBuild.getTotalData();
     const result = totalData.deleteConfig(config.mainPageUrl);
-    if (!result) {
+    if (result) {
+      dispatch(initConfig());
+    } else {
       enqueueSnackbar('默认源不可删除', {
         variant: 'error',
       });
-    } else {
-      dispatch(initConfig());
     }
   }, [config.mainPageUrl, dispatch]);
   return (
@@ -53,12 +54,14 @@ export default function ConfigChip({ config, sx, ...props }: ConfigChipProp): JS
           });
         }}
         onDelete={deleteConfig}
-        color={'primary'}
+        color="primary"
         label={config.name}
       />
       <Menu
         anchorReference="anchorPosition"
-        anchorPosition={menuPosition !== null ? { top: menuPosition.mouseY, left: menuPosition.mouseX } : undefined}
+        anchorPosition={match(menuPosition)
+          .with(null, () => undefined)
+          .otherwise((pos) => ({ top: pos.mouseY, left: pos.mouseX }))}
         open={menuPosition !== null}
         onClose={() => {
           setMenuPosition(null);
@@ -73,7 +76,7 @@ export default function ConfigChip({ config, sx, ...props }: ConfigChipProp): JS
           打开源网站
         </MenuItem>
         <MenuItem
-          onClick={async () => {
+          onClick={() => {
             deleteConfig();
             setMenuPosition(null);
           }}

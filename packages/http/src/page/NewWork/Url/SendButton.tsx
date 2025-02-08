@@ -1,10 +1,10 @@
 import { Box, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
 import { Send } from '@mui/icons-material';
-import { HttpForm, TabType } from '@http/types/httpForm';
+import { type HttpForm, TabType } from '@http/types/httpForm';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useCallback } from 'react';
 import { fetchHttp, getHttpRequestFromRequestForm } from '@http/utils/http_new';
-import { AbortSignal } from 'node-fetch/externals';
+import type { AbortSignal } from 'node-fetch/externals';
 
 /**
  * @author sushao
@@ -12,7 +12,7 @@ import { AbortSignal } from 'node-fetch/externals';
  * @since 0.2.2
  * @description 发送 http 请求的按钮
  * */
-export default function SendButton(): JSX.Element {
+export default function SendButton() {
   const { setValue, getValues, control } = useFormContext<HttpForm>();
   const responseStatus = useWatch({ name: 'response.tag', control });
   const onSend = useCallback(async () => {
@@ -27,7 +27,7 @@ export default function SendButton(): JSX.Element {
     setValue('response', response);
   }, [getValues, setValue]);
   return (
-    <Tooltip title={<Typography variant={'body2'}>发送请求</Typography>}>
+    <Tooltip title={<Typography variant="body2">发送请求</Typography>}>
       <Box sx={{ position: 'relative' }}>
         <IconButton sx={{ p: 1 }} color="primary" onClick={onSend}>
           <Send />

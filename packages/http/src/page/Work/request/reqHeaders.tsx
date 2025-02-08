@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   IconButton,
   InputBase,
@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { Header, OtherHeader } from '@http/utils/http/header';
+import { Header, type OtherHeader } from '@http/utils/http/header';
 import { Check, Clear } from '@mui/icons-material';
 import { useTableAdd } from '@http/hooks/useTableAdd';
 import UpdateTable from './updateTable';
@@ -18,6 +18,7 @@ import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { RequestContext } from './request';
 import { HttpContext } from '../workPanel';
 import { CommonStyle } from '@http/hooks/useRestyle';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -25,11 +26,11 @@ import { CommonStyle } from '@http/hooks/useRestyle';
  * @since 0.2.2
  * @description 修改 request 部分的头部
  * */
-export default function ReqHeaders(): JSX.Element {
-  const { request } = React.useContext(RequestContext);
+export default function ReqHeaders() {
+  const { request } = useContext(RequestContext);
   const {
     httpManager: { url },
-  } = React.useContext(HttpContext);
+  } = useContext(HttpContext);
   /**
    * 由其他属性推断出来的头部,可被覆盖
    * */
@@ -39,10 +40,13 @@ export default function ReqHeaders(): JSX.Element {
   /**
    * url,request 更新时更新其他头部
    * */
-  React.useEffect(() => {
-    request.getOtherHeaders(url).then((value) => {
+  useEffect(() => {
+    const updateOtherHeaders = async () => {
+      const value = await request.getOtherHeaders(url);
       setOtherHeaders(value);
-    });
+    };
+
+    updateOtherHeaders();
   }, [url, request]);
   return (
     <TableContainer sx={CommonStyle.tableContainer} component={Paper}>
@@ -60,7 +64,10 @@ export default function ReqHeaders(): JSX.Element {
             <TableRow key={value.key}>
               <TableCell padding="none">
                 <IconButton disabled>
-                  {value.isDelete ? <Clear fontSize="small" /> : <Check fontSize="small" />}
+                  {match(value.isDelete)
+                    .with(true, () => <Clear fontSize="small" />)
+                    .with(false, () => <Check fontSize="small" />)
+                    .otherwise(() => null)}
                 </IconButton>
               </TableCell>
               <TableCell>
@@ -68,7 +75,9 @@ export default function ReqHeaders(): JSX.Element {
               </TableCell>
               <TableCell>
                 <InputBase
-                  sx={{ ...CommonStyle.tableInput, ...(value.isDelete ? CommonStyle.tableInputDelete : {}) }}
+                  sx={match(value.isDelete)
+                    .with(true, () => ({ ...CommonStyle.tableInput, ...CommonStyle.tableInputDelete }))
+                    .otherwise(() => ({ ...CommonStyle.tableInput }))}
                   value={value.value}
                 />
               </TableCell>

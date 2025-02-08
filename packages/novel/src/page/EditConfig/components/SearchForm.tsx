@@ -1,6 +1,6 @@
 import { Box, TextField, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import { TotalConfig } from '../const';
+import type { TotalConfig } from '../const';
 import { commonStyle } from './BasicInfo';
 
 export default function SearchForm() {
@@ -10,7 +10,7 @@ export default function SearchForm() {
   } = useFormContext<TotalConfig>();
   return (
     <Box sx={commonStyle.container}>
-      <Typography sx={commonStyle.title} variant={'h6'}>
+      <Typography sx={commonStyle.title} variant="h6">
         搜索信息
       </Typography>
       <Box sx={commonStyle.form}>

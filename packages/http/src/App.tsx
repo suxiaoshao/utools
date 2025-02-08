@@ -18,7 +18,7 @@ import NewWork from './page/NewWork';
  * @since 0.2.2
  * @description 插件的主要部分,包裹了主题和路由
  * */
-export default function App(): JSX.Element {
+export default function App() {
   return (
     <Provider store={store}>
       <CustomTheme>

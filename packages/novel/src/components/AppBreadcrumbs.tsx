@@ -5,13 +5,13 @@
  * @LastEditTime: 2023-11-09 18:34:24
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/components/AppBreadcrumbs.tsx
  */
-import React from 'react';
 import { Box, Breadcrumbs, Link } from '@mui/material';
 import { useAppSelector } from '@novel/app/hooks';
 import { SelectHistory, useCustomNavigate } from '@novel/app/history/historySlice';
 import { Outlet } from 'react-router-dom';
+import { match } from 'ts-pattern';
 
-export default function AppBreadcrumbs(): JSX.Element {
+export default function AppBreadcrumbs() {
   const allLocation = useAppSelector(SelectHistory);
   const navigate = useCustomNavigate();
   return (
@@ -23,7 +23,9 @@ export default function AppBreadcrumbs(): JSX.Element {
         <Breadcrumbs maxItems={3} sx={{ m: 1 }}>
           {allLocation.map((value, index) => (
             <Link
-              color={index !== allLocation.length - 1 ? 'inherit' : 'textPrimary'}
+              color={match(index)
+                .with(allLocation.length - 1, () => 'textPrimary')
+                .otherwise(() => 'inherit')}
               href={`#${value.to.toString()}`}
               key={index}
               onClick={(e: React.MouseEvent) => {

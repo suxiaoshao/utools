@@ -7,8 +7,9 @@
  */
 
 import { Close } from '@mui/icons-material';
-import { Box, BoxProps, ButtonBase, ButtonBaseProps, IconButton, Typography } from '@mui/material';
+import { Box, type BoxProps, ButtonBase, IconButton, Typography } from '@mui/material';
 import { padding } from 'styles';
+import { match } from 'ts-pattern';
 
 export interface CustomTabProp extends BoxProps {
   active?: boolean;
@@ -51,8 +52,12 @@ export default function CustomTab({ label, onClick, active = false, sx, onClose,
           position: 'absolute',
           width: '100%',
           bottom: 0,
-          borderBottom: active ? '2px solid' : '2px solid transparent',
-          borderColor: active ? 'primary.main' : 'transparent',
+          borderBottom: match(active)
+            .with(true, () => '2px solid')
+            .otherwise(() => '2px solid transparent'),
+          borderColor: match(active)
+            .with(true, () => 'primary.main')
+            .otherwise(() => 'transparent'),
         }}
       />
 

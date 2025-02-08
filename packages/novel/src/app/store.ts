@@ -1,4 +1,4 @@
-import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { type AnyAction, configureStore, type ThunkAction } from '@reduxjs/toolkit';
 import { historySlice } from './history/historySlice';
 import { themeReducer } from 'theme';
 import { fontSlice } from './font/fontSlice';

@@ -7,7 +7,7 @@ import { useCustomNavigate } from '@novel/app/history/historySlice';
 import { useAppSelector } from '@novel/app/hooks';
 import { SelectConfig } from '@novel/app/config/configSlice';
 
-export default function ConfigCard(): JSX.Element {
+export default function ConfigCard() {
   const allConfigs = useAppSelector(SelectConfig);
   const navigate = useCustomNavigate();
   return (
@@ -18,9 +18,9 @@ export default function ConfigCard(): JSX.Element {
             <PermDataSetting />
           </Avatar>
         }
-        title={'小说源配置'}
+        title="小说源配置"
         action={
-          <Tooltip title={'添加配置'}>
+          <Tooltip title="添加配置">
             <IconButton
               onClick={() => {
                 navigate('添加新源', { tag: 'push', data: '/editConfig' });

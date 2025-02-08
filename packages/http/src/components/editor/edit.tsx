@@ -1,11 +1,10 @@
 import React, { startTransition, useCallback, useEffect, useImperativeHandle } from 'react';
 import * as monaco from 'monaco-editor';
 import monankai from './monankai';
-import { Box, BoxProps } from '@mui/material';
+import { Box, type BoxProps } from '@mui/material';
 
-// @ts-ignore
 self.MonacoEnvironment = {
-  getWorker: function (_moduleId, label) {
+  getWorker: (_moduleId, label) => {
     if (label === 'json') {
       return new Worker(new URL('monaco-editor/esm/vs/language/json/json.worker', import.meta.url));
     }
@@ -59,42 +58,41 @@ export interface NotReadOnlyEditProp extends Omit<BoxProps, 'onChange'> {
 function Edit(
   { value: code, language, readonly = false, onChange: onChangeCode, ...props }: NotReadOnlyEditProp,
   ref?: React.Ref<HTMLDivElement | undefined>,
-): JSX.Element {
+) {
   /**
    * 编辑器绑定的 dom 的引用
    * */
-  const [editRef, setEditRef] = React.useState<HTMLDivElement | undefined>(undefined);
+  const [editRef, setEditRef] = React.useState<HTMLDivElement | undefined>();
   /**
    * 编辑器实体
    * */
-  const [edit, setEdit] = React.useState<monaco.editor.IStandaloneCodeEditor | undefined>(undefined);
+  const [edit, setEdit] = React.useState<monaco.editor.IStandaloneCodeEditor | undefined>();
   /**
    * 编辑器要绑定的 dom 生成时,再这个 dom 上新建一个编辑器,并赋值给 edit
    * */
   useEffect(() => {
-    if (editRef !== undefined) {
-      if (
-        (edit === undefined && editRef.firstChild === null) ||
-        (edit !== undefined && edit?.getModel()?.getLanguageId() && edit?.getModel()?.getLanguageId() !== language)
-      ) {
-        edit?.dispose();
-        while (editRef.firstChild) {
-          editRef.removeChild(editRef.firstChild);
-        }
-        const newEditor = monaco.editor.create(editRef, {
-          value: code,
-          theme: 'vs-dark',
-          automaticLayout: true,
-          language: language,
-          fontSize: 16,
-          minimap: {
-            enabled: false,
-          },
-          readOnly: readonly,
-          wordWrap: 'on',
-        });
-        return setEdit(newEditor);
+    if (
+      editRef &&
+      ((edit === undefined && editRef.firstChild === null) ||
+        (edit?.getModel()?.getLanguageId() && edit?.getModel()?.getLanguageId() !== language))
+    ) {
+      edit?.dispose();
+      while (editRef.firstChild) {
+        editRef.firstChild.remove();
       }
+      const newEditor = monaco.editor.create(editRef, {
+        value: code,
+        theme: 'vs-dark',
+        automaticLayout: true,
+        language: language,
+        fontSize: 16,
+        minimap: {
+          enabled: false,
+        },
+        readOnly: readonly,
+        wordWrap: 'on',
+      });
+      return setEdit(newEditor);
     }
   }, [code, edit, editRef, language, readonly]);
 

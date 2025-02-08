@@ -12,7 +12,7 @@ import { useSqlData } from '@http/store/sqlStore';
  * @since 0.2.2
  * @description cookie 页面的组件
  * */
-export default function CookiePage(): JSX.Element {
+export default function CookiePage() {
   /**
    * @description 数据库数据
    * */
@@ -57,7 +57,7 @@ export default function CookiePage(): JSX.Element {
         onClick={() => {
           setFormCookie(new Cookie('', '', '', '/', Date.now(), null, null));
         }}
-        color={'primary'}
+        color="primary"
       >
         <Add />
       </Fab>

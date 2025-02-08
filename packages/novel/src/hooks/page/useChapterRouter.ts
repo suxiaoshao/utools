@@ -9,7 +9,7 @@ import { useQuery } from '../useQuery';
 import { useActiveConfig } from '../data/useActiveConfig';
 import React from 'react';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
 
 export function useChapterRouter(): { activeConfig: TotalConfig; chapterId: string; novelId: string } {
   /**

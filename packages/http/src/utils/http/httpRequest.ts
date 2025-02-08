@@ -1,15 +1,14 @@
-import { RequestXForm, XFormProps } from './requestXForm';
-import { RequestUploadFile, UploadFileProps } from './requestUploadFile';
-import { Header, HeaderProps, OtherHeader } from './header';
+import { RequestXForm, type XFormProps } from './requestXForm';
+import { RequestUploadFile, type UploadFileProps } from './requestUploadFile';
+import { Header, type HeaderProps, OtherHeader } from './header';
 import { RequestEntity } from '@http/database/entity/request.entity';
 import { sqlStore } from '@http/store/sqlStore';
+import { match, P } from 'ts-pattern';
 
 export type RequestBodyChoose = 'none' | 'text' | 'form-data' | 'x-www-form-urlencoded';
 export type RequestTextChoose = 'json' | 'html' | 'xml' | 'javascript' | 'plaintext';
 
-export interface HeaderObject {
-  [key: string]: string;
-}
+export type HeaderObject = Record<string, string>;
 
 /**
  * @author sushao
@@ -89,44 +88,23 @@ export class HttpRequest {
       this.headers.some((value) => value.key === 'Content-Type' || value.key === 'content-type'),
     );
 
-    switch (this.bodyChoose) {
-      case 'text':
-        switch (this.textChoose) {
-          case 'xml':
-            contentTypeHeader.value = 'text/xml; charset=utf-8';
-            break;
-          case 'html':
-            contentTypeHeader.value = 'text/html; charset=utf-8';
-            break;
-          case 'plaintext':
-            contentTypeHeader.value = 'text/plain; charset=utf-8';
-            break;
-          case 'javascript':
-            contentTypeHeader.value = 'text/javascript; charset=utf-8';
-            break;
-          case 'json':
-            contentTypeHeader.value = 'application/json; charset=utf-8';
-            break;
-        }
-        break;
-      case 'x-www-form-urlencoded':
-        contentTypeHeader.value = 'application/x-www-form-urlencoded';
-        break;
-      case 'form-data':
-        contentTypeHeader.value = 'multipart/form-data; boundary=<calculated when response is sent>';
-        break;
-      case 'none':
-        break;
-    }
+    contentTypeHeader.value = match<[RequestBodyChoose, RequestTextChoose]>([this.bodyChoose, this.textChoose])
+      .with(['text', 'xml'], () => 'text/xml; charset=utf-8')
+      .with(['text', 'html'], () => 'text/html; charset=utf-8')
+      .with(['text', 'plaintext'], () => 'text/plain; charset=utf-8')
+      .with(['text', 'javascript'], () => 'text/javascript; charset=utf-8')
+      .with(['text', 'json'], () => 'application/json; charset=utf-8')
+      .with(['x-www-form-urlencoded', 'plaintext'], () => 'application/x-www-form-urlencoded')
+      .with(['form-data', 'plaintext'], () => 'multipart/form-data; boundary=<calculated when response is sent>')
+      .otherwise(() => '');
     if (contentTypeHeader.value !== '') {
       return contentTypeHeader;
-    } else {
-      return undefined;
     }
+    return undefined;
   }
 
-  public async getOtherHeaders(url: string): Promise<OtherHeader[]> {
-    const otherHeaders: Array<OtherHeader> = [];
+  public getOtherHeaders(url: string): OtherHeader[] {
+    const otherHeaders: OtherHeader[] = [];
     const contentTypeHeader = this.getOtherContentType();
     if (contentTypeHeader !== undefined) {
       otherHeaders.push(contentTypeHeader);
@@ -151,34 +129,30 @@ export class HttpRequest {
    * @description 根据 bodyChoose,textChoose 获取 http body 部分数据
    * */
   public getData(): undefined | URLSearchParams | string | FormData {
-    switch (this.bodyChoose) {
-      case 'none':
-        return undefined;
-      case 'form-data':
+    return match([this.bodyChoose, this.textChoose])
+      .with(['none', P.any], () => undefined)
+      .with(['form-data', P.any], () => {
         const formData = new FormData();
-        this.dataForms.forEach((value) => {
+        for (const value of this.dataForms) {
           const data = value.getData();
           if (value.isFile && data instanceof File) {
             formData.append(value.key, data, value.getFileName());
           } else {
             formData.append(value.key, data);
           }
-        });
-        return formData;
-      case 'x-www-form-urlencoded':
-        const params = new URLSearchParams();
-        this.xForms.forEach((value) => {
-          params.append(value.key, value.value);
-        });
-        return params;
-      case 'text':
-        switch (this.textChoose) {
-          case 'json':
-            return JSON.parse(this.text);
-          default:
-            return this.text;
         }
-    }
+        return formData;
+      })
+      .with(['x-www-form-urlencoded', P.any], () => {
+        const params = new URLSearchParams();
+        for (const value of this.xForms) {
+          params.append(value.key, value.value);
+        }
+        return params;
+      })
+      .with(['text', 'json'], () => JSON.parse(this.text))
+      .with(['text', P.any], () => this.text)
+      .otherwise(() => undefined);
   }
 
   /**
@@ -187,13 +161,13 @@ export class HttpRequest {
    * @since 0.2.2
    * @description 获取 http 数据和 header
    * */
-  public async getHeaderAndData(url: string): Promise<{
+  public getHeaderAndData(url: string): {
     headers: HeaderObject;
     data: undefined | URLSearchParams | string | FormData;
-  }> {
+  } {
     const data = this.getData();
     const headerObject: HeaderObject = {};
-    (await this.getOtherHeaders(url)).forEach((value) => {
+    this.getOtherHeaders(url).forEach((value) => {
       if (!value.isDelete) {
         headerObject[value.key] = value.value;
       }

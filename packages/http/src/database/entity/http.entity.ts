@@ -1,6 +1,6 @@
-import { HttpMethod } from '@http/utils/http/httpManager';
-import { RequestEntity } from './request.entity';
-import { TagEntity } from './tag.entity';
+import type { HttpMethod } from '@http/utils/http/httpManager';
+import type { RequestEntity } from './request.entity';
+import type { TagEntity } from './tag.entity';
 import { sqlStore } from '@http/store/sqlStore';
 import { execSql, execSqlAndReturn, readFromQueryResult } from '../mapper/util';
 import { HttpTagEntity } from './httpTag.entity';
@@ -77,15 +77,8 @@ export class HttpEntity {
   public async save(): Promise<void> {
     sqlStore.deleteHttpTagByHttpId(this.httpId ?? -1);
     await this.request.save();
-    if (this.httpId !== null) {
-      execSql(`update http
-                set url='${this.url}',
-                    name='${this.name}',
-                    method='${this.method}',
-                    requestId=${this.request.requestId}
-                where httpId = ${this.httpId};`);
-    } else {
-      const results = await execSqlAndReturn(`insert into http(url, name, method, requestId)
+    if (this.httpId === null) {
+      const results = execSqlAndReturn(`insert into http(url, name, method, requestId)
                 VALUES ('${this.url}', '${this.name}', '${this.method}', ${this.request.requestId});
           select max(httpId) AS count
           from http;`);
@@ -93,6 +86,13 @@ export class HttpEntity {
         const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
         this.httpId = count;
       }
+    } else {
+      execSql(`update http
+                set url='${this.url}',
+                    name='${this.name}',
+                    method='${this.method}',
+                    requestId=${this.request.requestId}
+                where httpId = ${this.httpId};`);
     }
     this.tags
       .map((value) => new HttpTagEntity(this.httpId as number, value.tagId as number))

@@ -9,7 +9,7 @@ import { useQuery } from '../useQuery';
 import React from 'react';
 import { useAppSelector } from '@novel/app/hooks';
 import { SelectConfig } from '@novel/app/config/configSlice';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
 
 export function useActiveConfig(): TotalConfig | undefined {
   const mainPageUrl = useQuery('url');

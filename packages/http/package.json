@@ -8,24 +8,24 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@mui/x-date-pickers": "^7.9.0",
-    "axios": "^1.7.2",
-    "dayjs": "^1.11.11",
-    "monaco-editor": "^0.50.0",
+    "@mui/x-date-pickers": "^7.25.0",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "monaco-editor": "^0.52.2",
     "notify": "workspace:*",
     "rxjs": "^7.8.1",
-    "set-cookie-parser": "^2.6.0",
-    "sql.js": "1.10.3",
+    "set-cookie-parser": "^2.7.1",
+    "sql.js": "1.12.0",
     "styles": "workspace:*",
     "theme": "workspace:^",
     "types": "workspace:*"
   },
   "devDependencies": {
-    "@rsbuild/plugin-node-polyfill": "^1.0.1",
-    "@types/node-fetch": "^2.6.11",
-    "@types/set-cookie-parser": "^2.4.9",
+    "@rsbuild/plugin-node-polyfill": "^1.3.0",
+    "@types/node-fetch": "^2.6.12",
+    "@types/set-cookie-parser": "^2.4.10",
     "@types/sql.js": "^1.4.9",
     "build": "workspace:*",
-    "form-data": "^4.0.0"
+    "form-data": "^4.0.1"
   }
 }

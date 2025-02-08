@@ -1,9 +1,9 @@
-import { Divider, IconButton, InputBase, Paper, Theme, Tooltip } from '@mui/material';
+import { Divider, IconButton, InputBase, Paper, type Theme, Tooltip } from '@mui/material';
 import MySelector from '@novel/components/common/mySelector';
 import { ExitToApp, Search } from '@mui/icons-material';
 import { useAppSelector } from '@novel/app/hooks';
 import { SelectConfig } from '@novel/app/config/configSlice';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
 
 export const urlStyle = {
   form: (theme: Theme) => ({
@@ -76,7 +76,7 @@ export interface SearchInputProp {
  * @since 0.4.0
  * @description 搜索输入框
  * */
-export default function SearchInput(props: SearchInputProp): JSX.Element {
+export default function SearchInput(props: SearchInputProp) {
   const totalConfigs = useAppSelector(SelectConfig);
   return (
     <Paper component="form" sx={urlStyle.form}>
@@ -102,7 +102,7 @@ export default function SearchInput(props: SearchInputProp): JSX.Element {
           }
         }}
       />
-      <Tooltip title={'前往源网站'}>
+      <Tooltip title="前往源网站">
         <IconButton
           onClick={() => {
             utools.shellOpenExternal(props.activeConfig?.mainPageUrl ?? '');
@@ -112,7 +112,7 @@ export default function SearchInput(props: SearchInputProp): JSX.Element {
         </IconButton>
       </Tooltip>
       <Divider sx={urlStyle.divider} orientation="vertical" />
-      <Tooltip title={'搜索'}>
+      <Tooltip title="搜索">
         <IconButton onClick={props.onSearch} disabled={props.activeConfig === undefined}>
           <Search />
         </IconButton>

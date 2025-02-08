@@ -9,7 +9,7 @@ import MyError from '@http/components/icon/myError';
  * @since 0.2.2
  * @description 错误页面
  * */
-export default function ErrorPage(): JSX.Element {
+export default function ErrorPage() {
   const { response } = React.useContext(ResponseContext);
   return (
     <Paper

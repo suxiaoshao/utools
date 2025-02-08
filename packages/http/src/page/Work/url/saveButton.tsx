@@ -11,7 +11,7 @@ import { httpArray } from '@http/store/httpArray';
  * @since 0.2.2
  * @description 保存此 http 请求的按钮
  * */
-export default function SaveButton(): JSX.Element {
+export default function SaveButton() {
   const [saveHttpOpen, setSaveHttpOpen] = React.useState<boolean>(false);
   const { httpManager } = React.useContext(HttpContext);
   return (

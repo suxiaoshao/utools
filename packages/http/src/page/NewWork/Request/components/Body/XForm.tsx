@@ -1,5 +1,5 @@
 import { CommonStyle } from '@http/hooks/useRestyle';
-import { HttpForm } from '@http/types/httpForm';
+import type { HttpForm } from '@http/types/httpForm';
 import { newXForm } from '@http/utils/http_new';
 import { Add, Delete } from '@mui/icons-material';
 import {

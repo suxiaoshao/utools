@@ -2,8 +2,8 @@ import { Box, ButtonGroup, ToggleButton, ToggleButtonGroup } from '@mui/material
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { BodyType, RequestTab } from '@http/types/httpForm/request';
-import { HttpForm } from '@http/types/httpForm';
-import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
+import type { HttpForm } from '@http/types/httpForm';
+import CustomSelector, { type ItemListProp } from '@http/components/CustomSelector';
 import { TextType } from '@http/types/httpForm/common/text';
 
 const bodyItemList: ItemListProp<BodyType>[] = (
@@ -30,7 +30,7 @@ const textItemList: ItemListProp<TextType>[] = (
  * @since 0.2.2
  * @description request 的切换按钮
  * */
-export default function RequestToggle(): JSX.Element {
+export default function RequestToggle() {
   const { control } = useFormContext<HttpForm>();
   const tab = useWatch({ control, name: 'request.tab' });
   const bodyType = useWatch({ control, name: 'request.body.bodyType' });

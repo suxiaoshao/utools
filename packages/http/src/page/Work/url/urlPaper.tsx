@@ -13,7 +13,7 @@ import MethodSelector from './methodSelector';
  * @since 0.2.2
  * @description http url 输入栏组件,用于管理 http 方法,链接,发送,切换视图
  * */
-export default function UrlPaper(): JSX.Element {
+export default function UrlPaper() {
   const { httpManager } = React.useContext(HttpContext);
   return (
     <Paper

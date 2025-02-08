@@ -1,10 +1,11 @@
 import React from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, Tab } from '@mui/material';
-import { HttpManager } from '@http/utils/http/httpManager';
+import type { HttpManager } from '@http/utils/http/httpManager';
 import { httpArray } from '@http/store/httpArray';
 import { Add, Delete } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@http/app/hooks';
 import { SelectIndex, updateActiveTab } from '@http/app/features/tabsSlice';
+import { match, P } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -29,7 +30,7 @@ export interface WorkTabProp {
  * @since 0.2.2
  * @description work 组件的 tab,封装了右键点击
  * */
-export default function WorkTab(props: WorkTabProp): JSX.Element {
+export default function WorkTab(props: WorkTabProp) {
   /**
    * 设置激活的 http 请求的下标
    * */
@@ -74,7 +75,9 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
           setMenuPosition(null);
         }}
         anchorReference="anchorPosition"
-        anchorPosition={menuPosition !== null ? { top: menuPosition.mouseY, left: menuPosition.mouseX } : undefined}
+        anchorPosition={match(menuPosition)
+          .with(P.not(null), ({ mouseX, mouseY }) => ({ top: mouseY, left: mouseX }))
+          .otherwise(() => undefined)}
       >
         <MenuItem
           onClick={() => {

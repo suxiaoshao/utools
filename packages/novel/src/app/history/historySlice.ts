@@ -1,13 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { To, useNavigate } from 'react-router-dom';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type To, useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { Enum } from 'types';
+import type { Enum } from 'types';
+import { match } from 'ts-pattern';
 
-export type CustomLocation = {
+export interface CustomLocation {
   name: string;
   to: To;
-};
+}
 
 export interface HistorySliceType {
   value: CustomLocation[];
@@ -47,20 +48,20 @@ export function useCustomNavigate() {
   const activeLocation = useAppSelector(SelectHistory);
   const customNavigate = useCallback(
     (name: string, jump: RouterJump) => {
-      switch (jump.tag) {
-        case 'push':
-          dispatch(addLocation({ name, to: jump.data }));
-          navigate(jump.data);
-          break;
-        case 'replace':
-          dispatch(replaceLocation({ name, to: jump.data }));
-          navigate(jump.data, { replace: true });
-          break;
-        case 'goBack':
-          dispatch(goBack(jump.data));
-          navigate(activeLocation[activeLocation.length - jump.data - 1].to);
-          break;
-      }
+      match(jump)
+        .with({ tag: 'push' }, ({ data }) => {
+          dispatch(addLocation({ name, to: data }));
+          navigate(data);
+        })
+        .with({ tag: 'replace' }, ({ data }) => {
+          dispatch(replaceLocation({ name, to: data }));
+          navigate(data, { replace: true });
+        })
+        .with({ tag: 'goBack' }, ({ data }) => {
+          dispatch(goBack(data));
+          navigate(activeLocation[activeLocation.length - data - 1].to);
+        })
+        .exhaustive();
     },
     [activeLocation, dispatch, navigate],
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import CustomSelector from '@http/components/CustomSelector';
 import { HttpContext } from '../workPanel';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
-import { HttpMethod } from '@http/utils/http/httpManager';
+import type { HttpMethod } from '@http/utils/http/httpManager';
 
 export const myMethodList: { text: string; value: HttpMethod }[] = (
   ['GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'] as const
@@ -18,7 +18,7 @@ export const myMethodList: { text: string; value: HttpMethod }[] = (
  * @since 0.2.2
  * @description 切换 http 方法的组件
  * */
-export default function MethodSelector(): JSX.Element {
+export default function MethodSelector() {
   const forceUpdate = useForceUpdate();
   const { httpManager } = React.useContext(HttpContext);
   return (

@@ -28,7 +28,7 @@ export const settingSx = {
   },
 };
 
-export default function ThemeEdit(): JSX.Element {
+export default function ThemeEdit() {
   const dispatch = useAppDispatch();
   const color = useAppSelector((state) => state.theme.color);
   const colorMode = useAppSelector((state) => state.theme.colorSetting);
@@ -41,7 +41,7 @@ export default function ThemeEdit(): JSX.Element {
             <Style />
           </Avatar>
         }
-        title={'主题设置'}
+        title="主题设置"
       />
       <CardContent>
         <FormControl component="fieldset" sx={settingSx.form}>

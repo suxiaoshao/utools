@@ -7,9 +7,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@electron/asar": "^3.2.10",
-    "@rsbuild/plugin-lightningcss": "1.0.0-alpha.4",
-    "@rsbuild/plugin-react": "1.0.0-alpha.4",
-    "@rsdoctor/rspack-plugin": "^0.3.7"
+    "@electron/asar": "^3.2.18",
+    "@rsbuild/plugin-lightningcss": "1.0.1-beta.6",
+    "@rsbuild/plugin-react": "1.1.0",
+    "@rsdoctor/rspack-plugin": "^0.4.13"
   }
 }

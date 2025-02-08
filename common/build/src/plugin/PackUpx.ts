@@ -1,3 +1,4 @@
+// eslint-disable no-console
 /*
  * @Author: suxiaoshao suxiaoshao@gmail.com
  * @Date: 2024-01-06 01:37:31
@@ -6,11 +7,11 @@
  * @FilePath: /utools/common/build/src/plugin/PackUpx.ts
  */
 import { createPackage } from '@electron/asar';
-import * as fs from 'fs';
-import { pipeline } from 'stream';
-import * as zlib from 'zlib';
-import { promisify } from 'util';
-import { RsbuildPlugin } from '@rsbuild/core';
+import fs from 'node:fs';
+import { pipeline } from 'node:stream';
+import zlib from 'node:zlib';
+import { promisify } from 'node:util';
+import type { RsbuildPlugin } from '@rsbuild/core';
 
 const pipelineAsync = promisify(pipeline);
 const unlinkAsync = promisify(fs.unlink);

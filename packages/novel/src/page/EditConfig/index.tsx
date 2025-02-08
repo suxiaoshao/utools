@@ -12,7 +12,7 @@ import BasicInfo from './components/BasicInfo';
 import SearchForm from './components/SearchForm';
 import NovelForm from './components/NovelForm';
 import ChapterForm from './components/ChapterForm';
-import { TotalConfig, configSchema } from './const';
+import { type TotalConfig, configSchema } from './const';
 import { createPortal } from 'react-dom';
 import { Toolbar } from './components/Toolbar';
 import useCheckDomElement from '@novel/hooks/useCheckDomElement';
@@ -26,7 +26,7 @@ import { enqueueSnackbar } from 'notify';
 /**
  * 编辑源配置
  * */
-export default function EditConfig(): JSX.Element {
+export default function EditConfig() {
   const methods = useForm<TotalConfig>({
     resolver: valibotResolver(configSchema),
     mode: 'all',

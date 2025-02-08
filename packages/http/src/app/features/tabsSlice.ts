@@ -6,14 +6,14 @@
  * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/app/features/tabsSlice.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { newHttp } from '@http/utils/http_new';
-import { HttpForm } from '@http/types/httpForm';
+import type { HttpForm } from '@http/types/httpForm';
 
-export type TabsSliceType = {
+export interface TabsSliceType {
   tabs: HttpForm[];
   activeTab: number;
-};
+}
 
 export const colorSchemaMatch = window.matchMedia('(prefers-color-scheme: dark)');
 

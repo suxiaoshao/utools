@@ -1,5 +1,4 @@
-import React, { MutableRefObject } from 'react';
-import { NoneFunc } from './useForceUpdate';
+import React, { type RefObject, useEffect } from 'react';
 
 /**
  * @author sushao
@@ -11,19 +10,19 @@ export function useTableAdd(deps: React.DependencyList): {
   /**
    * 修改 key 的 flag ,使需要更改时,让 keyInput 成为焦点
    * */
-  setKeyFlag: NoneFunc;
+  setKeyFlag: () => void;
   /**
    * 修改 value 的 flag ,使需要更改时,让 valueInput 成为焦点
    * */
-  setValueFlag: NoneFunc;
+  setValueFlag: () => void;
   /**
    * key input 组件的引用
    * */
-  keyRef: MutableRefObject<HTMLInputElement | null>;
+  keyRef: RefObject<HTMLInputElement | null>;
   /**
    * value  input 的引用
    * */
-  valueRef: MutableRefObject<HTMLInputElement | null>;
+  valueRef: RefObject<HTMLInputElement | null>;
 } {
   /**
    * key 的标志,新建一行时是输入 key 的话,设置为 true
@@ -45,7 +44,8 @@ export function useTableAdd(deps: React.DependencyList): {
    * 根据外来参数的变化响应, 如果 keyFlag 为 true 则 key input 组件成为焦点
    * 如果 valueFlag 为 true 则 value input 组件成为焦点
    * */
-  React.useEffect(() => {
+  // eslint-disable-next-line exhaustive-deps
+  useEffect(() => {
     if (keyFlag) {
       keyRef.current?.focus();
       setKeyFlag(false);
@@ -54,7 +54,7 @@ export function useTableAdd(deps: React.DependencyList): {
       valueRef.current?.focus();
       setValueFlag(false);
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line exhaustive-deps
   }, deps);
   return {
     setKeyFlag: () => {

@@ -1,12 +1,12 @@
 import { InsertDriveFile } from '@mui/icons-material';
-import { Box, Chip, ChipProps } from '@mui/material';
+import { Box, Chip, type ChipProps } from '@mui/material';
 
 export interface FileUploadProps extends Omit<ChipProps, 'value' | 'onChange'> {
   value?: File | undefined | null;
   onChange?: (value: File | null) => void;
 }
 
-export default function FileUpload({ value, onChange, ...props }: FileUploadProps): JSX.Element {
+export default function FileUpload({ value, onChange, ...props }: FileUploadProps) {
   if (value) {
     return (
       <Chip

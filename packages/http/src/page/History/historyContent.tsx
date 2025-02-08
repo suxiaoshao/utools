@@ -7,12 +7,12 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import React from 'react';
-import { TagEntity } from '@http/database/entity/tag.entity';
+import type { TagEntity } from '@http/database/entity/tag.entity';
 import HistoryItem from './historyItem';
-import { HttpMethod } from '@http/utils/http/httpManager';
-import { HttpEntity } from '@http/database/entity/http.entity';
+import type { HttpMethod } from '@http/utils/http/httpManager';
+import type { HttpEntity } from '@http/database/entity/http.entity';
 import { useSqlData } from '@http/store/sqlStore';
-import { Box, BoxProps } from '@mui/material';
+import { Box, type BoxProps } from '@mui/material';
 
 /**
  * @author sushao
@@ -41,13 +41,7 @@ export interface HistoryContentProp extends BoxProps {
  * @since 0.2.2
  * @description historyContent 组件
  * */
-export default function HistoryContent({
-  searchName,
-  selectedTags,
-  method,
-  sx,
-  ...props
-}: HistoryContentProp): JSX.Element {
+export default function HistoryContent({ searchName, selectedTags, method, sx, ...props }: HistoryContentProp) {
   /**
    * 数据库数据
    * */
@@ -71,7 +65,7 @@ export default function HistoryContent({
     }
 
     // 筛选标签
-    if (selectedTags.length !== 0) {
+    if (selectedTags.length > 0) {
       filterHttp = filterHttp.filter((http) =>
         selectedTags.every((tag) => http.tags?.find((value) => value.tagId === tag.tagId)),
       );

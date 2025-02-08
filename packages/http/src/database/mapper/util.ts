@@ -1,4 +1,4 @@
-import { QueryExecResult } from 'sql.js';
+import type { QueryExecResult } from 'sql.js';
 import { database, saveToFile, updateByCookieTimeout, updateData } from './sql.main';
 
 /**
@@ -13,7 +13,7 @@ export function readFromQueryResult<T>(queryResult: QueryExecResult | undefined)
       const result: T = {} as T;
       value.forEach((value1, index) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         result[queryResult.columns[index]] = value1 ?? null;
       });
       return result;
@@ -40,7 +40,7 @@ export function execSql(sql: string): void {
  * @since 0.2.2
  * @description 发送 sql 语句给 sqlWorker运行,返回数据
  * */
-export async function execSqlAndReturn(sql: string): Promise<QueryExecResult[] | undefined> {
+export function execSqlAndReturn(sql: string): QueryExecResult[] | undefined {
   const results = database?.exec(sql);
   updateByCookieTimeout();
   updateData();

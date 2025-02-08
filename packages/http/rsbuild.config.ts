@@ -6,7 +6,7 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/http/rsbuild.config.ts
  */
 import { defineConfig } from '@rsbuild/core';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import {
   pluginReact,
   pluginBuildInstall,

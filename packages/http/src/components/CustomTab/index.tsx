@@ -6,7 +6,7 @@
  * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/components/Tab/index.tsx
  */
 import { Add } from '@mui/icons-material';
-import { Box, BoxProps, IconButton, Paper, PaperProps } from '@mui/material';
+import { Box, type BoxProps, IconButton } from '@mui/material';
 
 export interface CustomTabsProp extends BoxProps {
   onAdd?: () => void;

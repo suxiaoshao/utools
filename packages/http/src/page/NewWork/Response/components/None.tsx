@@ -1,7 +1,7 @@
 import { Paper, Box, Typography } from '@mui/material';
 import empty from '@http/assets/emptyResponse.svg';
 
-export default function None(): JSX.Element {
+export default function None() {
   return (
     <Paper
       sx={(theme) => ({
@@ -14,7 +14,7 @@ export default function None(): JSX.Element {
         flexDirection: 'column',
       })}
     >
-      <Box component={'img'} sx={{ width: '30vh', height: '30vh' }} src={empty} alt={''} />
+      <Box component="img" sx={{ width: '30vh', height: '30vh' }} src={empty} alt={''} />
       <Typography variant="h6">还未发送 http 请求</Typography>
     </Paper>
   );

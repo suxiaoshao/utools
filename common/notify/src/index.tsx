@@ -6,8 +6,13 @@
  * @FilePath: /utools/common/notify/src/index.tsx
  */
 import { IconButton } from '@mui/material';
-import { OptionsObject, SnackbarMessage, useSnackbar, SnackbarProvider as SourceSnackbarProvider } from 'notistack';
-import { ReactNode, useEffect, useRef } from 'react';
+import {
+  type OptionsObject,
+  type SnackbarMessage,
+  useSnackbar,
+  SnackbarProvider as SourceSnackbarProvider,
+} from 'notistack';
+import { type ReactNode, useEffect, useRef } from 'react';
 import { Subject } from 'rxjs';
 import { Close } from '@mui/icons-material';
 
@@ -27,7 +32,7 @@ function useSnackbarInit() {
     };
   }, [open]);
 }
-export function SnackbarProvider({ children }: { children: ReactNode }): JSX.Element {
+export function SnackbarProvider({ children }: { children: ReactNode }) {
   const ref = useRef<SourceSnackbarProvider>(null);
   function InnerUseComponent() {
     useSnackbarInit();

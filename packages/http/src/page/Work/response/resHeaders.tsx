@@ -9,7 +9,7 @@ import { CommonStyle } from '@http/hooks/useRestyle';
  * @since 0.2.2
  * @description 显示头部表格
  * */
-export default function ResHeaders(): JSX.Element {
+export default function ResHeaders() {
   const {
     response: { headers },
   } = React.useContext(ResponseContext);
