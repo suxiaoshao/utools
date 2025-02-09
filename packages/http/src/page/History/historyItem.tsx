@@ -16,9 +16,10 @@ import { useNavigate } from 'react-router-dom';
 import SaveHttp from '@http/components/httpSave/saveHttp';
 import { brown, green, grey, lightBlue, orange, purple, red } from '@mui/material/colors';
 import { HttpManager } from '@http/utils/http/httpManager';
-import { HttpEntity } from '@http/database/entity/http.entity';
-import { useAppDispatch } from '@http/app/hooks';
-import { updateActiveTab } from '@http/app/features/tabsSlice';
+import type { HttpEntity } from '@http/database/entity/http.entity';
+import { useTabsStore } from '@http/app/features/tabsSlice';
+import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 const Color = {
   DELETE: {
@@ -63,7 +64,7 @@ export interface HistoryItemProp {
  * @since 0.2.2
  * @description 二秘阁历史记录的组件
  * */
-export default function HistoryItem(props: HistoryItemProp): JSX.Element {
+export default function HistoryItem(props: HistoryItemProp) {
   /**
    * react-dom-router 的跳转函数
    * */
@@ -72,7 +73,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
    * 是否打开修改页面
    * */
   const [modifyOpen, setModifyOpen] = React.useState<boolean>(false);
-  const dispatch = useAppDispatch();
+  const updateActiveTab = useTabsStore(useShallow((state) => state.updateActiveTab));
   return (
     <>
       <Card sx={(theme) => ({ margin: `0 ${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(2)}` })}>
@@ -87,7 +88,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
           title={props.http.name}
           /** url */
           subheader={`${props.http.url}`}
-          subheaderTypographyProps={{ noWrap: true }}
+          slotProps={{ subheader: { noWrap: true } }}
           sx={{
             '& .MuiCardHeader-content': {
               maxWidth: `calc(100% - ${56}px)`,
@@ -96,28 +97,30 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
         />
         {/* http 保存的标签 */}
         <CardContent>
-          {props.http.tags?.length ? (
-            props.http.tags?.map((value) => (
-              <Chip
-                color={'primary'}
-                sx={(theme) => ({ margin: `${theme.spacing(0.5)} ${theme.spacing(1)}` })}
-                key={value.tagId}
-                label={value.tagName}
-              />
+          {match(props.http.tags?.length)
+            .with(0, () => (
+              <Typography variant="body2" color="textSecondary">
+                该 http 请求没有标签
+              </Typography>
             ))
-          ) : (
-            <Typography variant={'body2'} color={'textSecondary'}>
-              该 http 请求没有标签
-            </Typography>
-          )}
+            .otherwise(() =>
+              props.http.tags?.map((value) => (
+                <Chip
+                  color="primary"
+                  sx={(theme) => ({ margin: `${theme.spacing(0.5)} ${theme.spacing(1)}` })}
+                  key={value.tagId}
+                  label={value.tagName}
+                />
+              )),
+            )}
         </CardContent>
         <CardActions disableSpacing>
           {/* 添加至工作区 */}
-          <Tooltip title={<Typography variant={'body2'}>添加至工作区</Typography>}>
+          <Tooltip title={<Typography variant="body2">添加至工作区</Typography>}>
             <IconButton
               onClick={() => {
                 const index = httpArray.addFromHttpManager(HttpManager.fromEntity(props.http));
-                dispatch(updateActiveTab(index));
+                updateActiveTab(index);
                 myHistory({ pathname: '/' });
               }}
             >
@@ -125,7 +128,7 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
             </IconButton>
           </Tooltip>
           {/* 打开修改窗口 */}
-          <Tooltip title={<Typography variant={'body2'}>修改</Typography>}>
+          <Tooltip title={<Typography variant="body2">修改</Typography>}>
             <IconButton
               onClick={() => {
                 setModifyOpen(true);
@@ -135,10 +138,10 @@ export default function HistoryItem(props: HistoryItemProp): JSX.Element {
             </IconButton>
           </Tooltip>
           {/* 删除该 http历史 */}
-          <Tooltip title={<Typography variant={'body2'}>删除</Typography>}>
+          <Tooltip title={<Typography variant="body2">删除</Typography>}>
             <IconButton
               sx={{ marginLeft: 'auto' }}
-              onClick={async () => {
+              onClick={() => {
                 props.http.delete();
               }}
             >

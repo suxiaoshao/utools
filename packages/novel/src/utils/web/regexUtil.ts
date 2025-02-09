@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-11-10 19:00:19
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/utils/web/regexUtil.ts
  */
-import { RegexConfig } from '@novel/types/config';
+import type { RegexConfig } from '@novel/types/config';
 export class RegexUtil {
   private config: RegexConfig;
 

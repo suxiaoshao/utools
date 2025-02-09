@@ -7,11 +7,12 @@ import { Loading } from '@novel/components/common/loading';
 import { useActiveConfig } from '@novel/hooks/data/useActiveConfig';
 import ChapterLink from '@novel/components/common/chapterLink';
 import { Star, StarBorder } from '@mui/icons-material';
-import { ReadRecord, TotalDataBuild } from '@novel/utils/data/totalData';
+import { type ReadRecord, TotalDataBuild } from '@novel/utils/data/totalData';
 import { useIsStar } from '@novel/hooks/data/useIsStar';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
+import { match } from 'ts-pattern';
 
-export default function NovelPage(): JSX.Element {
+export default function NovelPage() {
   /**
    * 小说 id
    * */
@@ -35,15 +36,14 @@ export default function NovelPage(): JSX.Element {
       if (activeConfig && novelId) {
         const novel = new NovelInfo(activeConfig);
         return await novel.getDirectoryAndInfo(novelId);
-      } else {
-        throw new Error('参数错误');
       }
+      throw new Error('参数错误');
     },
     undefined,
     [activeConfig?.mainPageUrl, novelId],
   );
   React.useEffect(() => {
-    fn().then();
+    fn();
   }, [fn]);
   return (
     <Loading state={{ ...state, retry: fn }}>
@@ -61,7 +61,11 @@ export default function NovelPage(): JSX.Element {
             title={state.value.name}
             subheader={state.value.author}
             action={
-              <Tooltip title={isStar ? '取消收藏' : '收藏'}>
+              <Tooltip
+                title={match(isStar)
+                  .with(true, () => '取消收藏')
+                  .otherwise(() => '收藏')}
+              >
                 <IconButton
                   onClick={() => {
                     const totalData = TotalDataBuild.getTotalData();
@@ -82,7 +86,11 @@ export default function NovelPage(): JSX.Element {
                     getIsStar();
                   }}
                 >
-                  {isStar ? <Star /> : <StarBorder />}
+                  {match(isStar)
+                    .with(true, () => <Star />)
+                    .otherwise(() => (
+                      <StarBorder />
+                    ))}
                 </IconButton>
               </Tooltip>
             }
@@ -91,11 +99,11 @@ export default function NovelPage(): JSX.Element {
             <Typography variant="body2" component="p" gutterBottom>
               {state.value.desc}
             </Typography>
-            <Typography color={'textSecondary'}>
+            <Typography color="textSecondary">
               最后一章 :{' '}
               <ChapterLink chapter={state.value.latestChapter} novelId={novelId} url={activeConfig.mainPageUrl} />
             </Typography>
-            <Typography gutterBottom color={'textSecondary'}>
+            <Typography gutterBottom color="textSecondary">
               最后更新时间 : {state.value.lastUpdateTime}
             </Typography>
             <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>

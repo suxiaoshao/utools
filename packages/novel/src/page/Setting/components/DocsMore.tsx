@@ -14,7 +14,7 @@ import { Comment, Description, GitHub, NearMe, Person } from '@mui/icons-materia
 import { blueGrey } from '@mui/material/colors';
 import { settingSx } from './themeEdit/themeEdit';
 
-export default function DocsMore(): JSX.Element {
+export default function DocsMore() {
   return (
     <Card sx={settingSx.card}>
       <CardHeader
@@ -23,16 +23,16 @@ export default function DocsMore(): JSX.Element {
             <Description />
           </Avatar>
         }
-        title={'关于'}
+        title="关于"
       />
       <List>
         <ListItem>
           <ListItemIcon>
             <Person />
           </ListItemIcon>
-          <ListItemText primary={'作者'} secondary={'sushao'} />
+          <ListItemText primary="作者" secondary="sushao" />
           <ListItemSecondaryAction>
-            <Tooltip title={'打开作者 github'}>
+            <Tooltip title="打开作者 github">
               <IconButton
                 onClick={() => {
                   utools.shellOpenExternal('https://github.com/suxiaoshao');
@@ -47,8 +47,8 @@ export default function DocsMore(): JSX.Element {
           <ListItemIcon>
             <GitHub />
           </ListItemIcon>
-          <ListItemText primary={'github'} secondary={'https://github.com/suxiaoshao/utools-novel-reader'} />
-          <Tooltip title={'打开插件 github'}>
+          <ListItemText primary="github" secondary="https://github.com/suxiaoshao/utools-novel-reader" />
+          <Tooltip title="打开插件 github">
             <IconButton
               onClick={() => {
                 utools.shellOpenExternal('https://github.com/suxiaoshao/utools-novel-reader');
@@ -62,8 +62,8 @@ export default function DocsMore(): JSX.Element {
           <ListItemIcon>
             <Comment />
           </ListItemIcon>
-          <ListItemText primary={'交流地址'} secondary={'https://yuanliao.info/d/1392'} />
-          <Tooltip title={'打开插件交流贴'}>
+          <ListItemText primary="交流地址" secondary="https://yuanliao.info/d/1392" />
+          <Tooltip title="打开插件交流贴">
             <IconButton
               onClick={() => {
                 utools.shellOpenExternal('https://yuanliao.info/d/1392');

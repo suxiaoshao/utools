@@ -1,6 +1,7 @@
 import React from 'react';
-import { Chip, ChipProps, Menu, MenuItem, TextField } from '@mui/material';
-import { TagEntity } from '@http/database/entity/tag.entity';
+import { Chip, type ChipProps, Menu, MenuItem, TextField } from '@mui/material';
+import type { TagEntity } from '@http/database/entity/tag.entity';
+import { match, P } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -30,7 +31,7 @@ export interface TagItemProp extends ChipProps {
  * @since 0.2.2
  * @description tagItem 显示组件
  * */
-export default function TagItem({ tagEntity, icon, onClick, ...props }: TagItemProp): JSX.Element {
+export default function TagItem({ tagEntity, icon, onClick, ...props }: TagItemProp) {
   /**
    * menu 的位置信息,不显示时为 null
    * */
@@ -64,9 +65,12 @@ export default function TagItem({ tagEntity, icon, onClick, ...props }: TagItemP
     <>
       <Chip
         {...props}
-        color={newName === null ? 'primary' : undefined}
-        label={
-          newName !== null ? (
+        color={match(newName)
+          .with(null, () => 'primary' as const)
+          .otherwise(() => undefined)}
+        label={match(newName)
+          .with(null, () => tagEntity.tagName)
+          .otherwise(() => (
             /**
              * 重命名输入框,按下回车和输入框不再成为焦点时保存
              * */
@@ -84,14 +88,13 @@ export default function TagItem({ tagEntity, icon, onClick, ...props }: TagItemP
                 }
               }}
               error={newName === ''}
-              helperText={newName === '' ? '新名字不可为空' : undefined}
+              helperText={match(newName)
+                .with('', () => '新名字不可为空')
+                .otherwise(() => undefined)}
               inputRef={inputRef}
             />
-          ) : (
-            tagEntity.tagName
-          )
-        }
-        onDelete={async () => {
+          ))}
+        onDelete={() => {
           onClick();
         }}
         onContextMenu={(event) => {
@@ -108,7 +111,9 @@ export default function TagItem({ tagEntity, icon, onClick, ...props }: TagItemP
       />
       <Menu
         anchorReference="anchorPosition"
-        anchorPosition={menuPosition !== null ? { top: menuPosition.mouseY, left: menuPosition.mouseX } : undefined}
+        anchorPosition={match(menuPosition)
+          .with(P.nullish, () => undefined)
+          .otherwise((menuPosition) => ({ top: menuPosition.mouseY, left: menuPosition.mouseX }))}
         open={menuPosition !== null}
         onClose={() => {
           setMenuPosition(null);

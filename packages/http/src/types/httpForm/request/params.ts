@@ -1,4 +1,4 @@
-import { OptionItem } from '../common';
+import type { OptionItem } from '../common';
 
 export interface RequestParams extends OptionItem {
   key: string;

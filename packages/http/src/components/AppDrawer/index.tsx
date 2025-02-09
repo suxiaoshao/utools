@@ -1,6 +1,8 @@
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, Paper } from '@mui/material';
+import { Box, List, ListItemButton, ListItemIcon, ListItemText, Paper, type Theme } from '@mui/material';
 import { AvTimer, History, MonetizationOn, NetworkCheck } from '@mui/icons-material';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
+import type { JSX } from 'react';
+import { match } from 'ts-pattern';
 
 const listWidth = 170;
 
@@ -45,16 +47,14 @@ function RouterListItem(props: RouterListItemProp) {
         myHistory(props.path);
       }}
       selected={myLocation.pathname === props.path}
-      sx={
-        myLocation.pathname === props.path
-          ? (theme) => ({
-              color: theme.palette.info.light,
-              '& > *': {
-                color: theme.palette.info.light,
-              },
-            })
-          : undefined
-      }
+      sx={match(myLocation.pathname === props.path)
+        .with(true, () => () => ({
+          color: (theme: Theme) => theme.palette.info.light,
+          '& > *': {
+            color: (theme: Theme) => theme.palette.info.light,
+          },
+        }))
+        .otherwise(() => undefined)}
     >
       <ListItemIcon>{props.icon}</ListItemIcon>
       <ListItemText>{props.text}</ListItemText>
@@ -68,15 +68,15 @@ function RouterListItem(props: RouterListItemProp) {
  * @since 0.2.2
  * @description 侧边栏组件
  * */
-export default function AppDrawer(): JSX.Element {
+export default function AppDrawer() {
   return (
     <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>
       <List sx={{ flex: `0 0 ${listWidth}px` }} component={Paper} square elevation={1}>
-        <RouterListItem path="/" icon={<NetworkCheck />} text={'工作区'} />
-        <RouterListItem path="/new_work" icon={<NetworkCheck />} text={'新工作区'} />
-        <RouterListItem icon={<History />} text={'历史记录'} path={'/history'} />
-        <RouterListItem icon={<AvTimer />} text={'cookies'} path={'/cookies'} />
-        <RouterListItem icon={<MonetizationOn />} text={'支持作者'} path={'/sponsorship'} />
+        <RouterListItem path="/" icon={<NetworkCheck />} text="工作区" />
+        <RouterListItem path="/new_work" icon={<NetworkCheck />} text="新工作区" />
+        <RouterListItem icon={<History />} text="历史记录" path="/history" />
+        <RouterListItem icon={<AvTimer />} text="cookies" path="/cookies" />
+        <RouterListItem icon={<MonetizationOn />} text="支持作者" path="/sponsorship" />
       </List>
       <Box
         component="main"

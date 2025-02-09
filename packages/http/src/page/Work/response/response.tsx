@@ -2,37 +2,16 @@ import React from 'react';
 import { TabPanelDisappear } from '@http/components/TabPanel';
 import ResToggle from './resToggle';
 import ResHeaders from './resHeaders';
-import { HttpContext } from '../workPanel';
-import { HttpResponse } from '@http/utils/http/httpResponse';
-import { NoneFunc, useForceUpdate } from '@http/hooks/useForceUpdate';
+import { HttpContext } from '../HttpContext';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { Backdrop, Button, LinearProgress } from '@mui/material';
 import ResBody from './resBody/resBody';
 import NoneRes from './noneRes';
 import ResCookie from './resCookie';
 import ErrorPage from './errorPage';
 import { CommonStyle } from '@http/hooks/useRestyle';
-
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description response 数据的上下文
- * */
-export const ResponseContext = React.createContext<{
-  /**
-   * http 的 response 数据
-   * */
-  response: HttpResponse;
-  /**
-   * 更新
-   * */
-  fatherUpdate: NoneFunc;
-}>({
-  response: HttpResponse.getNewResponseContent(),
-  fatherUpdate() {
-    /**  */
-  },
-});
+import { match } from 'ts-pattern';
+import { ResponseContext } from './ResponseContext';
 
 /**
  * @author sushao
@@ -45,7 +24,7 @@ function ResponseProvider(props: {
    * 子组件
    * */
   children: React.ReactNode;
-}): JSX.Element {
+}) {
   const {
     httpManager: { response },
   } = React.useContext(HttpContext);
@@ -68,7 +47,7 @@ function ResponseFather(props: {
    * 子组件
    * */
   children: React.ReactNode;
-}): JSX.Element {
+}) {
   const {
     httpManager: { isRequest },
   } = React.useContext(HttpContext);
@@ -87,7 +66,7 @@ function ResponseFather(props: {
  * @since 0.2.2
  * @description response 组件
  * */
-export default function Response(): JSX.Element {
+export default function Response() {
   /**
    * 激活部分标记
    * */
@@ -132,47 +111,35 @@ export default function Response(): JSX.Element {
       </ResponseFather>
     );
   }
-  switch (contentType) {
-    case 'none':
-      /**
-       * 显示空页面
-       * */
-      return (
-        <ResponseFather>
-          <NoneRes />
-        </ResponseFather>
-      );
-    case 'error':
-      /**
-       * 显示错误页面
-       * */
-      return (
-        <ResponseFather>
-          <ErrorPage />
-        </ResponseFather>
-      );
-    default:
-      /**
-       * 显示成功页面
-       * */
-      return (
-        <ResponseFather>
-          <ResToggle
-            value={value}
-            onchangeValue={(newValue) => {
-              setValue(newValue);
-            }}
-          />
-          <TabPanelDisappear index={'body'} value={value} sx={CommonStyle.page}>
-            <ResBody />
-          </TabPanelDisappear>
-          <TabPanelDisappear index={'cookies'} value={value} sx={CommonStyle.page}>
-            <ResCookie />
-          </TabPanelDisappear>
-          <TabPanelDisappear index={'headers'} value={value} sx={CommonStyle.page}>
-            <ResHeaders />
-          </TabPanelDisappear>
-        </ResponseFather>
-      );
-  }
+
+  return match(contentType)
+    .with('none', () => (
+      <ResponseFather>
+        <NoneRes />
+      </ResponseFather>
+    ))
+    .with('error', () => (
+      <ResponseFather>
+        <ErrorPage />
+      </ResponseFather>
+    ))
+    .otherwise(() => (
+      <ResponseFather>
+        <ResToggle
+          value={value}
+          onchangeValue={(newValue) => {
+            setValue(newValue);
+          }}
+        />
+        <TabPanelDisappear index="body" value={value} sx={CommonStyle.page}>
+          <ResBody />
+        </TabPanelDisappear>
+        <TabPanelDisappear index="cookies" value={value} sx={CommonStyle.page}>
+          <ResCookie />
+        </TabPanelDisappear>
+        <TabPanelDisappear index="headers" value={value} sx={CommonStyle.page}>
+          <ResHeaders />
+        </TabPanelDisappear>
+      </ResponseFather>
+    ));
 }

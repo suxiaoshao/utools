@@ -6,17 +6,18 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/http/rsbuild.config.ts
  */
 import { defineConfig } from '@rsbuild/core';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import {
   pluginReact,
   pluginBuildInstall,
   pluginPackUpx,
   pluginServerConfig,
-  pluginLightningcss,
   codeInspectorPlugin,
   RsdoctorRspackPlugin,
 } from 'build';
+import { pluginBabel } from '@rsbuild/plugin-babel';
 import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
+
 export default defineConfig({
   plugins: [
     pluginReact(),
@@ -24,7 +25,12 @@ export default defineConfig({
     pluginPackUpx('http'),
     pluginServerConfig(),
     pluginNodePolyfill(),
-    pluginLightningcss(),
+    pluginBabel({
+      include: /\.(?:jsx|tsx)$/,
+      babelLoaderOptions(opts) {
+        opts.plugins?.unshift('babel-plugin-react-compiler');
+      },
+    }),
   ],
   server: {
     port: 8083,

@@ -1,4 +1,4 @@
-import { RequestBodyChoose, RequestTextChoose } from '../../utils/http/httpRequest';
+import type { RequestBodyChoose, RequestTextChoose } from '../../utils/http/httpRequest';
 import { execSql, execSqlAndReturn, readFromQueryResult } from '../mapper/util';
 
 export interface RequestProp {
@@ -54,21 +54,20 @@ export class RequestEntity {
     execSql(`delete from request where requestId=${this.requestId}`);
   }
 
-  public async save(): Promise<void> {
-    if (this.requestId !== null) {
-      // 原先已保存过只要更新
-      execSql(
-        `update request set bodyChoose='${this.bodyChoose}',textChoose='${this.textChoose}',text='${this.text}',dataForms='${this.dataForms}',xForms='${this.xForms}',headers='${this.headers}'where requestId=${this.requestId};`,
-      );
-    } else {
-      const results =
-        await execSqlAndReturn(`insert into request(bodyChoose, textChoose, text, dataForms, xForms, headers)
+  public save() {
+    if (this.requestId === null) {
+      const results = execSqlAndReturn(`insert into request(bodyChoose, textChoose, text, dataForms, xForms, headers)
              VALUES ('${this.bodyChoose}', '${this.textChoose}', '${this.text}', '${this.dataForms}', '${this.xForms}', '${this.headers}');
              select max(requestId) as count from request;`);
       if (results) {
         const [{ count }] = readFromQueryResult<{ count: number }>(results[0]);
         this.requestId = count;
       }
+    } else {
+      // 原先已保存过只要更新
+      execSql(
+        `update request set bodyChoose='${this.bodyChoose}',textChoose='${this.textChoose}',text='${this.text}',dataForms='${this.dataForms}',xForms='${this.xForms}',headers='${this.headers}'where requestId=${this.requestId};`,
+      );
     }
   }
 }

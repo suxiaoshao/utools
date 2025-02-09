@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-12-31 16:14:34
  * @FilePath: /utools/packages/http/src/components/CustomSelector.tsx
  */
-import { Button, ButtonProps, Menu, MenuItem } from '@mui/material';
+import { Button, type ButtonProps, Menu, MenuItem } from '@mui/material';
 import React from 'react';
 
 /**
@@ -46,12 +46,17 @@ export interface CustomSelectorProp<T extends number | string | undefined | null
    * 修改值的触发方法
    * */
   onChange(newValue: T): void;
+  ref?: ((instance: HTMLButtonElement | null) => void) | React.RefObject<HTMLButtonElement> | null | undefined;
 }
 
-function CustomSelector<T extends number | string | undefined | null>(
-  { sx, itemList, value, onChange: onValueChange, ...props }: CustomSelectorProp<T>,
-  ref?: ((instance: HTMLButtonElement | null) => void) | React.RefObject<HTMLButtonElement> | null | undefined,
-): JSX.Element {
+function CustomSelector<T extends number | string | undefined | null>({
+  sx,
+  itemList,
+  value,
+  onChange: onValueChange,
+  ref,
+  ...props
+}: CustomSelectorProp<T>) {
   /**
    * 点击时间的触发组件,如果取消的话为 null
    * */
@@ -65,7 +70,7 @@ function CustomSelector<T extends number | string | undefined | null>(
         onClick={(e) => {
           setMenuEl(e.currentTarget);
         }}
-        ref={typeof ref === 'function' ? ref : undefined}
+        ref={ref}
       >
         {itemList.find((item) => item.value === value)?.text ?? '不是合法的值'}
       </Button>
@@ -82,7 +87,7 @@ function CustomSelector<T extends number | string | undefined | null>(
            * 点击触发修改方法并关闭菜单
            * */
           <MenuItem
-            selected={item.value == value}
+            selected={item.value === value}
             key={item.value}
             onClick={() => {
               onValueChange(item.value);
@@ -97,4 +102,4 @@ function CustomSelector<T extends number | string | undefined | null>(
   );
 }
 
-export default React.forwardRef(CustomSelector) as typeof CustomSelector;
+export default CustomSelector;

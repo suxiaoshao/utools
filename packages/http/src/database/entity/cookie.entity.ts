@@ -1,5 +1,5 @@
-import { Cookie } from '@http/utils/http/cookie';
 import { execSql } from '../mapper/util';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -66,6 +66,10 @@ export class CookieEntity {
    * @description 冲数据库中原始对象获取 cookieEntity
    * */
   public static from(cookieProp: CookieProp): CookieEntity {
+    const expires = match(cookieProp.expires)
+      .with(null, () => null)
+      .otherwise((expires) => new Date(expires));
+
     return new CookieEntity(
       cookieProp.domain,
       cookieProp.path,
@@ -73,7 +77,7 @@ export class CookieEntity {
       cookieProp.value,
       cookieProp.createTime,
       cookieProp.maxAge,
-      cookieProp.expires ? new Date(cookieProp.expires) : null,
+      expires,
     );
   }
 
@@ -101,24 +105,18 @@ export class CookieEntity {
    * @author sushao
    * @version 0.2.2
    * @since 0.2.2
-   * @description 转化为 http 中的 cookie
-   * */
-  public toCookie(): Cookie {
-    return new Cookie(this.name, this.value, this.domain, this.path, this.createTime, this.maxAge, this.expires);
-  }
-
-  /**
-   * @author sushao
-   * @version 0.2.2
-   * @since 0.2.2
    * @description 保存这个 cookie 到数据库
    * */
   public save(): void {
     this.delete();
+    const expiresString = match(this.expires)
+      .with(null, () => null)
+      .otherwise((expires) => `'${expires.toISOString()}'`);
+
     execSql(`insert into cookie(domain, path, name, value, createTime, maxAge, expires)
             VALUES ('${this.domain}', '${this.path}', '${this.name}', '${this.value}', ${this.createTime}, ${
               this.maxAge
-            }, ${this.expires ? `'${this.expires.toISOString()}'` : null});`);
+            }, ${expiresString});`);
   }
 
   /**
@@ -127,9 +125,9 @@ export class CookieEntity {
    * @since 0.2.2
    * @description 保存多个 cookies 到数据库
    * */
-  public static async saves(cookieEntities: CookieEntity[]): Promise<void> {
+  public static saves(cookieEntities: CookieEntity[]) {
     for (const cookieEntity of cookieEntities) {
-      await cookieEntity.save();
+      cookieEntity.save();
     }
   }
 }

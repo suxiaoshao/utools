@@ -1,6 +1,6 @@
 import { sqlStore } from '@http/store/sqlStore';
 import { getDataFile } from '@http/utils/update/localPath';
-import sqlInit, { Database } from 'sql.js';
+import sqlInit, { type Database } from 'sql.js';
 
 export let database: Database | undefined = undefined;
 
@@ -73,7 +73,7 @@ export function initDatabaseTable(): void {
 }
 
 export function updateByCookieTimeoutAndSession(): void {
-  database?.exec(`delete 
+  database?.exec(`delete
        from cookie
        where (maxAge IS NOT NULL and (maxAge * 1000 + cookie.createTime) < ${Date.now()})
           or (expires is not null and expires < '${new Date(
@@ -82,14 +82,14 @@ export function updateByCookieTimeoutAndSession(): void {
 }
 
 export function updateByCookieTimeout(): void {
-  database?.exec(`delete 
+  database?.exec(`delete
        from cookie
        where (maxAge IS NOT NULL and (maxAge * 1000 + cookie.createTime) < ${Date.now()})
           or (expires is not null and expires < '${new Date(Date.now()).toISOString()}' and maxAge is null );`);
 }
 
 export function updateData(): void {
-  database?.exec(`delete 
+  database?.exec(`delete
        from cookie
        where (maxAge IS NOT NULL and (maxAge * 1000 + cookie.createTime) < ${Date.now()})
           or (expires is not null and expires < '${new Date(Date.now()).toISOString()}' and maxAge is null );`);

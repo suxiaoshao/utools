@@ -4,32 +4,10 @@ import Params from './params';
 import ReqHeaders from './reqHeaders';
 import ReqBody from './reqBody/reqBody';
 import { TabPanelDisappear } from '@http/components/TabPanel';
-import { HttpContext } from '../workPanel';
-import { HttpRequest } from '@http/utils/http/httpRequest';
-import { NoneFunc, useForceUpdate } from '@http/hooks/useForceUpdate';
+import { HttpContext } from '../HttpContext';
+import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { CommonStyle } from '@http/hooks/useRestyle';
-
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description request 数据的上下文
- * */
-export const RequestContext = React.createContext<{
-  /**
-   * request 数据
-   * */
-  request: HttpRequest;
-  /**
-   * request 注入器组件的强制更新
-   * */
-  fatherUpdate: NoneFunc;
-}>({
-  request: HttpRequest.getNewRequestContent(),
-  fatherUpdate() {
-    /**  */
-  },
-});
+import { RequestContext } from './RequestContext';
 
 /**
  * @author sushao
@@ -42,7 +20,7 @@ function RequestProvider(props: {
    * 子组件
    * */
   children: React.ReactNode;
-}): JSX.Element {
+}) {
   const {
     httpManager: { request },
   } = React.useContext(HttpContext);
@@ -60,7 +38,7 @@ function RequestProvider(props: {
  * @since 0.2.2
  * @description request 组件,用于修改 request 的数据
  * */
-export default function Request(): JSX.Element {
+export default function Request() {
   /**
    * 显示的页面的名字
    * */
@@ -77,7 +55,7 @@ export default function Request(): JSX.Element {
             setValue(newValue);
           }}
         />
-        <TabPanelDisappear sx={CommonStyle.page} index={'params'} value={value}>
+        <TabPanelDisappear sx={CommonStyle.page} index="params" value={value}>
           <Params />
         </TabPanelDisappear>
         <TabPanelDisappear sx={CommonStyle.page} value={value} index="headers">

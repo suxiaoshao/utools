@@ -7,7 +7,8 @@
 import React, { useEffect } from 'react';
 import './model';
 import { editor } from 'monaco-editor';
-import { Box, BoxProps, useTheme } from '@mui/material';
+import { Box, type BoxProps, useTheme } from '@mui/material';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -33,7 +34,7 @@ export interface NotReadOnlyEditProp extends BoxProps {
  * @since 0.2.2
  * @description 编辑器组件
  * */
-export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEditProp): JSX.Element {
+export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEditProp) {
   /**
    * 编辑器绑定的 dom 的引用
    * */
@@ -41,7 +42,7 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
   /**
    * 编辑器实体
    * */
-  const [edit, setEdit] = React.useState<editor.IStandaloneCodeEditor | undefined>(undefined);
+  const [edit, setEdit] = React.useState<editor.IStandaloneCodeEditor | undefined>();
   const theme = useTheme();
   /**
    * 编辑器要绑定的 dom 生成时,再这个 dom 上新建一个编辑器,并赋值给 edit
@@ -49,10 +50,13 @@ export default function Edit({ sx, code, onChangeCode, ...props }: NotReadOnlyEd
   useEffect(() => {
     if (editRef !== undefined && edit === undefined && editRef.firstChild === null) {
       while (editRef.firstChild) {
+        // eslint-disable-next-line prefer-dom-node-remove
         editRef.removeChild(editRef.firstChild);
       }
       const newEditor = editor.create(editRef, {
-        theme: theme.palette.mode === 'dark' ? 'vs-dark' : undefined,
+        theme: match(theme.palette.mode)
+          .with('dark', () => 'vs-dark' as const)
+          .otherwise(() => undefined),
         automaticLayout: true,
         fontSize: 16,
         minimap: {

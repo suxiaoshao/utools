@@ -83,9 +83,8 @@ export class RequestUploadFile implements UploadFileProps {
     if (this.isFile && this.fileExists()) {
       const buffer = window.nodeFs.readFileSync(this.path ?? '');
       return new Blob([new Uint8Array(buffer)]);
-    } else {
-      return this.value;
     }
+    return this.value;
   }
 
   /**

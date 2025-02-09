@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
-import { FontSize } from '@novel/app/font/fontSlice';
+import type { FontSize } from '@novel/app/font/fontSlice';
 
 export interface FontSizeTypoProp {
   fontSize: FontSize;
 }
 
-export default function FontSizeTypo(props: FontSizeTypoProp): JSX.Element {
+export default function FontSizeTypo(props: FontSizeTypoProp) {
   return (
     <Typography
       sx={{

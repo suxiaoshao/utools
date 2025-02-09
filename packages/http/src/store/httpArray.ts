@@ -1,6 +1,6 @@
 import { Store } from './classStore';
 import { HttpManager } from '../utils/http/httpManager';
-import { HttpEntity } from '../database/entity/http.entity';
+import type { HttpEntity } from '../database/entity/http.entity';
 
 /**
  * @author sushao
@@ -68,11 +68,10 @@ export class HttpArray extends Store<HttpManager[]> {
     const index = this.data.findIndex((value) => value.httpId === httpManager.httpId);
     if (index !== -1) {
       return index;
-    } else {
-      const newHttp = httpManager.clone();
-      this.setData([...this.data, newHttp]);
-      return this.data.length - 1;
     }
+    const newHttp = httpManager.clone();
+    this.setData([...this.data, newHttp]);
+    return this.data.length - 1;
   }
 
   /**

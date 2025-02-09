@@ -12,28 +12,28 @@ import BasicInfo from './components/BasicInfo';
 import SearchForm from './components/SearchForm';
 import NovelForm from './components/NovelForm';
 import ChapterForm from './components/ChapterForm';
-import { TotalConfig, configSchema } from './const';
+import { type TotalConfig, configSchema } from './const';
 import { createPortal } from 'react-dom';
 import { Toolbar } from './components/Toolbar';
 import useCheckDomElement from '@novel/hooks/useCheckDomElement';
 import { useCallback } from 'react';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
-import { useAppDispatch } from '@novel/app/hooks';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
-import { initConfig } from '@novel/app/config/configSlice';
+import { useConfigStore } from '@novel/app/config/configSlice';
 import { enqueueSnackbar } from 'notify';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * 编辑源配置
  * */
-export default function EditConfig(): JSX.Element {
+export default function EditConfig() {
   const methods = useForm<TotalConfig>({
     resolver: valibotResolver(configSchema),
     mode: 'all',
   });
   const container = useCheckDomElement('#breadcrumbs');
-  const dispatch = useAppDispatch();
   const navigate = useCustomNavigate();
+  const initConfig = useConfigStore(useShallow(({ initConfig }) => initConfig));
   const onSubmit = useCallback(
     (data: TotalConfig) => {
       const totalData = TotalDataBuild.getTotalData();
@@ -44,10 +44,10 @@ export default function EditConfig(): JSX.Element {
         });
       } else {
         navigate('', { tag: 'goBack', data: 1 });
-        dispatch(initConfig());
+        initConfig();
       }
     },
-    [dispatch, navigate],
+    [navigate, initConfig],
   );
   const handleSubmit = methods.handleSubmit(onSubmit);
 

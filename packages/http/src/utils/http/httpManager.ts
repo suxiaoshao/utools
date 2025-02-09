@@ -1,8 +1,9 @@
-import axios, { AxiosError, AxiosResponse, CancelTokenSource } from 'axios';
+// eslint-disable no-console
+import axios, { type AxiosError, type AxiosResponse, type CancelTokenSource } from 'axios';
 import { HttpResponse } from './httpResponse';
-import { HttpRequest } from './httpRequest';
 import { HttpEntity } from '@http/database/entity/http.entity';
-import { TagEntity } from '@http/database/entity/tag.entity';
+import type { TagEntity } from '@http/database/entity/tag.entity';
+import { HttpRequest } from './httpRequest';
 
 axios.defaults.withCredentials = true;
 
@@ -103,6 +104,7 @@ export class HttpManager {
     const startTime = Date.now();
     this.response.url = this.url;
     this.response.contentType = 'none';
+    // eslint-disable-next-line no-named-as-default-member
     this.tokenSource = axios.CancelToken.source();
     /**
      * 发送
@@ -112,7 +114,7 @@ export class HttpManager {
       url: this.url,
       responseType: 'arraybuffer',
       cancelToken: this.tokenSource.token,
-      ...(await this.request.getHeaderAndData(this.url)),
+      ...this.request.getHeaderAndData(this.url),
     })
       .then((e: AxiosResponse<ArrayBuffer>) => {
         /**
@@ -121,28 +123,33 @@ export class HttpManager {
         console.log(e);
         this.response.setData(e.headers, this.url, e.data, startTime, Date.now());
       })
-      .catch((e: AxiosError<ArrayBuffer>) => {
-        if (e.response) {
+      .catch((error: AxiosError<ArrayBuffer>) => {
+        if (error.response) {
           /**
            * 异常,但是已经取到 response 数据
            * */
-          console.log(e.response);
-          console.log(e.message);
-          this.response.setData(e.response.headers, this.url, e.response.data, startTime, Date.now());
+          console.log(error.response);
+          console.log(error.message);
+          this.response.setData(error.response.headers, this.url, error.response.data, startTime, Date.now());
         } else {
           /**
            * 异常,为获取 response 数据
            * */
-          console.log(e.message);
+          console.log(error.message);
           const encode = new TextEncoder();
-          this.response.setData({}, this.url, encode.encode(e.message), startTime, Date.now());
+          this.response.setData(
+            {},
+            this.url,
+            encode.encode(error.message).buffer as ArrayBuffer,
+            startTime,
+            Date.now(),
+          );
           this.response.contentType = 'error';
         }
-        return e.message;
+        return error.message;
       })
-      .finally((value: void | string) => {
+      .finally(() => {
         this.tokenSource = undefined;
-        return value;
       });
   }
 

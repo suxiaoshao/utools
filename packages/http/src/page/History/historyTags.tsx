@@ -1,7 +1,7 @@
-import React from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 import { useAllTags } from '@http/hooks/useAllTags';
-import { TagEntity } from '@http/database/entity/tag.entity';
+import type { TagEntity } from '@http/database/entity/tag.entity';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -27,7 +27,7 @@ export interface HistoryTagsProp {
  * @since 0.2.2
  * @description historyTags 组件
  * */
-export default function HistoryTags(props: HistoryTagsProp): JSX.Element {
+export default function HistoryTags(props: HistoryTagsProp) {
   /**
    * 数据库中所有的 tags
    * */
@@ -58,7 +58,9 @@ export default function HistoryTags(props: HistoryTagsProp): JSX.Element {
             }}
             key={value.tagId}
             label={value.tagName}
-            color={props.selectedTags.some((value1) => value1.tagId === value.tagId) ? 'primary' : undefined}
+            color={match(props.selectedTags.some((value1) => value1.tagId === value.tagId))
+              .with(true, () => 'primary' as const)
+              .otherwise(() => undefined)}
           />
         ))}
       </Box>

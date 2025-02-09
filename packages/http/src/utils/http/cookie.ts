@@ -1,4 +1,5 @@
 import { CookieEntity } from '@http/database/entity/cookie.entity';
+import { match } from 'ts-pattern';
 
 export class Cookie {
   name: string;
@@ -53,42 +54,42 @@ export class Cookie {
         };
       })
       .filter((value) => value.value !== undefined && value.name !== undefined) as { value: string; name: string }[];
-    const match = url.split('?')[0].match(/https?:\/\/(?<domain>[^/]+)(?<path>\/.+)$/);
-    let domain: string = match?.groups?.domain ?? '';
+    const matchData = url.split('?')[0].match(/https?:\/\/(?<domain>[^/]+)(?<path>\/.+)$/);
+    let domain: string = matchData?.groups?.domain ?? '';
     let maxAge: number | null = null;
-    let path: string = match?.groups?.path ?? '/';
+    let path: string = matchData?.groups?.path ?? '/';
     let expires: null | Date = null;
     const value = cookieKV[0].value;
     const name = cookieKV[0].name;
+
     cookieKV.forEach((value1) => {
-      switch (value1.name) {
-        case 'Expires':
+      match(value1.name)
+        .with('Expires', 'expires', () => {
           expires = new Date(Date.parse(value1.value));
-          break;
-        case 'Max-Age':
-          maxAge = parseInt(value1.value);
-          break;
-        case 'Domain':
+        })
+        .with('Max-Age', 'max-age', () => {
+          maxAge = Number.parseInt(value1.value, 10);
+        })
+        .with('Domain', 'domain', () => {
           domain = value1.value;
-          break;
-        case 'Path':
+        })
+        .with('Path', 'path', () => {
           path = value1.value;
-          break;
-        case 'expires':
-          expires = new Date(Date.parse(value1.value));
-          break;
-        case 'max-age':
-          maxAge = parseInt(value1.value);
-          break;
-        case 'domain':
-          domain = value1.value;
-          break;
-        case 'path':
-          path = value1.value;
-          break;
-      }
+        });
     });
     return new Cookie(name, value, domain, path, createTime, maxAge, expires);
+  }
+
+  static fromCookieEntity(cookieEntity: CookieEntity): Cookie {
+    return new Cookie(
+      cookieEntity.name,
+      cookieEntity.value,
+      cookieEntity.domain,
+      cookieEntity.path,
+      cookieEntity.createTime,
+      cookieEntity.maxAge,
+      cookieEntity.expires,
+    );
   }
 
   /**

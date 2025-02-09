@@ -1,5 +1,5 @@
-import { HttpForm, TabType } from '@http/types/httpForm';
-import { ResponseForm } from '@http/types/httpForm/response';
+import { type HttpForm, TabType } from '@http/types/httpForm';
+import type { ResponseForm } from '@http/types/httpForm/response';
 import { newRequest } from './request';
 import { getResponseFormFromHttp } from './response';
 import type { Request as NodeRequest } from 'node-fetch';
@@ -29,11 +29,11 @@ export async function fetchHttp(request: NodeRequest): Promise<ResponseForm> {
       tag: 'success',
       data: await getResponseFormFromHttp(response, startTime, endTime),
     };
-  } catch (err) {
-    if (err instanceof Error) {
+  } catch (error) {
+    if (error instanceof Error) {
       return {
         tag: 'error',
-        data: err.message,
+        data: error.message,
       };
     }
     return {

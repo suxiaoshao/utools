@@ -1,4 +1,4 @@
-import { RequestParams } from '@http/types/httpForm/request';
+import type { RequestParams } from '@http/types/httpForm/request';
 
 export function newParams(): RequestParams {
   return {

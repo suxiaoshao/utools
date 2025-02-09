@@ -1,7 +1,7 @@
 import React from 'react';
-import { ResponseContext } from './response';
+import { ResponseContext } from './ResponseContext';
 import CustomSelector from '@http/components/CustomSelector';
-import { ResponseContentType, ResponseTextType } from '@http/utils/http/httpResponse';
+import type { ResponseContentType, ResponseTextType } from '@http/utils/http/httpResponse';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { CommonStyle } from '@http/hooks/useRestyle';
 
@@ -23,7 +23,7 @@ const textItemList = (['plaintext', 'json', 'xml', 'html', 'css', 'javascript'] 
  * @since 0.2.2
  * @description response 的页面切换按钮
  * */
-export default function ResToggle(props: { value: string; onchangeValue(newValue: string): void }): JSX.Element {
+export default function ResToggle(props: { value: string; onchangeValue(newValue: string): void }) {
   const { response, fatherUpdate } = React.useContext(ResponseContext);
   return (
     <Box sx={CommonStyle.toggle}>

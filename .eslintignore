@@ -8,3 +8,4 @@ target
 pnpm-lock.yaml
 pkg
 **/build/web
+**/build/preload.js

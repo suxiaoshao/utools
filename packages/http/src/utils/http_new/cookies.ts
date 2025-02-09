@@ -1,6 +1,7 @@
-import { CookieSameSite, PureCookie } from '@http/types/httpForm/common/cookie';
+import { CookieSameSite, type PureCookie } from '@http/types/httpForm/common/cookie';
 import type { Response as NodeResponse } from 'node-fetch';
-import setCookieParse, { Cookie } from 'set-cookie-parser';
+import setCookieParse, { type Cookie } from 'set-cookie-parser';
+import { match } from 'ts-pattern';
 export function getCookiesFromResponse(response: NodeResponse) {
   const cookies: PureCookie[] = [];
   response.headers.forEach((value, name) => {
@@ -30,16 +31,9 @@ function translateCookie(
 }
 
 function getSameSite(sameSite?: Cookie['sameSite']): CookieSameSite {
-  switch (sameSite) {
-    case 'lax':
-      return CookieSameSite.lax;
-    case 'strict':
-    case true:
-      return CookieSameSite.strict;
-    case 'none':
-    case false:
-      return CookieSameSite.none;
-    default:
-      return CookieSameSite.lax;
-  }
+  return match(sameSite)
+    .with('lax', () => CookieSameSite.lax)
+    .with('strict', () => CookieSameSite.strict)
+    .with('none', () => CookieSameSite.none)
+    .otherwise(() => CookieSameSite.lax);
 }

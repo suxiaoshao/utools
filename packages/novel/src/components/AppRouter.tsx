@@ -27,17 +27,17 @@ export default function AppRouter() {
   return (
     <Routes>
       <Route element={<AppTabs />}>
-        <Route path="/" element={<SearchPage />}></Route>
-        <Route path="/bookshelf" element={<Bookshelf />}></Route>
-        <Route path="/setting" element={<SettingPage />}></Route>
-        <Route path="/sponsorship" element={<Sponsorship />}></Route>
-        <Route path="/test" element={<TestPage />}></Route>
-        <Route path="/readFile" element={<ReadFile />}></Route>
+        <Route path="/" element={<SearchPage />} />
+        <Route path="/bookshelf" element={<Bookshelf />} />
+        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/sponsorship" element={<Sponsorship />} />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/readFile" element={<ReadFile />} />
       </Route>
       <Route element={<AppBreadcrumbs />}>
-        <Route path="/novel" element={<NovelPage />}></Route>
-        <Route path="/chapter" element={<ChapterPage />}></Route>
-        <Route path="/editConfig" element={<EditConfig />}></Route>
+        <Route path="/novel" element={<NovelPage />} />
+        <Route path="/chapter" element={<ChapterPage />} />
+        <Route path="/editConfig" element={<EditConfig />} />
       </Route>
     </Routes>
   );

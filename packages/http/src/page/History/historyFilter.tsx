@@ -1,7 +1,7 @@
 import { Box, Divider, InputBase, Paper, Tooltip, Typography } from '@mui/material';
-import { TagEntity } from '@http/database/entity/tag.entity';
-import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
-import { HttpMethod } from '@http/utils/http/httpManager';
+import type { TagEntity } from '@http/database/entity/tag.entity';
+import CustomSelector, { type ItemListProp } from '@http/components/CustomSelector';
+import type { HttpMethod } from '@http/utils/http/httpManager';
 import { myMethodList } from '../Work/url/methodSelector';
 import HistoryTags from './historyTags';
 
@@ -54,12 +54,12 @@ export interface HistoryFilterProp {
  * @since 0.2.2
  * @description 筛选历史的组件
  * */
-export default function HistoryFilter(props: HistoryFilterProp): JSX.Element {
+export default function HistoryFilter(props: HistoryFilterProp) {
   return (
     <Paper sx={(theme) => ({ width: `calc(100% - ${theme.spacing(4)})`, margin: theme.spacing(2) })}>
       <Box component="form" sx={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}>
         {/* 筛选 http 方法 */}
-        <Tooltip title={<Typography variant={'body2'}>筛选 http 方法</Typography>}>
+        <Tooltip title={<Typography variant="body2">筛选 http 方法</Typography>}>
           <CustomSelector<HttpMethod | undefined>
             sx={{ p: 1 }}
             value={props.method}

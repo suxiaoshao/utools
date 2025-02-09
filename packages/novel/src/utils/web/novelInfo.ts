@@ -1,9 +1,11 @@
+// eslint-disable namespace
 import * as cheerio from 'cheerio';
 import { getHtml } from './util';
 import { UrlUtil } from './urlUtil';
 import { RegexUtil } from './regexUtil';
-import { TotalConfig } from '@novel/page/EditConfig/const';
-import { DirectoryConfig, InfoConfig } from '@novel/types/config';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
+import type { DirectoryConfig, InfoConfig } from '@novel/types/config';
+import { match, P } from 'ts-pattern';
 
 //章节信息
 export interface Chapter {
@@ -71,21 +73,20 @@ export class NovelInfo {
     const infoUrl = this.url.getNovelInfoUrl(novelId);
     if (infoUrl === directoryUrl) {
       const htmlString = await getHtml(directoryUrl, this.info.encoding);
-      const $ = cheerio.load(htmlString, { decodeEntities: false, xmlMode: true });
+      const $ = cheerio.load(htmlString, { xml: { decodeEntities: false, xmlMode: true } });
       return {
         ...this.getInfo($),
         directories: this.getDirectory($),
       };
-    } else {
-      const [infoHtml, directoryHtml] = await Promise.all([
-        getHtml(infoUrl, this.info.encoding),
-        getHtml(directoryUrl, this.directory.encoding),
-      ]);
-      return {
-        ...this.getInfo(cheerio.load(infoHtml, { decodeEntities: false, xmlMode: true })),
-        directories: this.getDirectory(cheerio.load(directoryHtml, { decodeEntities: false, xmlMode: true })),
-      };
     }
+    const [infoHtml, directoryHtml] = await Promise.all([
+      getHtml(infoUrl, this.info.encoding),
+      getHtml(directoryUrl, this.directory.encoding),
+    ]);
+    return {
+      ...this.getInfo(cheerio.load(infoHtml, { xml: { decodeEntities: false, xmlMode: true } })),
+      directories: this.getDirectory(cheerio.load(directoryHtml, { xml: { decodeEntities: false, xmlMode: true } })),
+    };
   }
 
   /**
@@ -97,10 +98,13 @@ export class NovelInfo {
         const $element = $directory(element);
         const name = $element.text();
         const chapterId = this.regex.getChapter($element.attr('href'));
-        return chapterId ? { name, chapterId } : null;
+        return match(chapterId)
+          .with(P.nullish, () => null)
+          .otherwise(() => ({ name, chapterId }));
       })
       .filter((value) => value !== null) as Chapter[];
   }
+
   getImgUrl($searchItem: cheerio.CheerioAPI): string | undefined {
     const imgUrl = $searchItem(this.info.image).attr('src');
     if (!imgUrl) {

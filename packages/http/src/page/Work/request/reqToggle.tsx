@@ -1,7 +1,7 @@
 import React from 'react';
-import CustomSelector, { ItemListProp } from '@http/components/CustomSelector';
-import { RequestBodyChoose, RequestTextChoose } from '@http/utils/http/httpRequest';
-import { RequestContext } from './request';
+import CustomSelector, { type ItemListProp } from '@http/components/CustomSelector';
+import type { RequestBodyChoose, RequestTextChoose } from '@http/utils/http/httpRequest';
+import { RequestContext } from './RequestContext';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { CommonStyle } from '@http/hooks/useRestyle';
 
@@ -37,7 +37,7 @@ export default function ReqToggle(props: {
    * 被激活页面触发的方法
    * */
   onchangeValue(newValue: string): void;
-}): JSX.Element {
+}) {
   const { request, fatherUpdate } = React.useContext(RequestContext);
   return (
     <Box sx={CommonStyle.toggle}>

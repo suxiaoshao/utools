@@ -4,58 +4,57 @@
  * @LastEditors: suxiaoshao suxiaoshao@gmail.com
  * @LastEditTime: 2024-03-08 20:50:05
  * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/app/features/tabsSlice.ts
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { create } from 'zustand';
 import { newHttp } from '@http/utils/http_new';
-import { HttpForm } from '@http/types/httpForm';
+import type { HttpForm } from '@http/types/httpForm';
 
-export type TabsSliceType = {
+export interface TabsSliceType {
   tabs: HttpForm[];
   activeTab: number;
-};
+}
 
 export const colorSchemaMatch = window.matchMedia('(prefers-color-scheme: dark)');
 
-function getInitDate(): TabsSliceType {
-  return {
-    tabs: [newHttp()],
-    activeTab: 0,
-  };
-}
-
-export const tabsSlice = createSlice({
-  name: 'tabs',
-  initialState: getInitDate(),
-  reducers: {
-    addTab(state) {
-      state.tabs.push(newHttp());
-      state.activeTab = state.tabs.length - 1;
-    },
-    deleteTab(state, action: PayloadAction<number>) {
-      state.tabs.splice(action.payload, 1);
-      state.activeTab = Math.min(state.tabs.length - 1, state.activeTab);
-    },
-    updateActiveTab(state, action: PayloadAction<number>) {
-      state.activeTab = action.payload;
-    },
-    addFromHttpManager(state, action: PayloadAction<HttpForm>) {
-      state.tabs.push(action.payload);
-      state.activeTab = state.tabs.length - 1;
-    },
-    editHttp(state, action: PayloadAction<{ index: number; http: HttpForm }>) {
-      if (action.payload.index < state.tabs.length && action.payload.index >= 0) {
-        state.tabs[action.payload.index] = action.payload.http;
+export const useTabsStore = create<
+  TabsSliceType & {
+    addTab: () => void;
+    deleteTab: (index: number) => void;
+    updateActiveTab: (index: number) => void;
+    addFromHttpManager: (http: HttpForm) => void;
+    editHttp: (index: number, http: HttpForm) => void;
+  }
+>((set) => ({
+  tabs: [newHttp()],
+  activeTab: 0,
+  addTab: () =>
+    set((state) => {
+      const newTabs = [...state.tabs, newHttp()];
+      return { tabs: newTabs, activeTab: newTabs.length - 1 };
+    }),
+  deleteTab: (index) =>
+    set((state) => {
+      const newTabs = state.tabs.slice();
+      newTabs.splice(index, 1);
+      return { tabs: newTabs, activeTab: Math.min(newTabs.length - 1, state.activeTab) };
+    }),
+  updateActiveTab: (index) => set({ activeTab: index }),
+  addFromHttpManager: (http) =>
+    set((state) => {
+      const newTabs = [...state.tabs, http];
+      return { tabs: newTabs, activeTab: newTabs.length - 1 };
+    }),
+  editHttp: (index, http) =>
+    set((state) => {
+      const newTabs = state.tabs.slice();
+      if (index < newTabs.length && index >= 0) {
+        newTabs[index] = http;
       }
-    },
-  },
-  selectors: {
-    SelectIndex: (state) => state.activeTab,
-    SelectActiveTab: (state) => state.tabs[state.activeTab],
-    SelectTabs: (state) => state.tabs,
-    SelectTabCanDelete: (state) => state.tabs.length > 1,
-  },
-});
-export const { addFromHttpManager, addTab, deleteTab, updateActiveTab, editHttp } = tabsSlice.actions;
+      return { tabs: newTabs };
+    }),
+}));
 
-export const { SelectActiveTab, SelectIndex, SelectTabCanDelete, SelectTabs } = tabsSlice.selectors;
+export const selectTabs = (data: TabsSliceType) => data.tabs;
+export const SelectActiveTab = (data: TabsSliceType) => data.tabs[data.activeTab];
+export const selectIndex = (data: TabsSliceType) => data.activeTab;
+export const selectTabCanDelete = (data: TabsSliceType) => data.tabs.length > 1;

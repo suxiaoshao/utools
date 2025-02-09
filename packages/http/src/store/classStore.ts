@@ -59,7 +59,7 @@ export class Store<Data> {
    * 添加监听函数
    * */
   public addListen(func: (newValue: Data) => void): number {
-    this.listenCodeNum++;
+    this.listenCodeNum += 1;
     this.listenFuncList.push({ func: func, code: this.listenCodeNum });
     return this.listenCodeNum;
   }

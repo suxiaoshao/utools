@@ -1,4 +1,4 @@
-import { OptionItem } from '.';
+import type { OptionItem } from '.';
 
 export interface PureHeader {
   key: string;

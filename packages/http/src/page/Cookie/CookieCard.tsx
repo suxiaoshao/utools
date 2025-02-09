@@ -13,7 +13,7 @@ import { Add, DeleteForever, ExpandMore } from '@mui/icons-material';
 import { Cookie } from '@http/utils/http/cookie';
 import CookieForm from './CookieForm';
 import { useSqlData } from '@http/store/sqlStore';
-import { CookieEntity } from '@http/database/entity/cookie.entity';
+import type { CookieEntity } from '@http/database/entity/cookie.entity';
 import { execSql } from '@http/database/mapper/util';
 
 /**
@@ -35,7 +35,7 @@ export interface CookieCardProp {
  * @since 0.2.2
  * @description cookieCard 组件
  * */
-export default function CookieCard(props: CookieCardProp): JSX.Element {
+export default function CookieCard(props: CookieCardProp) {
   /**
    * 所有数据库信息
    * */
@@ -57,7 +57,7 @@ export default function CookieCard(props: CookieCardProp): JSX.Element {
         {/* 删除这个 domain 的所有 cookie */}
         <IconButton
           sx={{ margin: '-12px 0 -12px -16px' }}
-          onClick={async () => {
+          onClick={() => {
             execSql(`delete from cookie where domain='${props.domain}'`);
           }}
         >
@@ -81,11 +81,11 @@ export default function CookieCard(props: CookieCardProp): JSX.Element {
             avatar={<Avatar>{value.name[0]}</Avatar>}
             key={value.name}
             label={value.name}
-            onDelete={async () => {
+            onDelete={() => {
               value.delete();
             }}
             onClick={() => {
-              setFormCookie(value.toCookie());
+              setFormCookie(Cookie.fromCookieEntity(value));
             }}
           />
         ))}

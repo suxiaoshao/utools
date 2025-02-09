@@ -1,9 +1,10 @@
 import React from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, Tab } from '@mui/material';
 import { Add, Delete } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '@http/app/hooks';
-import { SelectTabCanDelete, addTab, deleteTab, updateActiveTab } from '@http/app/features/tabsSlice';
-import { HttpForm } from '@http/types/httpForm';
+import { selectTabCanDelete, useTabsStore } from '@http/app/features/tabsSlice';
+import type { HttpForm } from '@http/types/httpForm';
+import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * @author sushao
@@ -28,12 +29,18 @@ export interface WorkTabProp {
  * @since 0.2.2
  * @description work 组件的 tab,封装了右键点击
  * */
-export default function WorkTab(props: WorkTabProp): JSX.Element {
+export default function WorkTab(props: WorkTabProp) {
   /**
    * 设置激活的 http 请求的下标
    * */
-  const dispatch = useAppDispatch();
-  const tabCanDelete = useAppSelector(SelectTabCanDelete);
+  const { addTab, deleteTab, tabCanDelete, updateActiveTab } = useTabsStore(
+    useShallow((state) => ({
+      addTab: state.addTab,
+      deleteTab: state.deleteTab,
+      updateActiveTab: state.updateActiveTab,
+      tabCanDelete: selectTabCanDelete(state),
+    })),
+  );
   /**
    * menu 出现的位置, 为 null 则不显示
    * */
@@ -63,7 +70,7 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
         }}
         label={props.httpManager.name || props.httpManager.request.url || '空'}
         onClick={() => {
-          dispatch(updateActiveTab(props.index));
+          updateActiveTab(props.index);
         }}
       />
       <Menu
@@ -73,11 +80,13 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
           setMenuPosition(null);
         }}
         anchorReference="anchorPosition"
-        anchorPosition={menuPosition !== null ? { top: menuPosition.mouseY, left: menuPosition.mouseX } : undefined}
+        anchorPosition={match(menuPosition)
+          .with(null, () => undefined)
+          .otherwise((pos) => ({ top: pos.mouseY, left: pos.mouseX }))}
       >
         <MenuItem
           onClick={() => {
-            dispatch(addTab());
+            addTab();
             setMenuPosition(null);
           }}
         >
@@ -89,7 +98,7 @@ export default function WorkTab(props: WorkTabProp): JSX.Element {
         {tabCanDelete && (
           <MenuItem
             onClick={() => {
-              dispatch(deleteTab(props.index));
+              deleteTab(props.index);
               setMenuPosition(null);
             }}
           >

@@ -10,7 +10,7 @@ import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
  * @since 0.2.2
  * @description 支持页面
  * */
-export default function Sponsorship(): JSX.Element {
+export default function Sponsorship() {
   /**
    * 显示的二维码图片
    * */
@@ -26,7 +26,7 @@ export default function Sponsorship(): JSX.Element {
         height: '100%',
       }}
     >
-      <Box component={'img'} src={imgSrc} sx={{ maxWidth: '50%', maxHeight: '80%' }} alt={'二维码'} />
+      <Box component="img" src={imgSrc} sx={{ maxWidth: '50%', maxHeight: '80%' }} alt="二维码" />
       {/* 切换二维码按钮 */}
       <ToggleButtonGroup
         exclusive

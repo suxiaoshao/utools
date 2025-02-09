@@ -5,13 +5,12 @@
  * @LastEditTime: 2024-03-08 20:51:48
  * @FilePath: /self-tools/Users/sushao/Documents/code/utools/packages/http/src/page/NewWork/index.tsx
  */
-import { Box, Tabs } from '@mui/material';
+import { Box } from '@mui/material';
 import WorkPanel from './workPanel';
 import { TabPanelDisappear } from '@http/components/TabPanel';
-import WorkTab from './workTab';
-import { useAppDispatch, useAppSelector } from '@http/app/hooks';
-import { SelectIndex, SelectTabs, addTab, deleteTab, updateActiveTab } from '@http/app/features/tabsSlice';
+import { selectIndex, selectTabs, useTabsStore } from '@http/app/features/tabsSlice';
 import CustomTabs, { CustomTab } from '@http/components/CustomTab';
+import { useShallow } from 'zustand/react/shallow';
 
 /**
  * @author sushao
@@ -19,21 +18,21 @@ import CustomTabs, { CustomTab } from '@http/components/CustomTab';
  * @since 0.2.2
  * @description 工作区
  * */
-export default function Work(): JSX.Element {
-  /**
-   * 被激活的 http 请求下标
-   * */
-  const workIndex = useAppSelector(SelectIndex);
-  /**
-   * 全部的 http 请求
-   * */
-  const httpArray = useAppSelector(SelectTabs);
-  const dispatch = useAppDispatch();
+export default function Work() {
+  const { addTab, deleteTab, httpArray, updateActiveTab, workIndex } = useTabsStore(
+    useShallow((data) => ({
+      addTab: data.addTab,
+      deleteTab: data.deleteTab,
+      updateActiveTab: data.updateActiveTab,
+      workIndex: selectIndex(data),
+      httpArray: selectTabs(data),
+    })),
+  );
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
       <CustomTabs
         onAdd={() => {
-          dispatch(addTab());
+          addTab();
         }}
       >
         {httpArray.map((item, index) => (
@@ -42,10 +41,10 @@ export default function Work(): JSX.Element {
             active={workIndex === index}
             key={index}
             onClose={() => {
-              dispatch(deleteTab(index));
+              deleteTab(index);
             }}
             onClick={() => {
-              dispatch(updateActiveTab(index));
+              updateActiveTab(index);
             }}
           />
         ))}

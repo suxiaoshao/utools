@@ -1,4 +1,4 @@
-import { CheerioAPI } from 'cheerio';
+import type { CheerioAPI } from 'cheerio';
 import axios from 'axios';
 
 export async function getHtml(url: string, encoding: string): Promise<string> {

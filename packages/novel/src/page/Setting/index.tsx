@@ -4,7 +4,7 @@ import DocsMore from './components/DocsMore';
 import ConfigCard from './components/configCard/configCard';
 import { Box } from '@mui/material';
 
-export default function SettingPage(): JSX.Element {
+export default function SettingPage() {
   return (
     <Box sx={{ overflow: 'auto', height: '100%', width: '100%' }}>
       <ThemeEdit />

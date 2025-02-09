@@ -17,8 +17,9 @@ import { Delete, Error, InsertDriveFile, Refresh } from '@mui/icons-material';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import CustomSelector from '../../../../components/CustomSelector';
 import { useTableAdd } from '@http/hooks/useTableAdd';
-import { RequestContext } from '../request';
+import { RequestContext } from '../RequestContext';
 import { CommonStyle } from '@http/hooks/useRestyle';
+import { match } from 'ts-pattern';
 
 /**
  * @author sushao
@@ -26,7 +27,7 @@ import { CommonStyle } from '@http/hooks/useRestyle';
  * @since 0.2.2
  * @description form-data 表格, 用于输入 form-data 数据
  * */
-export default function ReqFormData(): JSX.Element {
+export default function ReqFormData() {
   const forceUpdate = useForceUpdate();
   const {
     request: { dataForms },
@@ -34,7 +35,7 @@ export default function ReqFormData(): JSX.Element {
   const { setKeyFlag, setValueFlag, keyRef, valueRef } = useTableAdd([dataForms.length]);
   return (
     <TableContainer sx={{ width: '100%', height: '100%' }} component={Paper}>
-      <Table stickyHeader size={'small'}>
+      <Table stickyHeader size="small">
         {/* 表头 */}
         <TableHead>
           <TableRow>
@@ -54,7 +55,7 @@ export default function ReqFormData(): JSX.Element {
         </TableHead>
         <TableBody>
           {dataForms.map((value, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${value.key}${index}`}>
               <TableCell padding="none">
                 <IconButton
                   onClick={() => {
@@ -74,65 +75,77 @@ export default function ReqFormData(): JSX.Element {
                     value.key = event.target.value;
                     forceUpdate();
                   }}
-                  inputRef={index === dataForms.length - 1 ? keyRef : undefined}
+                  inputRef={match(index)
+                    .with(dataForms.length - 1, () => keyRef)
+                    .otherwise(() => undefined)}
                 />
               </TableCell>
               <TableCell>
-                {value.isFile ? (
-                  value.path === null ? (
-                    <Chip
-                      onClick={() => {
-                        value.setPath();
+                {match(value.isFile)
+                  .with(true, () =>
+                    match(value.path)
+                      .with(null, () => (
+                        <Chip
+                          onClick={() => {
+                            value.setPath();
+                            forceUpdate();
+                          }}
+                          size="small"
+                          label="选择文件"
+                          icon={<InsertDriveFile />}
+                        />
+                      ))
+                      .otherwise(() => (
+                        <Tooltip title={value.path}>
+                          {match(value.fileExists())
+                            .with(true, () => (
+                              <Chip
+                                icon={<InsertDriveFile />}
+                                size="small"
+                                label={value.getFileName()}
+                                onDelete={() => {
+                                  value.setIsFile();
+                                  forceUpdate();
+                                }}
+                                color="primary"
+                              />
+                            ))
+                            .otherwise(() => (
+                              <Chip
+                                size="small"
+                                label="似乎文件不存在"
+                                onDelete={() => {
+                                  value.setIsFile();
+                                  forceUpdate();
+                                }}
+                                icon={<Error />}
+                                color="secondary"
+                              />
+                            ))}
+                        </Tooltip>
+                      )),
+                  )
+                  .otherwise(() => (
+                    <InputBase
+                      placeholder="value"
+                      value={value.value}
+                      onChange={(event) => {
+                        value.setValue(event.target.value);
                         forceUpdate();
                       }}
-                      size="small"
-                      label="选择文件"
-                      icon={<InsertDriveFile />}
+                      inputRef={match(index)
+                        .with(dataForms.length - 1, () => valueRef)
+                        .otherwise(() => undefined)}
                     />
-                  ) : (
-                    <Tooltip title={value.path}>
-                      {value.fileExists() ? (
-                        <Chip
-                          icon={<InsertDriveFile />}
-                          size="small"
-                          label={value.getFileName()}
-                          onDelete={() => {
-                            value.setIsFile();
-                            forceUpdate();
-                          }}
-                          color="primary"
-                        />
-                      ) : (
-                        <Chip
-                          size="small"
-                          label="似乎文件不存在"
-                          onDelete={() => {
-                            value.setIsFile();
-                            forceUpdate();
-                          }}
-                          icon={<Error />}
-                          color="secondary"
-                        />
-                      )}
-                    </Tooltip>
-                  )
-                ) : (
-                  <InputBase
-                    placeholder="value"
-                    value={value.value}
-                    onChange={(event) => {
-                      value.setValue(event.target.value);
-                      forceUpdate();
-                    }}
-                    inputRef={index === dataForms.length - 1 ? valueRef : undefined}
-                  />
-                )}
+                  ))}
               </TableCell>
               <TableCell>
                 <CustomSelector<'text' | 'file'>
                   variant="contained"
                   color="primary"
-                  value={value.isFile ? 'file' : 'text'}
+                  value={match(value.isFile)
+                    .with(true, () => 'file' as const)
+                    .otherwise(() => 'text' as const)}
                   onChange={(newValue) => {
                     if (newValue === 'text') {
                       value.setNotFile();
@@ -179,7 +192,7 @@ export default function ReqFormData(): JSX.Element {
               <CustomSelector<'text' | 'file'>
                 variant="contained"
                 color="primary"
-                value={'text'}
+                value="text"
                 onChange={(newValue) => {
                   if (newValue === 'text') {
                     dataForms.push(new RequestUploadFile('', false, '', null));

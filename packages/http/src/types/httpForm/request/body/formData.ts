@@ -1,4 +1,4 @@
-import { OptionItem } from '../../common';
+import type { OptionItem } from '../../common';
 
 export enum UploadFileType {
   file = 'file',

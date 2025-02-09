@@ -7,26 +7,21 @@
  */
 import { AppBar, Box, Button, Dialog, IconButton, Input, Toolbar, Typography } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
-import { ToggleReturn } from '@novel/hooks/async/useToggle';
+import type { ToggleReturn } from '@novel/hooks/async/useToggle';
 import { Close, ContentCopy, Upload } from '@mui/icons-material';
 import { useCallback, useState } from 'react';
 import Edit from '@novel/components/common/editor/edit';
 import { useFormContext } from 'react-hook-form';
-import { TotalConfig } from '../const';
+import type { TotalConfig } from '../const';
 import { enqueueSnackbar } from 'common/notify/src';
-import { isValiError } from 'valibot';
+import { match, P } from 'ts-pattern';
 
 export default function ExportDialog({ handleToggle, open }: ToggleReturn) {
   const [code, setCode] = useState<string>();
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'application/json': ['.json'] },
-    onDrop: (acceptedFiles) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const text = reader.result;
-        setCode(text as string);
-      };
-      reader.readAsText(acceptedFiles[0]);
+    onDrop: async (acceptedFiles) => {
+      setCode(await acceptedFiles[0].text());
     },
     multiple: false,
   });
@@ -42,22 +37,28 @@ export default function ExportDialog({ handleToggle, open }: ToggleReturn) {
       const data = JSON.parse(code);
       reset(data);
       handleToggle();
-    } catch (e) {
-      console.log(e);
-      switch (true) {
-        case e instanceof SyntaxError:
-          enqueueSnackbar(`导入的数据格式不正确:${e.message}`, { variant: 'error' });
-          break;
-        case isValiError(e):
-          enqueueSnackbar(`导入的数据格式不正确:${e.message}`, { variant: 'error' });
-          break;
-        case e instanceof Error:
-          enqueueSnackbar(`导入错误:${e.message}`, { variant: 'error' });
-          break;
-        default:
-          enqueueSnackbar(`未知错误:${e}`, { variant: 'error' });
-          break;
-      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+
+      // eslint-disable-next-line prefer-await-to-callbacks
+      match(error)
+        // eslint-disable-next-line prefer-await-to-callbacks
+        .with({ message: String }, (err) => {
+          enqueueSnackbar(`导入的数据格式不正确:${err.message}`, { variant: 'error' });
+        })
+        // eslint-disable-next-line prefer-await-to-callbacks
+        .with(P.instanceOf(Error), (error) => {
+          enqueueSnackbar(`导入的数据格式不正确:${error.message}`, { variant: 'error' });
+        })
+        // eslint-disable-next-line prefer-await-to-callbacks
+        .with({ message: String }, (err) => {
+          enqueueSnackbar(`导入错误:${err.message}`, { variant: 'error' });
+        })
+        // eslint-disable-next-line prefer-await-to-callbacks
+        .otherwise((err) => {
+          enqueueSnackbar(`未知错误:${err}`, { variant: 'error' });
+        });
     }
   }, [code, handleToggle, reset]);
   return (
@@ -79,25 +80,27 @@ export default function ExportDialog({ handleToggle, open }: ToggleReturn) {
         </Toolbar>
       </AppBar>
       <Box sx={{ width: '100%', height: '100%' }}>
-        {code !== undefined ? (
-          <Edit sx={{ width: '100%', height: '100%' }} code={code} />
-        ) : (
-          <Box sx={{ p: 1 }}>
-            <Button startIcon={<Upload />} {...getRootProps()}>
-              <Input inputProps={getInputProps()} />
-              点击或者拖拽 .json 文件上传
-            </Button>
-            <Button
-              onClick={async () => {
-                const text = await navigator.clipboard.readText();
-                setCode(text);
-              }}
-              startIcon={<ContentCopy />}
-            >
-              从剪切板导入
-            </Button>
-          </Box>
-        )}
+        {match(code)
+          .with(undefined, () => (
+            <Box sx={{ p: 1 }}>
+              <Button startIcon={<Upload />} {...getRootProps()}>
+                <Input inputProps={getInputProps()} />
+                点击或者拖拽 .json 文件上传
+              </Button>
+              <Button
+                onClick={async () => {
+                  const text = await navigator.clipboard.readText();
+                  setCode(text);
+                }}
+                startIcon={<ContentCopy />}
+              >
+                从剪切板导入
+              </Button>
+            </Box>
+          ))
+          .otherwise((e) => (
+            <Edit sx={{ width: '100%', height: '100%' }} code={e} />
+          ))}
       </Box>
     </Dialog>
   );

@@ -1,13 +1,13 @@
 import { useAsyncFn } from 'react-use';
-import React, { DependencyList } from 'react';
-import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
+import React, { type DependencyList } from 'react';
+import type { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
 import { enqueueSnackbar } from 'notify';
 
 /**
  * 包装了提醒信息的 useAsyncFn
- * @param fn 函数
- * @param successMessage 成功信息
- * @param deps 依赖
+ * @param {() => Promise<T>} fn 函数
+ * @param {string} successMessage 成功信息
+ * @param {DependencyList} deps 依赖
  * */
 export function useAsyncFnWithNotify<T>(
   fn: () => Promise<T>,

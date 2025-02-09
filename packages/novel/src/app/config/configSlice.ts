@@ -1,43 +1,34 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { create } from 'zustand';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
 import { enqueueSnackbar } from 'notify';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
 
-export interface ConfigSliceType {
+interface ConfigState {
   value: TotalConfig[];
+  deleteByMainPageUrl: (url: string) => void;
+  addConfig: (config: string) => void;
+  initConfig: () => void;
 }
 
-export const configSlice = createSlice({
-  name: 'config',
-  initialState: {
-    value: [],
-  } as ConfigSliceType,
-  reducers: {
-    deleteByMainPageUrl: (state, action: PayloadAction<string>) => {
-      const totalData = TotalDataBuild.getTotalData();
-      totalData.deleteConfig(action.payload);
-      state.value = totalData.getAllConfig();
-    },
-    addConfig: (state, action: PayloadAction<string>) => {
-      const totalData = TotalDataBuild.getTotalData();
-      const message = totalData.addConfig(action.payload);
-      if (message) {
-        enqueueSnackbar(message, {
-          variant: 'error',
-        });
-      }
-      state.value = totalData.getAllConfig();
-    },
-    initConfig: (state) => {
-      const totalData = TotalDataBuild.getTotalData();
-      state.value = totalData.getAllConfig();
-    },
+export const useConfigStore = create<ConfigState>((set) => ({
+  value: [],
+  deleteByMainPageUrl: (url: string) => {
+    const totalData = TotalDataBuild.getTotalData();
+    totalData.deleteConfig(url);
+    set({ value: totalData.getAllConfig() });
   },
-  selectors: {
-    SelectConfig: (state) => state.value,
+  addConfig: (config: string) => {
+    const totalData = TotalDataBuild.getTotalData();
+    const message = totalData.addConfig(config);
+    if (message) {
+      enqueueSnackbar(message, {
+        variant: 'error',
+      });
+    }
+    set({ value: totalData.getAllConfig() });
   },
-});
-
-export const { initConfig } = configSlice.actions;
-
-export const { SelectConfig } = configSlice.selectors;
+  initConfig: () => {
+    const totalData = TotalDataBuild.getTotalData();
+    set({ value: totalData.getAllConfig() });
+  },
+}));

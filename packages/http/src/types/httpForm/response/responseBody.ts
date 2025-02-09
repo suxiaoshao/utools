@@ -1,5 +1,5 @@
-import { Enum } from 'types';
-import { HttpText } from '../common/text';
+import type { Enum } from 'types';
+import type { HttpText } from '../common/text';
 
 export type ResponseBody =
   | Enum<'text', HttpText>

@@ -5,14 +5,14 @@
  * @LastEditTime: 2024-01-07 02:03:32
  * @FilePath: /utools/common/build/src/plugin/novel/WasmPack.ts
  */
-import { execSync } from 'child_process';
-import { RsbuildPlugin } from '@rsbuild/core';
+import { execSync } from 'node:child_process';
+import type { RsbuildPlugin } from '@rsbuild/core';
 
 export function pluginWasmPack(): RsbuildPlugin {
   return {
     name: 'plugin-wasm-pack',
     setup(api) {
-      api.onBeforeCreateCompiler(async () => {
+      api.onBeforeCreateCompiler(() => {
         execSync('wasm-pack build --release -t web ./data/', { stdio: 'inherit' });
       });
     },

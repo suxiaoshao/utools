@@ -1,5 +1,5 @@
-import { RequestForm } from './request';
-import { ResponseForm } from './response';
+import type { RequestForm } from './request';
+import type { ResponseForm } from './response';
 
 export enum TabType {
   request = 'request',

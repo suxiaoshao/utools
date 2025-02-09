@@ -1,4 +1,5 @@
-import { Button, ButtonProps, Menu, MenuItem } from '@mui/material';
+import { Button, type ButtonProps, Menu, MenuItem } from '@mui/material';
+import { match } from 'ts-pattern';
 import React from 'react';
 
 /**
@@ -43,7 +44,7 @@ export interface MySelectorProp<T extends number | string | undefined | null> {
 function MySelector<T extends number | string | undefined | null>(
   { value, itemList, onValueChange, sx, ...props }: MySelectorProp<T> & ButtonProps,
   ref?: ((instance: HTMLButtonElement | null) => void) | React.RefObject<HTMLButtonElement> | null | undefined,
-): JSX.Element {
+) {
   /**
    * 点击时间的触发组件,如果取消的话为 null
    * */
@@ -57,7 +58,12 @@ function MySelector<T extends number | string | undefined | null>(
         onClick={(e) => {
           setMenuEl(e.currentTarget);
         }}
-        ref={typeof ref === 'function' ? ref : undefined}
+        ref={match(ref)
+          .when(
+            (r) => typeof r === 'function',
+            () => ref,
+          )
+          .otherwise(() => undefined)}
       >
         {itemList.find((item) => item.value === value)?.text ?? '不是合法的值'}
       </Button>
@@ -74,7 +80,7 @@ function MySelector<T extends number | string | undefined | null>(
            * 点击触发修改方法并关闭菜单
            * */
           <MenuItem
-            selected={item.value == value}
+            selected={item.value === value}
             key={item.value}
             onClick={() => {
               onValueChange(item.value);

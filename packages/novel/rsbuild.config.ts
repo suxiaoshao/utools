@@ -6,17 +6,22 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/http/rsbuild.config.ts
  */
 import { defineConfig } from '@rsbuild/core';
-import { resolve } from 'path';
-import {
-  pluginReact,
-  pluginPackUpx,
-  pluginWasmPack,
-  pluginLightningcss,
-  codeInspectorPlugin,
-  RsdoctorRspackPlugin,
-} from 'build';
+import { resolve } from 'node:path';
+import { pluginReact, pluginPackUpx, pluginWasmPack, codeInspectorPlugin, RsdoctorRspackPlugin } from 'build';
+import { pluginBabel } from '@rsbuild/plugin-babel';
+
 export default defineConfig({
-  plugins: [pluginReact(), pluginPackUpx('novel'), pluginWasmPack(), pluginLightningcss()],
+  plugins: [
+    pluginReact(),
+    pluginPackUpx('novel'),
+    pluginWasmPack(),
+    pluginBabel({
+      include: /\.(?:jsx|tsx)$/,
+      babelLoaderOptions(opts) {
+        opts.plugins?.unshift('babel-plugin-react-compiler');
+      },
+    }),
+  ],
   server: {
     port: 8082,
   },

@@ -20,7 +20,7 @@ import { useReadRecords } from '@novel/hooks/data/useReadRecords';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
 import { useCustomNavigate } from '@novel/app/history/historySlice';
 
-export default function Bookshelf(): JSX.Element {
+export default function Bookshelf() {
   const { readRecords, updateReadRecords } = useReadRecords();
   const navigate = useCustomNavigate();
   return (
@@ -46,7 +46,7 @@ export default function Bookshelf(): JSX.Element {
           <TableBody>
             {readRecords.map((value) => (
               <TableRow key={value.novelId + value.mainPageUrl}>
-                <TableCell padding={'none'} sx={{ maxWidth: 30 }}>
+                <TableCell padding="none" sx={{ maxWidth: 30 }}>
                   <ListItemButton
                     onClick={() => {
                       navigate(value.name, {
@@ -69,8 +69,8 @@ export default function Bookshelf(): JSX.Element {
                 <TableCell>
                   <ChapterLink chapter={value.chapter} novelId={value.novelId} url={value.mainPageUrl} />
                 </TableCell>
-                <TableCell padding={'none'}>
-                  <Tooltip title={'删除记录'}>
+                <TableCell padding="none">
+                  <Tooltip title="删除记录">
                     <IconButton
                       onClick={() => {
                         const totalData = TotalDataBuild.getTotalData();

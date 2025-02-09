@@ -1,5 +1,5 @@
 import Edit from '@http/components/editor/edit';
-import { HttpForm } from '@http/types/httpForm';
+import type { HttpForm } from '@http/types/httpForm';
 import { useFormContext, useWatch, Controller } from 'react-hook-form';
 
 export default function TextFrom() {

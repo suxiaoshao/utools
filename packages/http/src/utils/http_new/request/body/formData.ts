@@ -1,5 +1,6 @@
-import { UploadFileProps, UploadFileType } from '@http/types/httpForm';
+import { type UploadFileProps, UploadFileType } from '@http/types/httpForm';
 import type FormData from 'form-data';
+import { match } from 'ts-pattern';
 
 export function newFormData(): UploadFileProps {
   return {
@@ -12,19 +13,19 @@ export function newFormData(): UploadFileProps {
 }
 
 export function getFormData(formData: UploadFileProps[]): FormData {
-  const fd = new window.nodeFormData();
+  const fd = new window.NodeFormData();
   formData.forEach(({ key, text, type, file, isChecked }) => {
     if (isChecked) {
-      switch (type) {
-        case UploadFileType.text:
+      match(type)
+        .with(UploadFileType.text, () => {
           fd.append(key, text);
-          break;
-        case UploadFileType.file:
+        })
+        .with(UploadFileType.file, () => {
           if (file) {
             fd.append(key, file);
           }
-          break;
-      }
+        })
+        .exhaustive();
     }
   });
   return fd;

@@ -1,7 +1,8 @@
 import { CommonStyle } from '@http/hooks/useRestyle';
-import { PureCookie } from '@http/types/httpForm';
+import type { PureCookie } from '@http/types/httpForm';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import dayjs from 'dayjs';
+import { match, P } from 'ts-pattern';
 
 export interface CookiesProps {
   cookies: PureCookie[];
@@ -27,13 +28,25 @@ export default function Cookies({ cookies }: CookiesProps) {
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {cookies.map(({ name, value, domain, expires, httpOnly, maxAge, path, sameSite, secure }, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${name}${index}`}>
               <TableCell>{name}</TableCell>
               <TableCell>{value}</TableCell>
-              <TableCell>{domain ?? '-'}</TableCell>
-              <TableCell>{expires ? dayjs(expires).format() : 'Session'}</TableCell>
+              <TableCell>
+                {match(domain)
+                  .with(P.nullish, () => '-')
+                  .otherwise(() => domain)}
+              </TableCell>
+              <TableCell>
+                {match(expires)
+                  .with(P.nullish, () => 'Session')
+                  .otherwise(() => dayjs(expires).format())}
+              </TableCell>
               <TableCell>{String(httpOnly)}</TableCell>
-              <TableCell>{maxAge ?? '-'}</TableCell>
+              <TableCell>
+                {match(maxAge)
+                  .with(P.nullish, () => '-')
+                  .otherwise(() => maxAge)}
+              </TableCell>
               <TableCell>{path}</TableCell>
               <TableCell>{sameSite}</TableCell>
               <TableCell>{String(secure)}</TableCell>

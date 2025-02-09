@@ -1,3 +1,3 @@
-export default function ReadFile(): JSX.Element {
+export default function ReadFile() {
   return <div>222</div>;
 }

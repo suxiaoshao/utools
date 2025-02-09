@@ -1,5 +1,5 @@
 import { CommonStyle } from '@http/hooks/useRestyle';
-import { PureHeader } from '@http/types/httpForm';
+import type { PureHeader } from '@http/types/httpForm';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 export interface HeadersProps {
@@ -19,7 +19,7 @@ export default function Headers({ headers }: HeadersProps) {
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {headers.map(({ key, value }, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${key}${index}`}>
               <TableCell>{key}</TableCell>
               <TableCell>{value}</TableCell>
             </TableRow>

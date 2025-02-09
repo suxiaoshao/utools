@@ -229,7 +229,7 @@ impl TotalData {
     /// # 更新设置
     #[wasm_bindgen(js_name=updateSetting)]
     pub fn update_setting(&mut self, new_setting: JsValue) -> bool {
-        match serde_wasm_bindgen::from_value(new_setting) {
+        match serde_wasm_bindgen::from_value::<()>(new_setting) {
             Ok(e) => e,
             Err(_) => return false,
         };

@@ -8,7 +8,7 @@ import { SaveAlt } from '@mui/icons-material';
  * @since 0.2.2
  * @description 保存此 http 请求的按钮
  * */
-export default function SaveButton(): JSX.Element {
+export default function SaveButton() {
   const [, setSaveHttpOpen] = React.useState<boolean>(false);
   return (
     <>

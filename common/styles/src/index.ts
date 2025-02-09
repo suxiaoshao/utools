@@ -5,7 +5,7 @@
  * @LastEditTime: 2024-03-08 01:06:46
  * @FilePath: /self-tools/Users/sushao/Documents/code/utools/common/styles/src/main.ts
  */
-export function padding(top: number = 0, right: number = 0, bottom: number = 0, left: number = 0) {
+export function padding(top = 0, right = 0, bottom = 0, left = 0) {
   return {
     pt: top,
     pr: right,

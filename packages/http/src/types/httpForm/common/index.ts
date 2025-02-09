@@ -12,6 +12,6 @@ export interface OptionItem {
   isChecked: boolean;
 }
 
-export * from './header';
-export * from './text';
-export * from './cookie';
+export { type EditableHeader, type PureHeader } from './header';
+export { type HttpText, TextType } from './text';
+export { type CookieSameSite, type PureCookie } from './cookie';

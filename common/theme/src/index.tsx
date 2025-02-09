@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -6,33 +6,36 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
 import setYouThemeToCssVars from './cssVar';
-import {
-  colorSchemaMatch,
-  selectActiveYouTheme,
-  selectMuiTheme,
-  setSystemColorScheme,
-  useAppDispatch,
-  useAppSelector,
-} from './themeSlice';
+import { colorSchemaMatch, selectActiveYouTheme, selectMuiTheme, useThemeStore } from './themeSlice';
+import { match } from 'ts-pattern';
+import { useShallow } from 'zustand/react/shallow';
 
 export interface CustomThemeProps {
   children?: React.ReactNode;
 }
 
-export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
-  const youTheme = useAppSelector(selectActiveYouTheme);
-  const muiTheme = useAppSelector(selectMuiTheme);
-  const dispatch = useAppDispatch();
+export function CustomTheme({ children }: CustomThemeProps) {
+  const { setSystemColorScheme, ...state } = useThemeStore(
+    useShallow(({ color, colorSetting, setSystemColorScheme, systemColorScheme }) => ({
+      color,
+      colorSetting,
+      systemColorScheme,
+      setSystemColorScheme,
+    })),
+  );
 
   useEffect(() => {
-    setYouThemeToCssVars(youTheme);
-  }, [youTheme]);
+    setYouThemeToCssVars(selectActiveYouTheme(state));
+  }, [state]);
   const changeListener = useCallback(
     (e: MediaQueryListEvent) => {
-      const colorScheme = e.matches ? 'dark' : 'light';
-      dispatch(setSystemColorScheme(colorScheme));
+      const colorScheme = match(e.matches)
+        .with(true, () => 'dark' as const)
+        .with(false, () => 'light' as const)
+        .exhaustive();
+      setSystemColorScheme(colorScheme);
     },
-    [dispatch],
+    [setSystemColorScheme],
   );
   useEffect(() => {
     colorSchemaMatch.addEventListener('change', changeListener);
@@ -41,7 +44,7 @@ export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
     };
   }, [changeListener]);
   return (
-    <ThemeProvider theme={createTheme(muiTheme)}>
+    <ThemeProvider theme={createTheme(selectMuiTheme(state))}>
       <CssBaseline />
       {children}
     </ThemeProvider>
@@ -50,4 +53,4 @@ export function CustomTheme({ children }: CustomThemeProps): JSX.Element {
 
 export { hexFromArgb } from '@material/material-color-utilities';
 
-export { default as themeReducer, selectActiveYouTheme } from './themeSlice';
+export { useThemeStore, selectActiveYouTheme } from './themeSlice';

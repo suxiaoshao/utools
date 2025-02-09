@@ -1,6 +1,6 @@
 import CustomSelector from '@http/components/CustomSelector';
 import { useFormContext, Controller } from 'react-hook-form';
-import { HttpForm, HttpMethod } from '@http/types/httpForm';
+import { type HttpForm, HttpMethod } from '@http/types/httpForm';
 
 export const MethodList: { text: string; value: HttpMethod }[] = (
   [
@@ -24,7 +24,7 @@ export const MethodList: { text: string; value: HttpMethod }[] = (
  * @since 0.2.2
  * @description 切换 http 方法的组件
  * */
-export default function MethodSelector(): JSX.Element {
+export default function MethodSelector() {
   const { control } = useFormContext<HttpForm>();
   return (
     <Controller

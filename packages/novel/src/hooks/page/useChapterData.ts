@@ -6,12 +6,12 @@
  * @FilePath: /tauri/Users/weijie.su/Documents/code/self/utools/packages/novel/src/hooks/page/useChapterData.ts
  */
 import { useAsyncFnWithNotify } from '../async/useAsyncFnWithNotify';
-import { Content, ContentData } from '@novel/utils/web/content';
+import { Content, type ContentData } from '@novel/utils/web/content';
 import React from 'react';
-import { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
+import type { AsyncFnReturn } from 'react-use/lib/useAsyncFn';
 import { TotalDataBuild } from '@novel/utils/data/totalData';
-import { Chapter } from '@novel/utils/web/novelInfo';
-import { TotalConfig } from '@novel/page/EditConfig/const';
+import type { Chapter } from '@novel/utils/web/novelInfo';
+import type { TotalConfig } from '@novel/page/EditConfig/const';
 
 export function useChapterData(
   activeConfig: TotalConfig,
@@ -27,15 +27,14 @@ export function useChapterData(
         const novel = new Content(activeConfig);
         const date = await novel.getContent(novelId, chapterId);
         return date;
-      } else {
-        throw new Error('参数错误');
       }
+      throw new Error('参数错误');
     },
     undefined,
     [activeConfig?.mainPageUrl, novelId, chapterId],
   );
   React.useEffect(() => {
-    fn().then();
+    fn();
   }, [fn]);
   /**
    * 更新阅读记录

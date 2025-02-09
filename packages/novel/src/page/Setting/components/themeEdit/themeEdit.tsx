@@ -12,8 +12,8 @@ import {
 } from '@mui/material';
 import { Style } from '@mui/icons-material';
 import { orange } from '@mui/material/colors';
-import { useAppDispatch, useAppSelector } from '@novel/app/hooks';
-import { ColorSetting, updateColor, updateColorSetting } from 'theme/src/themeSlice';
+import { ColorSetting, useThemeStore } from 'theme/src/themeSlice';
+import { useShallow } from 'zustand/react/shallow';
 
 export const settingSx = {
   green: {
@@ -28,10 +28,15 @@ export const settingSx = {
   },
 };
 
-export default function ThemeEdit(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const color = useAppSelector((state) => state.theme.color);
-  const colorMode = useAppSelector((state) => state.theme.colorSetting);
+export default function ThemeEdit() {
+  const { color, colorMode, updateColor, updateColorSetting } = useThemeStore(
+    useShallow((state) => ({
+      color: state.color,
+      colorMode: state.colorSetting,
+      updateColor: state.updateColor,
+      updateColorSetting: state.updateColorSetting,
+    })),
+  );
 
   return (
     <Card sx={settingSx.card}>
@@ -41,7 +46,7 @@ export default function ThemeEdit(): JSX.Element {
             <Style />
           </Avatar>
         }
-        title={'主题设置'}
+        title="主题设置"
       />
       <CardContent>
         <FormControl component="fieldset" sx={settingSx.form}>
@@ -51,7 +56,7 @@ export default function ThemeEdit(): JSX.Element {
             value={colorMode}
             label="主题设置"
             onChange={(event) => {
-              dispatch(updateColorSetting(event.target.value as ColorSetting));
+              updateColorSetting(event.target.value as ColorSetting);
             }}
           >
             <MenuItem value={ColorSetting.Dark}>暗黑模式主题</MenuItem>
@@ -66,7 +71,7 @@ export default function ThemeEdit(): JSX.Element {
             type="color"
             value={color}
             onChange={(event) => {
-              dispatch(updateColor(event.target.value));
+              updateColor(event.target.value);
             }}
           />
         </FormControl>

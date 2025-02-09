@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { ResponseContext } from './response';
+import { ResponseContext } from './ResponseContext';
 import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
@@ -9,7 +9,7 @@ import { CommonStyle } from '@http/hooks/useRestyle';
  * @since 0.2.2
  * @description 显示头部表格
  * */
-export default function ResHeaders(): JSX.Element {
+export default function ResHeaders() {
   const {
     response: { headers },
   } = React.useContext(ResponseContext);
@@ -25,7 +25,7 @@ export default function ResHeaders(): JSX.Element {
         </TableHead>
         <TableBody>
           {headers.map((value, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${value.key}${index}`}>
               <TableCell padding="checkbox" />
               <TableCell>
                 <InputBase sx={CommonStyle.tableInput} value={value.key} />
