@@ -4,32 +4,10 @@ import Params from './params';
 import ReqHeaders from './reqHeaders';
 import ReqBody from './reqBody/reqBody';
 import { TabPanelDisappear } from '@http/components/TabPanel';
-import { HttpContext } from '../workPanel';
-import { HttpRequest } from '@http/utils/http/httpRequest';
+import { HttpContext } from '../HttpContext';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { CommonStyle } from '@http/hooks/useRestyle';
-
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description request 数据的上下文
- * */
-export const RequestContext = React.createContext<{
-  /**
-   * request 数据
-   * */
-  request: HttpRequest;
-  /**
-   * request 注入器组件的强制更新
-   * */
-  fatherUpdate: () => void;
-}>({
-  request: HttpRequest.getNewRequestContent(),
-  fatherUpdate() {
-    /**  */
-  },
-});
+import { RequestContext } from './RequestContext';
 
 /**
  * @author sushao

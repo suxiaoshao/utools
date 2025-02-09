@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomSelector from '@http/components/CustomSelector';
-import { HttpContext } from '../workPanel';
+import { HttpContext } from '../HttpContext';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import type { HttpMethod } from '@http/utils/http/httpManager';
 

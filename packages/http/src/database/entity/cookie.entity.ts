@@ -1,4 +1,3 @@
-import { Cookie } from '@http/utils/http/cookie';
 import { execSql } from '../mapper/util';
 import { match } from 'ts-pattern';
 
@@ -100,16 +99,6 @@ export class CookieEntity {
    * */
   public delete(): void {
     execSql(`delete from cookie where name = '${this.name}' and domain = '${this.domain}' and path = '${this.path}'`);
-  }
-
-  /**
-   * @author sushao
-   * @version 0.2.2
-   * @since 0.2.2
-   * @description 转化为 http 中的 cookie
-   * */
-  public toCookie(): Cookie {
-    return new Cookie(this.name, this.value, this.domain, this.path, this.createTime, this.maxAge, this.expires);
   }
 
   /**

@@ -29,7 +29,7 @@ export default function UpdateTable(props: {
   return (
     <>
       {props.mapList.map((value, index) => (
-        <TableRow key={index}>
+        <TableRow key={`${value.key}${index}`}>
           <TableCell padding="none">
             <IconButton
               onClick={() => {

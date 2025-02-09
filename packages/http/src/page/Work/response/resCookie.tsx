@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { ResponseContext } from './response';
+import { ResponseContext } from './ResponseContext';
 import { CommonStyle } from '@http/hooks/useRestyle';
 
 /**
@@ -26,7 +26,7 @@ export default function ResCookie() {
         </TableHead>
         <TableBody>
           {response.getCookies().map((value, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${value.name}${index}`}>
               <TableCell>{value.name}</TableCell>
               <TableCell>{value.value}</TableCell>
               <TableCell>{value.domain}</TableCell>

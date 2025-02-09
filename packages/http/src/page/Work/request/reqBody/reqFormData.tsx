@@ -17,7 +17,7 @@ import { Delete, Error, InsertDriveFile, Refresh } from '@mui/icons-material';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import CustomSelector from '../../../../components/CustomSelector';
 import { useTableAdd } from '@http/hooks/useTableAdd';
-import { RequestContext } from '../request';
+import { RequestContext } from '../RequestContext';
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { match } from 'ts-pattern';
 
@@ -55,7 +55,7 @@ export default function ReqFormData() {
         </TableHead>
         <TableBody>
           {dataForms.map((value, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${value.key}${index}`}>
               <TableCell padding="none">
                 <IconButton
                   onClick={() => {

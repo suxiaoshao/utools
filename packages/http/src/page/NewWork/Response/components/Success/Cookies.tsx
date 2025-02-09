@@ -28,7 +28,7 @@ export default function Cookies({ cookies }: CookiesProps) {
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {cookies.map(({ name, value, domain, expires, httpOnly, maxAge, path, sameSite, secure }, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${name}${index}`}>
               <TableCell>{name}</TableCell>
               <TableCell>{value}</TableCell>
               <TableCell>

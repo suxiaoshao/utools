@@ -7,7 +7,7 @@ import { HttpTagEntity, type HttpTagProp } from '../database/entity/httpTag.enti
 import type { QueryExecResult } from 'sql.js';
 import { readFromQueryResult } from '../database/mapper/util';
 import { httpArray } from './httpArray';
-import { HttpRequest } from '../utils/http/httpRequest';
+import { Header } from '@http/utils/http/header';
 
 export interface SqlData {
   https: HttpEntity[];
@@ -54,7 +54,23 @@ export class SqlStore extends Store<SqlData> {
       HttpEntity.from(
         value,
         requests.find((value1) => value1.requestId === value.requestId) ??
-          HttpRequest.getNewRequestContent().getRequestEntity(),
+          new RequestEntity(
+            null,
+            'none',
+            'plaintext',
+            '',
+            JSON.stringify([]),
+            JSON.stringify([]),
+            JSON.stringify([
+              new Header(
+                'User-Agent',
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 Edg/83.0.478.45',
+              ),
+              new Header('Accept', '*/*'),
+              new Header('Accept-Encoding', 'gzip, deflate, br'),
+              new Header('Connection', 'keep-alive'),
+            ]),
+          ),
         httpTags
           .filter((value1) => value1.httpHttpId === value.httpId)
           .map((value1) => tags.find((value2) => value1.tagTagId === value2.tagId))

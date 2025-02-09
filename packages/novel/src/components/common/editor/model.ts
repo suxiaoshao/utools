@@ -265,6 +265,7 @@ export const schemas = [
   },
 ];
 
+// eslint-disable-next-line namespace
 monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
   validate: true,
   schemas,

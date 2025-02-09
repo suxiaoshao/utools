@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabPanelDisappear, TabPanelHidden } from '@http/components/TabPanel';
-import { ResponseContext } from '../response';
+import { ResponseContext } from '../ResponseContext';
 import Edit from '@http/components/editor/edit';
 import ResImage from './resImage';
 

@@ -63,7 +63,7 @@ export default function Headers() {
             </TableRow>
           ))}
           {extraHeaders.map((value, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${value.key}${index}`}>
               <TableCell>{value.key}</TableCell>
               <TableCell>{value.value}</TableCell>
               <TableCell />

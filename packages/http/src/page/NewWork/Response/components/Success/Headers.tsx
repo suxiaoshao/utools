@@ -19,7 +19,7 @@ export default function Headers({ headers }: HeadersProps) {
         </TableHead>
         <TableBody sx={{ flex: 1 }}>
           {headers.map(({ key, value }, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${key}${index}`}>
               <TableCell>{key}</TableCell>
               <TableCell>{value}</TableCell>
             </TableRow>

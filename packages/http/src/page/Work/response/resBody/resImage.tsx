@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Paper } from '@mui/material';
-import { ResponseContext } from '../response';
+import { ResponseContext } from '../ResponseContext';
 import logo from '@http/assets/fail.svg';
 
 /**

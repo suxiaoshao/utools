@@ -3,7 +3,7 @@ import ReqFormData from './reqFormData';
 import XForm from './XForm';
 import Edit from '@http/components/editor/edit';
 import { TabPanelDisappear } from '@http/components/TabPanel';
-import { RequestContext } from '../request';
+import { RequestContext } from '../RequestContext';
 
 /**
  * @author sushao

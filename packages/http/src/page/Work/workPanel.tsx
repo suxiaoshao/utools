@@ -1,31 +1,9 @@
-import React from 'react';
 import UrlPaper from './url/urlPaper';
-import { HttpManager } from '@http/utils/http/httpManager';
+import type { HttpManager } from '@http/utils/http/httpManager';
 import Request from './request/request';
 import Response from './response/response';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
-
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description http 管理对象上下文
- * */
-export const HttpContext = React.createContext<{
-  /**
-   * http 请求管理对象
-   * */
-  httpManager: HttpManager;
-  /**
-   * 更新主动更新 provider
-   * */
-  fatherUpdate: () => void;
-}>({
-  httpManager: HttpManager.getNewHttp(),
-  fatherUpdate() {
-    /**  */
-  },
-});
+import { HttpContext } from './HttpContext';
 
 /**
  * @author sushao

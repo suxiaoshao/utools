@@ -1,9 +1,9 @@
 // eslint-disable no-console
 import axios, { type AxiosError, type AxiosResponse, type CancelTokenSource } from 'axios';
 import { HttpResponse } from './httpResponse';
-import { HttpRequest } from './httpRequest';
 import { HttpEntity } from '@http/database/entity/http.entity';
 import type { TagEntity } from '@http/database/entity/tag.entity';
+import { HttpRequest } from './httpRequest';
 
 axios.defaults.withCredentials = true;
 
@@ -104,6 +104,7 @@ export class HttpManager {
     const startTime = Date.now();
     this.response.url = this.url;
     this.response.contentType = 'none';
+    // eslint-disable-next-line no-named-as-default-member
     this.tokenSource = axios.CancelToken.source();
     /**
      * 发送
@@ -113,7 +114,7 @@ export class HttpManager {
       url: this.url,
       responseType: 'arraybuffer',
       cancelToken: this.tokenSource.token,
-      ...(await this.request.getHeaderAndData(this.url)),
+      ...this.request.getHeaderAndData(this.url),
     })
       .then((e: AxiosResponse<ArrayBuffer>) => {
         /**

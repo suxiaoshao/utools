@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { useTableAdd } from '@http/hooks/useTableAdd';
-import { HttpContext } from '../workPanel';
+import { HttpContext } from '../HttpContext';
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { match } from 'ts-pattern';
 
@@ -90,7 +90,7 @@ export default function Params() {
           (previousValue, currentValue) => `${previousValue}${currentValue.key}=${currentValue.value}&`,
           '?',
         );
-      httpManager.url = newUrl.slice(0, newUrl.length - 1);
+      httpManager.url = newUrl.slice(0, -1);
       fatherUpdate();
     }
   }
@@ -108,7 +108,7 @@ export default function Params() {
         </TableHead>
         <TableBody>
           {paramsList.map((value, index) => (
-            <TableRow key={index}>
+            <TableRow key={`${value.key}${index}`}>
               <TableCell padding="none">
                 <IconButton
                   onClick={() => {

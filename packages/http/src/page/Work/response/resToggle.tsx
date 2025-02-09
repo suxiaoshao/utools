@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponseContext } from './response';
+import { ResponseContext } from './ResponseContext';
 import CustomSelector from '@http/components/CustomSelector';
 import type { ResponseContentType, ResponseTextType } from '@http/utils/http/httpResponse';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
 import { Send } from '@mui/icons-material';
-import { HttpContext } from '../workPanel';
+import { HttpContext } from '../HttpContext';
 import { enqueueSnackbar } from 'notify';
 
 /**

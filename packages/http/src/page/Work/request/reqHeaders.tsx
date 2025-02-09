@@ -15,8 +15,8 @@ import { Check, Clear } from '@mui/icons-material';
 import { useTableAdd } from '@http/hooks/useTableAdd';
 import UpdateTable from './updateTable';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
-import { RequestContext } from './request';
-import { HttpContext } from '../workPanel';
+import { RequestContext } from './RequestContext';
+import { HttpContext } from '../HttpContext';
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { match } from 'ts-pattern';
 

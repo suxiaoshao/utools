@@ -2,8 +2,7 @@ import React from 'react';
 import { TabPanelDisappear } from '@http/components/TabPanel';
 import ResToggle from './resToggle';
 import ResHeaders from './resHeaders';
-import { HttpContext } from '../workPanel';
-import { HttpResponse } from '@http/utils/http/httpResponse';
+import { HttpContext } from '../HttpContext';
 import { useForceUpdate } from '@http/hooks/useForceUpdate';
 import { Backdrop, Button, LinearProgress } from '@mui/material';
 import ResBody from './resBody/resBody';
@@ -12,28 +11,7 @@ import ResCookie from './resCookie';
 import ErrorPage from './errorPage';
 import { CommonStyle } from '@http/hooks/useRestyle';
 import { match } from 'ts-pattern';
-
-/**
- * @author sushao
- * @version 0.2.2
- * @since 0.2.2
- * @description response 数据的上下文
- * */
-export const ResponseContext = React.createContext<{
-  /**
-   * http 的 response 数据
-   * */
-  response: HttpResponse;
-  /**
-   * 更新
-   * */
-  fatherUpdate: () => void;
-}>({
-  response: HttpResponse.getNewResponseContent(),
-  fatherUpdate() {
-    /**  */
-  },
-});
+import { ResponseContext } from './ResponseContext';
 
 /**
  * @author sushao

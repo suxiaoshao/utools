@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { SwapHoriz } from '@mui/icons-material';
-import { HttpContext } from '../workPanel';
+import { HttpContext } from '../HttpContext';
 import { match } from 'ts-pattern';
 
 /**

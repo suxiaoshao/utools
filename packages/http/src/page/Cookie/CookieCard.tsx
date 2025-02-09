@@ -85,7 +85,7 @@ export default function CookieCard(props: CookieCardProp) {
               value.delete();
             }}
             onClick={() => {
-              setFormCookie(value.toCookie());
+              setFormCookie(Cookie.fromCookieEntity(value));
             }}
           />
         ))}

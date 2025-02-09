@@ -1,5 +1,5 @@
 import React from 'react';
-import { HttpContext } from '../workPanel';
+import { HttpContext } from '../HttpContext';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import { SaveAlt } from '@mui/icons-material';
 import SaveHttp from '@http/components/httpSave/saveHttp';

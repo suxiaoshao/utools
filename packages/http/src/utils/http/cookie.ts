@@ -80,6 +80,18 @@ export class Cookie {
     return new Cookie(name, value, domain, path, createTime, maxAge, expires);
   }
 
+  static fromCookieEntity(cookieEntity: CookieEntity): Cookie {
+    return new Cookie(
+      cookieEntity.name,
+      cookieEntity.value,
+      cookieEntity.domain,
+      cookieEntity.path,
+      cookieEntity.createTime,
+      cookieEntity.maxAge,
+      cookieEntity.expires,
+    );
+  }
+
   /**
    * @author sushao
    * @version 0.2.2
