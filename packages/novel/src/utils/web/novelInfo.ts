@@ -1,4 +1,4 @@
-// eslint-disable-next-line namespace
+// eslint-disable namespace
 import * as cheerio from 'cheerio';
 import { getHtml } from './util';
 import { UrlUtil } from './urlUtil';
